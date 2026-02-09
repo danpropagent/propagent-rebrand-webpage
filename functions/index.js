@@ -1,32 +1,79 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
 
 const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
+const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
+const express = require("express");
+const cors = require("cors");
+const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+// Initialize Firebase Admin SDK
+admin.initializeApp();
+setGlobalOptions({maxInstances: 10});
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+const app = express();
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+// Add middleware to enable CORS and parse JSON bodies
+app.use(cors({origin: true}));
+app.use(express.json());
+
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+app.post("/", async (req, res) => {
+  const {email, userType} = req.body;
+
+  if (!email) {
+    logger.error("No email provided in request body:", req.body);
+    return res.status(400).send("No email provided");
+  }
+
+  logger.info(`Received demo request for email: ${email}`);
+
+  try {
+    /*
+    // Save the request to Firestore
+    const requests = admin.firestore().collection("demo_requests");
+    const writeResult = await requests.add({
+      email: email,
+      userType: userType || "unspecified",
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    });
+    logger.info(`Request saved to Firestore with ID: ${writeResult.id}`);
+    */
+
+    // Send email notification
+    const mailOptions = {
+      from: `Propagent Demo <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER, // Sends email to yourself
+      subject: "New Propagent Demo Request",
+      html: `<p>You have received a new demo request:</p>
+               <ul>
+                 <li><b>Email:</b> ${email}</li>
+                 <li><b>User Type:</b> ${userType || "unspecified"}</li>
+               </ul>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    logger.info("Email notification sent successfully.");
+
+    const successMessage = "Demo request received and email sent!";
+    return res.status(200).send({message: successMessage});
+  } catch (error) {
+    logger.error("Error processing request:", error);
+    return res.status(500).send("Error processing request.");
+  }
+});
+
+// Grant the function access to the specified secrets
+const options = {secrets: ["EMAIL_USER", "EMAIL_PASS"]};
+exports.api = onRequest(options, app);
+
+// Export the RFP grader function
+exports.gradeRfp = require("./rfpGrader").gradeRfp;

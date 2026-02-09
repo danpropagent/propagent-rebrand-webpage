@@ -25,6 +25,10 @@
     ],
     "rewrites": [
       {
+        "source": "/api/gradeRfp",
+        "function": "gradeRfp"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
