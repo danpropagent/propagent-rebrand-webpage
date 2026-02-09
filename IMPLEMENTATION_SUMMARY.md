@@ -349,7 +349,7 @@ firebase deploy --only functions
 ### Unit Tests (Manual)
 
 **Frontend**:
-1. Email validation (valid/invalid formats)
+1. Email validation (valid/invalid s)
 2. Mode switching (RFP ↔ Response)
 3. File upload (drag & drop, click)
 4. File removal
