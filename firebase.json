@@ -29,6 +29,10 @@
         "function": "gradeRfp"
       },
       {
+        "source": "/rfp-grader/**",
+        "destination": "/rfp-grader/index.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

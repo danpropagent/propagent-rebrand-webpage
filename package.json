@@ -1,17 +1,17 @@
 {
-  "name": "pre-request-demo",
+  "name": "propagent-site",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node build.mjs",
+    "build:vite": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "react-router-dom": "^7.11.0"
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
