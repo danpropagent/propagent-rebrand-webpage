@@ -671,7 +671,7 @@ a:hover { color: var(--accent-primary-strong); }
   padding-left: 14px;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--accent-primary);
@@ -2090,3 +2090,143 @@ a:hover { color: var(--accent-primary-strong); }
   }
   .pulse, .live-dot { animation: none !important; }
 }
+
+/* ============================================================================
+   v17 additions — storytelling-audit fixes
+   - Hero subhead + thesis (Webflow-style trust load)
+   - Inline stake stat strip in Before/After lede
+   - Testimonial slab (advisors + customers)
+   - Lifecycle memory band + loop arrow
+   ============================================================================ */
+
+/* Hero subhead replaces the v15 hero-essay treatment with a tighter trust
+   load. Thesis line absorbs the v15 Manifesto Fraunces sentence. */
+.hero-subhead {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(20px, 2.0vw, 26px);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+.hero-subhead .live-with {
+  color: var(--accent-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+.hero-thesis {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+  color: var(--text-secondary);
+  max-width: 460px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-subtle);
+}
+.hero-thesis em {
+  color: var(--accent-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Stake stat strip — single line, monospace, sits inside the Before/After
+   lede area. Folds the v15 standalone Stakes section into context. */
+.bf-stake-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin: 14px 0 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  max-width: 760px;
+}
+.bf-stake-strip > span {
+  display: inline-flex;
+  align-items: center;
+}
+.bf-stake-strip > span:not(:last-child)::after {
+  content: "·";
+  margin: 0 14px;
+  color: var(--text-dim);
+}
+.bf-stake-strip em {
+  font-style: normal;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* Lifecycle memory band — sits underneath the Propagent track and conveys
+   that capture/learning happens across the entire lifecycle, not after
+   Submit. The loop arrow replaces the v15 "keeps going →" arrow. */
+.lc-memory-wrap {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 14px;
+  align-items: stretch;
+  min-width: 900px;
+  margin-top: -4px;
+}
+.lc-memory-spacer {
+  /* aligns the band with the stage column, not the track-name column */
+}
+.lc-memory-band {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: linear-gradient(90deg, rgba(167, 139, 250, 0.14), rgba(167, 139, 250, 0.04) 80%);
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+}
+.lc-memory-band-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lc-memory-band-label::before {
+  content: "↓ ";
+  letter-spacing: 0;
+  margin-right: 2px;
+}
+.lc-memory-band-meta {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.lc-loop-arrow {
+  flex: none;
+  align-self: center;
+  margin-left: 12px;
+  padding-left: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-primary);
+  border-left: 1px dashed var(--border-accent);
+}
+.lc-loop-arrow::before {
+  content: "↻ ";
+  margin-right: 2px;
+}
+
+@media (max-width: 980px) {
+  .lc-memory-wrap { grid-template-columns: 1fr; }
+}
+
