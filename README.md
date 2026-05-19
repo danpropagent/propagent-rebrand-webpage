@@ -1,20 +1,45 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+> # THIS REPO DEPLOYS TO www.propagent.ai
+>
+> The live marketing site is built from `marketing/index.html` and `marketing/styles.css` in this repository. Everything else (HTML mockups under `propagent-monorepo/docs/mockups/`, sibling `propagent-marketing-v*` folders on Desktop) is **design scratch — not connected to deploy**. To change what visitors see at www.propagent.ai, edit files in **this** repo.
+>
+> **Workflow:**
+> ```
+> git checkout -b my-change         # branch per design iteration
+> # edit marketing/index.html or marketing/styles.css
+> npm run dev                       # live preview at localhost:3010 with hot reload
+> git commit -am "..."              # commit when happy
+> git push -u origin my-change      # opens PR; auto-builds a preview URL
+> # merge PR → main → auto-deploys to www.propagent.ai
+> ```
+>
+> The footer of the live site shows the current deployed version (e.g. `v18 · live`). If the live footer doesn't match what's on `main`, somebody bypassed the auto-deploy.
 
-# Run and deploy your AI Studio app
+---
 
-This contains everything you need to run your app locally.
+# Propagent marketing site
 
-View your app in AI Studio: https://ai.studio/apps/drive/1LoCtKPtm-usfjckR64mx7D3fOjVIHG5E
+Vite + Firebase Hosting. The `marketing/` folder holds the static landing page; `dist/rfp-grader/` is a React subapp built by Vite and served at `/rfp-grader/`.
 
-## Run Locally
+## Run locally
 
-**Prerequisites:**  Node.js
+Prerequisites: Node.js.
 
+```sh
+npm install
+# set GEMINI_API_KEY in .env.local
+npm run dev   # http://localhost:3010
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Build + deploy
+
+```sh
+npm run build                    # build.mjs: copies marketing/ → dist/, then vite build
+firebase deploy --only hosting   # ships dist/ to the propagentlanding Firebase project
+```
+
+After deploy, tag the commit so we have a permanent "this was live" marker:
+
+```sh
+git tag -a deploy-YYYY-MM-DD -m "What changed in this deploy"
+git push --tags
+```
