@@ -48,12 +48,16 @@ git tag -a deploy-YYYY-MM-DD -m "What changed in this deploy"
 git push --tags
 ```
 
-### One-time CI setup (already done as of 2026-05-18, kept here for reference)
+### CI auth — Workload Identity Federation (no long-lived keys)
 
-The workflows need a `FIREBASE_SERVICE_ACCOUNT_PROPAGENTLANDING` repo secret:
+Auth flows via GitHub OIDC → Google Cloud STS → short-lived access token, scoped to this exact repo. No JSON key exists anywhere; the GCP org policy `iam.disableServiceAccountKeyCreation` is respected by design.
 
-1. Firebase Console → ⚙️ Project Settings → **Service accounts** tab → **Generate new private key**. Download the JSON.
-2. GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
-3. Name: `FIREBASE_SERVICE_ACCOUNT_PROPAGENTLANDING`. Value: paste the full JSON.
+Resources provisioned in the `propagentlanding` GCP project (one-time, already done 2026-05-18):
 
-If the secret is rotated, replace it with the new JSON — no code changes needed.
+- Service account: `github-deploy@propagentlanding.iam.gserviceaccount.com` (no key — keys are forbidden by org policy and not needed)
+- Role: `roles/firebasehosting.admin` on the project
+- Workload Identity Pool: `projects/472249298599/locations/global/workloadIdentityPools/github-pool`
+- OIDC provider: `github-pool/providers/github-provider` (issuer `https://token.actions.githubusercontent.com`, restricted to `repository_owner == 'danpropagent'`)
+- IAM binding on the SA: `principalSet://.../attribute.repository/danpropagent/propagent-rebrand-webpage` → `roles/iam.workloadIdentityUser`
+
+If you ever fork this repo to a different owner or rename it, you must update the IAM binding on the SA to match the new repo path, otherwise auth will fail. Forks from external owners are intentionally blocked.

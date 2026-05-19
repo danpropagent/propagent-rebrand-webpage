@@ -6,12 +6,13 @@ on:
       - main
 
 permissions:
-  checks: write
   contents: read
-  pull-requests: write
+  id-token: write          # OIDC token exchange with Google
+  pull-requests: write     # to comment the preview URL on the PR
 
 jobs:
   build_and_preview:
+    # Skip PRs from forks — they can't access the WIF binding anyway.
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
@@ -23,15 +24,46 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Authenticate to Google Cloud via Workload Identity Federation
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/472249298599/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: 'github-deploy@propagentlanding.iam.gserviceaccount.com'
+
       - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
 
-      - name: Deploy preview to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase Hosting preview channel
+        id: deploy
+        run: |
+          CHANNEL_ID="pr-${{ github.event.pull_request.number }}"
+          OUTPUT=$(npx firebase-tools hosting:channel:deploy "$CHANNEL_ID" --only hosting --project propagentlanding --expires 7d --json)
+          echo "$OUTPUT"
+          PREVIEW_URL=$(echo "$OUTPUT" | jq -r '.result | to_entries[0].value.url')
+          EXPIRE_TIME=$(echo "$OUTPUT" | jq -r '.result | to_entries[0].value.expireTime')
+          echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+          echo "expire_time=$EXPIRE_TIME" >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROPAGENTLANDING }}
-          projectId: propagentlanding
+          script: |
+            const url = '${{ steps.deploy.outputs.preview_url }}';
+            const expires = '${{ steps.deploy.outputs.expire_time }}';
+            const body = [
+              '### Preview deploy ready',
+              '',
+              `**URL:** ${url}`,
+              `**Expires:** ${expires}`,
+              '',
+              'Auto-deployed on every push to this PR. Merge to `main` to ship to www.propagent.ai.',
+            ].join('\n');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
