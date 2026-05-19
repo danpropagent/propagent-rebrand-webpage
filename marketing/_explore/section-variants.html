@@ -358,6 +358,266 @@
     }
     .sb-foot b { color: var(--text-primary); font-weight: 500; }
     .sb-pane.us .sb-foot b { color: var(--accent-primary); }
+
+    /* ============================================================
+       A3 — CRUNCH FUNNEL
+       ============================================================ */
+    .cf-wrap { max-width: 1100px; margin: 0 auto; }
+    .cf-head { text-align: center; margin-bottom: 40px; }
+    .cf-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .cf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border-default); border-radius: var(--radius-lg); overflow: hidden; }
+    @media (max-width: 768px) { .cf-grid { grid-template-columns: 1fr; } }
+    .cf-col { padding: 24px 24px 0; background: var(--surface-raised); display: flex; flex-direction: column; }
+    .cf-col + .cf-col { border-left: 1px solid var(--border-subtle); }
+    @media (max-width: 768px) { .cf-col + .cf-col { border-left: none; border-top: 1px solid var(--border-subtle); } }
+    .cf-col-head {
+      display: flex; align-items: baseline; gap: 10px; margin-bottom: 18px;
+      padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle);
+    }
+    .cf-col-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+      border: 1px solid currentColor;
+    }
+    .cf-col.today .cf-col-tag { color: var(--status-error-fg); border-color: rgba(248,113,113,0.4); }
+    .cf-col.now .cf-col-tag { color: var(--accent-primary); border-color: var(--border-accent); }
+    .cf-col-sub { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+    .cf-task {
+      padding: 12px 0; border-top: 1px solid var(--border-subtle);
+      display: flex; gap: 10px; align-items: baseline;
+      font-size: 14px; color: var(--text-primary); line-height: 1.45;
+    }
+    .cf-task:first-of-type { border-top: none; }
+    .cf-task-mark { font-family: var(--font-mono); font-size: 13px; flex-shrink: 0; min-width: 18px; }
+    .cf-task.done .cf-task-mark { color: var(--accent-primary); }
+    .cf-task.cut .cf-task-mark { color: var(--text-muted); }
+    .cf-task.cut .cf-task-text { color: var(--text-dim); text-decoration: line-through; }
+    .cf-foot { margin-top: auto; padding: 18px 0; border-top: 1px solid var(--border-default); }
+    .cf-stat { display: flex; align-items: baseline; gap: 8px; }
+    .cf-stat-num { font-family: var(--font-mono); font-size: 24px; font-weight: 500; }
+    .cf-col.today .cf-stat-num { color: var(--status-error-fg); }
+    .cf-col.now .cf-stat-num { color: var(--accent-primary); }
+    .cf-stat-lbl { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cf-caption { text-align: center; margin-top: 28px; color: var(--text-secondary); font-size: 15px; line-height: 1.55; font-family: var(--font-serif); font-style: italic; }
+
+    /* ============================================================
+       A6 — COST LEDGER
+       ============================================================ */
+    .cl-wrap { max-width: 1000px; margin: 0 auto; }
+    .cl-head { margin-bottom: 36px; max-width: 700px; }
+    .cl-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 14px; line-height: 1.15; letter-spacing: -0.01em; }
+    .cl-head p { color: var(--text-secondary); font-size: 15px; line-height: 1.55; margin: 0; }
+    .cl-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      font-family: var(--font-mono);
+    }
+    .cl-table thead th {
+      padding: 14px 18px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted); text-align: left; background: var(--surface-overlay);
+      font-weight: 500; border-bottom: 1px solid var(--border-default);
+    }
+    .cl-table thead th.cl-num { text-align: right; }
+    .cl-table thead th.cl-them { color: var(--status-error-fg); }
+    .cl-table thead th.cl-us { color: var(--accent-primary); }
+    .cl-table td { padding: 13px 18px; border-bottom: 1px solid var(--border-subtle); font-size: 13px; }
+    .cl-table td.cl-cat { font-family: var(--font-sans); color: var(--text-primary); font-size: 14px; }
+    .cl-table td.cl-num { text-align: right; color: var(--text-primary); }
+    .cl-table td.cl-num.them { color: var(--status-error-fg); }
+    .cl-table td.cl-num.us { color: var(--accent-primary); }
+    .cl-table tr.cl-total td { padding-top: 18px; padding-bottom: 18px; font-weight: 600; font-size: 15px; background: var(--surface-overlay); border-top: 1px solid var(--border-default); border-bottom: none; }
+    .cl-table tr.cl-total td.cl-cat { font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-mono); }
+    .cl-foot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; padding: 14px 18px; background: var(--surface-glass); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; }
+    .cl-foot-note { color: var(--text-muted); }
+    .cl-foot-annual { color: var(--accent-primary); }
+    .cl-foot-annual b { font-size: 14px; color: var(--accent-primary); font-weight: 600; }
+
+    /* ============================================================
+       A8 — CAPABILITY GAP (the thesis, visualized)
+       ============================================================ */
+    .cg-wrap { max-width: 1100px; margin: 0 auto; }
+    .cg-head { text-align: center; margin-bottom: 40px; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .cg-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 16px; line-height: 1.15; letter-spacing: -0.01em; }
+    .cg-head h2 em { color: var(--accent-primary); font-style: italic; }
+    .cg-head p { color: var(--text-secondary); font-size: 15px; line-height: 1.55; margin: 0; }
+    .cg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 768px) { .cg-grid { grid-template-columns: 1fr; } }
+    .cg-col { display: flex; flex-direction: column; align-items: stretch; }
+    .cg-col-head {
+      display: flex; align-items: baseline; gap: 10px; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .cg-col-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+      border: 1px solid currentColor;
+    }
+    .cg-col.today .cg-col-tag { color: var(--status-error-fg); border-color: rgba(248,113,113,0.4); }
+    .cg-col.now .cg-col-tag { color: var(--accent-primary); border-color: var(--border-accent); }
+    .cg-stack {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 16px; background: var(--surface-raised);
+      border: 1px solid var(--border-default); border-radius: var(--radius-md);
+    }
+    .cg-stack-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      color: var(--text-muted); text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .cg-cap {
+      padding: 9px 12px; background: var(--surface-overlay);
+      border: 1px solid var(--border-subtle); border-radius: var(--radius-md);
+      font-size: 13px; color: var(--text-primary); line-height: 1.3;
+    }
+    .cg-cap.muted { color: var(--text-dim); background: transparent; border-style: dashed; }
+    .cg-pipe { position: relative; padding: 14px 0; display: flex; justify-content: center; }
+    .cg-pipe-shape {
+      width: 100%; max-width: 320px; height: 80px;
+      position: relative;
+    }
+    .cg-pipe-shape svg { width: 100%; height: 100%; display: block; }
+    .cg-pipe-label {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      color: var(--text-secondary); text-transform: uppercase;
+      background: var(--surface-raised); padding: 2px 8px; border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+    .cg-out {
+      padding: 16px; background: var(--surface-raised);
+      border: 1px solid var(--border-default); border-radius: var(--radius-md);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .cg-out.today { border-color: rgba(248,113,113,0.3); }
+    .cg-out.now { border-color: var(--border-accent); background: linear-gradient(180deg, rgba(167,139,250,0.06), var(--surface-raised) 70%); }
+    .cg-out-count {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .cg-col.today .cg-out-count { color: var(--status-error-fg); }
+    .cg-col.now .cg-out-count { color: var(--accent-primary); }
+    .cg-thesis {
+      text-align: center; margin-top: 36px; padding: 22px 28px;
+      background: var(--surface-raised); border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-serif); font-style: italic; font-size: 18px;
+      color: var(--text-primary); line-height: 1.5;
+    }
+    .cg-thesis em { color: var(--accent-primary); font-style: italic; }
+
+    /* ============================================================
+       B2 — SUBMIT CLIFF
+       ============================================================ */
+    .sc-wrap { max-width: 1100px; margin: 0 auto; }
+    .sc-head { text-align: center; margin-bottom: 40px; }
+    .sc-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .sc-scene {
+      position: relative; padding: 28px 24px;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+    }
+    .sc-scene svg { width: 100%; height: auto; display: block; }
+    .sc-legend { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border-subtle); }
+    .sc-legend-item { display: flex; gap: 10px; align-items: center; font-size: 13px; line-height: 1.45; }
+    .sc-legend-dot { width: 10px; height: 10px; border-radius: 999px; flex-shrink: 0; }
+    .sc-legend-dot.them { background: var(--status-error-fg); }
+    .sc-legend-dot.us { background: var(--accent-primary); }
+    .sc-legend-text { color: var(--text-secondary); max-width: 380px; }
+    .sc-legend-text b { color: var(--text-primary); font-weight: 500; }
+
+    /* ============================================================
+       B5 — TIME / VALUE TABLE
+       ============================================================ */
+    .tv-wrap { max-width: 1050px; margin: 0 auto; }
+    .tv-head { text-align: center; margin-bottom: 36px; }
+    .tv-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .tv-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .tv-table th { padding: 14px 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-align: left; background: var(--surface-overlay); font-weight: 500; border-bottom: 1px solid var(--border-default); }
+    .tv-table th.tv-them { color: var(--text-secondary); }
+    .tv-table th.tv-us-hr { color: var(--accent-primary); }
+    .tv-table th.tv-us-down { color: var(--accent-primary-strong); }
+    .tv-table th.tv-num { text-align: right; }
+    .tv-table td { padding: 13px 18px; border-bottom: 1px solid var(--border-subtle); font-size: 14px; color: var(--text-primary); }
+    .tv-table td.tv-num { text-align: right; font-family: var(--font-mono); }
+    .tv-table td.tv-them { color: var(--text-secondary); }
+    .tv-table td.tv-us-hr { color: var(--accent-primary); font-weight: 500; }
+    .tv-table td.tv-us-down { color: var(--text-secondary); font-style: italic; }
+    .tv-table tr.tv-total td { background: var(--surface-overlay); padding: 18px; font-weight: 600; font-size: 15px; border-top: 1px solid var(--border-default); border-bottom: none; }
+    .tv-table tr.tv-total td.tv-them { color: var(--text-primary); }
+    .tv-table tr.tv-total td.tv-us-hr { color: var(--accent-primary); }
+    .tv-caption { margin-top: 16px; padding: 12px 18px; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; line-height: 1.6; }
+
+    /* ============================================================
+       B7 — TOOL SPRAWL MAP
+       ============================================================ */
+    .ts-wrap { max-width: 1180px; margin: 0 auto; }
+    .ts-head { text-align: center; margin-bottom: 48px; }
+    .ts-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .ts-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 28px; align-items: center; }
+    @media (max-width: 768px) { .ts-grid { grid-template-columns: 1fr; } }
+    .ts-side { padding: 20px; background: var(--surface-raised); border: 1px solid var(--border-default); border-radius: var(--radius-lg); min-height: 360px; position: relative; }
+    .ts-side-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 6px; display: block;
+    }
+    .ts-side h3 { font-size: 18px; color: var(--text-primary); margin: 0 0 16px; font-weight: 500; }
+    .ts-stack-them {
+      position: relative; min-height: 280px;
+    }
+    .ts-tool {
+      position: absolute;
+      padding: 8px 12px;
+      background: var(--surface-overlay); border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      box-shadow: var(--shadow-md);
+    }
+    .ts-tool::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: rgba(248,113,113,0.4);
+    }
+    .ts-arrow {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--text-muted); padding: 0 8px;
+    }
+    .ts-arrow-line {
+      width: 70px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+      margin: 8px 0;
+    }
+    .ts-arrow-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      color: var(--text-muted); text-transform: uppercase;
+    }
+    @media (max-width: 768px) { .ts-arrow-line { width: 1px; height: 60px; background: linear-gradient(180deg, transparent, var(--accent-primary), transparent); } }
+    .ts-side.us { border-color: var(--border-accent); background: linear-gradient(180deg, rgba(167,139,250,0.05), var(--surface-raised) 70%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .ts-propagent-block {
+      padding: 32px 28px;
+      background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.02));
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .ts-propagent-block h4 { font-family: var(--font-serif); font-size: 28px; color: #fff; margin: 0 0 8px; font-weight: 500; letter-spacing: -0.01em; }
+    .ts-propagent-block p { color: var(--text-secondary); font-size: 14px; line-height: 1.5; margin: 0; }
+    .ts-coverage {
+      margin-top: 18px; padding: 10px 14px;
+      font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary);
+      letter-spacing: 0.04em;
+    }
   </style>
 </head>
 <body>
@@ -365,7 +625,7 @@
 
   <div class="explore-hero">
     <h1>Section explorations</h1>
-    <p>Six high-fidelity directions for two sections of v18 — three takes on the before/after, three on the wedge. Each variant is rendered as it would look in place, against the live v18 design tokens. Scroll, compare, tell me which ones to develop further and which to kill.</p>
+    <p>Twelve high-fidelity directions for two sections of v18 — six takes on the before/after, six on the wedge. Each variant is rendered as it would look in place, against the live v18 design tokens. Scroll, compare, tell me which ones to develop further and which to kill.</p>
   </div>
 
   <nav class="explore-nav">
@@ -374,13 +634,19 @@
         <span class="explore-nav-label">From RFP to Response:</span>
         <a href="#a1">A1 Pain Tape</a>
         <a href="#a2">A2 14-day clock</a>
+        <a href="#a3">A3 Crunch funnel</a>
         <a href="#a4">A4 Symptom catalog</a>
+        <a href="#a6">A6 Cost ledger</a>
+        <a href="#a8">A8 Capability gap</a>
       </div>
       <div class="explore-nav-group">
         <span class="explore-nav-label">vs Response Tools:</span>
         <a href="#b1">B1 Capability matrix</a>
+        <a href="#b2">B2 Submit cliff</a>
         <a href="#b3">B3 5-phase unpacker</a>
         <a href="#b4">B4 Two-pane scoreboard</a>
+        <a href="#b5">B5 Time/value table</a>
+        <a href="#b7">B7 Tool sprawl</a>
       </div>
     </div>
   </nav>
@@ -390,7 +656,7 @@
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section A · 3 variants</span>
+      <span>Section A · 6 variants</span>
       <h2>From RFP To Response</h2>
     </div>
 
@@ -741,14 +1007,232 @@
       </div>
     </article>
 
+    <!-- ============================================================
+         A3 — CRUNCH FUNNEL
+         ============================================================ -->
+    <article class="variant" id="a3">
+      <div class="variant-label">
+        <span class="variant-label-tag">A3</span>
+        <h3>Crunch funnel</h3>
+        <p>What gets cut when the deadline closes in. Today: 4 of 10 done. Propagent: all 10. Visual scarcity, no phases.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="cf-wrap">
+          <div class="cf-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>When the deadline closes in, the funnel narrows. <span class="text-agent-gradient">Propagent keeps it open.</span></h2>
+          </div>
+
+          <div class="cf-grid">
+
+            <div class="cf-col today">
+              <div class="cf-col-head">
+                <span class="cf-col-tag">Today</span>
+                <span class="cf-col-sub">14-day window · 6 days of runway</span>
+              </div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Read the RFP cover-to-cover</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Score go/no-go (instinct, not data)</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Draft a partial compliance matrix</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Submit on time</span></div>
+              <div class="cf-task cut"><span class="cf-task-mark">×</span><span class="cf-task-text">Compare against competitor moves on this RFP</span></div>
+              <div class="cf-task cut"><span class="cf-task-mark">×</span><span class="cf-task-text">Pull current past performance, not last quarter's</span></div>
+              <div class="cf-task cut"><span class="cf-task-mark">×</span><span class="cf-task-text">Build pursuit-specific win themes</span></div>
+              <div class="cf-task cut"><span class="cf-task-mark">×</span><span class="cf-task-text">Route scoped questions to the right SMEs</span></div>
+              <div class="cf-task cut"><span class="cf-task-mark">×</span><span class="cf-task-text">Verify every claim against source documents</span></div>
+              <div class="cf-task cut"><span class="cf-task-mark">×</span><span class="cf-task-text">Debrief and capture for the next pursuit</span></div>
+              <div class="cf-foot">
+                <div class="cf-stat">
+                  <span class="cf-stat-num">4 / 10</span>
+                  <span class="cf-stat-lbl">tasks completed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="cf-col now">
+              <div class="cf-col-head">
+                <span class="cf-col-tag">With Propagent</span>
+                <span class="cf-col-sub">14-day window · all 14 days of runway</span>
+              </div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Read the RFP cover-to-cover</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Score go/no-go (confidence-rated)</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Complete compliance matrix</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Submit on time</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Compare against competitor moves on this RFP</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Pull current past performance, surfaced live</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Build pursuit-specific win themes</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Route scoped questions to the right SMEs</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Verify every claim against source documents</span></div>
+              <div class="cf-task done"><span class="cf-task-mark">✓</span><span class="cf-task-text">Debrief and capture for the next pursuit</span></div>
+              <div class="cf-foot">
+                <div class="cf-stat">
+                  <span class="cf-stat-num">10 / 10</span>
+                  <span class="cf-stat-lbl">tasks completed</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="cf-caption">The team always knows what would make the bid stronger. Time is what stops them. Propagent keeps the funnel open all fourteen days.</p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A6 — COST LEDGER
+         ============================================================ -->
+    <article class="variant" id="a6">
+      <div class="variant-label">
+        <span class="variant-label-tag">A6</span>
+        <h3>Cost ledger</h3>
+        <p>Quantitative pain accounting. The hidden costs of a stressed pursuit week, side-by-side. Numbers, not vibes.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="cl-wrap">
+          <div class="cl-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>The hidden costs of a pursuit week.</h2>
+            <p>The "we work hard, we win some" view costs more than firms think. Below is the per-pursuit math for a typical mid-market AEC pursuit week, drawn from operator-reported hours.</p>
+          </div>
+
+          <table class="cl-table">
+            <thead>
+              <tr>
+                <th>Cost category</th>
+                <th class="cl-num cl-them">Today (hrs / pursuit)</th>
+                <th class="cl-num cl-us">Propagent (hrs / pursuit)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="cl-cat">BD time hunting RFPs across portals</td><td class="cl-num them">6</td><td class="cl-num us">0.5</td></tr>
+              <tr><td class="cl-cat">Capture-to-PM context rebuild</td><td class="cl-num them">4</td><td class="cl-num us">0</td></tr>
+              <tr><td class="cl-cat">SME interruptions for scoped questions</td><td class="cl-num them">8</td><td class="cl-num us">2</td></tr>
+              <tr><td class="cl-cat">Compliance matrix building (often after hours)</td><td class="cl-num them">6</td><td class="cl-num us">1</td></tr>
+              <tr><td class="cl-cat">Past-performance hunt across drives</td><td class="cl-num them">5</td><td class="cl-num us">0.5</td></tr>
+              <tr><td class="cl-cat">Late-night reviewer time</td><td class="cl-num them">4</td><td class="cl-num us">0</td></tr>
+              <tr><td class="cl-cat">Post-submit debrief (rare today)</td><td class="cl-num them">0</td><td class="cl-num us">2</td></tr>
+              <tr class="cl-total">
+                <td class="cl-cat">Per-pursuit total</td>
+                <td class="cl-num them">33 hrs</td>
+                <td class="cl-num us">6 hrs</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="cl-foot">
+            <span class="cl-foot-note">Across 40 pursuits/year · loaded labor rate $145/hr</span>
+            <span class="cl-foot-annual"><b>$156,600/year</b> in recovered capacity</span>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A8 — CAPABILITY GAP (the thesis, visualized)
+         ============================================================ -->
+    <article class="variant" id="a8">
+      <div class="variant-label">
+        <span class="variant-label-tag">A8</span>
+        <h3>Capability gap</h3>
+        <p>The company thesis, visualized. The firm has the capability. Today's deadline pipe filters out most of it. Propagent makes the pipe wide.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="cg-wrap">
+          <div class="cg-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>Firms don't lose deals because they lack capability. <em>They lose because that capability can't reach the response under deadline.</em></h2>
+            <p>Top: the depth of expertise the firm actually has. Middle: what the deadline lets through. Bottom: what reached the response.</p>
+          </div>
+
+          <div class="cg-grid">
+
+            <div class="cg-col today">
+              <div class="cg-col-head">
+                <span class="cg-col-tag">Today</span>
+              </div>
+              <div class="cg-stack">
+                <span class="cg-stack-label">Firm capability</span>
+                <div class="cg-cap">Deep healthcare-sector expertise</div>
+                <div class="cg-cap">200+ project portfolio across markets</div>
+                <div class="cg-cap">Voice of the named principal in past wins</div>
+                <div class="cg-cap">Risk profiling from 30 years of pursuits</div>
+                <div class="cg-cap">Sector-specific compliance instincts</div>
+                <div class="cg-cap">Named SME network across disciplines</div>
+                <div class="cg-cap">Win-loss intel from prior bids</div>
+                <div class="cg-cap">Living past-performance narratives</div>
+              </div>
+              <div class="cg-pipe">
+                <div class="cg-pipe-shape">
+                  <svg viewBox="0 0 320 80" preserveAspectRatio="none">
+                    <path d="M 0 0 L 320 0 L 200 80 L 120 80 Z" fill="rgba(248,113,113,0.06)" stroke="rgba(248,113,113,0.4)" stroke-width="1"/>
+                  </svg>
+                  <span class="cg-pipe-label">Deadline pipe · narrow</span>
+                </div>
+              </div>
+              <div class="cg-out today">
+                <span class="cg-out-count">2 of 8 reached</span>
+                <div class="cg-cap">Sector-specific compliance instincts</div>
+                <div class="cg-cap">Living past-performance narratives <em style="color:var(--text-muted)">(partial)</em></div>
+              </div>
+            </div>
+
+            <div class="cg-col now">
+              <div class="cg-col-head">
+                <span class="cg-col-tag">With Propagent</span>
+              </div>
+              <div class="cg-stack">
+                <span class="cg-stack-label">Same firm capability</span>
+                <div class="cg-cap">Deep healthcare-sector expertise</div>
+                <div class="cg-cap">200+ project portfolio across markets</div>
+                <div class="cg-cap">Voice of the named principal in past wins</div>
+                <div class="cg-cap">Risk profiling from 30 years of pursuits</div>
+                <div class="cg-cap">Sector-specific compliance instincts</div>
+                <div class="cg-cap">Named SME network across disciplines</div>
+                <div class="cg-cap">Win-loss intel from prior bids</div>
+                <div class="cg-cap">Living past-performance narratives</div>
+              </div>
+              <div class="cg-pipe">
+                <div class="cg-pipe-shape">
+                  <svg viewBox="0 0 320 80" preserveAspectRatio="none">
+                    <path d="M 0 0 L 320 0 L 320 80 L 0 80 Z" fill="rgba(167,139,250,0.06)" stroke="var(--border-accent)" stroke-width="1"/>
+                  </svg>
+                  <span class="cg-pipe-label">Deadline pipe · wide</span>
+                </div>
+              </div>
+              <div class="cg-out now">
+                <span class="cg-out-count">8 of 8 reached</span>
+                <div class="cg-cap">Deep healthcare-sector expertise</div>
+                <div class="cg-cap">200+ project portfolio across markets</div>
+                <div class="cg-cap">Voice of the named principal</div>
+                <div class="cg-cap">Risk profiling from 30 years</div>
+                <div class="cg-cap">Sector-specific compliance instincts</div>
+                <div class="cg-cap">Named SME network</div>
+                <div class="cg-cap">Win-loss intel from prior bids</div>
+                <div class="cg-cap">Living past-performance narratives</div>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="cg-thesis">Propagent <em>is</em> the wide pipe. Same firm, same expertise, same 14 days — but everything the team knows now reaches the response.</p>
+        </div>
+
+      </div>
+    </article>
+
   </section>
 
   <!-- ============================================================
-       SECTION B — VS Response Tools (3 variants)
+       SECTION B — VS Response Tools (6 variants)
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section B · 3 variants</span>
+      <span>Section B · 6 variants</span>
       <h2>VS Response Tools</h2>
     </div>
 
@@ -936,6 +1420,241 @@
               </ul>
               <div class="sb-foot"><b>12 capabilities</b> · runs Find through Compound</div>
             </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B2 — SUBMIT CLIFF
+         ============================================================ -->
+    <article class="variant" id="b2">
+      <div class="variant-label">
+        <span class="variant-label-tag">B2</span>
+        <h3>Submit cliff</h3>
+        <p>Metaphor. Response tools' track falls off a cliff at Submit. Propagent's keeps going onto solid ground labeled Capture / Compound.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="sc-wrap">
+          <div class="sc-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>Response tools stop at submit. <span class="text-agent-gradient">Propagent keeps going.</span></h2>
+          </div>
+
+          <div class="sc-scene">
+            <svg viewBox="0 0 1000 320" aria-label="Two tracks walking through pursuit stages. Response tools fall off a cliff at Submit; Propagent continues onto solid ground.">
+              <!-- ground (left half — solid up to Submit; cliff drop after) -->
+              <path d="M 0 220 L 580 220 L 580 280 L 620 280 L 620 220 L 1000 220 L 1000 320 L 0 320 Z"
+                    fill="rgba(167,139,250,0.04)" stroke="none"/>
+              <!-- ground top line -->
+              <path d="M 0 220 L 580 220 L 580 280" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+              <path d="M 620 220 L 1000 220" stroke="rgba(167,139,250,0.6)" stroke-width="1" fill="none"/>
+              <path d="M 620 220 L 620 280" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+
+              <!-- stage markers (vertical guide lines + labels along bottom) -->
+              <g font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="0.06em" text-anchor="middle">
+                <text x="80"  y="305">FIND</text>
+                <text x="200" y="305">QUALIFY</text>
+                <text x="320" y="305">ANALYZE</text>
+                <text x="440" y="305">RESPOND</text>
+                <text x="560" y="305">SUBMIT</text>
+                <text x="740" y="305" fill="rgba(167,139,250,0.85)">CAPTURE</text>
+                <text x="880" y="305" fill="rgba(167,139,250,0.85)">COMPOUND</text>
+              </g>
+
+              <!-- subtle guide ticks above labels -->
+              <g stroke="rgba(255,255,255,0.08)">
+                <line x1="80"  y1="220" x2="80"  y2="225"/>
+                <line x1="200" y1="220" x2="200" y2="225"/>
+                <line x1="320" y1="220" x2="320" y2="225"/>
+                <line x1="440" y1="220" x2="440" y2="225"/>
+                <line x1="560" y1="220" x2="560" y2="225"/>
+                <line x1="740" y1="220" x2="740" y2="225" stroke="rgba(167,139,250,0.4)"/>
+                <line x1="880" y1="220" x2="880" y2="225" stroke="rgba(167,139,250,0.4)"/>
+              </g>
+
+              <!-- RESPONSE TOOLS track — falls off cliff at Submit -->
+              <!-- pre-submit dots, mostly faded except respond/submit -->
+              <circle cx="80"  cy="160" r="5" fill="rgba(248,113,113,0.25)"/>
+              <circle cx="200" cy="160" r="5" fill="rgba(248,113,113,0.25)"/>
+              <circle cx="320" cy="160" r="5" fill="rgba(248,113,113,0.4)"/>
+              <circle cx="440" cy="160" r="6" fill="var(--status-error-fg)"/>
+              <circle cx="560" cy="160" r="7" fill="var(--status-error-fg)"/>
+              <path d="M 80 160 L 200 160 L 320 160 L 440 160 L 560 160" stroke="var(--status-error-fg)" stroke-width="1.5" fill="none" stroke-dasharray="2 3" opacity="0.7"/>
+              <!-- falling line after submit -->
+              <path d="M 560 160 Q 600 200 620 280" stroke="var(--status-error-fg)" stroke-width="1.5" fill="none" stroke-dasharray="2 3" opacity="0.5"/>
+              <circle cx="620" cy="280" r="4" fill="var(--status-error-fg)" opacity="0.5"/>
+              <text x="600" y="120" font-family="Fraunces" font-size="14" font-style="italic" fill="var(--status-error-fg)">stops here</text>
+              <text x="600" y="138" font-family="JetBrains Mono" font-size="10" fill="rgba(248,113,113,0.7)" letter-spacing="0.04em">↓</text>
+
+              <!-- PROPAGENT track — covers everything, continues past cliff -->
+              <circle cx="80"  cy="80" r="6" fill="var(--accent-primary)"/>
+              <circle cx="200" cy="80" r="6" fill="var(--accent-primary)"/>
+              <circle cx="320" cy="80" r="6" fill="var(--accent-primary)"/>
+              <circle cx="440" cy="80" r="6" fill="var(--accent-primary)"/>
+              <circle cx="560" cy="80" r="6" fill="var(--accent-primary)"/>
+              <circle cx="740" cy="80" r="7" fill="var(--accent-primary-strong)" stroke="var(--accent-primary)" stroke-width="2"/>
+              <circle cx="880" cy="80" r="7" fill="var(--accent-primary-strong)" stroke="var(--accent-primary)" stroke-width="2"/>
+              <path d="M 80 80 L 200 80 L 320 80 L 440 80 L 560 80 L 740 80 L 880 80 L 970 80"
+                    stroke="var(--accent-primary)" stroke-width="2" fill="none"/>
+              <!-- arrowhead at end -->
+              <path d="M 960 75 L 980 80 L 960 85" stroke="var(--accent-primary)" stroke-width="2" fill="none"/>
+
+              <text x="80"  y="60" font-family="JetBrains Mono" font-size="10" fill="var(--accent-primary)" letter-spacing="0.06em">PROPAGENT</text>
+              <text x="80"  y="180" font-family="JetBrains Mono" font-size="10" fill="rgba(248,113,113,0.8)" letter-spacing="0.06em">RESPONSE TOOLS</text>
+            </svg>
+
+            <div class="sc-legend">
+              <div class="sc-legend-item">
+                <span class="sc-legend-dot them"></span>
+                <span class="sc-legend-text"><b>Response tools</b> cover slivers of the work and stop at Submit. Past the cliff is what they don't do.</span>
+              </div>
+              <div class="sc-legend-item">
+                <span class="sc-legend-dot us"></span>
+                <span class="sc-legend-text"><b>Propagent</b> covers the full lifecycle, including post-submit Capture and Compound. The work after Submit is where compounding starts.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B5 — TIME / VALUE TABLE
+         ============================================================ -->
+    <article class="variant" id="b5">
+      <div class="variant-label">
+        <span class="variant-label-tag">B5</span>
+        <h3>Time / value table</h3>
+        <p>Quantitative comparison. Hours saved per stage by each kind of tool, plus the downstream value only Propagent unlocks.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="tv-wrap">
+          <div class="tv-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>What each kind of tool actually saves you.</h2>
+          </div>
+
+          <table class="tv-table">
+            <thead>
+              <tr>
+                <th>Pursuit stage</th>
+                <th class="tv-num tv-them">Response tools<br>(hrs saved)</th>
+                <th class="tv-num tv-us-hr">Propagent<br>(hrs saved)</th>
+                <th class="tv-us-down">Propagent downstream value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Find — portal scanning + fit match</td>
+                <td class="tv-num tv-them">0</td>
+                <td class="tv-num tv-us-hr">5.5</td>
+                <td class="tv-us-down">More fit-pursuits per quarter</td>
+              </tr>
+              <tr>
+                <td>Qualify — go/no-go + win probability</td>
+                <td class="tv-num tv-them">0</td>
+                <td class="tv-num tv-us-hr">3.0</td>
+                <td class="tv-us-down">Better resource allocation across pursuits</td>
+              </tr>
+              <tr>
+                <td>Analyze — compliance + win themes</td>
+                <td class="tv-num tv-them">1.0</td>
+                <td class="tv-num tv-us-hr">5.0</td>
+                <td class="tv-us-down">Themes that match this pursuit, not last quarter's</td>
+              </tr>
+              <tr>
+                <td>Respond — drafting + past performance</td>
+                <td class="tv-num tv-them">4.0</td>
+                <td class="tv-num tv-us-hr">12.0</td>
+                <td class="tv-us-down">Live-queried PP, verified claims, fewer revisions</td>
+              </tr>
+              <tr>
+                <td>Submit — final compliance + delivery</td>
+                <td class="tv-num tv-them">2.0</td>
+                <td class="tv-num tv-us-hr">3.0</td>
+                <td class="tv-us-down">No midnight matrix; defensible at hand-off</td>
+              </tr>
+              <tr>
+                <td>Capture — debrief + intel</td>
+                <td class="tv-num tv-them">0</td>
+                <td class="tv-num tv-us-hr">2.0</td>
+                <td class="tv-us-down">Win-loss intel feeds next qualification</td>
+              </tr>
+              <tr>
+                <td>Compound — feed next pursuit</td>
+                <td class="tv-num tv-them">0</td>
+                <td class="tv-num tv-us-hr">0</td>
+                <td class="tv-us-down">+10–25 pts win-rate over time on formal procurements</td>
+              </tr>
+              <tr class="tv-total">
+                <td>Per-pursuit total</td>
+                <td class="tv-num tv-them">7.0 hrs</td>
+                <td class="tv-num tv-us-hr">30.5 hrs</td>
+                <td class="tv-us-down">+ compounding effect on future bids</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="tv-caption">Ranges drawn from AEC pursuit-effort benchmarks and operator-reported hours. Win-rate lift is the published peer-category average on formal procurements; per-customer results vary with pursuit volume and prior knowledge depth.</p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B7 — TOOL SPRAWL MAP
+         ============================================================ -->
+    <article class="variant" id="b7">
+      <div class="variant-label">
+        <span class="variant-label-tag">B7</span>
+        <h3>Tool sprawl map</h3>
+        <p>One system, not a stack. Left: the scatter of niche tools a typical team cobbles together. Right: Propagent. Visual collapse.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="ts-wrap">
+          <div class="ts-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>One system, <span class="text-agent-gradient">not a stack.</span></h2>
+          </div>
+
+          <div class="ts-grid">
+
+            <div class="ts-side">
+              <span class="ts-side-tag">A typical pursuit team's stack today</span>
+              <h3>Nine half-tools, none of them talking to each other.</h3>
+              <div class="ts-stack-them">
+                <div class="ts-tool" style="left: 4%;  top: 4%;">Portal scanning (manual / 3rd party)</div>
+                <div class="ts-tool" style="left: 56%; top: 9%;">Capture management spreadsheet</div>
+                <div class="ts-tool" style="left: 10%; top: 28%;">Content library + AI drafting</div>
+                <div class="ts-tool" style="left: 60%; top: 32%;">Compliance matrix in Excel</div>
+                <div class="ts-tool" style="left: 2%;  top: 52%;">Past-performance binder (PDFs)</div>
+                <div class="ts-tool" style="left: 56%; top: 56%;">SME coordination via email threads</div>
+                <div class="ts-tool" style="left: 14%; top: 74%;">Review tracking on a Kanban board</div>
+                <div class="ts-tool" style="left: 60%; top: 78%;">Submit logistics (handful of tabs)</div>
+                <div class="ts-tool" style="left: 8%;  top: 92%;">Win/loss tracker (often nothing)</div>
+              </div>
+            </div>
+
+            <div class="ts-arrow">
+              <span class="ts-arrow-label">→ collapsed into →</span>
+              <div class="ts-arrow-line"></div>
+            </div>
+
+            <div class="ts-side us">
+              <span class="ts-side-tag">Propagent</span>
+              <div class="ts-propagent-block">
+                <h4>Propagent</h4>
+                <p>One omnichannel system that runs the full pursuit lifecycle — Find through Compound — and keeps every artifact connected to every other one.</p>
+                <div class="ts-coverage">9 capabilities · 1 surface · 0 handoffs</div>
+              </div>
+            </div>
+
           </div>
         </div>
 
