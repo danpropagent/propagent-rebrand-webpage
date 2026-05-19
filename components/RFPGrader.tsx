@@ -6,33 +6,52 @@ interface FileState {
   files: File[];
 }
 
+const VALID_EXTENSIONS = ['pdf', 'docx', 'txt'];
+const MAX_FILE_BYTES = 100 * 1024 * 1024; // 100MB
+
+const filterFiles = (incoming: FileList | File[]): File[] => {
+  return Array.from(incoming).filter((file) => {
+    const ext = file.name.split('.').pop()?.toLowerCase();
+    return !!ext && VALID_EXTENSIONS.includes(ext) && file.size <= MAX_FILE_BYTES;
+  });
+};
+
+const formatFileSize = (bytes: number): string => {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+};
+
+const readFileAsBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
+
 const RFPGrader: React.FC = () => {
   const [email, setEmail] = useState('');
   const [mode, setMode] = useState<GradeMode>('rfp');
   const [rfpFiles, setRfpFiles] = useState<FileState>({ files: [] });
   const [responseFiles, setResponseFiles] = useState<FileState>({ files: [] });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [isDragging, setIsDragging] = useState<string | null>(null);
 
   const rfpInputRef = useRef<HTMLInputElement>(null);
   const responseInputRef = useRef<HTMLInputElement>(null);
 
-  const validateEmail = (email: string): boolean => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
-
-  const validateFiles = (): boolean => {
-    if (mode === 'rfp') {
-      return rfpFiles.files.length > 0;
-    } else {
-      return rfpFiles.files.length > 0 && responseFiles.files.length > 0;
-    }
-  };
+  const validateEmail = (value: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const isFormValid = (): boolean => {
-    return validateEmail(email) && validateFiles();
+    if (!validateEmail(email)) return false;
+    if (mode === 'rfp') return rfpFiles.files.length > 0;
+    return rfpFiles.files.length > 0 && responseFiles.files.length > 0;
   };
 
   const handleDragOver = (e: React.DragEvent, bucket: string) => {
@@ -48,143 +67,29 @@ const RFPGrader: React.FC = () => {
   const handleDrop = (e: React.DragEvent, bucket: 'rfp' | 'response') => {
     e.preventDefault();
     setIsDragging(null);
-
-    const droppedFiles = Array.from(e.dataTransfer.files).filter(file => {
-      const ext = file.name.split('.').pop()?.toLowerCase();
-      const validTypes = ['pdf', 'docx', 'txt'];
-      const isValidType = ext && validTypes.includes(ext);
-      const isValidSize = file.size <= 100 * 1024 * 1024; // 100MB
-      return isValidType && isValidSize;
-    });
-
+    const dropped = filterFiles(e.dataTransfer.files);
     if (bucket === 'rfp') {
-      setRfpFiles({ files: [...rfpFiles.files, ...droppedFiles] });
+      setRfpFiles({ files: [...rfpFiles.files, ...dropped] });
     } else {
-      setResponseFiles({ files: [...responseFiles.files, ...droppedFiles] });
+      setResponseFiles({ files: [...responseFiles.files, ...dropped] });
     }
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>, bucket: 'rfp' | 'response') => {
-    if (e.target.files) {
-      const selectedFiles = Array.from(e.target.files).filter(file => {
-        const ext = file.name.split('.').pop()?.toLowerCase();
-        const validTypes = ['pdf', 'docx', 'txt'];
-        const isValidType = ext && validTypes.includes(ext);
-        const isValidSize = file.size <= 100 * 1024 * 1024;
-        return isValidType && isValidSize;
-      });
-
-      if (bucket === 'rfp') {
-        setRfpFiles({ files: [...rfpFiles.files, ...selectedFiles] });
-      } else {
-        setResponseFiles({ files: [...responseFiles.files, ...selectedFiles] });
-      }
+    if (!e.target.files) return;
+    const selected = filterFiles(e.target.files);
+    if (bucket === 'rfp') {
+      setRfpFiles({ files: [...rfpFiles.files, ...selected] });
+    } else {
+      setResponseFiles({ files: [...responseFiles.files, ...selected] });
     }
   };
 
   const removeFile = (bucket: 'rfp' | 'response', index: number) => {
     if (bucket === 'rfp') {
-      const newFiles = rfpFiles.files.filter((_, i) => i !== index);
-      setRfpFiles({ files: newFiles });
+      setRfpFiles({ files: rfpFiles.files.filter((_, i) => i !== index) });
     } else {
-      const newFiles = responseFiles.files.filter((_, i) => i !== index);
-      setResponseFiles({ files: newFiles });
-    }
-  };
-
-  // Helper function to convert File to base64
-  const readFileAsBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64 = (reader.result as string).split(',')[1]; // Remove data:...;base64, prefix
-        resolve(base64);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!isFormValid()) {
-      setSubmitStatus({ type: 'error', message: 'Please fill in all required fields' });
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // Convert all files to base64
-      const rfpFilesData = await Promise.all(
-        rfpFiles.files.map(async (file) => ({
-          name: file.name,
-          content: await readFileAsBase64(file),
-          mimeType: file.type,
-        }))
-      );
-
-      const responseFilesData = mode === 'response'
-        ? await Promise.all(
-            responseFiles.files.map(async (file) => ({
-              name: file.name,
-              content: await readFileAsBase64(file),
-              mimeType: file.type,
-            }))
-          )
-        : [];
-
-      const payload = {
-        email,
-        mode,
-        rfpFiles: rfpFilesData,
-        responseFiles: responseFilesData,
-      };
-
-      const response = await fetch('https://graderfp-nzrxc3sypq-uc.a.run.app', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      // Handle non-JSON responses gracefully
-      let result;
-      try {
-        result = await response.json();
-      } catch (jsonError) {
-        // Backend returned non-JSON (empty or plain text)
-        throw new Error(
-          `Server error: Unable to process response (Status ${response.status})`
-        );
-      }
-
-      if (!response.ok) {
-        // Display specific error from server if available
-        const errorMessage = result.details || result.error || 'Submission failed';
-        throw new Error(errorMessage);
-      }
-
-      setSubmitStatus({
-        type: 'success',
-        message: result.message || 'Your RFP is being analyzed. You will receive the results via email shortly.'
-      });
-
-      // Reset form
-      setEmail('');
-      setRfpFiles({ files: [] });
-      setResponseFiles({ files: [] });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus({
-        type: 'error',
-        message: error instanceof Error ? error.message : 'An error occurred while submitting your request. Please try again.'
-      });
-    } finally {
-      setIsSubmitting(false);
+      setResponseFiles({ files: responseFiles.files.filter((_, i) => i !== index) });
     }
   };
 
@@ -195,232 +100,211 @@ const RFPGrader: React.FC = () => {
     setSubmitStatus(null);
   };
 
-  const formatFileSize = (bytes: number): string => {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isFormValid()) {
+      setSubmitStatus({ type: 'error', message: 'Please fill in all required fields.' });
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const rfpFilesData = await Promise.all(
+        rfpFiles.files.map(async (file) => ({
+          name: file.name,
+          content: await readFileAsBase64(file),
+          mimeType: file.type,
+        }))
+      );
+      const responseFilesData = mode === 'response'
+        ? await Promise.all(
+            responseFiles.files.map(async (file) => ({
+              name: file.name,
+              content: await readFileAsBase64(file),
+              mimeType: file.type,
+            }))
+          )
+        : [];
+
+      const payload = { email, mode, rfpFiles: rfpFilesData, responseFiles: responseFilesData };
+      const response = await fetch('https://graderfp-nzrxc3sypq-uc.a.run.app', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      let result: any;
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error(`Server error: unable to process response (status ${response.status})`);
+      }
+      if (!response.ok) {
+        throw new Error(result.details || result.error || 'Submission failed');
+      }
+
+      setSubmitStatus({
+        type: 'success',
+        message: result.message || 'Your submission is being analyzed. Results will arrive by email shortly.',
+      });
+      setEmail('');
+      setRfpFiles({ files: [] });
+      setResponseFiles({ files: [] });
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Something went wrong. Please try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  return (
-    <section id="rfp-grader" className="min-h-screen py-32 px-6 relative">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-brand font-bold mb-6 bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
-            RFP AI GRADER
-          </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Automate the grading of RFPs for quality and clarity, or evaluate RFP responses for compliance and fit using advanced AI.
-          </p>
-        </div>
+  const rfpLabel = mode === 'rfp' ? 'Upload your RFP documents' : 'Upload the original RFP';
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Email Input */}
-          <div className="space-y-2">
-            <label htmlFor="email" className="block text-sm font-bold uppercase tracking-widest text-neon-blue">
-              Email Address *
-            </label>
+  return (
+    <section className="grader-section">
+      <div className="container">
+        <header className="grader-header">
+          <div className="section-eyebrow">RFP Grader</div>
+          <h1>Grade an RFP, or grade a <span className="text-agent-gradient">response to one.</span></h1>
+          <p className="lede">
+            Upload an RFP for a quality and clarity read, or pair it with a draft response for compliance and fit. Results land in your inbox.
+          </p>
+        </header>
+
+        <form className="grader-form" onSubmit={handleSubmit}>
+          <div className="grader-field">
+            <label className="grader-label" htmlFor="email">Email address</label>
             <input
               id="email"
               type="email"
+              className="grader-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="w-full px-6 py-4 bg-black/50 border-2 border-gray-800 rounded-lg text-white placeholder-gray-600 focus:border-neon-blue focus:outline-none transition-colors duration-300"
+              placeholder="you@firm.com"
               required
+              autoComplete="email"
             />
-            <p className="text-xs text-gray-500">Results will be sent to this email address</p>
+            <p className="grader-help">Results will be sent to this email address.</p>
           </div>
 
-          {/* Mode Selector */}
-          <div className="space-y-4">
-            <label className="block text-sm font-bold uppercase tracking-widest text-neon-purple">
-              Grading Mode *
-            </label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grader-field">
+            <span className="grader-label">Grading mode</span>
+            <div className="grader-mode">
               <button
                 type="button"
                 onClick={() => handleModeChange('rfp')}
-                className={`p-6 rounded-lg border-2 transition-all duration-300 text-left ${
-                  mode === 'rfp'
-                    ? 'border-neon-purple bg-neon-purple/10'
-                    : 'border-gray-800 bg-black/50 hover:border-gray-700'
-                }`}
+                className={`grader-mode-btn ${mode === 'rfp' ? 'is-active' : ''}`}
               >
-                <div className="text-lg font-bold mb-2">Grade My RFP</div>
-                <div className="text-sm text-gray-400">
-                  Analyze the quality, clarity, and completeness of your RFP document
-                </div>
+                <span className="mode-title">Grade my RFP</span>
+                <span className="mode-desc">Analyze the quality, clarity, and completeness of your RFP document.</span>
               </button>
-
               <button
                 type="button"
                 onClick={() => handleModeChange('response')}
-                className={`p-6 rounded-lg border-2 transition-all duration-300 text-left ${
-                  mode === 'response'
-                    ? 'border-neon-blue bg-neon-blue/10'
-                    : 'border-gray-800 bg-black/50 hover:border-gray-700'
-                }`}
+                className={`grader-mode-btn ${mode === 'response' ? 'is-active' : ''}`}
               >
-                <div className="text-lg font-bold mb-2">Grade My Response</div>
-                <div className="text-sm text-gray-400">
-                  Compare your response against the original RFP for compliance and fit
-                </div>
+                <span className="mode-title">Grade my response</span>
+                <span className="mode-desc">Compare your response against the original RFP for compliance and fit.</span>
               </button>
             </div>
           </div>
 
-          {/* File Upload Areas */}
-          <div className="space-y-6">
-            {/* RFP Files Upload */}
-            <div className="space-y-2">
-              <label className="block text-sm font-bold uppercase tracking-widest text-white">
-                {mode === 'rfp' ? 'Upload Your RFP Documents *' : 'Upload the Original RFP *'}
-              </label>
-              <div
-                onDragOver={(e) => handleDragOver(e, 'rfp')}
-                onDragLeave={handleDragLeave}
-                onDrop={(e) => handleDrop(e, 'rfp')}
-                onClick={() => rfpInputRef.current?.click()}
-                className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-300 ${
-                  isDragging === 'rfp'
-                    ? 'border-neon-purple bg-neon-purple/10'
-                    : 'border-gray-700 hover:border-gray-600 bg-black/30'
-                }`}
-              >
-                <input
-                  ref={rfpInputRef}
-                  type="file"
-                  multiple
-                  accept=".pdf,.docx,.txt"
-                  onChange={(e) => handleFileSelect(e, 'rfp')}
-                  className="hidden"
-                  key={`rfp-${mode}`}
-                />
-                <div className="text-4xl mb-4">📄</div>
-                <div className="text-gray-300 mb-2">
-                  Drag & drop files here or click to browse
-                </div>
-                <div className="text-sm text-gray-500">
-                  PDF, DOCX, TXT (Max 100MB per file)
-                </div>
-              </div>
-
-              {/* RFP Files List */}
-              {rfpFiles.files.length > 0 && (
-                <div className="mt-4 space-y-2">
-                  {rfpFiles.files.map((file, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-black/50 border border-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl">📎</span>
-                        <div>
-                          <div className="text-sm font-medium text-white">{file.name}</div>
-                          <div className="text-xs text-gray-500">{formatFileSize(file.size)}</div>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeFile('rfp', index)}
-                        className="text-red-500 hover:text-red-400 transition-colors"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
+          <div className="grader-field">
+            <span className="grader-label">{rfpLabel}</span>
+            <div
+              className={`grader-dropzone ${isDragging === 'rfp' ? 'is-dragging' : ''}`}
+              onDragOver={(e) => handleDragOver(e, 'rfp')}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, 'rfp')}
+              onClick={() => rfpInputRef.current?.click()}
+              role="button"
+              tabIndex={0}
+            >
+              <input
+                ref={rfpInputRef}
+                type="file"
+                multiple
+                accept=".pdf,.docx,.txt"
+                onChange={(e) => handleFileSelect(e, 'rfp')}
+                style={{ display: 'none' }}
+                key={`rfp-${mode}`}
+              />
+              <p className="grader-dropzone-title">Drop files here, or click to browse</p>
+              <p className="grader-dropzone-hint">PDF, DOCX, or TXT · up to 100MB each</p>
             </div>
-
-            {/* Response Files Upload (Only shown in response mode) */}
-            {mode === 'response' && (
-              <div className="space-y-2">
-                <label className="block text-sm font-bold uppercase tracking-widest text-white">
-                  Upload Your Response Proposal *
-                </label>
-                <div
-                  onDragOver={(e) => handleDragOver(e, 'response')}
-                  onDragLeave={handleDragLeave}
-                  onDrop={(e) => handleDrop(e, 'response')}
-                  onClick={() => responseInputRef.current?.click()}
-                  className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-300 ${
-                    isDragging === 'response'
-                      ? 'border-neon-blue bg-neon-blue/10'
-                      : 'border-gray-700 hover:border-gray-600 bg-black/30'
-                  }`}
-                >
-                  <input
-                    ref={responseInputRef}
-                    type="file"
-                    multiple
-                    accept=".pdf,.docx,.txt"
-                    onChange={(e) => handleFileSelect(e, 'response')}
-                    className="hidden"
-                    key={`response-${mode}`}
-                  />
-                  <div className="text-4xl mb-4">📝</div>
-                  <div className="text-gray-300 mb-2">
-                    Drag & drop files here or click to browse
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    PDF, DOCX, TXT (Max 100MB per file)
-                  </div>
-                </div>
-
-                {/* Response Files List */}
-                {responseFiles.files.length > 0 && (
-                  <div className="mt-4 space-y-2">
-                    {responseFiles.files.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-black/50 border border-gray-800 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <span className="text-2xl">📎</span>
-                          <div>
-                            <div className="text-sm font-medium text-white">{file.name}</div>
-                            <div className="text-xs text-gray-500">{formatFileSize(file.size)}</div>
-                          </div>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => removeFile('response', index)}
-                          className="text-red-500 hover:text-red-400 transition-colors"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+            {rfpFiles.files.length > 0 && (
+              <ul className="grader-files">
+                {rfpFiles.files.map((file, idx) => (
+                  <li className="grader-file" key={`${file.name}-${idx}`}>
+                    <span className="grader-file-info">
+                      <span className="grader-file-name">{file.name}</span>
+                      <span className="grader-file-size">{formatFileSize(file.size)}</span>
+                    </span>
+                    <button type="button" className="grader-file-remove" onClick={() => removeFile('rfp', idx)}>
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
-          {/* Status Message */}
+          {mode === 'response' && (
+            <div className="grader-field">
+              <span className="grader-label">Upload your response documents</span>
+              <div
+                className={`grader-dropzone ${isDragging === 'response' ? 'is-dragging' : ''}`}
+                onDragOver={(e) => handleDragOver(e, 'response')}
+                onDragLeave={handleDragLeave}
+                onDrop={(e) => handleDrop(e, 'response')}
+                onClick={() => responseInputRef.current?.click()}
+                role="button"
+                tabIndex={0}
+              >
+                <input
+                  ref={responseInputRef}
+                  type="file"
+                  multiple
+                  accept=".pdf,.docx,.txt"
+                  onChange={(e) => handleFileSelect(e, 'response')}
+                  style={{ display: 'none' }}
+                  key={`response-${mode}`}
+                />
+                <p className="grader-dropzone-title">Drop files here, or click to browse</p>
+                <p className="grader-dropzone-hint">PDF, DOCX, or TXT · up to 100MB each</p>
+              </div>
+              {responseFiles.files.length > 0 && (
+                <ul className="grader-files">
+                  {responseFiles.files.map((file, idx) => (
+                    <li className="grader-file" key={`${file.name}-${idx}`}>
+                      <span className="grader-file-info">
+                        <span className="grader-file-name">{file.name}</span>
+                        <span className="grader-file-size">{formatFileSize(file.size)}</span>
+                      </span>
+                      <button type="button" className="grader-file-remove" onClick={() => removeFile('response', idx)}>
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
           {submitStatus && (
-            <div className={`p-4 rounded-lg ${
-              submitStatus.type === 'success'
-                ? 'bg-green-900/30 border border-green-700 text-green-400'
-                : 'bg-red-900/30 border border-red-700 text-red-400'
-            }`}>
+            <div className={`grader-status ${submitStatus.type === 'success' ? 'is-success' : 'is-error'}`}>
               {submitStatus.message}
             </div>
           )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={!isFormValid() || isSubmitting}
-            className={`w-full py-6 rounded-lg font-bold uppercase tracking-widest text-lg transition-all duration-300 ${
-              isFormValid() && !isSubmitting
-                ? 'bg-gradient-to-r from-neon-purple to-neon-blue text-white hover:shadow-lg hover:shadow-neon-purple/50'
-                : 'bg-gray-800 text-gray-600 cursor-not-allowed'
-            }`}
-          >
-            {isSubmitting ? 'Processing...' : 'Submit for Grading'}
-          </button>
-
-          {/* Info Text */}
-          <div className="text-center text-sm text-gray-500 space-y-2">
-            <p>Your documents will be analyzed using advanced AI.</p>
-            <p>Results typically arrive within 5-10 minutes via email.</p>
+          <div className="grader-submit-row">
+            <p className="grader-help">Submission is processed asynchronously. Expect results within a few minutes.</p>
+            <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting || !isFormValid()}>
+              {isSubmitting ? 'Submitting…' : 'Submit for grading →'}
+            </button>
           </div>
         </form>
       </div>

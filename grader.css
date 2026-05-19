@@ -1,0 +1,244 @@
+/* ============================================================================
+   RFP Grader — grader-specific styles built on v15 tokens
+   ============================================================================ */
+
+.grader-page {
+  min-height: 100vh;
+}
+
+.grader-section {
+  padding: 96px 0 80px;
+}
+
+.grader-header {
+  margin-bottom: 48px;
+  text-align: center;
+}
+.grader-header .section-eyebrow {
+  justify-content: center;
+}
+.grader-header h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 4.6vw, 56px);
+  line-height: 1.06;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: #fff;
+  margin: 0 auto 18px;
+  max-width: 760px;
+  text-wrap: balance;
+}
+.grader-header .lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Form container — matches contact-form aesthetic */
+.grader-form {
+  display: grid;
+  gap: 28px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.grader-field {
+  display: grid;
+  gap: 10px;
+}
+
+.grader-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.grader-help {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.grader-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 14px;
+  transition: border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard);
+}
+.grader-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+}
+.grader-input::placeholder { color: var(--text-dim); }
+
+/* Mode toggle */
+.grader-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .grader-mode { grid-template-columns: 1fr; }
+}
+.grader-mode-btn {
+  text-align: left;
+  padding: 18px 20px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color var(--dur-base) var(--ease-standard), background var(--dur-base) var(--ease-standard);
+}
+.grader-mode-btn:hover {
+  border-color: var(--border-accent);
+  background: var(--surface-subtle);
+}
+.grader-mode-btn.is-active {
+  border-color: var(--accent-primary);
+  background: rgba(167, 139, 250, 0.06);
+  box-shadow: var(--shadow-accent);
+}
+.grader-mode-btn .mode-title {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+.grader-mode-btn .mode-desc {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Drag-drop zone */
+.grader-dropzone {
+  border: 1.5px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--surface-base);
+  transition: border-color var(--dur-base) var(--ease-standard), background var(--dur-base) var(--ease-standard);
+}
+.grader-dropzone:hover {
+  border-color: var(--border-accent);
+}
+.grader-dropzone.is-dragging {
+  border-color: var(--accent-primary);
+  background: rgba(167, 139, 250, 0.06);
+}
+.grader-dropzone-title {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+.grader-dropzone-hint {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* File list */
+.grader-files {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.grader-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+.grader-file-info {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.grader-file-name {
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.grader-file-size {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+.grader-file-remove {
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: color var(--dur-base) var(--ease-standard), border-color var(--dur-base) var(--ease-standard);
+}
+.grader-file-remove:hover {
+  color: var(--status-error-fg);
+  border-color: var(--status-error-fg);
+}
+
+/* Submit row */
+.grader-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.grader-submit-row .btn-primary { min-width: 200px; justify-content: center; }
+.grader-submit-row .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Status */
+.grader-status {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.grader-status.is-success {
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(52, 211, 153, 0.06);
+  color: var(--status-success-fg);
+}
+.grader-status.is-error {
+  border-color: rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.06);
+  color: var(--status-error-fg);
+}
