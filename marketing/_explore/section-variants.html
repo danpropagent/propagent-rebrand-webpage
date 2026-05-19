@@ -618,6 +618,232 @@
       font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary);
       letter-spacing: 0.04em;
     }
+
+    /* ============================================================
+       A5 — STRESS CURVE
+       ============================================================ */
+    .sx-wrap { max-width: 1000px; margin: 0 auto; }
+    .sx-head { text-align: center; margin-bottom: 36px; }
+    .sx-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .sx-chart {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+    }
+    .sx-chart svg { width: 100%; height: auto; display: block; }
+    .sx-legend { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-subtle); }
+    .sx-legend-item { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--text-secondary); }
+    .sx-legend-line { width: 24px; height: 2px; }
+    .sx-legend-line.them { background: var(--status-error-fg); }
+    .sx-legend-line.us { background: var(--accent-primary); }
+    .sx-caption { margin-top: 20px; text-align: center; color: var(--text-secondary); font-family: var(--font-serif); font-style: italic; font-size: 15px; line-height: 1.55; }
+
+    /* ============================================================
+       A9 — 4AM TEXT EXCHANGE
+       ============================================================ */
+    .tx-wrap { max-width: 1000px; margin: 0 auto; }
+    .tx-head { text-align: center; margin-bottom: 36px; }
+    .tx-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .tx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    @media (max-width: 768px) { .tx-grid { grid-template-columns: 1fr; } }
+    .tx-phone {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: 20px; padding: 18px 16px;
+      display: flex; flex-direction: column;
+    }
+    .tx-phone.us { border-color: var(--border-accent); background: linear-gradient(180deg, rgba(167,139,250,0.04), var(--surface-raised) 80%); }
+    .tx-phone-head { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 0 14px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 14px; }
+    .tx-phone-time { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; }
+    .tx-phone.them .tx-phone-time { color: var(--status-error-fg); }
+    .tx-phone.us .tx-phone-time { color: var(--accent-primary); }
+    .tx-phone-meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; }
+    .tx-msg { padding: 9px 14px; border-radius: 16px; max-width: 78%; font-size: 13px; line-height: 1.45; margin-bottom: 8px; }
+    .tx-msg.from { align-self: flex-start; background: var(--surface-overlay); color: var(--text-primary); border: 1px solid var(--border-subtle); }
+    .tx-msg.to { align-self: flex-end; background: rgba(167,139,250,0.12); color: var(--text-primary); border: 1px solid var(--border-accent); }
+    .tx-sender {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em;
+      color: var(--text-muted); margin: 8px 0 4px;
+    }
+    .tx-sender.right { align-self: flex-end; }
+    .tx-empty {
+      text-align: center; padding: 60px 24px 30px; flex: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .tx-empty-icon { font-family: var(--font-serif); font-size: 56px; color: var(--accent-primary); opacity: 0.4; margin-bottom: 8px; }
+    .tx-empty p { font-family: var(--font-serif); font-style: italic; color: var(--text-primary); font-size: 16px; line-height: 1.5; margin: 0; max-width: 280px; }
+    .tx-empty-note { font-family: var(--font-mono); font-size: 11px; color: var(--accent-primary); letter-spacing: 0.06em; margin-top: 14px; }
+
+    /* ============================================================
+       A11 — BUYER'S PAIN (reviewer/procurement voice)
+       ============================================================ */
+    .bp-wrap { max-width: 1100px; margin: 0 auto; }
+    .bp-head { text-align: center; margin-bottom: 40px; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .bp-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 14px; line-height: 1.15; letter-spacing: -0.01em; }
+    .bp-head p { color: var(--text-secondary); font-size: 15px; line-height: 1.55; margin: 0; }
+    .bp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .bp-quote-card {
+      padding: 28px 26px;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .bp-quote {
+      font-family: var(--font-serif); font-style: italic; font-size: 19px;
+      line-height: 1.45; color: var(--text-primary); margin: 0;
+      text-wrap: balance;
+    }
+    .bp-quote .mark { color: var(--accent-primary); font-style: italic; font-weight: 500; }
+    .bp-attr {
+      display: flex; gap: 12px; align-items: center;
+      padding-top: 16px; border-top: 1px solid var(--border-subtle);
+    }
+    .bp-attr-avatar {
+      width: 36px; height: 36px; border-radius: 999px;
+      background: var(--surface-overlay); border: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary);
+      letter-spacing: 0.04em; flex-shrink: 0;
+    }
+    .bp-attr-meta { display: flex; flex-direction: column; gap: 2px; }
+    .bp-attr-name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+    .bp-attr-role { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+    /* ============================================================
+       B6 — COMPOUNDING FLYWHEEL
+       ============================================================ */
+    .fw-wrap { max-width: 1100px; margin: 0 auto; }
+    .fw-head { text-align: center; margin-bottom: 40px; }
+    .fw-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .fw-chart {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+    }
+    .fw-chart svg { width: 100%; height: auto; display: block; }
+    .fw-axis-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; }
+    .fw-legend { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-top: 16px; padding-top: 18px; border-top: 1px solid var(--border-subtle); }
+    .fw-legend-item { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--text-secondary); }
+    .fw-legend-line { width: 24px; height: 2px; }
+    .fw-legend-line.them { background: var(--status-error-fg); }
+    .fw-legend-line.us { background: var(--accent-primary); }
+
+    /* ============================================================
+       B12 — OUTPUT ARTIFACT COMPARISON
+       ============================================================ */
+    .oa-wrap { max-width: 1180px; margin: 0 auto; }
+    .oa-head { text-align: center; margin-bottom: 40px; }
+    .oa-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .oa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 768px) { .oa-grid { grid-template-columns: 1fr; } }
+    .oa-doc {
+      background: #FAF7F0; color: #2a2622;
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 14px; line-height: 1.65;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .oa-doc-tag {
+      position: absolute; top: -12px; left: 20px;
+      padding: 5px 12px; border-radius: 999px;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .oa-doc.them .oa-doc-tag { background: rgba(248,113,113,0.15); color: var(--status-error-fg); border: 1px solid rgba(248,113,113,0.4); }
+    .oa-doc.us .oa-doc-tag { background: rgba(167,139,250,0.15); color: var(--accent-primary); border: 1px solid var(--border-accent); }
+    .oa-doc-head {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #8a7e6e; margin: 8px 0 4px;
+    }
+    .oa-doc-title {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 17px; font-weight: 600; color: #2a2622;
+      margin: 0 0 14px; padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .oa-doc p { margin: 0 0 12px; }
+    .oa-cite {
+      display: inline-block;
+      padding: 1px 6px; margin: 0 2px;
+      font-family: var(--font-mono); font-size: 10px;
+      background: rgba(99, 102, 241, 0.15); color: #4338ca;
+      border-radius: 4px; vertical-align: 1px;
+      letter-spacing: 0.04em;
+    }
+    .oa-anno {
+      display: flex; gap: 12px; padding: 10px 14px; margin-top: 16px;
+      background: var(--surface-glass); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);
+      letter-spacing: 0.02em; line-height: 1.5;
+    }
+    .oa-anno-tag { color: var(--text-muted); flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.06em; }
+    .oa-doc.us + .oa-anno-pair .oa-anno-tag,
+    .oa-anno-pair.us .oa-anno-tag { color: var(--accent-primary); }
+    .oa-anno-pair { display: flex; flex-direction: column; }
+
+    /* ============================================================
+       B13 — REVIEWER'S VIEW
+       ============================================================ */
+    .rv-wrap { max-width: 1180px; margin: 0 auto; }
+    .rv-head { text-align: center; margin-bottom: 40px; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .rv-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 14px; line-height: 1.15; letter-spacing: -0.01em; }
+    .rv-head p { color: var(--text-secondary); font-size: 15px; line-height: 1.55; margin: 0; }
+    .rv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 768px) { .rv-grid { grid-template-columns: 1fr; } }
+    .rv-screen {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .rv-screen.us { border-color: var(--border-accent); }
+    .rv-screen-chrome {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; background: var(--surface-overlay);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .rv-screen-dot { width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.15); }
+    .rv-screen-url {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      margin-left: 8px; flex: 1;
+      letter-spacing: 0.02em;
+    }
+    .rv-screen-body { padding: 24px 22px; }
+    .rv-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; display: block; }
+    .rv-screen.them .rv-tag { color: var(--status-error-fg); }
+    .rv-screen.us .rv-tag { color: var(--accent-primary); }
+    .rv-mockup-pdf {
+      background: #f5f1e8; color: #2a2622; padding: 16px;
+      border-radius: var(--radius-md);
+      font-family: Georgia, "Source Serif 4", serif;
+      font-size: 11px; line-height: 1.5; max-height: 240px; overflow: hidden; position: relative;
+    }
+    .rv-mockup-pdf::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+      background: linear-gradient(180deg, transparent, #f5f1e8);
+    }
+    .rv-mockup-pdf-title { font-weight: 600; margin-bottom: 8px; font-size: 12px; }
+    .rv-mockup-pdf p { margin: 0 0 6px; }
+    .rv-mockup-pdf .pn { float: right; font-family: var(--font-mono); font-size: 9px; color: #8a7e6e; }
+    .rv-mockup-summary {
+      background: var(--surface-overlay); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: 16px;
+    }
+    .rv-summary-title { font-size: 13px; color: var(--text-primary); margin-bottom: 6px; font-weight: 500; }
+    .rv-summary-line { padding: 6px 0; border-top: 1px solid var(--border-subtle); display: flex; gap: 8px; font-size: 12px; line-height: 1.45; }
+    .rv-summary-line:first-of-type { border-top: none; padding-top: 4px; }
+    .rv-summary-line-mark {
+      font-family: var(--font-mono); font-size: 10px; color: var(--accent-primary);
+      flex-shrink: 0; padding: 1px 5px; background: rgba(167,139,250,0.10);
+      border-radius: 3px; height: max-content;
+      letter-spacing: 0.04em;
+    }
+    .rv-summary-line-text { color: var(--text-secondary); }
+    .rv-meta { display: flex; gap: 16px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
+    .rv-meta-block { flex: 1; }
+    .rv-meta-num { font-family: var(--font-mono); font-size: 18px; font-weight: 500; }
+    .rv-screen.them .rv-meta-num { color: var(--status-error-fg); }
+    .rv-screen.us .rv-meta-num { color: var(--accent-primary); }
+    .rv-meta-lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -625,7 +851,7 @@
 
   <div class="explore-hero">
     <h1>Section explorations</h1>
-    <p>Twelve high-fidelity directions for two sections of v18 — six takes on the before/after, six on the wedge. Each variant is rendered as it would look in place, against the live v18 design tokens. Scroll, compare, tell me which ones to develop further and which to kill.</p>
+    <p>Eighteen high-fidelity directions for two sections of v18 — nine takes on the before/after, nine on the wedge. Each variant is rendered as it would look in place, against the live v18 design tokens. Scroll, compare, tell me which ones to develop further and which to kill.</p>
   </div>
 
   <nav class="explore-nav">
@@ -636,8 +862,11 @@
         <a href="#a2">A2 14-day clock</a>
         <a href="#a3">A3 Crunch funnel</a>
         <a href="#a4">A4 Symptom catalog</a>
+        <a href="#a5">A5 Stress curve</a>
         <a href="#a6">A6 Cost ledger</a>
         <a href="#a8">A8 Capability gap</a>
+        <a href="#a9">A9 4am text exchange</a>
+        <a href="#a11">A11 Buyer's pain</a>
       </div>
       <div class="explore-nav-group">
         <span class="explore-nav-label">vs Response Tools:</span>
@@ -646,7 +875,10 @@
         <a href="#b3">B3 5-phase unpacker</a>
         <a href="#b4">B4 Two-pane scoreboard</a>
         <a href="#b5">B5 Time/value table</a>
+        <a href="#b6">B6 Compounding flywheel</a>
         <a href="#b7">B7 Tool sprawl</a>
+        <a href="#b12">B12 Output artifact</a>
+        <a href="#b13">B13 Reviewer's view</a>
       </div>
     </div>
   </nav>
@@ -656,7 +888,7 @@
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section A · 6 variants</span>
+      <span>Section A · 9 variants</span>
       <h2>From RFP To Response</h2>
     </div>
 
@@ -1225,14 +1457,232 @@
       </div>
     </article>
 
+    <!-- ============================================================
+         A5 — STRESS CURVE
+         ============================================================ -->
+    <article class="variant" id="a5">
+      <div class="variant-label">
+        <span class="variant-label-tag">A5</span>
+        <h3>Stress curve</h3>
+        <p>Line chart of pursuit-week stress level. Today: rises to peak at D-14. Propagent: short spike at D-1, drops, stays low.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="sx-wrap">
+          <div class="sx-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>What a pursuit week feels like.</h2>
+          </div>
+
+          <div class="sx-chart">
+            <svg viewBox="0 0 800 360" aria-label="Stress curve over 14 days. Today rises sharply at end; Propagent spikes at start then drops.">
+              <!-- chart frame -->
+              <rect x="60" y="40" width="700" height="260" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+              <!-- horizontal grid lines (stress levels) -->
+              <line x1="60" y1="100" x2="760" y2="100" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 4"/>
+              <line x1="60" y1="170" x2="760" y2="170" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 4"/>
+              <line x1="60" y1="240" x2="760" y2="240" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 4"/>
+
+              <!-- y-axis labels (stress level) -->
+              <g font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="0.06em" text-anchor="end">
+                <text x="50" y="304">CALM</text>
+                <text x="50" y="244">·</text>
+                <text x="50" y="174">·</text>
+                <text x="50" y="104">·</text>
+                <text x="50" y="46">PEAK</text>
+              </g>
+
+              <!-- x-axis labels (days) -->
+              <g font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="0.06em" text-anchor="middle">
+                <text x="60"  y="324">D-14</text>
+                <text x="160" y="324">D-12</text>
+                <text x="260" y="324">D-10</text>
+                <text x="360" y="324">D-8</text>
+                <text x="460" y="324">D-6</text>
+                <text x="560" y="324">D-4</text>
+                <text x="660" y="324">D-2</text>
+                <text x="760" y="324">D-0</text>
+              </g>
+
+              <!-- TODAY curve: flat-low through day 6, then sharp rise to peak at D-14 -->
+              <path d="M 60 280 L 160 278 L 260 274 L 360 268 L 460 244 L 510 215 L 560 175 L 610 130 L 660 90 L 710 65 L 760 50"
+                    stroke="var(--status-error-fg)" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <!-- shadow under today -->
+              <path d="M 60 280 L 160 278 L 260 274 L 360 268 L 460 244 L 510 215 L 560 175 L 610 130 L 660 90 L 710 65 L 760 50 L 760 300 L 60 300 Z"
+                    fill="rgba(248,113,113,0.08)"/>
+
+              <!-- PROPAGENT curve: small spike at D-13/D-14 (start) then drops fast, stays low -->
+              <path d="M 60 280 L 90 220 L 110 180 L 140 200 L 180 240 L 240 270 L 320 285 L 420 290 L 520 290 L 620 288 L 720 286 L 760 285"
+                    stroke="var(--accent-primary)" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <!-- shadow under Propagent -->
+              <path d="M 60 280 L 90 220 L 110 180 L 140 200 L 180 240 L 240 270 L 320 285 L 420 290 L 520 290 L 620 288 L 720 286 L 760 285 L 760 300 L 60 300 Z"
+                    fill="rgba(167,139,250,0.05)"/>
+
+              <!-- annotation: peak today -->
+              <circle cx="760" cy="50" r="5" fill="var(--status-error-fg)"/>
+              <text x="752" y="40" font-family="JetBrains Mono" font-size="10" fill="var(--status-error-fg)" text-anchor="end" letter-spacing="0.04em">SUBMIT-NIGHT PEAK</text>
+
+              <!-- annotation: Propagent crest at start -->
+              <circle cx="110" cy="180" r="5" fill="var(--accent-primary)"/>
+              <text x="118" y="172" font-family="JetBrains Mono" font-size="10" fill="var(--accent-primary)" letter-spacing="0.04em">D-1 INTENSITY</text>
+
+              <!-- annotation: Propagent flat zone -->
+              <text x="420" y="278" font-family="Fraunces" font-size="13" font-style="italic" fill="rgba(167,139,250,0.7)" text-anchor="middle">— done by D-3, breathing room after —</text>
+            </svg>
+
+            <div class="sx-legend">
+              <div class="sx-legend-item"><span class="sx-legend-line them"></span>Today — stress rises through the week, peaks on submit night</div>
+              <div class="sx-legend-item"><span class="sx-legend-line us"></span>Propagent — focused intensity early, breathing room after</div>
+            </div>
+          </div>
+
+          <p class="sx-caption">Same fourteen days. Different curve. The team carries less the second week of a pursuit than the first — instead of the inverse.</p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A9 — 4AM TEXT EXCHANGE
+         ============================================================ -->
+    <article class="variant" id="a9">
+      <div class="variant-label">
+        <span class="variant-label-tag">A9</span>
+        <h3>4am text exchange</h3>
+        <p>Chat-UI mockup. Real-feeling late-night messages on the day before submit. The right side: the same window, empty.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="tx-wrap">
+          <div class="tx-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>The messages a pursuit team should never have to send.</h2>
+          </div>
+
+          <div class="tx-grid">
+
+            <!-- TODAY column — real 4am chat -->
+            <div class="tx-phone them">
+              <div class="tx-phone-head">
+                <span class="tx-phone-time">4:14 AM · Wednesday</span>
+                <span class="tx-phone-meta">Day 13 of 14 · the night before submit</span>
+              </div>
+
+              <span class="tx-sender">PM</span>
+              <div class="tx-msg from">Are you up?</div>
+
+              <span class="tx-sender right">Capture</span>
+              <div class="tx-msg to">unfortunately</div>
+
+              <span class="tx-sender">PM</span>
+              <div class="tx-msg from">Did you ever get the energy answers from Mike?</div>
+
+              <span class="tx-sender right">Capture</span>
+              <div class="tx-msg to">He's on PTO. Last email said "tied up till Monday"</div>
+
+              <span class="tx-sender">PM</span>
+              <div class="tx-msg from">Submit is in 11 hours. Section 4.3 needs his sign-off</div>
+
+              <span class="tx-sender right">Capture</span>
+              <div class="tx-msg to">I'll write something. We'll mark it draft language</div>
+
+              <span class="tx-sender">PM</span>
+              <div class="tx-msg from">Hold on past performance binder — the Tacoma project, is that the right one or last year's?</div>
+
+              <span class="tx-sender right">Capture</span>
+              <div class="tx-msg to">…checking. Don't know honestly. Going with what's in the deck.</div>
+            </div>
+
+            <!-- PROPAGENT column — empty -->
+            <div class="tx-phone us">
+              <div class="tx-phone-head">
+                <span class="tx-phone-time">4:14 AM · Wednesday</span>
+                <span class="tx-phone-meta">Day 13 of 14 · the night before submit</span>
+              </div>
+
+              <div class="tx-empty">
+                <div class="tx-empty-icon">⋯</div>
+                <p>No messages overnight. The proposal was complete by 4pm Day 13. Everyone slept.</p>
+                <span class="tx-empty-note">Last team message: 4:02 PM yesterday — "Submitted."</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A11 — BUYER'S PAIN (reviewer/procurement voice)
+         ============================================================ -->
+    <article class="variant" id="a11">
+      <div class="variant-label">
+        <span class="variant-label-tag">A11</span>
+        <h3>Buyer's pain</h3>
+        <p>Flips the POV. What the procurement reviewer sees on their end when 12 firms ship the same generic copy. The pain isn't only ours.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="bp-wrap">
+          <div class="bp-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>The other side of the deadline.</h2>
+            <p>Pursuit pain isn't only felt inside the firm. The procurement reviewer reads twelve proposals — and most of them sound exactly the same.</p>
+          </div>
+
+          <div class="bp-grid">
+
+            <div class="bp-quote-card">
+              <p class="bp-quote">"I read twelve proposals last cycle. Eight of them used the same three stock photos and the same four case studies. <span class="mark">I couldn't tell them apart.</span> The two that won were the two that clearly wrote for our project."</p>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">PO</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Procurement officer</span>
+                  <span class="bp-attr-role">Public-sector capital project · $24M</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bp-quote-card">
+              <p class="bp-quote">"The boilerplate is so obvious now. If a section reads like it was lifted from last year's bid, <span class="mark">it costs you points.</span> We can see when nothing in the response was actually written for us."</p>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">EV</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Evaluator</span>
+                  <span class="bp-attr-role">University capital projects committee</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bp-quote-card">
+              <p class="bp-quote">"I asked one firm to summarize their differentiator in three sentences. They couldn't. Their entire proposal was generic past-performance and stock content. <span class="mark">If you can't say what you do for this job, why are you bidding on it?</span>"</p>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">DD</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Owner's rep</span>
+                  <span class="bp-attr-role">Healthcare developer · $80M build-out</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="cg-thesis" style="margin-top: 36px;">Generic proposals don't just cost the firm — they cost the buyer their time and their faith in the process. Propagent makes responses that read like they were built for this RFP, because they were.</p>
+        </div>
+
+      </div>
+    </article>
+
   </section>
 
   <!-- ============================================================
-       SECTION B — VS Response Tools (6 variants)
+       SECTION B — VS Response Tools (9 variants)
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section B · 6 variants</span>
+      <span>Section B · 9 variants</span>
       <h2>VS Response Tools</h2>
     </div>
 
@@ -1652,6 +2102,237 @@
                 <h4>Propagent</h4>
                 <p>One omnichannel system that runs the full pursuit lifecycle — Find through Compound — and keeps every artifact connected to every other one.</p>
                 <div class="ts-coverage">9 capabilities · 1 surface · 0 handoffs</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B6 — COMPOUNDING FLYWHEEL
+         ============================================================ -->
+    <article class="variant" id="b6">
+      <div class="variant-label">
+        <span class="variant-label-tag">B6</span>
+        <h3>Compounding flywheel</h3>
+        <p>Win-rate over pursuit count. Response tools: flat line — every pursuit starts from zero. Propagent: climbing curve — each pursuit sharpens the next.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="fw-wrap">
+          <div class="fw-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>Response tools forget. <span class="text-agent-gradient">Propagent compounds.</span></h2>
+          </div>
+
+          <div class="fw-chart">
+            <svg viewBox="0 0 800 340" aria-label="Win rate over pursuit count. Response tools stay flat; Propagent climbs.">
+              <!-- chart frame -->
+              <rect x="60" y="40" width="700" height="240" fill="none" stroke="rgba(255,255,255,0.08)"/>
+
+              <!-- grid lines -->
+              <line x1="60" y1="100" x2="760" y2="100" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 4"/>
+              <line x1="60" y1="160" x2="760" y2="160" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 4"/>
+              <line x1="60" y1="220" x2="760" y2="220" stroke="rgba(255,255,255,0.04)" stroke-dasharray="2 4"/>
+
+              <!-- y-axis labels (win rate %) -->
+              <g font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="0.06em" text-anchor="end">
+                <text x="50" y="284">15%</text>
+                <text x="50" y="224">25%</text>
+                <text x="50" y="164">35%</text>
+                <text x="50" y="104">45%</text>
+                <text x="50" y="46">55%</text>
+              </g>
+              <text x="22" y="160" font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="0.06em" transform="rotate(-90 22 160)" text-anchor="middle">WIN RATE</text>
+
+              <!-- x-axis labels (pursuit count) -->
+              <g font-family="JetBrains Mono" font-size="10" fill="rgba(255,255,255,0.5)" letter-spacing="0.06em" text-anchor="middle">
+                <text x="60"  y="306">PURSUIT 1</text>
+                <text x="200" y="306">PURSUIT 10</text>
+                <text x="340" y="306">PURSUIT 25</text>
+                <text x="480" y="306">PURSUIT 50</text>
+                <text x="620" y="306">PURSUIT 100</text>
+                <text x="760" y="306">PURSUIT 200</text>
+              </g>
+
+              <!-- RESPONSE TOOLS line — flat with light noise -->
+              <path d="M 60 260 L 130 258 L 200 261 L 270 257 L 340 260 L 410 258 L 480 261 L 550 259 L 620 260 L 690 258 L 760 261"
+                    stroke="var(--status-error-fg)" stroke-width="2" fill="none"/>
+              <text x="752" y="246" font-family="JetBrains Mono" font-size="10" fill="var(--status-error-fg)" text-anchor="end" letter-spacing="0.04em">~22% · FLAT</text>
+
+              <!-- dots on Response tools line -->
+              <g fill="var(--status-error-fg)">
+                <circle cx="60"  cy="260" r="4"/>
+                <circle cx="200" cy="261" r="4"/>
+                <circle cx="340" cy="260" r="4"/>
+                <circle cx="480" cy="261" r="4"/>
+                <circle cx="620" cy="260" r="4"/>
+                <circle cx="760" cy="261" r="4"/>
+              </g>
+
+              <!-- PROPAGENT line — climbing curve, plateaus near 55% -->
+              <path d="M 60 260 Q 130 245 200 220 Q 270 195 340 160 Q 410 130 480 95 Q 550 75 620 65 Q 690 60 760 58"
+                    stroke="var(--accent-primary)" stroke-width="2.5" fill="none"/>
+              <text x="752" y="44" font-family="JetBrains Mono" font-size="10" fill="var(--accent-primary)" text-anchor="end" letter-spacing="0.04em">~50%+ · COMPOUNDING</text>
+
+              <!-- dots on Propagent line -->
+              <g fill="var(--accent-primary)">
+                <circle cx="60"  cy="260" r="5"/>
+                <circle cx="200" cy="220" r="5"/>
+                <circle cx="340" cy="160" r="5"/>
+                <circle cx="480" cy="95"  r="5"/>
+                <circle cx="620" cy="65"  r="5"/>
+                <circle cx="760" cy="58"  r="5"/>
+              </g>
+
+              <!-- annotation: feedback loop indicator -->
+              <text x="410" y="190" font-family="Fraunces" font-style="italic" font-size="14" fill="rgba(167,139,250,0.8)" text-anchor="middle">— each pursuit feeds the next —</text>
+            </svg>
+
+            <div class="fw-legend">
+              <div class="fw-legend-item"><span class="fw-legend-line them"></span>Response tools — each pursuit independent, no learning carried forward</div>
+              <div class="fw-legend-item"><span class="fw-legend-line us"></span>Propagent — pursuit memory compounds; win-rate climbs by design</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B12 — OUTPUT ARTIFACT COMPARISON
+         ============================================================ -->
+    <article class="variant" id="b12">
+      <div class="variant-label">
+        <span class="variant-label-tag">B12</span>
+        <h3>Output artifact</h3>
+        <p>The actual paragraph each tool produces. Left: generic, no citations. Right: same content, every claim provenance-linked. Quality at the artifact level.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="oa-wrap">
+          <div class="oa-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>The same paragraph, different defensibility.</h2>
+          </div>
+
+          <div class="oa-grid">
+
+            <!-- THEM artifact -->
+            <div>
+              <div class="oa-doc them">
+                <span class="oa-doc-tag">Response tool · drafted</span>
+                <div class="oa-doc-head">SECTION 4.3 · Past performance</div>
+                <div class="oa-doc-title">Demonstrated capacity on capital projects</div>
+                <p>Our firm has decades of experience delivering complex capital projects on time and under budget. We have completed numerous projects of similar scope and have built strong relationships with stakeholders in the public sector.</p>
+                <p>Our project teams bring the right mix of technical expertise and management discipline to ensure successful outcomes. We are committed to quality, transparency, and value.</p>
+              </div>
+              <div class="oa-anno"><span class="oa-anno-tag">FLAG</span><span>Zero citations. "Decades," "numerous," "complex," "successful" — generic claims with no evidence the reviewer can verify.</span></div>
+            </div>
+
+            <!-- US artifact -->
+            <div>
+              <div class="oa-doc us">
+                <span class="oa-doc-tag">Propagent · drafted</span>
+                <div class="oa-doc-head">SECTION 4.3 · Past performance</div>
+                <div class="oa-doc-title">Demonstrated capacity on capital projects</div>
+                <p>Our firm has delivered <strong>34 capital projects of $15M+ in the last five years <span class="oa-cite">PP-Portfolio-§A</span></strong>, including <strong>11 in the same public-sector procurement category as this RFP <span class="oa-cite">RFP-§2.1</span> <span class="oa-cite">PP-2024-08</span></strong>. <strong>87% delivered on or ahead of schedule <span class="oa-cite">FA-OS-2024</span></strong>; <strong>92% on or under approved budget <span class="oa-cite">FA-CST-2024</span></strong>.</p>
+                <p>The proposed team has worked together on <strong>three projects of comparable scope <span class="oa-cite">PP-2023-11</span> <span class="oa-cite">PP-2024-02</span> <span class="oa-cite">PP-2024-08</span></strong>, with the named principal serving as PIC on each <span class="oa-cite">SOQ-§4.2</span>.</p>
+              </div>
+              <div class="oa-anno"><span class="oa-anno-tag" style="color: var(--accent-primary);">PROVENANCE</span><span>Every claim links to a source: portfolio doc, RFP requirement, financial audit, or signed SOQ. The reviewer can verify by clicking through.</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B13 — REVIEWER'S VIEW
+         ============================================================ -->
+    <article class="variant" id="b13">
+      <div class="variant-label">
+        <span class="variant-label-tag">B13</span>
+        <h3>Reviewer's view</h3>
+        <p>What the procurement reviewer literally sees on their screen with each tool's output. Hours of reading vs minutes of provenance check.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="rv-wrap">
+          <div class="rv-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>What lands on the reviewer's screen.</h2>
+            <p>Reviewers have minutes per proposal, not hours. The shape of the output matters as much as its content.</p>
+          </div>
+
+          <div class="rv-grid">
+
+            <div class="rv-screen them">
+              <div class="rv-screen-chrome">
+                <span class="rv-screen-dot"></span><span class="rv-screen-dot"></span><span class="rv-screen-dot"></span>
+                <span class="rv-screen-url">file:///proposals/firm-A/response.pdf</span>
+              </div>
+              <div class="rv-screen-body">
+                <span class="rv-tag">Response tool output</span>
+                <div class="rv-mockup-pdf">
+                  <div class="rv-mockup-pdf-title">SECTION 1 · EXECUTIVE SUMMARY <span class="pn">1 / 84</span></div>
+                  <p>Our firm is pleased to submit this response to the Request for Proposal for capital project services. We have reviewed the requirements carefully and bring decades of experience...</p>
+                  <p>The team proposed for this engagement has the depth and discipline required to deliver against the schedule, budget, and scope...</p>
+                  <p>Our approach to the work integrates lessons from completed projects of similar scope, and we are committed to transparency throughout...</p>
+                  <p>In the sections that follow, we describe our team, methodology, past performance, and approach in detail...</p>
+                </div>
+                <div class="rv-meta">
+                  <div class="rv-meta-block">
+                    <div class="rv-meta-num">84 pages</div>
+                    <div class="rv-meta-lbl">to read</div>
+                  </div>
+                  <div class="rv-meta-block">
+                    <div class="rv-meta-num">0</div>
+                    <div class="rv-meta-lbl">citations to verify</div>
+                  </div>
+                  <div class="rv-meta-block">
+                    <div class="rv-meta-num">~90 min</div>
+                    <div class="rv-meta-lbl">expected read time</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rv-screen us">
+              <div class="rv-screen-chrome">
+                <span class="rv-screen-dot"></span><span class="rv-screen-dot"></span><span class="rv-screen-dot"></span>
+                <span class="rv-screen-url">propagent.ai/review/firm-B</span>
+              </div>
+              <div class="rv-screen-body">
+                <span class="rv-tag">Propagent output</span>
+                <div class="rv-mockup-summary">
+                  <div class="rv-summary-title">Reviewer one-pager · firm B</div>
+                  <div class="rv-summary-line"><span class="rv-summary-line-mark">FIT</span><span class="rv-summary-line-text">11 prior projects in this exact procurement category <span style="color: var(--accent-primary);">[PP-2024-08]</span></span></div>
+                  <div class="rv-summary-line"><span class="rv-summary-line-mark">TEAM</span><span class="rv-summary-line-text">Named PIC has led 3 of the 11; team has co-delivered <span style="color: var(--accent-primary);">[SOQ-§4.2]</span></span></div>
+                  <div class="rv-summary-line"><span class="rv-summary-line-mark">SCHED</span><span class="rv-summary-line-text">87% on-or-ahead delivery, 5-year track <span style="color: var(--accent-primary);">[FA-OS]</span></span></div>
+                  <div class="rv-summary-line"><span class="rv-summary-line-mark">BUDGET</span><span class="rv-summary-line-text">92% on-or-under approved budget <span style="color: var(--accent-primary);">[FA-CST]</span></span></div>
+                  <div class="rv-summary-line"><span class="rv-summary-line-mark">RISK</span><span class="rv-summary-line-text">Two flagged dependencies, both with mitigations <span style="color: var(--accent-primary);">[§7.2]</span></span></div>
+                  <div class="rv-summary-line"><span class="rv-summary-line-mark">FIT</span><span class="rv-summary-line-text">Compliance: 38 / 38 RFP requirements addressed <span style="color: var(--accent-primary);">[CM]</span></span></div>
+                </div>
+                <div class="rv-meta">
+                  <div class="rv-meta-block">
+                    <div class="rv-meta-num">1 page</div>
+                    <div class="rv-meta-lbl">summary</div>
+                  </div>
+                  <div class="rv-meta-block">
+                    <div class="rv-meta-num">6 + 38</div>
+                    <div class="rv-meta-lbl">claims · matrix</div>
+                  </div>
+                  <div class="rv-meta-block">
+                    <div class="rv-meta-num">~6 min</div>
+                    <div class="rv-meta-lbl">to verify, click-through</div>
+                  </div>
+                </div>
               </div>
             </div>
 
