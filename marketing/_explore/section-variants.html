@@ -844,6 +844,342 @@
     .rv-screen.them .rv-meta-num { color: var(--status-error-fg); }
     .rv-screen.us .rv-meta-num { color: var(--accent-primary); }
     .rv-meta-lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
+
+    /* ============================================================
+       FINALIST CARD ACCENT — for refined A1 and B3
+       ============================================================ */
+    .variant.finalist {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 0 1px rgba(167,139,250,0.15), 0 12px 24px -8px rgba(167,139,250,0.18);
+    }
+    .variant.finalist > .variant-label {
+      background: linear-gradient(180deg, rgba(167,139,250,0.08), var(--surface-raised) 80%);
+      border-bottom-color: var(--border-accent);
+    }
+
+    /* ============================================================
+       B3 REFINED — PURSUIT MEMORY BAND
+       ============================================================ */
+    .au-memory-band {
+      margin-top: 18px;
+      padding: 20px 20px 18px;
+      background: linear-gradient(180deg, rgba(167,139,250,0.08), rgba(167,139,250,0.02));
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      position: relative;
+    }
+    .au-memory-band-head {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .au-memory-band-label {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent-primary);
+      padding: 4px 10px; background: rgba(167,139,250,0.10);
+      border: 1px solid var(--border-accent); border-radius: 999px;
+    }
+    .au-memory-band-sub {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .au-memory-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    }
+    @media (max-width: 980px) { .au-memory-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .au-memory-grid { grid-template-columns: 1fr; } }
+    .au-memory-chip {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .au-memory-chip-lbl {
+      font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
+      color: var(--text-muted); text-transform: uppercase;
+    }
+    .au-memory-chip-val {
+      font-size: 13px; color: #fff; font-weight: 500;
+    }
+    .au-memory-chip-eg {
+      font-size: 11px; color: var(--text-secondary); line-height: 1.4;
+      font-style: italic;
+    }
+    .au-loop {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 16px; padding-top: 14px;
+      border-top: 1px dashed var(--border-accent);
+    }
+    .au-loop svg { width: 220px; height: 60px; flex-shrink: 0; }
+    .au-loop-label {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+      color: var(--accent-primary); text-transform: uppercase;
+    }
+
+    /* ============================================================
+       A12 — ONE-LINE PAIRS
+       ============================================================ */
+    .op-wrap { max-width: 900px; margin: 0 auto; }
+    .op-head { text-align: center; margin-bottom: 36px; }
+    .op-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .op-table {
+      width: 100%;
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .op-row {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 16px; padding: 18px 24px; align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .op-row:last-child { border-bottom: none; }
+    @media (max-width: 640px) { .op-row { grid-template-columns: 1fr; gap: 6px; } }
+    .op-then { color: var(--status-error-fg); font-size: 15px; line-height: 1.45; font-family: var(--font-serif); font-style: italic; }
+    .op-arrow { color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .op-now { color: var(--accent-primary); font-size: 15px; line-height: 1.45; font-family: var(--font-serif); font-style: italic; }
+    .op-head-row {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px;
+      padding: 14px 24px; border-bottom: 1px solid var(--border-default); background: var(--surface-overlay);
+    }
+    @media (max-width: 640px) { .op-head-row { display: none; } }
+    .op-head-row span {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .op-head-row span.them { color: var(--status-error-fg); }
+    .op-head-row span.us { color: var(--accent-primary); text-align: right; }
+
+    /* ============================================================
+       A13 — THREE MOMENTS
+       ============================================================ */
+    .tm-wrap { max-width: 1100px; margin: 0 auto; }
+    .tm-head { text-align: center; margin-bottom: 40px; }
+    .tm-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .tm-grid { display: grid; gap: 16px; }
+    .tm-row {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 24px 28px;
+      display: grid; grid-template-columns: 200px 1fr 1fr; gap: 24px; align-items: start;
+    }
+    @media (max-width: 768px) { .tm-row { grid-template-columns: 1fr; gap: 16px; } }
+    .tm-moment {
+      font-family: var(--font-serif); font-size: 20px; color: #fff;
+      font-weight: 500; line-height: 1.25; letter-spacing: -0.005em;
+    }
+    .tm-moment-sub {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px;
+      display: block;
+    }
+    .tm-scene { padding: 14px 16px; border-radius: var(--radius-md); font-size: 14px; line-height: 1.5; }
+    .tm-scene.then { background: rgba(248,113,113,0.05); border: 1px solid rgba(248,113,113,0.2); color: var(--text-primary); }
+    .tm-scene.now { background: rgba(167,139,250,0.05); border: 1px solid var(--border-accent); color: var(--text-primary); }
+    .tm-scene-tag {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase; display: block; margin-bottom: 6px;
+    }
+    .tm-scene.then .tm-scene-tag { color: var(--status-error-fg); }
+    .tm-scene.now .tm-scene-tag { color: var(--accent-primary); }
+
+    /* ============================================================
+       A14 — CALENDAR WEEK
+       ============================================================ */
+    .cw-wrap { max-width: 1100px; margin: 0 auto; }
+    .cw-head { text-align: center; margin-bottom: 36px; }
+    .cw-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .cw-row {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px;
+    }
+    .cw-row.now { border-color: var(--border-accent); background: linear-gradient(180deg, rgba(167,139,250,0.04), var(--surface-raised) 80%); }
+    .cw-row-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); }
+    .cw-row-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+      border: 1px solid currentColor;
+    }
+    .cw-row.then .cw-row-tag { color: var(--status-error-fg); border-color: rgba(248,113,113,0.4); }
+    .cw-row.now .cw-row-tag { color: var(--accent-primary); border-color: var(--border-accent); }
+    .cw-row-stat { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+    .cw-row-stat b { color: var(--text-primary); }
+    .cw-grid {
+      display: grid; grid-template-columns: repeat(14, 1fr); gap: 6px;
+    }
+    @media (max-width: 768px) { .cw-grid { grid-template-columns: repeat(7, 1fr); } }
+    .cw-day {
+      aspect-ratio: 1 / 1.05;
+      background: var(--surface-overlay);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 6px 5px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      font-size: 9px; line-height: 1.2;
+      color: var(--text-muted);
+      overflow: hidden;
+    }
+    .cw-day-num {
+      font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .cw-day-act {
+      font-size: 9px; line-height: 1.2; text-align: left;
+    }
+    .cw-day.empty { opacity: 0.4; }
+    .cw-day.busy-them { background: rgba(248,113,113,0.10); border-color: rgba(248,113,113,0.3); }
+    .cw-day.busy-them .cw-day-act { color: var(--status-error-fg); }
+    .cw-day.crunch { background: rgba(248,113,113,0.20); border-color: rgba(248,113,113,0.5); }
+    .cw-day.crunch .cw-day-act { color: var(--status-error-fg); font-weight: 600; }
+    .cw-day.crunch .cw-day-num { color: var(--status-error-fg); }
+    .cw-day.busy-us { background: rgba(167,139,250,0.12); border-color: var(--border-accent); }
+    .cw-day.busy-us .cw-day-act { color: var(--accent-primary); }
+    .cw-day.busy-us .cw-day-num { color: var(--accent-primary); }
+    .cw-day.smooth { opacity: 0.5; }
+
+    /* ============================================================
+       B14 — WHAT WE CAPTURE (memory inventory)
+       ============================================================ */
+    .mi-wrap { max-width: 1100px; margin: 0 auto; }
+    .mi-head { text-align: center; margin-bottom: 40px; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .mi-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 14px; line-height: 1.15; letter-spacing: -0.01em; }
+    .mi-head p { color: var(--text-secondary); font-size: 15px; line-height: 1.55; margin: 0; }
+    .mi-list {
+      background: var(--surface-raised); border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg); overflow: hidden;
+      background: linear-gradient(180deg, rgba(167,139,250,0.04), var(--surface-raised) 50%);
+    }
+    .mi-row {
+      display: grid; grid-template-columns: 220px 1fr;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: start;
+      gap: 24px;
+    }
+    @media (max-width: 700px) { .mi-row { grid-template-columns: 1fr; gap: 6px; } }
+    .mi-row:last-child { border-bottom: none; }
+    .mi-source {
+      font-family: var(--font-mono); font-size: 12px; color: var(--accent-primary);
+      letter-spacing: 0.04em;
+    }
+    .mi-source-sub {
+      display: block; font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em;
+      margin-top: 2px; font-weight: normal;
+    }
+    .mi-capture {
+      font-size: 14px; color: var(--text-primary); line-height: 1.5;
+    }
+    .mi-capture b { color: #fff; font-weight: 600; }
+    .mi-foot {
+      margin-top: 18px; padding: 14px 18px;
+      background: var(--surface-glass); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.04em; text-align: center;
+    }
+    .mi-foot b { color: var(--accent-primary); }
+
+    /* ============================================================
+       B15 — MEMORY PIPELINE DIAGRAM
+       ============================================================ */
+    .mp-wrap { max-width: 1100px; margin: 0 auto; }
+    .mp-head { text-align: center; margin-bottom: 40px; }
+    .mp-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 0; line-height: 1.15; letter-spacing: -0.01em; }
+    .mp-diagram {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+    }
+    .mp-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .mp-row.inputs { margin-bottom: 18px; }
+    .mp-row.outputs { margin-top: 18px; }
+    .mp-pill {
+      padding: 10px 16px;
+      background: var(--surface-overlay); border: 1px solid var(--border-default);
+      border-radius: 999px;
+      font-size: 13px; color: var(--text-primary);
+    }
+    .mp-pill.input { color: var(--text-secondary); }
+    .mp-pill.output {
+      background: rgba(167,139,250,0.08); border-color: var(--border-accent);
+      color: var(--accent-primary);
+    }
+    .mp-arrows {
+      display: flex; justify-content: center; align-items: center;
+      padding: 8px 0; color: var(--text-muted);
+    }
+    .mp-store {
+      padding: 24px 28px;
+      background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.04));
+      border: 2px solid var(--border-accent); border-radius: var(--radius-lg);
+      margin: 0 auto; max-width: 720px;
+    }
+    .mp-store-head {
+      display: flex; align-items: baseline; justify-content: center; gap: 10px; margin-bottom: 14px;
+    }
+    .mp-store-tag {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent-primary);
+    }
+    .mp-store-sub { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+    .mp-store-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    }
+    @media (max-width: 700px) { .mp-store-grid { grid-template-columns: 1fr; } }
+    .mp-store-cell {
+      padding: 10px 12px; background: var(--surface-raised);
+      border: 1px solid var(--border-accent); border-radius: var(--radius-md);
+      font-size: 12px; color: var(--text-primary); line-height: 1.4;
+    }
+    .mp-store-cell b { color: var(--accent-primary); display: block; font-size: 11px; margin-bottom: 2px; letter-spacing: 0.04em; font-family: var(--font-mono); text-transform: uppercase; }
+    .mp-arrow-down {
+      text-align: center; font-size: 18px; color: var(--accent-primary);
+      margin: 8px 0 2px;
+    }
+
+    /* ============================================================
+       B16 — PURSUIT 50
+       ============================================================ */
+    .p50-wrap { max-width: 1180px; margin: 0 auto; }
+    .p50-head { text-align: center; margin-bottom: 40px; max-width: 720px; margin-left: auto; margin-right: auto; }
+    .p50-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; margin: 14px 0 14px; line-height: 1.15; letter-spacing: -0.01em; }
+    .p50-head p { color: var(--text-secondary); font-size: 15px; line-height: 1.55; margin: 0; }
+    .p50-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 768px) { .p50-grid { grid-template-columns: 1fr; } }
+    .p50-card {
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg); padding: 28px 28px;
+    }
+    .p50-card.us { border-color: var(--border-accent); background: linear-gradient(180deg, rgba(167,139,250,0.05), var(--surface-raised) 70%); }
+    .p50-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 4px; display: block;
+    }
+    .p50-card.them .p50-tag { color: var(--status-error-fg); }
+    .p50-card.us .p50-tag { color: var(--accent-primary); }
+    .p50-card h3 { font-size: 18px; color: #fff; margin: 0 0 22px; font-weight: 500; line-height: 1.3; }
+    .p50-knows-label {
+      font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block;
+    }
+    .p50-fact {
+      padding: 10px 12px; margin-bottom: 6px;
+      background: var(--surface-overlay); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 13px; line-height: 1.45; color: var(--text-primary);
+    }
+    .p50-card.them .p50-fact.empty {
+      color: var(--text-dim); font-style: italic; border-style: dashed;
+    }
+    .p50-card.us .p50-fact b {
+      color: var(--accent-primary); font-weight: 600;
+    }
+    .p50-foot {
+      margin-top: 18px; padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .p50-card.them .p50-foot { color: var(--status-error-fg); }
+    .p50-card.us .p50-foot { color: var(--accent-primary); }
+    .p50-foot b { font-family: var(--font-serif); font-style: italic; text-transform: none; letter-spacing: 0; font-size: 13px; }
   </style>
 </head>
 <body>
@@ -851,14 +1187,14 @@
 
   <div class="explore-hero">
     <h1>Section explorations</h1>
-    <p>Eighteen high-fidelity directions for two sections of v18 — nine takes on the before/after, nine on the wedge. Each variant is rendered as it would look in place, against the live v18 design tokens. Scroll, compare, tell me which ones to develop further and which to kill.</p>
+    <p>Twenty-four directions for two sections of v18 — twelve on the before/after (pain → Propagent counter), twelve on the wedge (complete system + pursuit memory). Two finalists, refined in place: <a href="#a1" style="color: var(--accent-primary);">A1 Pain Tape</a> and <a href="#b3" style="color: var(--accent-primary);">B3 5-phase unpacker (+ memory)</a>. Scroll, compare, tell me which ones to develop further.</p>
   </div>
 
   <nav class="explore-nav">
     <div class="explore-nav-inner">
       <div class="explore-nav-group">
         <span class="explore-nav-label">From RFP to Response:</span>
-        <a href="#a1">A1 Pain Tape</a>
+        <a href="#a1" style="color: var(--accent-primary); border-color: var(--border-accent);">★ A1 Pain Tape</a>
         <a href="#a2">A2 14-day clock</a>
         <a href="#a3">A3 Crunch funnel</a>
         <a href="#a4">A4 Symptom catalog</a>
@@ -867,18 +1203,24 @@
         <a href="#a8">A8 Capability gap</a>
         <a href="#a9">A9 4am text exchange</a>
         <a href="#a11">A11 Buyer's pain</a>
+        <a href="#a12">A12 One-line pairs</a>
+        <a href="#a13">A13 Three moments</a>
+        <a href="#a14">A14 Calendar week</a>
       </div>
       <div class="explore-nav-group">
         <span class="explore-nav-label">vs Response Tools:</span>
         <a href="#b1">B1 Capability matrix</a>
         <a href="#b2">B2 Submit cliff</a>
-        <a href="#b3">B3 5-phase unpacker</a>
+        <a href="#b3" style="color: var(--accent-primary); border-color: var(--border-accent);">★ B3 5-phase + memory</a>
         <a href="#b4">B4 Two-pane scoreboard</a>
         <a href="#b5">B5 Time/value table</a>
         <a href="#b6">B6 Compounding flywheel</a>
         <a href="#b7">B7 Tool sprawl</a>
         <a href="#b12">B12 Output artifact</a>
         <a href="#b13">B13 Reviewer's view</a>
+        <a href="#b14">B14 What we capture</a>
+        <a href="#b15">B15 Memory pipeline</a>
+        <a href="#b16">B16 Pursuit 50</a>
       </div>
     </div>
   </nav>
@@ -888,83 +1230,69 @@
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section A · 9 variants</span>
+      <span>Section A · 12 variants · A1 is the refined finalist</span>
       <h2>From RFP To Response</h2>
     </div>
 
     <!-- ============================================================
-         A1 — PAIN TAPE
+         A1 — PAIN TAPE · REFINED FINALIST
          ============================================================ -->
-    <article class="variant" id="a1">
+    <article class="variant finalist" id="a1">
       <div class="variant-label">
-        <span class="variant-label-tag">A1</span>
+        <span class="variant-label-tag" style="background: rgba(167,139,250,0.18); border-color: var(--accent-primary); color: var(--accent-primary);">★ A1 · Finalist · refined</span>
         <h3>Pain Tape</h3>
-        <p>Operator voices. Pain quotes on the left, Propagent's flip on the right. Pure voice, no timeline.</p>
+        <p>Tightened: 4 pairs (was 5), shorter quotes, dropped the redundant right-side attribution. Reads in 20 seconds.</p>
       </div>
       <div class="variant-body">
 
         <div class="pt-wrap">
           <div class="pt-head">
             <span class="pt-eyebrow">From RFP to response</span>
-            <h2>The unspoken cost of pursuing under deadline.</h2>
+            <h2>The pursuit week, in operators' own words.</h2>
           </div>
 
           <div class="pt-grid">
             <div class="pt-col today">
-              <span class="pt-col-label">What we hear today</span>
+              <span class="pt-col-label">Today</span>
 
               <div class="pt-pair">
-                <p class="pt-quote">"I spotted the RFP six days late. We never had a real shot."</p>
-                <span class="pt-attr">— BD lead, regional architecture firm</span>
+                <p class="pt-quote">"Spotted the RFP six days late. Never had a real shot."</p>
+                <span class="pt-attr">— BD lead</span>
               </div>
 
               <div class="pt-pair">
-                <p class="pt-quote">"Capture wrote the storyline Friday. The PM saw it Monday. By then, the angle had drifted."</p>
-                <span class="pt-attr">— Proposal manager, MEP engineering</span>
+                <p class="pt-quote">"Capture's storyline drifted by the time I picked it up."</p>
+                <span class="pt-attr">— Proposal manager</span>
               </div>
 
               <div class="pt-pair">
-                <p class="pt-quote">"Past performance binder hasn't been touched since 2022. Half the projects we'd lean on aren't even in there."</p>
+                <p class="pt-quote">"Tacoma project? Not even in the past-performance binder."</p>
                 <span class="pt-attr">— Marketing coordinator</span>
               </div>
 
               <div class="pt-pair">
-                <p class="pt-quote">"Engineering lead is on PTO. The compliance matrix has 38 rows. We're choosing between submitting incomplete and chasing him on vacation."</p>
-                <span class="pt-attr">— PM, civil engineering</span>
-              </div>
-
-              <div class="pt-pair">
-                <p class="pt-quote">"Reviewer asked me to summarize the proposal in three lines. They didn't have time to read eighty pages."</p>
-                <span class="pt-attr">— Principal, design-build</span>
+                <p class="pt-quote">"Reviewer asked me to summarize eighty pages in three lines."</p>
+                <span class="pt-attr">— Principal</span>
               </div>
             </div>
 
             <div class="pt-col now">
-              <span class="pt-col-label">What Propagent flips</span>
+              <span class="pt-col-label">With Propagent</span>
 
               <div class="pt-pair">
-                <p class="pt-quote">"Bid Scout flagged it on Day 0. The runway was the full fourteen days."</p>
-                <span class="pt-attr">— Same role, with Propagent</span>
+                <p class="pt-quote">"Flagged Day 0. Full fourteen days on the clock."</p>
               </div>
 
               <div class="pt-pair">
-                <p class="pt-quote">"The storyline lived in the system from first qualification. The PM picked it up where it was, not where it had been."</p>
-                <span class="pt-attr">— Same role, with Propagent</span>
+                <p class="pt-quote">"Storyline lived in the system. Picked it up where it was."</p>
               </div>
 
               <div class="pt-pair">
-                <p class="pt-quote">"Past performance is queried live from project records. Every relevant project, surfaced automatically."</p>
-                <span class="pt-attr">— Same role, with Propagent</span>
+                <p class="pt-quote">"Past performance queried live. Every relevant project, surfaced."</p>
               </div>
 
               <div class="pt-pair">
-                <p class="pt-quote">"Scoped SME questions auto-route by topic. Three answers, not a 38-row binder dump."</p>
-                <span class="pt-attr">— Same role, with Propagent</span>
-              </div>
-
-              <div class="pt-pair">
-                <p class="pt-quote">"Reviewers get a one-page provenance summary. The eighty pages are still there, just rarely needed."</p>
-                <span class="pt-attr">— Same role, with Propagent</span>
+                <p class="pt-quote">"Reviewer got a one-pager with provenance. The eighty pages were optional."</p>
               </div>
             </div>
           </div>
@@ -1675,14 +2003,211 @@
       </div>
     </article>
 
+    <!-- ============================================================
+         A12 — ONE-LINE PAIRS
+         ============================================================ -->
+    <article class="variant" id="a12">
+      <div class="variant-label">
+        <span class="variant-label-tag">A12</span>
+        <h3>One-line pairs</h3>
+        <p>Maximum simplicity. Six rows. Pain on the left, counter on the right. Scannable in under 15 seconds.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="op-wrap">
+          <div class="op-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>Six pains, six counters.</h2>
+          </div>
+
+          <div class="op-table">
+            <div class="op-head-row">
+              <span class="them">Today</span>
+              <span>—</span>
+              <span class="us">With Propagent</span>
+            </div>
+            <div class="op-row">
+              <span class="op-then">RFP spotted 6 days late.</span>
+              <span class="op-arrow">→</span>
+              <span class="op-now">Flagged within an hour.</span>
+            </div>
+            <div class="op-row">
+              <span class="op-then">Capture's storyline drifts in handoff.</span>
+              <span class="op-arrow">→</span>
+              <span class="op-now">Storyline lives in the system.</span>
+            </div>
+            <div class="op-row">
+              <span class="op-then">Past performance is a 2022 binder.</span>
+              <span class="op-arrow">→</span>
+              <span class="op-now">Queried live from project records.</span>
+            </div>
+            <div class="op-row">
+              <span class="op-then">SMEs chased on PTO at midnight.</span>
+              <span class="op-arrow">→</span>
+              <span class="op-now">Scoped questions auto-routed in advance.</span>
+            </div>
+            <div class="op-row">
+              <span class="op-then">Compliance matrix done at 11pm.</span>
+              <span class="op-arrow">→</span>
+              <span class="op-now">Continuous artifact, complete by Day 3.</span>
+            </div>
+            <div class="op-row">
+              <span class="op-then">Reviewer asked to read 80 pages.</span>
+              <span class="op-arrow">→</span>
+              <span class="op-now">One-page summary with provenance.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A13 — THREE MOMENTS
+         ============================================================ -->
+    <article class="variant" id="a13">
+      <div class="variant-label">
+        <span class="variant-label-tag">A13</span>
+        <h3>Three moments</h3>
+        <p>Three specific moments in a pursuit week. For each: what today's team is doing vs what Propagent's team is doing. Narrative simplicity.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="tm-wrap">
+          <div class="tm-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>Three moments in a pursuit week.</h2>
+          </div>
+
+          <div class="tm-grid">
+
+            <div class="tm-row">
+              <div>
+                <div class="tm-moment">Monday morning</div>
+                <span class="tm-moment-sub">RFP just dropped</span>
+              </div>
+              <div class="tm-scene then">
+                <span class="tm-scene-tag">Today</span>
+                BD is in another meeting. Nobody has read the RFP yet. It will sit unread for six days.
+              </div>
+              <div class="tm-scene now">
+                <span class="tm-scene-tag">With Propagent</span>
+                Bid Scout flagged it Friday at 4pm. By Monday morning it's scored, summarized, and waiting in the team's queue.
+              </div>
+            </div>
+
+            <div class="tm-row">
+              <div>
+                <div class="tm-moment">Wednesday late</div>
+                <span class="tm-moment-sub">Day 9 of 14, mid-pursuit</span>
+              </div>
+              <div class="tm-scene then">
+                <span class="tm-scene-tag">Today</span>
+                PM is hunting through Outlook for last quarter's similar bid. The capture manager is on a different call. The engineering lead is on PTO.
+              </div>
+              <div class="tm-scene now">
+                <span class="tm-scene-tag">With Propagent</span>
+                Past performance is already in the draft. The capture brief lives in the system. SME answers came back yesterday because the questions were scoped, not open-ended.
+              </div>
+            </div>
+
+            <div class="tm-row">
+              <div>
+                <div class="tm-moment">Friday before submit</div>
+                <span class="tm-moment-sub">12 hours to deadline</span>
+              </div>
+              <div class="tm-scene then">
+                <span class="tm-scene-tag">Today</span>
+                Compliance matrix being built in real-time. Reviewer can't read 80 pages. Submit will be incomplete, but submit it will be.
+              </div>
+              <div class="tm-scene now">
+                <span class="tm-scene-tag">With Propagent</span>
+                Submitted Wednesday at 4pm with provenance on every claim. The team is reviewing the next pursuit, not panicking about this one.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A14 — CALENDAR WEEK
+         ============================================================ -->
+    <article class="variant" id="a14">
+      <div class="variant-label">
+        <span class="variant-label-tag">A14</span>
+        <h3>Calendar week</h3>
+        <p>14-day calendar laid out. Same fourteen days, different filling. Today: empty until end, then crunch. Propagent: front-loaded, then quiet.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="cw-wrap">
+          <div class="cw-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>Same fourteen days.</h2>
+          </div>
+
+          <div class="cw-row then">
+            <div class="cw-row-head">
+              <span class="cw-row-tag">Today</span>
+              <span class="cw-row-stat">6 days of runway · 4 nights past 10pm · 1 incomplete submit</span>
+            </div>
+            <div class="cw-grid">
+              <div class="cw-day empty"><span class="cw-day-num">D-14</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day empty"><span class="cw-day-num">D-13</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day empty"><span class="cw-day-num">D-12</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day empty"><span class="cw-day-num">D-11</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day empty"><span class="cw-day-num">D-10</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day empty"><span class="cw-day-num">D-9</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day empty"><span class="cw-day-num">D-8</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day busy-them"><span class="cw-day-num">D-7</span><span class="cw-day-act">BD reads RFP</span></div>
+              <div class="cw-day busy-them"><span class="cw-day-num">D-6</span><span class="cw-day-act">Capture mtg</span></div>
+              <div class="cw-day busy-them"><span class="cw-day-num">D-5</span><span class="cw-day-act">Draft start</span></div>
+              <div class="cw-day busy-them"><span class="cw-day-num">D-4</span><span class="cw-day-act">SME chase</span></div>
+              <div class="cw-day crunch"><span class="cw-day-num">D-3</span><span class="cw-day-act">Matrix build</span></div>
+              <div class="cw-day crunch"><span class="cw-day-num">D-2</span><span class="cw-day-act">Review (rushed)</span></div>
+              <div class="cw-day crunch"><span class="cw-day-num">D-1</span><span class="cw-day-act">All-nighter</span></div>
+            </div>
+          </div>
+
+          <div class="cw-row now">
+            <div class="cw-row-head">
+              <span class="cw-row-tag">With Propagent</span>
+              <span class="cw-row-stat">14 days of runway · 0 nights past 10pm · complete submit by D-3</span>
+            </div>
+            <div class="cw-grid">
+              <div class="cw-day busy-us"><span class="cw-day-num">D-14</span><span class="cw-day-act">Bid Scout flag</span></div>
+              <div class="cw-day busy-us"><span class="cw-day-num">D-13</span><span class="cw-day-act">Go/no-go</span></div>
+              <div class="cw-day busy-us"><span class="cw-day-num">D-12</span><span class="cw-day-act">Matrix + draft</span></div>
+              <div class="cw-day busy-us"><span class="cw-day-num">D-11</span><span class="cw-day-act">SMEs scoped</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-10</span><span class="cw-day-act">Review</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-9</span><span class="cw-day-act">Submit</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-8</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-7</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-6</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-5</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-4</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-3</span><span class="cw-day-act">—</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-2</span><span class="cw-day-act">Next pursuit</span></div>
+              <div class="cw-day smooth"><span class="cw-day-num">D-1</span><span class="cw-day-act">Next pursuit</span></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </article>
+
   </section>
 
   <!-- ============================================================
-       SECTION B — VS Response Tools (9 variants)
+       SECTION B — VS Response Tools (12 variants)
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section B · 9 variants</span>
+      <span>Section B · 12 variants · B3 is the refined finalist</span>
       <h2>VS Response Tools</h2>
     </div>
 
@@ -1736,20 +2261,20 @@
     </article>
 
     <!-- ============================================================
-         B3 — 5-PHASE ACTIVITY UNPACKER
+         B3 — 5-PHASE UNPACKER + PURSUIT MEMORY · REFINED FINALIST
          ============================================================ -->
-    <article class="variant" id="b3">
+    <article class="variant finalist" id="b3">
       <div class="variant-label">
-        <span class="variant-label-tag">B3</span>
-        <h3>5-phase activity unpacker</h3>
-        <p>Your option 2. Five-phase spine across the top. Under each phase, the actual activities. Marks show what response tools touch.</p>
+        <span class="variant-label-tag" style="background: rgba(167,139,250,0.18); border-color: var(--accent-primary); color: var(--accent-primary);">★ B3 · Finalist · refined</span>
+        <h3>5-phase unpacker + pursuit memory</h3>
+        <p>Five-phase spine on top (complete system). Memory band underneath captures from every phase. Loop arrow at the end: feeds the next pursuit's qualification.</p>
       </div>
       <div class="variant-body">
 
         <div class="au-wrap">
           <div class="au-head">
             <span class="pt-eyebrow">vs response tools</span>
-            <h2>Response tools touch slivers of the pursuit. <span class="text-agent-gradient">Propagent runs the spine.</span></h2>
+            <h2>One system that runs the spine — and captures memory at every step.</h2>
           </div>
 
           <div class="au-grid">
@@ -1759,19 +2284,17 @@
               <span class="au-col-name">Find</span>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Watch every relevant portal</span></div>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Match against firm fit</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Surface with a one-line summary</span></div>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Score deadline urgency</span></div>
-              <div class="au-col-meta">Response tools: <b>0 of 4</b></div>
+              <div class="au-col-meta">Response tools: <b>0 of 3</b></div>
             </div>
 
             <div class="au-col">
               <span class="au-col-num">2.0</span>
               <span class="au-col-name">Qualify</span>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Score go/no-go</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify must-have SMEs</span></div>
-              <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Surface relevant past performance</span></div>
+              <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Surface past performance</span></div>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Confidence-rate win probability</span></div>
-              <div class="au-col-meta">Response tools: <b>1 partial of 4</b></div>
+              <div class="au-col-meta">Response tools: <b>1 partial of 3</b></div>
             </div>
 
             <div class="au-col">
@@ -1779,41 +2302,81 @@
               <span class="au-col-name">Analyze</span>
               <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Build compliance matrix</span></div>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify win themes</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify risks and gaps</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify SME questions</span></div>
-              <div class="au-col-meta">Response tools: <b>1 of 4</b></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Scope SME questions</span></div>
+              <div class="au-col-meta">Response tools: <b>1 of 3</b></div>
             </div>
 
             <div class="au-col">
               <span class="au-col-num">4.0</span>
               <span class="au-col-name">Respond</span>
               <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Draft in firm voice</span></div>
-              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Pull past performance examples</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Route SME questions, scoped</span></div>
+              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Pull past performance</span></div>
               <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Verify claims with provenance</span></div>
-              <div class="au-col-meta">Response tools: <b>2 of 4</b></div>
+              <div class="au-col-meta">Response tools: <b>2 of 3</b></div>
             </div>
 
             <div class="au-col">
               <span class="au-col-num">5.0</span>
-              <span class="au-col-name">Submit &amp; compound</span>
+              <span class="au-col-name">Submit</span>
               <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Final compliance check</span></div>
               <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Submit</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Capture debrief / win-loss intel</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Compound into next pursuit</span></div>
-              <div class="au-col-meta">Response tools: <b>2 of 4</b></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Capture debrief / win-loss</span></div>
+              <div class="au-col-meta">Response tools: <b>2 of 3</b></div>
             </div>
 
+          </div>
+
+          <!-- ===== PURSUIT MEMORY BAND ===== -->
+          <div class="au-memory-band">
+            <div class="au-memory-band-head">
+              <span class="au-memory-band-label">Pursuit memory · captures from every phase</span>
+              <span class="au-memory-band-sub">interactions → stored → indexed → searchable</span>
+            </div>
+            <div class="au-memory-grid">
+              <div class="au-memory-chip">
+                <span class="au-memory-chip-lbl">From Find</span>
+                <span class="au-memory-chip-val">Fit signals</span>
+                <span class="au-memory-chip-eg">portal patterns, win-frequency by RFP type</span>
+              </div>
+              <div class="au-memory-chip">
+                <span class="au-memory-chip-lbl">From Qualify</span>
+                <span class="au-memory-chip-val">Win-probability data</span>
+                <span class="au-memory-chip-eg">go/no-go calls + their actual outcomes</span>
+              </div>
+              <div class="au-memory-chip">
+                <span class="au-memory-chip-lbl">From Analyze</span>
+                <span class="au-memory-chip-val">Compliance interpretations</span>
+                <span class="au-memory-chip-eg">how this firm answered similar reqs before</span>
+              </div>
+              <div class="au-memory-chip">
+                <span class="au-memory-chip-lbl">From Respond</span>
+                <span class="au-memory-chip-val">Voice + win themes</span>
+                <span class="au-memory-chip-eg">SME answers, drafts, named principal phrasing</span>
+              </div>
+              <div class="au-memory-chip">
+                <span class="au-memory-chip-lbl">From Submit</span>
+                <span class="au-memory-chip-val">Outcome intel</span>
+                <span class="au-memory-chip-eg">win/loss, evaluator feedback, debrief notes</span>
+              </div>
+            </div>
+
+            <div class="au-loop">
+              <svg viewBox="0 0 220 60" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <path d="M 10 50 Q 10 10 110 10 Q 210 10 210 50" stroke="var(--accent-primary)" stroke-width="2" fill="none"/>
+                <path d="M 4 44 L 10 50 L 16 44" stroke="var(--accent-primary)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+              </svg>
+              <span class="au-loop-label">→ feeds the next pursuit's qualification posture</span>
+            </div>
           </div>
 
           <div class="au-totals">
             <div class="au-totals-row">
               <span class="au-totals-label">Response tools cover</span>
-              <span class="au-totals-val"><span class="red">6 of 20</span> activities · 30%</span>
+              <span class="au-totals-val"><span class="red">6 of 15</span> activities · 40% · zero memory</span>
             </div>
             <div class="au-totals-row">
               <span class="au-totals-label">Propagent covers</span>
-              <span class="au-totals-val"><em>20 of 20</em> activities · 100%</span>
+              <span class="au-totals-val"><em>15 of 15</em> activities · 100% · captures memory at every step</span>
             </div>
           </div>
         </div>
@@ -2334,6 +2897,168 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B14 — WHAT WE CAPTURE (memory inventory)
+         ============================================================ -->
+    <article class="variant" id="b14">
+      <div class="variant-label">
+        <span class="variant-label-tag">B14</span>
+        <h3>What we capture</h3>
+        <p>Concrete inventory of what Propagent captures from each interaction in the pursuit. The literal "memory bank" contents — nothing abstract.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="mi-wrap">
+          <div class="mi-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>What Propagent captures, by interaction.</h2>
+            <p>Response tools throw most of the pursuit away after submit. Propagent keeps the interactions that produced the win — and the ones that didn't — and makes them queryable.</p>
+          </div>
+
+          <div class="mi-list">
+            <div class="mi-row">
+              <div class="mi-source">Scoped SME questions<span class="mi-source-sub">email, Slack, Teams</span></div>
+              <div class="mi-capture">The <b>expert's answer</b>, linked to the question topic, the pursuit, and the section it informed. Reusable the next time a similar question lands.</div>
+            </div>
+            <div class="mi-row">
+              <div class="mi-source">Draft revisions<span class="mi-source-sub">PM, capture, principals</span></div>
+              <div class="mi-capture">The <b>before/after of every edit</b>, attributed to the named editor. Learns the firm's voice from real wins, not from templates.</div>
+            </div>
+            <div class="mi-row">
+              <div class="mi-source">Go / no-go decisions<span class="mi-source-sub">qualification meetings</span></div>
+              <div class="mi-capture">The <b>reasoning</b> behind the call, the confidence rating, and the actual outcome. The firm's qualification gets sharper every pursuit.</div>
+            </div>
+            <div class="mi-row">
+              <div class="mi-source">Compliance interpretations<span class="mi-source-sub">analyzing the RFP</span></div>
+              <div class="mi-capture">How the firm <b>read each requirement</b>, what it took to satisfy it, and what reviewers cited as gaps. The compliance instinct compounds.</div>
+            </div>
+            <div class="mi-row">
+              <div class="mi-source">Past performance citations<span class="mi-source-sub">drafting + verification</span></div>
+              <div class="mi-capture">Every claim, <b>linked to its source document</b>, the project it came from, and the person who can verify it. Provenance, queryable.</div>
+            </div>
+            <div class="mi-row">
+              <div class="mi-source">Win / loss debriefs<span class="mi-source-sub">post-submit</span></div>
+              <div class="mi-capture">The <b>buyer's reasoning</b> when available, the evaluator's feedback, the score breakdown. Feeds the next qualification, not just the trophy case.</div>
+            </div>
+          </div>
+
+          <div class="mi-foot">By Pursuit 50, the firm queries against six categories of memory grown from real interactions — not from a static binder. <b>Response tools capture none of this.</b></div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B15 — MEMORY PIPELINE
+         ============================================================ -->
+    <article class="variant" id="b15">
+      <div class="variant-label">
+        <span class="variant-label-tag">B15</span>
+        <h3>Memory pipeline</h3>
+        <p>One diagram. Interactions flow into the memory store. Memory feeds the next pursuit's qualification. Why complete coverage is the prerequisite.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="mp-wrap">
+          <div class="mp-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>Complete coverage is the prerequisite for memory.</h2>
+          </div>
+
+          <div class="mp-diagram">
+            <div class="mp-row inputs">
+              <span class="mp-pill input">Portal scans</span>
+              <span class="mp-pill input">Go/no-go calls</span>
+              <span class="mp-pill input">SME answers</span>
+              <span class="mp-pill input">Drafts + revisions</span>
+              <span class="mp-pill input">Compliance reads</span>
+              <span class="mp-pill input">Submit + debrief</span>
+            </div>
+
+            <div class="mp-arrow-down">↓ captured, indexed ↓</div>
+
+            <div class="mp-store">
+              <div class="mp-store-head">
+                <span class="mp-store-tag">Pursuit memory store</span>
+                <span class="mp-store-sub">grows with every pursuit</span>
+              </div>
+              <div class="mp-store-grid">
+                <div class="mp-store-cell"><b>Fit signals</b>which RFPs the firm wins, by category</div>
+                <div class="mp-store-cell"><b>Expert knowledge</b>scoped SME answers, by topic</div>
+                <div class="mp-store-cell"><b>Voice + tone</b>winning drafts, by named editor</div>
+                <div class="mp-store-cell"><b>Compliance plays</b>how this firm answers reqs</div>
+                <div class="mp-store-cell"><b>Past-performance index</b>every claim linked to source</div>
+                <div class="mp-store-cell"><b>Outcome intel</b>win / loss + evaluator feedback</div>
+              </div>
+            </div>
+
+            <div class="mp-arrow-down">↓ feeds the next pursuit ↓</div>
+
+            <div class="mp-row outputs">
+              <span class="mp-pill output">Sharper qualification</span>
+              <span class="mp-pill output">Better draft from move 1</span>
+              <span class="mp-pill output">Compliance instincts ready</span>
+              <span class="mp-pill output">Win-rate compounds</span>
+            </div>
+
+            <p style="text-align: center; margin: 20px 0 0; color: var(--text-secondary); font-size: 14px; line-height: 1.55; font-family: var(--font-serif); font-style: italic; max-width: 720px; margin-left: auto; margin-right: auto;">If the system doesn't touch every phase, it can't capture every interaction. That's why a complete system is the prerequisite for memory — and why response tools can't do this even if they tried.</p>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B16 — PURSUIT 50
+         ============================================================ -->
+    <article class="variant" id="b16">
+      <div class="variant-label">
+        <span class="variant-label-tag">B16</span>
+        <h3>Pursuit 50</h3>
+        <p>The compound effect, concrete. What the firm "knows" entering pursuit 50, today vs with Propagent's accumulated memory.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="p50-wrap">
+          <div class="p50-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>Pursuit 50, two scenarios.</h2>
+            <p>The firm has run 49 pursuits before this one. The only question is: did anything carry forward?</p>
+          </div>
+
+          <div class="p50-grid">
+
+            <div class="p50-card them">
+              <span class="p50-tag">Today</span>
+              <h3>Pursuit 50 starts from scratch.</h3>
+              <span class="p50-knows-label">What the firm "knows" entering it</span>
+              <div class="p50-fact">Static past-performance binder. Last updated 2022.</div>
+              <div class="p50-fact">A vague sense that "we usually win healthcare bids."</div>
+              <div class="p50-fact empty">Win-rate by RFP category: unknown.</div>
+              <div class="p50-fact empty">What evaluators said about pursuits 1–49: not captured.</div>
+              <div class="p50-fact empty">Voice + tone of winning drafts: in someone's head.</div>
+              <div class="p50-fact empty">Which SME answers worked: scattered across email.</div>
+              <div class="p50-foot">Each pursuit, the team starts from a fresh page.</div>
+            </div>
+
+            <div class="p50-card us">
+              <span class="p50-tag">With Propagent</span>
+              <h3>Pursuit 50 starts with 49 pursuits of memory.</h3>
+              <span class="p50-knows-label">What the firm queries</span>
+              <div class="p50-fact"><b>34 prior wins</b> in this exact procurement category, with the drafts that won them.</div>
+              <div class="p50-fact"><b>87% win rate</b> when the named principal serves as PIC; 41% without.</div>
+              <div class="p50-fact"><b>Evaluator feedback</b> across 49 prior pursuits — the recurring "needs more" notes are already addressed in the boilerplate.</div>
+              <div class="p50-fact">SME answers to <b>231 scoped questions</b>, indexed by topic and reusable.</div>
+              <div class="p50-fact">The firm's win-rate is <b>3.1× higher</b> than at pursuit 1.</div>
+              <div class="p50-foot"><b>Each pursuit makes the next one sharper. By design.</b></div>
             </div>
 
           </div>
