@@ -30,16 +30,30 @@ npm install
 npm run dev   # http://localhost:3010
 ```
 
-## Build + deploy
+## Deploy
+
+**Auto-deploy is the primary path.** Push to `main` → GitHub Actions builds and ships to the live channel of the `propagentlanding` Firebase project. PRs against `main` get an automatic preview-channel deploy (the bot comments the preview URL on the PR). Workflows live in `.github/workflows/firebase-hosting-*.yml`.
+
+Manual deploy is still available if you need it:
 
 ```sh
 npm run build                    # build.mjs: copies marketing/ → dist/, then vite build
 firebase deploy --only hosting   # ships dist/ to the propagentlanding Firebase project
 ```
 
-After deploy, tag the commit so we have a permanent "this was live" marker:
+After a deploy that represents a milestone, tag the commit:
 
 ```sh
 git tag -a deploy-YYYY-MM-DD -m "What changed in this deploy"
 git push --tags
 ```
+
+### One-time CI setup (already done as of 2026-05-18, kept here for reference)
+
+The workflows need a `FIREBASE_SERVICE_ACCOUNT_PROPAGENTLANDING` repo secret:
+
+1. Firebase Console → ⚙️ Project Settings → **Service accounts** tab → **Generate new private key**. Download the JSON.
+2. GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
+3. Name: `FIREBASE_SERVICE_ACCOUNT_PROPAGENTLANDING`. Value: paste the full JSON.
+
+If the secret is rotated, replace it with the new JSON — no code changes needed.
