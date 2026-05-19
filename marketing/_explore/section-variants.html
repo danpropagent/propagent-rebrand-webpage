@@ -532,14 +532,95 @@
     .sb-foot b { color: var(--text-primary); font-weight: 500; }
     .sb-pane.us .sb-foot b { color: var(--accent-primary); }
     .sb-foot-mem { color: var(--accent-primary); }
+
+    /* ============================================================
+       INFERRED-tag styling — small differentiator from finalists
+       ============================================================ */
+    .variant-label-tag.inferred {
+      background: var(--surface-overlay);
+      color: var(--text-secondary);
+      border-color: var(--border-subtle);
+    }
+    .variant-label-tag.inferred::before {
+      content: '['; color: var(--accent-primary); margin-right: 2px;
+    }
+    .variant-label-tag.inferred::after {
+      content: ' inferred]'; color: var(--accent-primary); font-style: italic;
+    }
+    .variant.inferred {
+      box-shadow: 0 0 0 1px rgba(167,139,250,0.05), 0 8px 16px -6px rgba(0,0,0,0.30);
+    }
+    .variant.inferred .variant-label {
+      background: linear-gradient(180deg, rgba(167,139,250,0.03), var(--surface-raised) 80%);
+    }
+    .infer-note {
+      margin: 0 0 28px;
+      padding: 12px 16px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--text-secondary);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text-muted); letter-spacing: 0.02em;
+      line-height: 1.55;
+    }
+    .infer-note b { color: var(--text-secondary); }
+    .infer-note em { color: var(--accent-primary); font-style: normal; font-weight: 500; }
+
+    /* ============================================================
+       A17 — WISH LIST specifics (strikethrough wishes)
+       ============================================================ */
+    .pt-col.today .pt-quote.wish {
+      text-decoration: line-through;
+      text-decoration-color: rgba(248,113,113,0.4);
+      text-decoration-thickness: 1px;
+    }
+    .pt-col.now .pt-quote.granted::before {
+      content: '✓ ';
+      color: var(--accent-primary);
+      font-style: normal;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    /* ============================================================
+       B17 — MEMORY MATRIX (reuses cm-* with one tweak)
+       ============================================================ */
+    .cm-table tbody tr.memory-only-row td.cm-cap { color: var(--text-primary); }
+    .cm-table tbody tr.memory-only-row td.cm-cap b { color: var(--accent-primary); display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; font-weight: 500; margin-bottom: 2px; text-transform: uppercase; }
+    .cm-table tbody tr.memory-only-row td.cm-cap span { font-size: 12px; color: var(--text-secondary); font-style: italic; }
+
+    /* ============================================================
+       B18 — HANDOFF MATRIX states (smooth / lossy / broken)
+       ============================================================ */
+    .cm-dot.broken { background: transparent; border-color: var(--status-error-fg); border-style: dashed; }
+    .cm-state {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      font-weight: 500;
+    }
+    .cm-state.smooth { background: rgba(167,139,250,0.12); color: var(--accent-primary); border: 1px solid var(--border-accent); }
+    .cm-state.lossy { background: rgba(251,191,36,0.10); color: var(--status-warning-fg); border: 1px solid rgba(251,191,36,0.3); }
+    .cm-state.broken { background: rgba(248,113,113,0.10); color: var(--status-error-fg); border: 1px solid rgba(248,113,113,0.3); }
+
+    /* ============================================================
+       B19 — ARTIFACT LOCATION cell styling
+       ============================================================ */
+    .cm-table td.cm-loc { font-size: 12px; line-height: 1.45; }
+    .cm-table td.cm-loc.them { color: var(--text-secondary); font-style: italic; }
+    .cm-table td.cm-loc.us { color: var(--text-primary); }
+    .cm-table td.cm-loc.us b { color: var(--accent-primary); font-weight: 500; }
   </style>
 </head>
 <body>
 <main class="container" style="max-width: 1280px;">
 
   <div class="explore-hero">
-    <h1>Section finalists</h1>
-    <p>Six finalists across two sections. Three takes on the before/after (<a href="#a1" style="color: var(--accent-primary);">A1</a>, <a href="#a4" style="color: var(--accent-primary);">A4</a>, <a href="#a11" style="color: var(--accent-primary);">A11</a>), three on the wedge (<a href="#b3" style="color: var(--accent-primary);">B3</a>, <a href="#b1" style="color: var(--accent-primary);">B1</a>, <a href="#b4" style="color: var(--accent-primary);">B4</a>). Each has been QA'd and refined — see the note inside each card for what changed.</p>
+    <h1>Section finalists + inferred picks</h1>
+    <p>Your six finalists at the top of each section, then three more per section <em>inferred from the pattern in your picks</em>. Section A picks all lead with voice / named chunks — A15-17 follow that. Section B picks all use side-by-side structured comparison — B17-19 follow that. Inferred variants are marked with <span style="color: var(--accent-primary);">[inferred]</span>.</p>
   </div>
 
   <nav class="explore-nav">
@@ -549,12 +630,18 @@
         <a href="#a1">A1 Pain Tape</a>
         <a href="#a4">A4 Symptom catalog</a>
         <a href="#a11">A11 Buyer's pain</a>
+        <a href="#a15">A15 Principal Q's</a>
+        <a href="#a16">A16 Post-mortem</a>
+        <a href="#a17">A17 Wish list</a>
       </div>
       <div class="explore-nav-group">
         <span class="explore-nav-label">vs Response Tools:</span>
         <a href="#b3">B3 5-phase + memory</a>
         <a href="#b1">B1 Capability matrix</a>
-        <a href="#b4">B4 Two-pane scoreboard</a>
+        <a href="#b4">B4 Scoreboard</a>
+        <a href="#b17">B17 Memory matrix</a>
+        <a href="#b18">B18 Handoff matrix</a>
+        <a href="#b19">B19 Artifact map</a>
       </div>
     </div>
   </nav>
@@ -564,7 +651,7 @@
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section A · 3 finalists</span>
+      <span>Section A · 3 finalists + 3 inferred</span>
       <h2>From RFP To Response</h2>
     </div>
 
@@ -814,6 +901,217 @@
       </div>
     </article>
 
+    <!-- ============================================================
+         A15 — PRINCIPAL QUESTIONS (inferred)
+         ============================================================ -->
+    <article class="variant inferred" id="a15">
+      <div class="variant-label">
+        <span class="variant-label-tag inferred">A15</span>
+        <h3>Principal questions</h3>
+        <p>Same shape as A1 but a senior voice tier — the frustrated questions principals ask, and the calm answers they have with Propagent.</p>
+      </div>
+      <div class="variant-body">
+        <p class="infer-note"><b>Inferred from:</b> A1's voice-quote-pair shape + A11's named-role attribution. <em>What's new:</em> shifts the voice tier from operational to senior decision-maker — the principal asking accountability questions about the firm's own pursuit motion.</p>
+
+        <div class="pt-wrap">
+          <div class="pt-head">
+            <span class="section-eyebrow">From RFP to response</span>
+            <h2>The questions principals stop asking.</h2>
+            <p class="pt-lede">Pursuit problems read differently from the corner office. Four questions, four answers.</p>
+          </div>
+
+          <div class="pt-grid">
+            <div class="pt-col today">
+              <span class="pt-col-pill">Today</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Why are we paying for a CRM if it can't tell me which RFPs to chase?"</p>
+                <span class="pt-attr">— Principal, mid-size firm</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Did we end up bidding on the Cleveland thing? I lost track."</p>
+                <span class="pt-attr">— Principal, regional architecture</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Are we still using last quarter's boilerplate? Reviewers can smell it."</p>
+                <span class="pt-attr">— Principal, design-build</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Why is the SME bottleneck the same on every single pursuit?"</p>
+                <span class="pt-attr">— Principal, MEP engineering</span>
+              </div>
+            </div>
+
+            <div class="pt-col now">
+              <span class="pt-col-pill">With Propagent</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"I open the Bid Scout digest first thing. Every fit RFP, pre-scored."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"My dashboard shows every active pursuit, where it is, what's next."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Drafts pull from this pursuit's data. Reviewers can't smell what isn't there."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Questions are scoped and routed. SMEs answer in batches, not one-offs."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A16 — POST-MORTEM CONFESSIONS (inferred)
+         ============================================================ -->
+    <article class="variant inferred" id="a16">
+      <div class="variant-label">
+        <span class="variant-label-tag inferred">A16</span>
+        <h3>Post-mortem confessions</h3>
+        <p>What gets said in the loss debrief — and what Propagent would have prevented. Different temporal angle: after the bid, not during.</p>
+      </div>
+      <div class="variant-body">
+        <p class="infer-note"><b>Inferred from:</b> A1's quote-pair shape + A4's "named failure mode" framing. <em>What's new:</em> the temporal angle — these are quotes from the room where you find out you lost. Sharp because they're admissions, not observations.</p>
+
+        <div class="pt-wrap">
+          <div class="pt-head">
+            <span class="section-eyebrow">From RFP to response</span>
+            <h2>What gets said in the loss debrief.</h2>
+            <p class="pt-lede">Four post-mortem quotes from real pursuits. Four would-have-been-different counters.</p>
+          </div>
+
+          <div class="pt-grid">
+            <div class="pt-col today">
+              <span class="pt-col-pill">In the debrief</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"We didn't see the RFP until Day 8. Too late to compete."</p>
+                <span class="pt-attr">— Loss debrief · federal IDIQ</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"The compliance matrix had three gaps. The reviewer noted all of them."</p>
+                <span class="pt-attr">— Loss debrief · K–12 capital project</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Our past performance section read like a template. It was."</p>
+                <span class="pt-attr">— Loss debrief · healthcare developer</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"We chased our SME for two days. What he gave us didn't address what mattered."</p>
+                <span class="pt-attr">— Loss debrief · transit authority</span>
+              </div>
+            </div>
+
+            <div class="pt-col now">
+              <span class="pt-col-pill">Would not have happened</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Bid Scout flags Day 0. Full runway, every time."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Compliance is continuous. Submit-ready by Day 3, gaps surfaced before submit."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Past performance is queried live, not pasted. The reviewer sees current."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Scoped questions, routed correctly. Right SME, right context."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A17 — THE WISH LIST (inferred)
+         ============================================================ -->
+    <article class="variant inferred" id="a17">
+      <div class="variant-label">
+        <span class="variant-label-tag inferred">A17</span>
+        <h3>The wish list</h3>
+        <p>"I wish we had…" struck through (today's wishes), then "Now you do" granted with checkmarks. Aspirational mood, lighter tone.</p>
+      </div>
+      <div class="variant-body">
+        <p class="infer-note"><b>Inferred from:</b> A1 + A4's discrete pain-unit shape. <em>What's new:</em> the emotional register — aspirational instead of complaint-driven. Checklist-style strikethrough/check-off makes "the wish is granted" visually instant.</p>
+
+        <div class="pt-wrap">
+          <div class="pt-head">
+            <span class="section-eyebrow">From RFP to response</span>
+            <h2>Five things pursuit teams wish for. <span class="text-agent-gradient">All five.</span></h2>
+            <p class="pt-lede">These are the most-repeated wishes across customer-development calls. Each one, granted.</p>
+          </div>
+
+          <div class="pt-grid">
+            <div class="pt-col today">
+              <span class="pt-col-pill">I wish…</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote wish">"…we'd seen this RFP a week earlier."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote wish">"…I knew which past projects to include."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote wish">"…the reviewer wouldn't dread reading the proposal."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote wish">"…we'd debriefed the last loss instead of moving on."</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote wish">"…the SME answers we got actually addressed the question."</p>
+              </div>
+            </div>
+
+            <div class="pt-col now">
+              <span class="pt-col-pill">Now you do</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote granted">Bid Scout flags Day 0. Full runway, every time.</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote granted">Past performance is queried live, by relevance to this RFP.</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote granted">Reviewers open a one-page provenance summary, not 80 pages.</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote granted">Win/loss intel captures automatically. Pursuit 50 starts sharper.</p>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote granted">Scoped questions get scoped answers. No more guess-what-I-meant.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
   </section>
 
   <!-- ============================================================
@@ -821,7 +1119,7 @@
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section B · 3 finalists</span>
+      <span>Section B · 3 finalists + 3 inferred</span>
       <h2>VS Response Tools</h2>
     </div>
 
@@ -1073,10 +1371,190 @@
       </div>
     </article>
 
+    <!-- ============================================================
+         B17 — MEMORY CATEGORIES MATRIX (inferred)
+         ============================================================ -->
+    <article class="variant inferred" id="b17">
+      <div class="variant-label">
+        <span class="variant-label-tag inferred">B17</span>
+        <h3>Memory categories matrix</h3>
+        <p>Same B1 shape. Rows are the six memory categories that compound. Cells are all empty for response tools, all full for Propagent — the gap is the whole point.</p>
+      </div>
+      <div class="variant-body">
+        <p class="infer-note"><b>Inferred from:</b> B1's matrix shape + B3's memory band content. <em>What's new:</em> takes the six memory categories from B3's band and makes them the matrix's rows. The "memory" half of the brief gets its own focused table — pure comparison, no metaphor.</p>
+
+        <div class="cm-wrap">
+          <div class="cm-head">
+            <span class="section-eyebrow">vs response tools</span>
+            <h2>Six categories of pursuit memory. <span class="text-agent-gradient">Response tools capture zero.</span></h2>
+          </div>
+
+          <div class="cm-summary">
+            <div class="cm-summary-block them">
+              <span class="cm-summary-label">Response tools capture</span>
+              <span class="cm-summary-val"><span class="red">0 of 6</span> memory categories</span>
+            </div>
+            <div class="cm-summary-block us">
+              <span class="cm-summary-label">Propagent captures</span>
+              <span class="cm-summary-val"><em>6 of 6</em> · indexed and queryable</span>
+            </div>
+          </div>
+
+          <table class="cm-table">
+            <thead>
+              <tr>
+                <th>Memory category</th>
+                <th class="cm-mark cm-col-them">Response tools</th>
+                <th class="cm-mark cm-col-us">Propagent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="memory-only-row"><td class="cm-cap"><b>Fit signals</b><span>Which RFP types this firm actually wins</span></td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr class="memory-only-row"><td class="cm-cap"><b>Win-probability data</b><span>Go/no-go calls and their actual outcomes</span></td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr class="memory-only-row"><td class="cm-cap"><b>Compliance interpretations</b><span>How this firm answered similar requirements before</span></td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr class="memory-only-row"><td class="cm-cap"><b>Voice and win themes</b><span>Drafts, edits, named-principal phrasing from past wins</span></td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr class="memory-only-row"><td class="cm-cap"><b>SME knowledge index</b><span>Scoped expert answers, indexed by topic</span></td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr class="memory-only-row"><td class="cm-cap"><b>Outcome intel</b><span>Win/loss feedback, evaluator notes, score breakdowns</span></td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="cm-foot">
+            <span class="cm-foot-key"><span class="cm-dot full"></span> Captured</span>
+            <span class="cm-foot-key"><span class="cm-dot"></span> Not captured</span>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B18 — HANDOFF SMOOTHNESS MATRIX (inferred)
+         ============================================================ -->
+    <article class="variant inferred" id="b18">
+      <div class="variant-label">
+        <span class="variant-label-tag inferred">B18</span>
+        <h3>Handoff smoothness matrix</h3>
+        <p>Rows are the seven handoff points in a pursuit. Cells show: smooth / lossy / broken. Hits "complete system" through the integration angle, not the coverage angle.</p>
+      </div>
+      <div class="variant-body">
+        <p class="infer-note"><b>Inferred from:</b> B1's matrix + B3's lifecycle framing. <em>What's new:</em> measures the <b style="color: var(--text-secondary);">transitions</b> between phases, not the phases themselves. A complete system isn't just one that does everything — it's one where nothing falls between the cracks.</p>
+
+        <div class="cm-wrap">
+          <div class="cm-head">
+            <span class="section-eyebrow">vs response tools</span>
+            <h2>Where context is lost in a pursuit.</h2>
+          </div>
+
+          <div class="cm-summary">
+            <div class="cm-summary-block them">
+              <span class="cm-summary-label">Response tools' handoffs</span>
+              <span class="cm-summary-val"><span class="red">0 smooth</span> · 4 lossy · 3 broken</span>
+            </div>
+            <div class="cm-summary-block us">
+              <span class="cm-summary-label">Propagent's handoffs</span>
+              <span class="cm-summary-val"><em>7 smooth</em> · context preserved</span>
+            </div>
+          </div>
+
+          <table class="cm-table">
+            <thead>
+              <tr>
+                <th>Handoff point</th>
+                <th class="cm-mark cm-col-them">Response tools</th>
+                <th class="cm-mark cm-col-us">Propagent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="cm-cap">BD spots RFP → Capture analyzes</td><td class="cm-mark"><span class="cm-state broken">broken</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+              <tr><td class="cm-cap">Capture brief → PM ownership</td><td class="cm-mark"><span class="cm-state lossy">lossy</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+              <tr><td class="cm-cap">PM scope → SME questions</td><td class="cm-mark"><span class="cm-state lossy">lossy</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+              <tr><td class="cm-cap">SME answers → Draft content</td><td class="cm-mark"><span class="cm-state lossy">lossy</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+              <tr><td class="cm-cap">Draft → Compliance check</td><td class="cm-mark"><span class="cm-state lossy">lossy</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+              <tr><td class="cm-cap">Submit → Capture intel</td><td class="cm-mark"><span class="cm-state broken">broken</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+              <tr><td class="cm-cap">Capture intel → Next pursuit</td><td class="cm-mark"><span class="cm-state broken">broken</span></td><td class="cm-mark"><span class="cm-state smooth">smooth</span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="cm-foot">
+            <span class="cm-foot-key"><span class="cm-state smooth">smooth</span> context preserved</span>
+            <span class="cm-foot-key"><span class="cm-state lossy">lossy</span> manual re-stitching</span>
+            <span class="cm-foot-key"><span class="cm-state broken">broken</span> context not transferred</span>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B19 — ARTIFACT LOCATION MATRIX (inferred)
+         ============================================================ -->
+    <article class="variant inferred" id="b19">
+      <div class="variant-label">
+        <span class="variant-label-tag inferred">B19</span>
+        <h3>Artifact location matrix</h3>
+        <p>Rows are pursuit artifacts. Cells describe where each lives. Response tools: scattered across email / Slack / SharePoint / binders. Propagent: linked in pursuit memory.</p>
+      </div>
+      <div class="variant-body">
+        <p class="infer-note"><b>Inferred from:</b> B1's matrix + the "one system, not a stack" idea. <em>What's new:</em> instead of showing coverage as dots, this shows the <b style="color: var(--text-secondary);">location</b> of every artifact. The asymmetry between "lives in eight different places" and "lives in one indexed system" is the story.</p>
+
+        <div class="cm-wrap">
+          <div class="cm-head">
+            <span class="section-eyebrow">vs response tools</span>
+            <h2>One system, single source of truth.</h2>
+          </div>
+
+          <table class="cm-table">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Pursuit artifact</th>
+                <th class="cm-col-them">Lives where (today)</th>
+                <th class="cm-col-us">Lives where (Propagent)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cm-cap">Compliance matrix</td>
+                <td class="cm-loc them">Excel file on SharePoint, version-conflicts</td>
+                <td class="cm-loc us">Pursuit memory · <b>linked to every cited requirement</b></td>
+              </tr>
+              <tr>
+                <td class="cm-cap">Past-performance citations</td>
+                <td class="cm-loc them">PDF binder, drives, marketing's head</td>
+                <td class="cm-loc us">Pursuit memory · <b>queryable by relevance to this RFP</b></td>
+              </tr>
+              <tr>
+                <td class="cm-cap">SME answers</td>
+                <td class="cm-loc them">Email threads, Slack DMs, Teams chats</td>
+                <td class="cm-loc us">Pursuit memory · <b>indexed by topic across pursuits</b></td>
+              </tr>
+              <tr>
+                <td class="cm-cap">Draft revision history</td>
+                <td class="cm-loc them">Word track-changes, lost on save-as</td>
+                <td class="cm-loc us">Pursuit memory · <b>per-editor diffs, named attribution</b></td>
+              </tr>
+              <tr>
+                <td class="cm-cap">Capture brief</td>
+                <td class="cm-loc them">Capture manager's notebook, sometimes a deck</td>
+                <td class="cm-loc us">Pursuit memory · <b>updated as the pursuit evolves</b></td>
+              </tr>
+              <tr>
+                <td class="cm-cap">Win-loss debriefs</td>
+                <td class="cm-loc them">Usually doesn't exist</td>
+                <td class="cm-loc us">Pursuit memory · <b>captured + fed into next qualification</b></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p style="margin: 20px 0 0; padding: 16px 20px; background: var(--surface-glass); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 13px; line-height: 1.55; text-align: center;">When every artifact lives in one place, you can query across pursuits. <span style="color: var(--accent-primary); font-style: italic;">That's the prerequisite for compounding memory.</span></p>
+        </div>
+
+      </div>
+    </article>
+
   </section>
 
   <footer style="text-align: center; padding: 64px 0 80px; color: var(--text-muted); font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.06em;">
-    Section finalists · branch <code>section-explorations</code> · not linked from production
+    Section finalists + inferred picks · branch <code>section-explorations</code> · not linked from production
   </footer>
 
 </main>
