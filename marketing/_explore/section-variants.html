@@ -103,14 +103,16 @@
     }
 
     /* ============================================================
-       SECTION A — Combined: A11 card format + A4 content
+       SECTION A — 3 consolidated moments
+       (same A11 × A4 card format, but 3 cards each combining
+       multiple pains into one moment)
        ============================================================ */
     .bp-wrap { max-width: 1180px; margin: 0 auto; }
     .bp-head { margin-bottom: 40px; max-width: 760px; }
     .bp-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 14px; line-height: 1.15; }
     .bp-head p { color: var(--text-secondary); font-size: 16px; line-height: 1.55; margin: 0; }
     .bp-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 16px;
     }
     .bp-quote-card {
@@ -120,31 +122,31 @@
       overflow: hidden;
       display: flex; flex-direction: column;
     }
-    .bp-quote-body { padding: 26px 24px 22px; }
+    .bp-quote-body { padding: 28px 26px 24px; }
     .bp-symptom-tag {
       display: inline-block;
       font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--accent-primary);
       padding: 4px 10px; border-radius: 999px;
       background: rgba(167,139,250,0.10); border: 1px solid var(--border-accent);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       font-weight: 500;
     }
     .bp-quote {
-      font-family: var(--font-serif); font-style: italic; font-size: 18px;
+      font-family: var(--font-serif); font-style: italic; font-size: 19px;
       line-height: 1.5; color: var(--text-primary); margin: 0;
       text-wrap: balance;
     }
     .bp-attr {
       display: flex; gap: 12px; align-items: center;
-      padding: 14px 24px; border-top: 1px solid var(--border-subtle);
+      padding: 14px 26px; border-top: 1px solid var(--border-subtle);
       background: var(--surface-overlay);
     }
     .bp-attr-avatar {
-      width: 32px; height: 32px; border-radius: 999px;
+      width: 36px; height: 36px; border-radius: 999px;
       background: var(--surface-base); border: 1px solid var(--border-subtle);
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-mono); font-size: 13px; color: var(--text-secondary);
+      font-family: var(--font-mono); font-size: 14px; color: var(--text-secondary);
       letter-spacing: 0.04em; flex-shrink: 0;
       font-weight: 500;
     }
@@ -159,7 +161,7 @@
       letter-spacing: 0.04em;
     }
     .bp-counter {
-      padding: 16px 24px;
+      padding: 18px 26px;
       background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.04));
       border-top: 1px solid var(--border-accent);
       display: flex; gap: 12px; align-items: baseline;
@@ -171,142 +173,121 @@
       font-weight: 500;
     }
     .bp-counter-text {
-      font-size: 13px; line-height: 1.5; color: var(--text-primary);
+      font-size: 13.5px; line-height: 1.55; color: var(--text-primary);
     }
 
     /* ============================================================
-       SECTION B — Refined B3: horizontal 5-phase + pursuit memory
+       SECTION B — Positive-led pursuit spine
+       (no numbering, no coverage bars, no "what they don't" marks)
        ============================================================ */
-    .au-wrap { max-width: 1200px; margin: 0 auto; }
-    .au-head { text-align: center; margin-bottom: 28px; }
-    .au-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 0; line-height: 1.15; }
+    .ps-wrap { max-width: 1200px; margin: 0 auto; }
+    .ps-head { text-align: center; margin-bottom: 36px; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .ps-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 14px; line-height: 1.15; }
+    .ps-head h2 em { color: var(--accent-primary); font-style: italic; }
+    .ps-head p { color: var(--text-secondary); font-size: 16px; line-height: 1.55; margin: 0; }
 
-    /* Coverage bars at the top */
-    .au-coverage-bars {
-      max-width: 720px; margin: 0 auto 32px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .au-bar-row { display: grid; grid-template-columns: 180px 1fr 64px; gap: 14px; align-items: center; font-family: var(--font-mono); font-size: 12px; }
-    @media (max-width: 600px) { .au-bar-row { grid-template-columns: 1fr; gap: 4px; } }
-    .au-bar-label { color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
-    .au-bar-label.them { color: var(--status-error-fg); }
-    .au-bar-label.us { color: var(--accent-primary); }
-    .au-bar-track {
-      height: 8px; background: var(--surface-overlay);
-      border-radius: 999px; overflow: hidden;
-      border: 1px solid var(--border-subtle);
-    }
-    .au-bar-fill { height: 100%; border-radius: 999px; }
-    .au-bar-fill.them { background: var(--status-error-fg); width: 40%; }
-    .au-bar-fill.us { background: linear-gradient(90deg, var(--accent-primary), var(--accent-primary-strong)); width: 100%; }
-    .au-bar-num { color: #fff; font-weight: 500; text-align: right; }
-    .au-bar-num.them { color: var(--status-error-fg); }
-    .au-bar-num.us { color: var(--accent-primary); }
-
-    /* 5-phase grid */
-    .au-grid {
+    /* 5 phase columns — positive activities only */
+    .ps-grid {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
     }
-    @media (max-width: 980px) { .au-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .au-grid { grid-template-columns: 1fr; } }
-    .au-col {
+    @media (max-width: 980px) { .ps-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .ps-grid { grid-template-columns: 1fr; } }
+    .ps-col {
       background: var(--surface-raised);
       border: 1px solid var(--border-default);
       border-radius: var(--radius-lg);
-      padding: 18px 16px;
+      padding: 22px 18px 20px;
       display: flex; flex-direction: column;
+      position: relative;
     }
-    .au-col-num {
-      font-family: var(--font-mono); font-size: 18px; color: var(--accent-primary);
-      font-weight: 500; letter-spacing: -0.01em;
+    .ps-col-name {
+      font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.10em;
+      font-weight: 600; color: #fff; text-transform: uppercase;
+      margin-bottom: 4px;
     }
-    .au-col-name {
-      font-size: 13px; color: #fff; text-transform: uppercase; letter-spacing: 0.08em;
-      font-family: var(--font-mono); font-weight: 500; margin: 2px 0 14px;
+    .ps-col-sub {
+      font-family: var(--font-serif); font-style: italic; font-size: 12px;
+      color: var(--accent-primary); margin-bottom: 18px;
+      line-height: 1.3;
     }
-    .au-activity {
-      padding: 9px 0; border-top: 1px solid var(--border-subtle);
-      font-size: 12px; line-height: 1.4;
-      display: flex; gap: 8px; align-items: flex-start;
+    .ps-act {
+      padding: 12px 0; border-top: 1px solid var(--border-subtle);
+      font-size: 13px; line-height: 1.5; color: var(--text-primary);
     }
-    .au-activity-text { color: var(--text-primary); flex: 1; }
-    .au-activity-mark {
-      flex-shrink: 0; width: 9px; height: 9px; border-radius: 999px;
-      margin-top: 5px;
-      border: 1.5px solid var(--text-muted);
-    }
-    .au-activity-mark.them { background: rgba(248,113,113,0.5); border-color: var(--status-error-fg); }
-    .au-activity-mark.them-partial {
-      background: linear-gradient(90deg, rgba(248,113,113,0.5) 50%, transparent 50%);
-      border-color: var(--status-error-fg);
-    }
-    .au-col-meta {
-      margin-top: auto; padding-top: 12px;
-      border-top: 1px solid var(--border-subtle);
-      font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
-      letter-spacing: 0.06em;
-    }
-    .au-col-meta b { color: var(--status-error-fg); font-weight: 500; }
+    .ps-act:last-child { padding-bottom: 0; }
+    .ps-act b { color: var(--accent-primary); font-weight: 500; }
 
-    /* Memory band */
-    .au-memory-band {
-      margin-top: 16px;
-      padding: 20px 20px 18px;
+    /* Pursuit memory band — same structure, but positive headline */
+    .ps-memory {
+      margin-top: 18px;
+      padding: 22px 22px 20px;
       background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.03));
       border: 1px solid var(--border-accent);
       border-radius: var(--radius-lg);
     }
-    .au-memory-band-head {
+    .ps-memory-head {
       display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
-    .au-memory-band-label {
+    .ps-memory-label {
       font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--accent-primary);
-      padding: 4px 10px; background: rgba(167,139,250,0.12);
+      padding: 4px 12px; background: rgba(167,139,250,0.14);
       border: 1px solid var(--border-accent); border-radius: 999px;
-      font-weight: 500;
+      font-weight: 600;
     }
-    .au-memory-band-sub {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
-      letter-spacing: 0.04em;
+    .ps-memory-sub {
+      font-family: var(--font-serif); font-style: italic; font-size: 14px;
+      color: var(--text-primary);
     }
-    .au-memory-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    .ps-memory-sub b { font-style: normal; font-weight: 500; color: var(--accent-primary); }
+    .ps-memory-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
     }
-    @media (max-width: 980px) { .au-memory-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .au-memory-grid { grid-template-columns: 1fr; } }
-    .au-memory-chip {
+    @media (max-width: 980px) { .ps-memory-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .ps-memory-grid { grid-template-columns: 1fr; } }
+    .ps-memory-chip {
       background: var(--surface-raised);
       border: 1px solid var(--border-accent);
       border-radius: var(--radius-md);
-      padding: 10px 12px;
-      display: flex; flex-direction: column; gap: 3px;
+      padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 4px;
     }
-    .au-memory-chip-lbl {
+    .ps-memory-chip-from {
       font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
       color: var(--text-muted); text-transform: uppercase;
     }
-    .au-memory-chip-val {
-      font-size: 13px; color: #fff; font-weight: 500; line-height: 1.3;
+    .ps-memory-chip-val {
+      font-size: 13.5px; color: #fff; font-weight: 500; line-height: 1.3;
     }
 
-    /* Loop arrow card */
-    .au-loop {
+    /* Loop arrow card — unchanged from B3 refined */
+    .ps-loop {
       margin-top: 18px;
-      padding: 18px 22px;
+      padding: 20px 24px;
       background: var(--surface-raised);
       border: 1px solid var(--border-accent);
       border-radius: var(--radius-lg);
-      display: flex; align-items: center; gap: 16px;
+      display: flex; align-items: center; gap: 20px;
     }
-    .au-loop-svg { flex-shrink: 0; width: 160px; height: 56px; }
-    .au-loop-label {
+    .ps-loop-svg { flex-shrink: 0; width: 160px; height: 56px; }
+    .ps-loop-label {
       font-family: var(--font-serif); font-style: italic; font-size: 18px;
-      color: var(--accent-primary); line-height: 1.35;
+      color: var(--accent-primary); line-height: 1.4;
     }
-    .au-loop-label b { font-style: normal; font-weight: 500; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 2px; }
-    @media (max-width: 600px) { .au-loop { flex-direction: column; align-items: flex-start; } }
+    .ps-loop-label b { font-style: normal; font-weight: 500; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px; }
+    @media (max-width: 600px) { .ps-loop { flex-direction: column; align-items: flex-start; } }
+
+    /* Tiny comparison footnote — single line, muted */
+    .ps-footnote {
+      margin-top: 32px; padding: 16px 22px;
+      background: var(--surface-glass); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text-muted); letter-spacing: 0.02em;
+      line-height: 1.6; text-align: center;
+    }
+    .ps-footnote b { color: var(--text-secondary); font-weight: 500; }
   </style>
 </head>
 <body>
@@ -314,22 +295,21 @@
 
   <div class="explore-hero">
     <h1>Section finalists</h1>
-    <p>Two finalists, one per section. <a href="#a-final" style="color: var(--accent-primary);">Section A</a>: A11's card format with A4's content (five named pain symptoms in the discrete-card shape, each with a Propagent counter). <a href="#b-final" style="color: var(--accent-primary);">Section B</a>: B3 — horizontal 5-phase spine with pursuit-memory band underneath.</p>
+    <p>Two finalists, one per section. <a href="#a-final" style="color: var(--accent-primary);">Section A</a>: three biggest-impact moments, each consolidating related pains. <a href="#b-final" style="color: var(--accent-primary);">Section B</a>: positive-led pursuit spine — what Propagent does at every phase, with pursuit memory captured throughout. The comparison shrinks to a footnote so the reader isn't led with deficit framing.</p>
   </div>
 
   <nav class="explore-nav">
     <div class="explore-nav-inner">
       <div class="explore-nav-group">
         <span class="explore-nav-label">Finalists:</span>
-        <a href="#a-final">Section A · A11 + A4 content</a>
-        <a href="#b-final">Section B · B3 horizontal 5-phase</a>
+        <a href="#a-final">Section A · 3 moments</a>
+        <a href="#b-final">Section B · pursuit spine</a>
       </div>
     </div>
   </nav>
 
   <!-- ============================================================
-       SECTION A — From RFP To Response
-       Combined: A11's card format + A4's content
+       SECTION A — 3 consolidated moments
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
@@ -339,116 +319,79 @@
 
     <article class="variant" id="a-final">
       <div class="variant-label">
-        <span class="variant-label-tag">A11 × A4</span>
-        <h3>Named pain symptoms · in card format</h3>
-        <p>A11's card layout (quote body → attribution → Propagent counter) carrying A4's content (five named failure modes with cost stats and counters).</p>
+        <span class="variant-label-tag">A11 × A4 · 3 moments</span>
+        <h3>Three biggest-impact moments</h3>
+        <p>Consolidated from five named symptoms into three combined moments — each card carries the weight of 1–2 related pains.</p>
       </div>
       <div class="variant-body">
-        <p class="qa-note"><b>What's in this card layout:</b>
+        <p class="qa-note"><b>How the five became three:</b>
           <ul>
-            <li>Symptom name as a small purple tag at the top of each card (replaces A11's anonymous quote opener)</li>
-            <li>Italic-serif body carrying A4's pain description (kept A11's quote treatment for emotional weight)</li>
-            <li>Attribution row replaced with A4's numbers: avatar shows symptom number, "name" line carries the cost, "role" line carries the frequency stat</li>
-            <li>Propagent counter section unchanged from A11 — same purple-tinted footer carrying A4's counter copy</li>
+            <li><b>Moment 1 · The vanishing runway</b> = 8-day blind spot + midnight compliance matrix. Both are time / runway issues — RFP found late AND compliance built at the end.</li>
+            <li><b>Moment 2 · Context drops in the cracks</b> = handoff blackout + PTO-stricken reviewer. Both are information failing to transfer between people (capture→PM, then proposal→reviewer).</li>
+            <li><b>Moment 3 · The work doesn't sound like the firm</b> = stale past performance + boilerplate-that-doesn't-fit. Both are content quality issues — generic output that reads like every other firm's.</li>
           </ul>
         </p>
 
         <div class="bp-wrap">
           <div class="bp-head">
             <span class="section-eyebrow">From RFP to response</span>
-            <h2>Five named failure modes in every pursuit week.</h2>
-            <p>These aren't phases. They're symptoms that show up as pure friction. Each is the kind of thing principals only talk about over coffee — and each one costs real bids.</p>
+            <h2>The three moments that decide a pursuit.</h2>
+            <p>Most pursuit losses trace back to one of these three. Each is a compound of pains we hear in every customer-development call — and each one, on its own, can sink a bid.</p>
           </div>
 
           <div class="bp-grid">
 
             <div class="bp-quote-card">
               <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The 8-day blind spot</span>
-                <p class="bp-quote">"RFPs publish to portals while nobody's watching. By the time BD spots one, half the runway is gone."</p>
+                <span class="bp-symptom-tag">The vanishing runway</span>
+                <p class="bp-quote">"RFP spotted Day 8 of 14. Compliance matrix at 11pm the night before submit. Six days to do fourteen days of work."</p>
               </div>
               <div class="bp-attr">
                 <div class="bp-attr-avatar">1</div>
                 <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Cost · 6 days of runway lost</span>
-                  <span class="bp-attr-role">Reported in 9 of 10 customer-dev calls</span>
+                  <span class="bp-attr-name">Cost · 6+ days of runway lost</span>
+                  <span class="bp-attr-role">Reported in every customer-dev call</span>
                 </div>
               </div>
               <div class="bp-counter">
                 <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Bid Scout watches every relevant portal and flags within an hour of publication, scored against firm fit.</span>
+                <span class="bp-counter-text">Bid Scout flags every fit RFP within an hour of publication. Compliance is a continuous artifact, populated as the team works. Submit-ready by Day 3 — eleven days of headroom.</span>
               </div>
             </div>
 
             <div class="bp-quote-card">
               <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The handoff blackout</span>
-                <p class="bp-quote">"Capture writes the storyline. PM picks it up days later. By then the angle has drifted."</p>
+                <span class="bp-symptom-tag">Context drops in the cracks</span>
+                <p class="bp-quote">"Capture wrote the storyline Friday. PM rebuilt it Monday. The reviewer skimmed three pages of eighty and signed off."</p>
               </div>
               <div class="bp-attr">
                 <div class="bp-attr-avatar">2</div>
                 <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Cost · 1–2 days rediscovering decisions</span>
-                  <span class="bp-attr-role">Reported in 8 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Storyline lives in the system from first qualification. PM picks it up where it is, not where it was.</span>
-              </div>
-            </div>
-
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The midnight compliance matrix</span>
-                <p class="bp-quote">"Required by the proposal manager at 11pm before submit. Built as an artifact of panic, not coverage."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">3</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Cost · late-night work, missed reqs</span>
-                  <span class="bp-attr-role">Reported in 10 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Compliance is a continuous artifact, populated as the team works. Submit-ready by Day 3.</span>
-              </div>
-            </div>
-
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The PTO-stricken reviewer</span>
-                <p class="bp-quote">"Reviewer with a 24-hour turnaround can't read 80 pages. So they read three, sign off, and pray."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">4</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Cost · surface-level review, missed risks</span>
-                  <span class="bp-attr-role">Reported in 7 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Reviewers get a one-page provenance summary. Click through to source claims only where they want to verify.</span>
-              </div>
-            </div>
-
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The boilerplate that doesn't fit</span>
-                <p class="bp-quote">"Last pursuit's win themes copied forward into this one. Generic-sounding. Embarrassing in debrief."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">5</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Cost · lower win rate, "didn't read it" feedback</span>
+                  <span class="bp-attr-name">Cost · context loss + surface review</span>
                   <span class="bp-attr-role">Reported in 9 of 10 customer-dev calls</span>
                 </div>
               </div>
               <div class="bp-counter">
                 <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Themes built from this pursuit's qualification data — not last month's draft.</span>
+                <span class="bp-counter-text">Storyline lives in the system from first qualification — the PM picks it up where it is, not where it was. Reviewers get a one-page provenance summary; click through to source only where they want to verify.</span>
+              </div>
+            </div>
+
+            <div class="bp-quote-card">
+              <div class="bp-quote-body">
+                <span class="bp-symptom-tag">The work doesn't sound like the firm</span>
+                <p class="bp-quote">"Past-performance binder from 2022. Boilerplate from last quarter's bid. Generic-sounding — and the reviewer could tell."</p>
+              </div>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">3</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Cost · lower win rate, embarrassing in debrief</span>
+                  <span class="bp-attr-role">Reported in 9 of 10 customer-dev calls</span>
+                </div>
+              </div>
+              <div class="bp-counter">
+                <span class="bp-counter-tag">Propagent</span>
+                <span class="bp-counter-text">Past performance is queried live from project records. Win themes are built from this pursuit's qualification data — not last month's draft. Drafts carry firm voice with provenance on every claim.</span>
               </div>
             </div>
 
@@ -461,8 +404,7 @@
   </section>
 
   <!-- ============================================================
-       SECTION B — VS Response Tools
-       Refined B3: horizontal 5-phase + pursuit memory
+       SECTION B — Positive-led pursuit spine
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
@@ -472,133 +414,120 @@
 
     <article class="variant" id="b-final">
       <div class="variant-label">
-        <span class="variant-label-tag">B3 · refined</span>
-        <h3>5-phase spine + pursuit memory band</h3>
-        <p>Horizontal across the five phases. Coverage bars on top show the gap at a glance. Memory band underneath captures from every phase. Loop arrow card: feeds the next pursuit.</p>
+        <span class="variant-label-tag">B3 · positive-led</span>
+        <h3>The pursuit spine — five phases, memory throughout</h3>
+        <p>What Propagent does at every step. Same horizontal 5-phase layout, but framed as our differentiation, not their deficit. No numbering, no coverage marks, no "they don't" framing in the body.</p>
       </div>
       <div class="variant-body">
-        <p class="qa-note"><b>What's in this refined B3:</b>
+        <p class="qa-note"><b>What changed from the previous B3:</b>
           <ul>
-            <li>Coverage bars at the top: red 40% (response tools) vs purple 100% (Propagent). Visual proof of the gap before the reader scans the columns.</li>
-            <li>Five horizontal phase columns: Find · Qualify · Analyze · Respond · Submit. Each column lists three activities with response-tool coverage marks (empty / partial / full).</li>
-            <li>Pursuit-memory band underneath, spanning all five columns. Five memory chips, one per phase, naming what each phase contributes to memory.</li>
-            <li>Loop arrow card at the bottom — serif copy explains the feedback loop: every interaction sharpens the next pursuit.</li>
+            <li><b>Dropped the 1.0 / 2.0 numbering</b> — added nothing, made the phases feel like a checklist instead of a system.</li>
+            <li><b>Dropped the red/purple coverage bars</b> — they led with "response tools cover 40%" (deficit framing). The new headline leads with what Propagent does.</li>
+            <li><b>Dropped the per-row coverage marks</b> (the red/empty dots next to each activity). Activities are now positive declarative statements about Propagent.</li>
+            <li><b>Dropped the "Response tools: 0 of 3" footers</b> on each phase column. Same reason.</li>
+            <li><b>Rewrote activities as positive verbs</b>: "<em>Flags</em> RFPs Day 0" instead of "<em>Watch</em> every portal" (the latter was negative-by-implication).</li>
+            <li><b>Each phase column gets a serif italic subhead</b> describing what that phase does for the pursuit — gives the column character beyond just being a category.</li>
+            <li><b>Comparison shrinks to a single footnote</b> at the bottom. The "vs response tools" framing is still there (it's the section eyebrow), but the body leads with Propagent's differentiation.</li>
           </ul>
         </p>
 
-        <div class="au-wrap">
-          <div class="au-head">
+        <div class="ps-wrap">
+          <div class="ps-head">
             <span class="section-eyebrow">vs response tools</span>
-            <h2>One system that runs the spine — and captures memory at every step.</h2>
+            <h2>Propagent runs the full pursuit. <em>And remembers.</em></h2>
+            <p>Five phases. Pursuit memory captured at every step. The next bid starts sharper.</p>
           </div>
 
-          <!-- Coverage bars: visual proof of the gap -->
-          <div class="au-coverage-bars">
-            <div class="au-bar-row">
-              <span class="au-bar-label them">Response tools</span>
-              <div class="au-bar-track"><div class="au-bar-fill them"></div></div>
-              <span class="au-bar-num them">40%</span>
-            </div>
-            <div class="au-bar-row">
-              <span class="au-bar-label us">Propagent</span>
-              <div class="au-bar-track"><div class="au-bar-fill us"></div></div>
-              <span class="au-bar-num us">100%</span>
-            </div>
-          </div>
+          <!-- 5 phase columns — positive declarative activities -->
+          <div class="ps-grid">
 
-          <!-- 5 phase columns -->
-          <div class="au-grid">
-
-            <div class="au-col">
-              <span class="au-col-num">1.0</span>
-              <span class="au-col-name">Find</span>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Watch every relevant portal</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Match against firm fit</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Score deadline urgency</span></div>
-              <div class="au-col-meta">Response tools: <b>0 of 3</b></div>
+            <div class="ps-col">
+              <span class="ps-col-name">Find</span>
+              <span class="ps-col-sub">RFPs reach the team Day 0, not Day 8.</span>
+              <div class="ps-act">Watches every relevant portal in real time</div>
+              <div class="ps-act">Flags fit RFPs within an hour of publication</div>
+              <div class="ps-act">Scored against firm fit before the team sees it</div>
             </div>
 
-            <div class="au-col">
-              <span class="au-col-num">2.0</span>
-              <span class="au-col-name">Qualify</span>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Score go/no-go</span></div>
-              <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Surface past performance</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Confidence-rate win probability</span></div>
-              <div class="au-col-meta">Response tools: <b>1 partial of 3</b></div>
+            <div class="ps-col">
+              <span class="ps-col-name">Qualify</span>
+              <span class="ps-col-sub">Decisions backed by data, not instinct.</span>
+              <div class="ps-act">Scores go/no-go with confidence on every match</div>
+              <div class="ps-act">Surfaces past performance live, by relevance</div>
+              <div class="ps-act">Confidence-rates win probability against firm history</div>
             </div>
 
-            <div class="au-col">
-              <span class="au-col-num">3.0</span>
-              <span class="au-col-name">Analyze</span>
-              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Build compliance matrix</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify win themes</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Scope SME questions</span></div>
-              <div class="au-col-meta">Response tools: <b>1 of 3</b></div>
+            <div class="ps-col">
+              <span class="ps-col-name">Analyze</span>
+              <span class="ps-col-sub">Compliance is continuous, not a panic.</span>
+              <div class="ps-act">Builds the compliance matrix continuously, not pre-submit</div>
+              <div class="ps-act">Identifies win themes from this pursuit's data</div>
+              <div class="ps-act">Scopes SME questions before they're asked</div>
             </div>
 
-            <div class="au-col">
-              <span class="au-col-num">4.0</span>
-              <span class="au-col-name">Respond</span>
-              <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Draft in firm voice</span></div>
-              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Pull past performance</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Verify claims with provenance</span></div>
-              <div class="au-col-meta">Response tools: <b>2 of 3</b></div>
+            <div class="ps-col">
+              <span class="ps-col-name">Respond</span>
+              <span class="ps-col-sub">Drafts that read like the firm wrote them.</span>
+              <div class="ps-act">Drafts in firm voice with provenance on every claim</div>
+              <div class="ps-act">Pulls past performance live from project records</div>
+              <div class="ps-act">Verifies every claim against source documents</div>
             </div>
 
-            <div class="au-col">
-              <span class="au-col-num">5.0</span>
-              <span class="au-col-name">Submit</span>
-              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Final compliance check</span></div>
-              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Submit</span></div>
-              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Capture debrief / win-loss</span></div>
-              <div class="au-col-meta">Response tools: <b>2 of 3</b></div>
+            <div class="ps-col">
+              <span class="ps-col-name">Submit</span>
+              <span class="ps-col-sub">Submit-ready by Day 3, not the day before.</span>
+              <div class="ps-act">Reviewer gets a one-page provenance summary</div>
+              <div class="ps-act">Captures debrief automatically after submit</div>
+              <div class="ps-act">Indexes win/loss intel for the next pursuit</div>
             </div>
 
           </div>
 
-          <!-- ===== PURSUIT MEMORY BAND ===== -->
-          <div class="au-memory-band">
-            <div class="au-memory-band-head">
-              <span class="au-memory-band-label">Pursuit memory · captured from every phase</span>
-              <span class="au-memory-band-sub">interactions → indexed → searchable</span>
+          <!-- Pursuit memory band — positive framing -->
+          <div class="ps-memory">
+            <div class="ps-memory-head">
+              <span class="ps-memory-label">Pursuit memory</span>
+              <span class="ps-memory-sub">Captured from every phase. <b>Indexed, searchable, queryable across pursuits.</b></span>
             </div>
-            <div class="au-memory-grid">
-              <div class="au-memory-chip">
-                <span class="au-memory-chip-lbl">From Find</span>
-                <span class="au-memory-chip-val">Fit signals</span>
+            <div class="ps-memory-grid">
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Find</span>
+                <span class="ps-memory-chip-val">Fit signals</span>
               </div>
-              <div class="au-memory-chip">
-                <span class="au-memory-chip-lbl">From Qualify</span>
-                <span class="au-memory-chip-val">Win-probability data</span>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Qualify</span>
+                <span class="ps-memory-chip-val">Win-probability data</span>
               </div>
-              <div class="au-memory-chip">
-                <span class="au-memory-chip-lbl">From Analyze</span>
-                <span class="au-memory-chip-val">Compliance interpretations</span>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Analyze</span>
+                <span class="ps-memory-chip-val">Compliance interpretations</span>
               </div>
-              <div class="au-memory-chip">
-                <span class="au-memory-chip-lbl">From Respond</span>
-                <span class="au-memory-chip-val">Voice + win themes</span>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Respond</span>
+                <span class="ps-memory-chip-val">Voice + win themes</span>
               </div>
-              <div class="au-memory-chip">
-                <span class="au-memory-chip-lbl">From Submit</span>
-                <span class="au-memory-chip-val">Outcome intel</span>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Submit</span>
+                <span class="ps-memory-chip-val">Outcome intel</span>
               </div>
             </div>
           </div>
 
-          <!-- Loop arrow card -->
-          <div class="au-loop">
-            <svg class="au-loop-svg" viewBox="0 0 160 56" aria-hidden="true">
+          <!-- Loop arrow card — positive framing -->
+          <div class="ps-loop">
+            <svg class="ps-loop-svg" viewBox="0 0 160 56" aria-hidden="true">
               <path d="M 8 48 Q 8 8 80 8 Q 152 8 152 48" stroke="var(--accent-primary)" stroke-width="2.5" fill="none"/>
               <path d="M 0 40 L 8 48 L 16 40" stroke="var(--accent-primary)" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
               <circle cx="80" cy="8" r="3" fill="var(--accent-primary)"/>
             </svg>
             <div>
-              <b>Every interaction feeds the next pursuit</b>
-              The memory captured here doesn't just sit in storage — it sharpens qualification, drafts, and SME routing on the very next bid. By Pursuit 50, the firm is fighting with all 49 prior pursuits behind it.
+              <b>Every pursuit feeds the next one</b>
+              The memory captured here sharpens qualification, drafting, and SME routing on the very next bid. By Pursuit 50, the firm is fighting with all 49 prior pursuits behind it.
             </div>
           </div>
 
+          <!-- Tiny comparison footnote — the "vs" angle, dialed way down -->
+          <p class="ps-footnote">Response tools live in the Respond phase and add a pre-submit compliance check — about <b>40% of the pursuit</b>. The other 60%, and the memory layer that compounds, requires a system that touches every phase.</p>
         </div>
 
       </div>
