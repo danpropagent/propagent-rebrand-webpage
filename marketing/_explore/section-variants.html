@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Section explorations · Propagent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,500italic;9..144,600italic&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* ============================================================
+       Explore page chrome — wraps each variant in a labeled card
+       so all 6 directions can be compared on one scroll.
+       ============================================================ */
+    body { background: #050505; }
+    .explore-hero { padding: 64px 0 32px; }
+    .explore-hero h1 { font-size: 36px; margin: 0 0 12px; color: #fff; letter-spacing: -0.02em; }
+    .explore-hero p { color: var(--text-secondary); max-width: 720px; margin: 0; line-height: 1.55; }
+    .explore-nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(10,10,10,0.85);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 0;
+      margin: 32px 0 0;
+    }
+    .explore-nav-inner { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .explore-nav-group { display: flex; gap: 8px; align-items: center; }
+    .explore-nav-label {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      color: var(--text-muted); text-transform: uppercase;
+    }
+    .explore-nav a {
+      font-family: var(--font-mono); font-size: 12px;
+      padding: 4px 10px; border-radius: 999px;
+      background: var(--surface-glass); border: 1px solid var(--border-subtle);
+      color: var(--text-secondary); text-decoration: none;
+    }
+    .explore-nav a:hover { color: #fff; border-color: var(--border-accent); }
+
+    .explore-group { padding: 56px 0 24px; }
+    .explore-group-head {
+      display: flex; align-items: baseline; gap: 18px;
+      padding-bottom: 24px; border-bottom: 1px solid var(--border-default);
+      margin-bottom: 40px;
+    }
+    .explore-group-head h2 {
+      font-size: 28px; color: #fff; margin: 0; font-weight: 600; letter-spacing: -0.015em;
+    }
+    .explore-group-head span {
+      font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .variant {
+      margin: 48px 0;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--surface-base);
+    }
+    .variant-label {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--surface-raised);
+    }
+    .variant-label-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      color: var(--accent-primary); text-transform: uppercase;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(167,139,250,0.10); border: 1px solid var(--border-accent);
+    }
+    .variant-label h3 { font-size: 18px; color: #fff; margin: 0; font-weight: 600; }
+    .variant-label p { color: var(--text-secondary); font-size: 14px; margin: 0 0 0 auto; max-width: 480px; text-align: right; line-height: 1.5; }
+    .variant-body { padding: 56px 32px; }
+    @media (max-width: 768px) {
+      .variant-label { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .variant-label p { text-align: left; margin: 0; }
+      .variant-body { padding: 32px 20px; }
+    }
+
+    /* ============================================================
+       A1 — PAIN TAPE
+       ============================================================ */
+    .pt-wrap { max-width: 1100px; margin: 0 auto; }
+    .pt-head { text-align: center; margin-bottom: 48px; }
+    .pt-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .pt-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 0; line-height: 1.15; }
+    .pt-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+    @media (max-width: 768px) { .pt-grid { grid-template-columns: 1fr; } }
+    .pt-col { padding: 32px 28px; }
+    .pt-col + .pt-col { border-left: 1px solid var(--border-subtle); }
+    @media (max-width: 768px) { .pt-col + .pt-col { border-left: none; border-top: 1px solid var(--border-subtle); } }
+    .pt-col-label {
+      display: inline-flex; gap: 6px; align-items: center;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 36px;
+    }
+    .pt-col.today .pt-col-label { color: var(--status-error-fg); }
+    .pt-col.now .pt-col-label { color: var(--accent-primary); }
+    .pt-col-label::before { content: ''; width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+    .pt-quote {
+      font-family: var(--font-serif); font-style: italic; font-weight: 400;
+      font-size: 19px; line-height: 1.4; color: var(--text-primary);
+      margin: 0 0 8px;
+      text-wrap: balance;
+    }
+    .pt-col.now .pt-quote { color: var(--accent-primary); }
+    .pt-attr {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .pt-pair { padding: 22px 0; border-bottom: 1px dashed var(--border-subtle); }
+    .pt-pair:last-child { border-bottom: none; }
+
+    /* ============================================================
+       A2 — 14-DAY CLOCK
+       ============================================================ */
+    .clk-wrap { max-width: 1100px; margin: 0 auto; }
+    .clk-head { text-align: center; margin-bottom: 48px; }
+    .clk-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 0; line-height: 1.15; }
+    .clk-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: start; justify-items: center;
+    }
+    @media (max-width: 768px) { .clk-grid { grid-template-columns: 1fr; gap: 56px; } }
+    .clk-card {
+      width: 100%; max-width: 460px;
+    }
+    .clk-card-head {
+      display: flex; align-items: baseline; gap: 10px; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .clk-card-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+      border: 1px solid currentColor;
+    }
+    .clk-card.today .clk-card-tag { color: var(--status-error-fg); border-color: rgba(248,113,113,0.4); }
+    .clk-card.now .clk-card-tag { color: var(--accent-primary); border-color: var(--border-accent); }
+    .clk-card-sub { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+    .clk-svg { display: block; margin: 0 auto; }
+    .clk-tick { stroke: rgba(255,255,255,0.18); stroke-width: 1; }
+    .clk-tick-label { fill: var(--text-muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; }
+    .clk-pin-bg { fill: var(--surface-base); stroke-width: 2; }
+    .clk-pin-today { stroke: var(--status-error-fg); }
+    .clk-pin-now { stroke: var(--accent-primary); }
+    .clk-pin-dot-today { fill: var(--status-error-fg); }
+    .clk-pin-dot-now { fill: var(--accent-primary); }
+    .clk-legend { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border-subtle); }
+    .clk-legend-row { display: flex; gap: 12px; align-items: baseline; padding: 6px 0; font-size: 13px; line-height: 1.4; }
+    .clk-legend-day {
+      font-family: var(--font-mono); font-size: 11px; min-width: 56px;
+      color: var(--text-muted); letter-spacing: 0.04em;
+    }
+    .clk-legend-act { color: var(--text-secondary); }
+    .clk-card.today .clk-legend-day { color: var(--status-error-fg); }
+    .clk-card.now .clk-legend-day { color: var(--accent-primary); }
+    .clk-caption { text-align: center; margin-top: 48px; color: var(--text-secondary); font-size: 15px; line-height: 1.55; font-family: var(--font-serif); font-style: italic; }
+
+    /* ============================================================
+       A4 — PAIN SYMPTOM CATALOG
+       ============================================================ */
+    .ps-wrap { max-width: 1180px; margin: 0 auto; }
+    .ps-head { margin-bottom: 48px; max-width: 720px; }
+    .ps-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 18px; line-height: 1.15; }
+    .ps-head p { color: var(--text-secondary); font-size: 17px; line-height: 1.55; margin: 0; }
+    .ps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .ps-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ps-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--accent-primary), var(--accent-deep));
+    }
+    .ps-symptom {
+      font-family: var(--font-serif); font-size: 22px; color: #fff; font-weight: 500;
+      margin: 0 0 10px; line-height: 1.25; letter-spacing: -0.005em;
+    }
+    .ps-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.55; margin: 0 0 18px; }
+    .ps-cost, .ps-counter {
+      display: flex; gap: 10px; align-items: baseline; padding: 10px 0;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 13px; line-height: 1.5;
+    }
+    .ps-cost-label, .ps-counter-label {
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+      text-transform: uppercase; flex-shrink: 0;
+      min-width: 64px;
+    }
+    .ps-cost-label { color: var(--status-error-fg); }
+    .ps-counter-label { color: var(--accent-primary); }
+    .ps-cost-text { color: var(--text-secondary); }
+    .ps-counter-text { color: var(--text-primary); }
+
+    /* ============================================================
+       B1 — CAPABILITY MATRIX
+       ============================================================ */
+    .cm-wrap { max-width: 900px; margin: 0 auto; }
+    .cm-head { text-align: center; margin-bottom: 40px; }
+    .cm-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 0; line-height: 1.15; }
+    .cm-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .cm-table th, .cm-table td {
+      padding: 14px 18px; text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .cm-table thead th {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      background: var(--surface-overlay);
+      font-weight: 500;
+    }
+    .cm-table thead th.cm-col-them { color: var(--text-secondary); }
+    .cm-table thead th.cm-col-us { color: var(--accent-primary); }
+    .cm-table tbody tr:last-child td { border-bottom: none; }
+    .cm-cap { color: var(--text-primary); font-size: 14px; }
+    .cm-mark { text-align: center; width: 22%; }
+    .cm-dot {
+      display: inline-block; width: 14px; height: 14px; border-radius: 999px;
+      border: 1.5px solid var(--text-muted);
+      vertical-align: middle;
+    }
+    .cm-dot.full { background: var(--accent-primary); border-color: var(--accent-primary); }
+    .cm-dot.partial {
+      background: linear-gradient(90deg, var(--accent-primary) 50%, transparent 50%);
+      border-color: var(--accent-primary);
+    }
+    .cm-foot {
+      display: flex; gap: 24px; justify-content: center; margin-top: 24px;
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+    .cm-foot-key { display: flex; gap: 8px; align-items: center; }
+    .cm-foot .cm-dot { width: 10px; height: 10px; }
+
+    /* ============================================================
+       B3 — 5-PHASE ACTIVITY UNPACKER
+       ============================================================ */
+    .au-wrap { max-width: 1200px; margin: 0 auto; }
+    .au-head { text-align: center; margin-bottom: 48px; }
+    .au-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 0; line-height: 1.15; }
+    .au-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    }
+    @media (max-width: 980px) { .au-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .au-grid { grid-template-columns: 1fr; } }
+    .au-col {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      display: flex; flex-direction: column;
+    }
+    .au-col-num {
+      font-family: var(--font-mono); font-size: 18px; color: var(--accent-primary);
+      font-weight: 500; letter-spacing: -0.01em;
+    }
+    .au-col-name {
+      font-size: 14px; color: #fff; text-transform: uppercase; letter-spacing: 0.08em;
+      font-family: var(--font-mono); font-weight: 500; margin: 2px 0 16px;
+    }
+    .au-activity {
+      padding: 10px 0; border-top: 1px solid var(--border-subtle);
+      font-size: 13px; line-height: 1.45;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .au-activity-text { color: var(--text-primary); flex: 1; }
+    .au-activity-mark {
+      flex-shrink: 0; width: 10px; height: 10px; border-radius: 999px;
+      margin-top: 5px;
+      border: 1.5px solid var(--text-muted);
+    }
+    .au-activity-mark.them { background: rgba(248,113,113,0.5); border-color: var(--status-error-fg); }
+    .au-activity-mark.them-partial {
+      background: linear-gradient(90deg, rgba(248,113,113,0.5) 50%, transparent 50%);
+      border-color: var(--status-error-fg);
+    }
+    .au-col-meta {
+      margin-top: auto; padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+    .au-col-meta b { color: var(--status-error-fg); font-weight: 500; }
+    .au-totals {
+      margin-top: 32px; padding: 20px 24px;
+      background: var(--surface-raised); border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .au-totals-row { display: flex; align-items: baseline; gap: 12px; }
+    .au-totals-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .au-totals-val { color: #fff; font-size: 17px; font-weight: 500; }
+    .au-totals-val em { color: var(--accent-primary); font-style: normal; }
+    .au-totals-val .red { color: var(--status-error-fg); }
+
+    /* ============================================================
+       B4 — TWO-PANE SCOREBOARD
+       ============================================================ */
+    .sb-wrap { max-width: 1180px; margin: 0 auto; }
+    .sb-head { text-align: center; margin-bottom: 48px; }
+    .sb-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 0; line-height: 1.15; }
+    .sb-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 16px; align-items: stretch; }
+    @media (max-width: 768px) { .sb-grid { grid-template-columns: 1fr; } }
+    .sb-pane {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      display: flex; flex-direction: column;
+    }
+    .sb-pane.us { border-color: var(--border-accent); background: linear-gradient(180deg, rgba(167,139,250,0.05), var(--surface-raised) 70%); }
+    .sb-tag {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .sb-pane.them .sb-tag { color: var(--text-muted); }
+    .sb-pane.us .sb-tag { color: var(--accent-primary); }
+    .sb-pane h3 { font-size: 22px; color: #fff; margin: 0 0 24px; font-weight: 500; letter-spacing: -0.005em; }
+    .sb-list { list-style: none; margin: 0; padding: 0; }
+    .sb-list li {
+      padding: 12px 0 12px 22px; border-top: 1px solid var(--border-subtle);
+      color: var(--text-primary); font-size: 14px; line-height: 1.5;
+      position: relative;
+    }
+    .sb-list li::before {
+      content: ''; position: absolute; left: 0; top: 18px;
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--text-muted);
+    }
+    .sb-pane.us .sb-list li::before { background: var(--accent-primary); }
+    .sb-list li:last-child { border-bottom: 1px solid var(--border-subtle); }
+    .sb-foot {
+      margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .sb-foot b { color: var(--text-primary); font-weight: 500; }
+    .sb-pane.us .sb-foot b { color: var(--accent-primary); }
+  </style>
+</head>
+<body>
+<main class="container" style="max-width: 1280px;">
+
+  <div class="explore-hero">
+    <h1>Section explorations</h1>
+    <p>Six high-fidelity directions for two sections of v18 — three takes on the before/after, three on the wedge. Each variant is rendered as it would look in place, against the live v18 design tokens. Scroll, compare, tell me which ones to develop further and which to kill.</p>
+  </div>
+
+  <nav class="explore-nav">
+    <div class="explore-nav-inner">
+      <div class="explore-nav-group">
+        <span class="explore-nav-label">From RFP to Response:</span>
+        <a href="#a1">A1 Pain Tape</a>
+        <a href="#a2">A2 14-day clock</a>
+        <a href="#a4">A4 Symptom catalog</a>
+      </div>
+      <div class="explore-nav-group">
+        <span class="explore-nav-label">vs Response Tools:</span>
+        <a href="#b1">B1 Capability matrix</a>
+        <a href="#b3">B3 5-phase unpacker</a>
+        <a href="#b4">B4 Two-pane scoreboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       SECTION A — From RFP to Response (3 variants)
+       ============================================================ -->
+  <section class="explore-group">
+    <div class="explore-group-head">
+      <span>Section A · 3 variants</span>
+      <h2>From RFP To Response</h2>
+    </div>
+
+    <!-- ============================================================
+         A1 — PAIN TAPE
+         ============================================================ -->
+    <article class="variant" id="a1">
+      <div class="variant-label">
+        <span class="variant-label-tag">A1</span>
+        <h3>Pain Tape</h3>
+        <p>Operator voices. Pain quotes on the left, Propagent's flip on the right. Pure voice, no timeline.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="pt-wrap">
+          <div class="pt-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>The unspoken cost of pursuing under deadline.</h2>
+          </div>
+
+          <div class="pt-grid">
+            <div class="pt-col today">
+              <span class="pt-col-label">What we hear today</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"I spotted the RFP six days late. We never had a real shot."</p>
+                <span class="pt-attr">— BD lead, regional architecture firm</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Capture wrote the storyline Friday. The PM saw it Monday. By then, the angle had drifted."</p>
+                <span class="pt-attr">— Proposal manager, MEP engineering</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Past performance binder hasn't been touched since 2022. Half the projects we'd lean on aren't even in there."</p>
+                <span class="pt-attr">— Marketing coordinator</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Engineering lead is on PTO. The compliance matrix has 38 rows. We're choosing between submitting incomplete and chasing him on vacation."</p>
+                <span class="pt-attr">— PM, civil engineering</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Reviewer asked me to summarize the proposal in three lines. They didn't have time to read eighty pages."</p>
+                <span class="pt-attr">— Principal, design-build</span>
+              </div>
+            </div>
+
+            <div class="pt-col now">
+              <span class="pt-col-label">What Propagent flips</span>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Bid Scout flagged it on Day 0. The runway was the full fourteen days."</p>
+                <span class="pt-attr">— Same role, with Propagent</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"The storyline lived in the system from first qualification. The PM picked it up where it was, not where it had been."</p>
+                <span class="pt-attr">— Same role, with Propagent</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Past performance is queried live from project records. Every relevant project, surfaced automatically."</p>
+                <span class="pt-attr">— Same role, with Propagent</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Scoped SME questions auto-route by topic. Three answers, not a 38-row binder dump."</p>
+                <span class="pt-attr">— Same role, with Propagent</span>
+              </div>
+
+              <div class="pt-pair">
+                <p class="pt-quote">"Reviewers get a one-page provenance summary. The eighty pages are still there, just rarely needed."</p>
+                <span class="pt-attr">— Same role, with Propagent</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A2 — 14-DAY CLOCK
+         ============================================================ -->
+    <article class="variant" id="a2">
+      <div class="variant-label">
+        <span class="variant-label-tag">A2</span>
+        <h3>14-day clock</h3>
+        <p>Two clock faces. Today: activities pile against the deadline. Propagent: activities cluster at the start. The visual is the story.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="clk-wrap">
+          <div class="clk-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>Same fourteen days. Different posture.</h2>
+          </div>
+
+          <div class="clk-grid">
+
+            <!-- TODAY clock -->
+            <div class="clk-card today">
+              <div class="clk-card-head">
+                <span class="clk-card-tag">Today</span>
+                <span class="clk-card-sub">RFP found Day 8 of 14</span>
+              </div>
+
+              <svg class="clk-svg" viewBox="0 0 360 360" width="320" height="320" aria-label="Today timeline showing pursuit work compressed into days 8-14">
+                <!-- outer ring -->
+                <circle cx="180" cy="180" r="140" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <circle cx="180" cy="180" r="130" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+                <!-- 14 day ticks (every 360/14 = 25.714°). Day 0 at top (-90°). -->
+                <!-- We'll compute positions via inline. Top = day 0; clockwise to day 14 back at top. -->
+                <!-- For brevity, only label every other day. -->
+
+                <!-- Day labels around perimeter -->
+                <g class="clk-tick-label" text-anchor="middle" dominant-baseline="middle">
+                  <text x="180" y="22">D-0</text>
+                  <text x="288" y="65">D-2</text>
+                  <text x="338" y="180">D-4</text>
+                  <text x="288" y="295">D-6</text>
+                  <text x="180" y="338">D-7</text>
+                  <text x="72" y="295">D-9</text>
+                  <text x="22" y="180">D-11</text>
+                  <text x="72" y="65">D-13</text>
+                </g>
+
+                <!-- Today pins: cluster D-8..D-14, with the work compressed against deadline -->
+                <!-- D-8 BD spots RFP (angle = 8/14 * 360 - 90 = 115.71°) → cos=-0.4339, sin=0.9009 → x=119.3 y=306.1 -->
+                <g class="clk-pin-today">
+                  <line x1="180" y1="180" x2="119.3" y2="306.1" stroke="rgba(248,113,113,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="119.3" cy="306.1" r="10" class="clk-pin-bg clk-pin-today"/>
+                  <circle cx="119.3" cy="306.1" r="4" class="clk-pin-dot-today"/>
+                </g>
+                <!-- D-10 First draft (10/14 * 360 - 90 = 167.14°) → cos=-0.9749, sin=0.2225 → x=43.5 y=211.2 -->
+                <g class="clk-pin-today">
+                  <line x1="180" y1="180" x2="43.5" y2="211.2" stroke="rgba(248,113,113,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="43.5" cy="211.2" r="10" class="clk-pin-bg clk-pin-today"/>
+                  <circle cx="43.5" cy="211.2" r="4" class="clk-pin-dot-today"/>
+                </g>
+                <!-- D-12 Compliance matrix (12/14 * 360 - 90 = 218.57°) → cos=-0.7818, sin=-0.6235 → x=70.5 y=92.7 -->
+                <g class="clk-pin-today">
+                  <line x1="180" y1="180" x2="70.5" y2="92.7" stroke="rgba(248,113,113,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="70.5" cy="92.7" r="10" class="clk-pin-bg clk-pin-today"/>
+                  <circle cx="70.5" cy="92.7" r="4" class="clk-pin-dot-today"/>
+                </g>
+                <!-- D-13 SME chase (13/14 * 360 - 90 = 244.29°) → cos=-0.4339, sin=-0.9009 → x=119.3 y=53.9 -->
+                <g class="clk-pin-today">
+                  <line x1="180" y1="180" x2="119.3" y2="53.9" stroke="rgba(248,113,113,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="119.3" cy="53.9" r="10" class="clk-pin-bg clk-pin-today"/>
+                  <circle cx="119.3" cy="53.9" r="4" class="clk-pin-dot-today"/>
+                </g>
+                <!-- D-13.5 Internal review (13.5/14 * 360 - 90 = 257.14°) → cos=-0.2225, sin=-0.9749 → x=148.9 y=43.5 -->
+                <g class="clk-pin-today">
+                  <line x1="180" y1="180" x2="148.9" y2="43.5" stroke="rgba(248,113,113,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="148.9" cy="43.5" r="10" class="clk-pin-bg clk-pin-today"/>
+                  <circle cx="148.9" cy="43.5" r="4" class="clk-pin-dot-today"/>
+                </g>
+                <!-- D-14 Submit (= D-0, top) — but slightly offset to not collide -->
+                <g class="clk-pin-today">
+                  <line x1="180" y1="180" x2="180" y2="40" stroke="rgba(248,113,113,0.5)" stroke-width="1.5"/>
+                  <circle cx="180" cy="40" r="11" class="clk-pin-bg clk-pin-today"/>
+                  <circle cx="180" cy="40" r="5" class="clk-pin-dot-today"/>
+                </g>
+
+                <!-- Center label -->
+                <text x="180" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(255,255,255,0.4)" letter-spacing="0.08em">14 DAYS</text>
+                <text x="180" y="195" text-anchor="middle" font-family="Fraunces" font-size="15" font-style="italic" fill="#fff">6-day scramble</text>
+              </svg>
+
+              <div class="clk-legend">
+                <div class="clk-legend-row"><span class="clk-legend-day">D-8</span><span class="clk-legend-act">BD spots RFP on a portal scan</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-10</span><span class="clk-legend-act">First-draft kickoff, late capture handoff</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-12</span><span class="clk-legend-act">Compliance matrix started at midnight</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-13</span><span class="clk-legend-act">SME chased on PTO</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-13.5</span><span class="clk-legend-act">Internal review, three-line summary</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-14</span><span class="clk-legend-act">Submit, knowingly incomplete</span></div>
+              </div>
+            </div>
+
+            <!-- PROPAGENT clock -->
+            <div class="clk-card now">
+              <div class="clk-card-head">
+                <span class="clk-card-tag">With Propagent</span>
+                <span class="clk-card-sub">RFP flagged Day 0</span>
+              </div>
+
+              <svg class="clk-svg" viewBox="0 0 360 360" width="320" height="320" aria-label="Propagent timeline showing pursuit work clustered at days 0-3">
+                <!-- outer rings -->
+                <circle cx="180" cy="180" r="140" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <circle cx="180" cy="180" r="130" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+                <g class="clk-tick-label" text-anchor="middle" dominant-baseline="middle">
+                  <text x="180" y="22">D-0</text>
+                  <text x="288" y="65">D-2</text>
+                  <text x="338" y="180">D-4</text>
+                  <text x="288" y="295">D-6</text>
+                  <text x="180" y="338">D-7</text>
+                  <text x="72" y="295">D-9</text>
+                  <text x="22" y="180">D-11</text>
+                  <text x="72" y="65">D-13</text>
+                </g>
+
+                <!-- Propagent pins: cluster D-0..D-3 -->
+                <!-- D-0 RFP flagged (top, angle = -90° → x=180 y=40) -->
+                <g class="clk-pin-now">
+                  <line x1="180" y1="180" x2="180" y2="40" stroke="rgba(167,139,250,0.5)" stroke-width="1.5"/>
+                  <circle cx="180" cy="40" r="11" class="clk-pin-bg clk-pin-now"/>
+                  <circle cx="180" cy="40" r="5" class="clk-pin-dot-now"/>
+                </g>
+                <!-- D-1 Go/no-go (1/14 * 360 - 90 = -64.29°) → cos=0.4339, sin=-0.9009 → x=240.7 y=53.9 -->
+                <g class="clk-pin-now">
+                  <line x1="180" y1="180" x2="240.7" y2="53.9" stroke="rgba(167,139,250,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="240.7" cy="53.9" r="10" class="clk-pin-bg clk-pin-now"/>
+                  <circle cx="240.7" cy="53.9" r="4" class="clk-pin-dot-now"/>
+                </g>
+                <!-- D-2 Compliance matrix complete (2/14 * 360 - 90 = -38.57°) → cos=0.7818, sin=-0.6235 → x=289.5 y=92.7 -->
+                <g class="clk-pin-now">
+                  <line x1="180" y1="180" x2="289.5" y2="92.7" stroke="rgba(167,139,250,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="289.5" cy="92.7" r="10" class="clk-pin-bg clk-pin-now"/>
+                  <circle cx="289.5" cy="92.7" r="4" class="clk-pin-dot-now"/>
+                </g>
+                <!-- D-3 SME questions routed (3/14 * 360 - 90 = -12.86°) → cos=0.9749, sin=-0.2225 → x=316.5 y=148.9 -->
+                <g class="clk-pin-now">
+                  <line x1="180" y1="180" x2="316.5" y2="148.9" stroke="rgba(167,139,250,0.35)" stroke-width="1" stroke-dasharray="3 4"/>
+                  <circle cx="316.5" cy="148.9" r="10" class="clk-pin-bg clk-pin-now"/>
+                  <circle cx="316.5" cy="148.9" r="4" class="clk-pin-dot-now"/>
+                </g>
+                <!-- D-14 Submit (top) -->
+                <g class="clk-pin-now">
+                  <circle cx="180" cy="40" r="11" fill="none" stroke="var(--accent-primary)" stroke-width="2" opacity="0.4"/>
+                </g>
+
+                <text x="180" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="rgba(255,255,255,0.4)" letter-spacing="0.08em">14 DAYS</text>
+                <text x="180" y="195" text-anchor="middle" font-family="Fraunces" font-size="15" font-style="italic" fill="var(--accent-primary)">11 days headroom</text>
+              </svg>
+
+              <div class="clk-legend">
+                <div class="clk-legend-row"><span class="clk-legend-day">D-0</span><span class="clk-legend-act">Bid Scout flags within an hour of publication</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-1</span><span class="clk-legend-act">Go/no-go scored; capture brief generated</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-2</span><span class="clk-legend-act">Compliance matrix complete; draft skeleton</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-3</span><span class="clk-legend-act">Scoped SME questions routed; answers tracked</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-4 → D-13</span><span class="clk-legend-act">Iteration headroom — addenda absorbed cleanly</span></div>
+                <div class="clk-legend-row"><span class="clk-legend-day">D-14</span><span class="clk-legend-act">Submit complete, on time, with provenance</span></div>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="clk-caption">Same calendar. Different posture. Today's team scrambles in the last six days. Propagent's team is done by day three.</p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         A4 — PAIN SYMPTOM CATALOG
+         ============================================================ -->
+    <article class="variant" id="a4">
+      <div class="variant-label">
+        <span class="variant-label-tag">A4</span>
+        <h3>Pain symptom catalog</h3>
+        <p>Named failure modes — not phases. Each card: the symptom, what it costs, how Propagent neutralizes it.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="ps-wrap">
+          <div class="ps-head">
+            <span class="pt-eyebrow">From RFP to response</span>
+            <h2>The five failure modes we hear every pursuit week.</h2>
+            <p>These aren't phases. They're symptoms that show up as pure friction — and they cost real bids. Each is the kind of thing principals only talk about over coffee, not in the methodology slide.</p>
+          </div>
+
+          <div class="ps-grid">
+
+            <div class="ps-card">
+              <h3 class="ps-symptom">The 8-day blind spot</h3>
+              <p class="ps-desc">RFPs publish to portals while nobody's watching. By the time BD spots one, half the runway is already gone.</p>
+              <div class="ps-cost">
+                <span class="ps-cost-label">Cost</span>
+                <span class="ps-cost-text">Average 6 days of pursuit runway lost before the team starts.</span>
+              </div>
+              <div class="ps-counter">
+                <span class="ps-counter-label">Propagent</span>
+                <span class="ps-counter-text">Bid Scout watches every relevant portal and flags within an hour of publication. Scored against firm fit before the team sees it.</span>
+              </div>
+            </div>
+
+            <div class="ps-card">
+              <h3 class="ps-symptom">The handoff blackout</h3>
+              <p class="ps-desc">Capture writes the storyline. PM picks it up days later. By then the angle has drifted and rebuilding it eats more time than writing it did.</p>
+              <div class="ps-cost">
+                <span class="ps-cost-label">Cost</span>
+                <span class="ps-cost-text">1–2 days lost rediscovering decisions that were already made.</span>
+              </div>
+              <div class="ps-counter">
+                <span class="ps-counter-label">Propagent</span>
+                <span class="ps-counter-text">The storyline lives in the system from first qualification. The PM picks it up where it is, not where it was.</span>
+              </div>
+            </div>
+
+            <div class="ps-card">
+              <h3 class="ps-symptom">The midnight compliance matrix</h3>
+              <p class="ps-desc">Required by the proposal manager at 11pm before submit. Built as an artifact of panic, not coverage.</p>
+              <div class="ps-cost">
+                <span class="ps-cost-label">Cost</span>
+                <span class="ps-cost-text">Late-night work, missed requirements, defensible only to a point.</span>
+              </div>
+              <div class="ps-counter">
+                <span class="ps-counter-label">Propagent</span>
+                <span class="ps-counter-text">Compliance is a continuous artifact, populated as the team works. Submit-ready by day three.</span>
+              </div>
+            </div>
+
+            <div class="ps-card">
+              <h3 class="ps-symptom">The PTO-stricken reviewer</h3>
+              <p class="ps-desc">Reviewer with a 24-hour turnaround can't read 80 pages. So they read three, sign off, and pray.</p>
+              <div class="ps-cost">
+                <span class="ps-cost-label">Cost</span>
+                <span class="ps-cost-text">Surface-level review. Missed risks. Errors that should have been caught.</span>
+              </div>
+              <div class="ps-counter">
+                <span class="ps-counter-label">Propagent</span>
+                <span class="ps-counter-text">Reviewers get a one-page provenance summary. Click through to sources only where they want to verify.</span>
+              </div>
+            </div>
+
+            <div class="ps-card">
+              <h3 class="ps-symptom">The boilerplate that doesn't fit</h3>
+              <p class="ps-desc">Last pursuit's win themes copied forward into this one. Generic-sounding. Embarrassing in debrief.</p>
+              <div class="ps-cost">
+                <span class="ps-cost-label">Cost</span>
+                <span class="ps-cost-text">Lower win rate on competitive bids; "they didn't really read it" feedback.</span>
+              </div>
+              <div class="ps-counter">
+                <span class="ps-counter-label">Propagent</span>
+                <span class="ps-counter-text">Themes are built from this pursuit's qualification data — not last month's draft.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ============================================================
+       SECTION B — VS Response Tools (3 variants)
+       ============================================================ -->
+  <section class="explore-group">
+    <div class="explore-group-head">
+      <span>Section B · 3 variants</span>
+      <h2>VS Response Tools</h2>
+    </div>
+
+    <!-- ============================================================
+         B1 — CAPABILITY MATRIX
+         ============================================================ -->
+    <article class="variant" id="b1">
+      <div class="variant-label">
+        <span class="variant-label-tag">B1</span>
+        <h3>Capability matrix</h3>
+        <p>Pure comparison. Capabilities as rows, response-tool category vs Propagent as columns. Coverage shown as filled/half/empty circles.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="cm-wrap">
+          <div class="cm-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>Where response tools end, <span class="text-agent-gradient">Propagent begins.</span></h2>
+          </div>
+
+          <table class="cm-table">
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th class="cm-mark cm-col-them">Response tools</th>
+                <th class="cm-mark cm-col-us">Propagent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="cm-cap">Watch portals for new RFPs</td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Score go/no-go on every match</td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Build the compliance matrix</td><td class="cm-mark"><span class="cm-dot partial"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Query firm-specific past performance</td><td class="cm-mark"><span class="cm-dot partial"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Route scoped SME questions</td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Draft in firm voice</td><td class="cm-mark"><span class="cm-dot partial"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Verify claims with provenance</td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Final compliance check at submit</td><td class="cm-mark"><span class="cm-dot full"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Capture debrief and win-loss intel</td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+              <tr><td class="cm-cap">Compound learning into next pursuit</td><td class="cm-mark"><span class="cm-dot"></span></td><td class="cm-mark"><span class="cm-dot full"></span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="cm-foot">
+            <span class="cm-foot-key"><span class="cm-dot full"></span> Full coverage</span>
+            <span class="cm-foot-key"><span class="cm-dot partial"></span> Partial</span>
+            <span class="cm-foot-key"><span class="cm-dot"></span> Not covered</span>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B3 — 5-PHASE ACTIVITY UNPACKER
+         ============================================================ -->
+    <article class="variant" id="b3">
+      <div class="variant-label">
+        <span class="variant-label-tag">B3</span>
+        <h3>5-phase activity unpacker</h3>
+        <p>Your option 2. Five-phase spine across the top. Under each phase, the actual activities. Marks show what response tools touch.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="au-wrap">
+          <div class="au-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>Response tools touch slivers of the pursuit. <span class="text-agent-gradient">Propagent runs the spine.</span></h2>
+          </div>
+
+          <div class="au-grid">
+
+            <div class="au-col">
+              <span class="au-col-num">1.0</span>
+              <span class="au-col-name">Find</span>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Watch every relevant portal</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Match against firm fit</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Surface with a one-line summary</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Score deadline urgency</span></div>
+              <div class="au-col-meta">Response tools: <b>0 of 4</b></div>
+            </div>
+
+            <div class="au-col">
+              <span class="au-col-num">2.0</span>
+              <span class="au-col-name">Qualify</span>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Score go/no-go</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify must-have SMEs</span></div>
+              <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Surface relevant past performance</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Confidence-rate win probability</span></div>
+              <div class="au-col-meta">Response tools: <b>1 partial of 4</b></div>
+            </div>
+
+            <div class="au-col">
+              <span class="au-col-num">3.0</span>
+              <span class="au-col-name">Analyze</span>
+              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Build compliance matrix</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify win themes</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify risks and gaps</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Identify SME questions</span></div>
+              <div class="au-col-meta">Response tools: <b>1 of 4</b></div>
+            </div>
+
+            <div class="au-col">
+              <span class="au-col-num">4.0</span>
+              <span class="au-col-name">Respond</span>
+              <div class="au-activity"><div class="au-activity-mark them-partial"></div><span class="au-activity-text">Draft in firm voice</span></div>
+              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Pull past performance examples</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Route SME questions, scoped</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Verify claims with provenance</span></div>
+              <div class="au-col-meta">Response tools: <b>2 of 4</b></div>
+            </div>
+
+            <div class="au-col">
+              <span class="au-col-num">5.0</span>
+              <span class="au-col-name">Submit &amp; compound</span>
+              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Final compliance check</span></div>
+              <div class="au-activity"><div class="au-activity-mark them"></div><span class="au-activity-text">Submit</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Capture debrief / win-loss intel</span></div>
+              <div class="au-activity"><div class="au-activity-mark"></div><span class="au-activity-text">Compound into next pursuit</span></div>
+              <div class="au-col-meta">Response tools: <b>2 of 4</b></div>
+            </div>
+
+          </div>
+
+          <div class="au-totals">
+            <div class="au-totals-row">
+              <span class="au-totals-label">Response tools cover</span>
+              <span class="au-totals-val"><span class="red">6 of 20</span> activities · 30%</span>
+            </div>
+            <div class="au-totals-row">
+              <span class="au-totals-label">Propagent covers</span>
+              <span class="au-totals-val"><em>20 of 20</em> activities · 100%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ============================================================
+         B4 — TWO-PANE SCOREBOARD
+         ============================================================ -->
+    <article class="variant" id="b4">
+      <div class="variant-label">
+        <span class="variant-label-tag">B4</span>
+        <h3>Two-pane scoreboard</h3>
+        <p>Pure comparison, simple shape. Left pane lists what response tools do. Right pane lists what Propagent does. Visual asymmetry tells the story.</p>
+      </div>
+      <div class="variant-body">
+
+        <div class="sb-wrap">
+          <div class="sb-head">
+            <span class="pt-eyebrow">vs response tools</span>
+            <h2>What each kind of tool actually does.</h2>
+          </div>
+
+          <div class="sb-grid">
+            <div class="sb-pane them">
+              <span class="sb-tag">Response tools</span>
+              <h3>Optimize one phase. Stop at submit.</h3>
+              <ul class="sb-list">
+                <li>Maintain a library of past content</li>
+                <li>AI-assisted drafting against that library</li>
+                <li>Compliance check before submit</li>
+                <li>Manual library updates after each pursuit</li>
+              </ul>
+              <div class="sb-foot"><b>4 capabilities</b> · scoped to Respond + final-check</div>
+            </div>
+
+            <div class="sb-pane us">
+              <span class="sb-tag">Propagent</span>
+              <h3>Run the lifecycle, sharper at every shared stage.</h3>
+              <ul class="sb-list">
+                <li>Watches every relevant portal; flags fit RFPs within an hour</li>
+                <li>Scores go/no-go with confidence on every match</li>
+                <li>Builds the compliance matrix continuously, not at midnight</li>
+                <li>Queries firm-specific past performance live from project records</li>
+                <li>Identifies win themes from this pursuit's data, not last month's draft</li>
+                <li>Routes scoped SME questions; tracks responses; resolves dependencies</li>
+                <li>Drafts in firm voice with provenance on every claim</li>
+                <li>Verifies claims against source documents before review</li>
+                <li>Reviewer one-pager: provenance summary with click-through to sources</li>
+                <li>Final compliance check is a continuous artifact, not a pre-submit fire drill</li>
+                <li>Captures debrief and win-loss intel into reusable memory</li>
+                <li>Compounds memory into the next pursuit's qualification posture</li>
+              </ul>
+              <div class="sb-foot"><b>12 capabilities</b> · runs Find through Compound</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+  </section>
+
+  <footer style="text-align: center; padding: 64px 0 80px; color: var(--text-muted); font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.06em;">
+    Section exploration · branch <code>section-explorations</code> · not linked from production
+  </footer>
+
+</main>
+</body>
+</html>
