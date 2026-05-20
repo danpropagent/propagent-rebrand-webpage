@@ -103,8 +103,9 @@
     }
 
     /* ============================================================
-       SECTION A — 3 consolidated moments, with explicit
-       Outcome + Experience improvements per card
+       SECTION A — 3 consolidated moments
+       Outcome + experience are now IMPLICIT in the counter copy.
+       No explicit labels.
        ============================================================ */
     .bp-wrap { max-width: 1180px; margin: 0 auto; }
     .bp-head { margin-bottom: 40px; max-width: 760px; }
@@ -121,18 +122,18 @@
       overflow: hidden;
       display: flex; flex-direction: column;
     }
-    .bp-quote-body { padding: 26px 26px 22px; }
+    .bp-quote-body { padding: 28px 26px 24px; }
     .bp-symptom-tag {
       display: inline-block;
       font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--accent-primary);
       padding: 4px 10px; border-radius: 999px;
       background: rgba(167,139,250,0.10); border: 1px solid var(--border-accent);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       font-weight: 500;
     }
     .bp-quote {
-      font-family: var(--font-serif); font-style: italic; font-size: 18px;
+      font-family: var(--font-serif); font-style: italic; font-size: 19px;
       line-height: 1.5; color: var(--text-primary); margin: 0;
       text-wrap: balance;
     }
@@ -160,7 +161,7 @@
       letter-spacing: 0.04em;
     }
     .bp-counter {
-      padding: 16px 26px;
+      padding: 18px 26px 22px;
       background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.04));
       border-top: 1px solid var(--border-accent);
       display: flex; gap: 12px; align-items: baseline;
@@ -174,73 +175,38 @@
     .bp-counter-text {
       font-size: 13.5px; line-height: 1.55; color: var(--text-primary);
     }
-
-    /* Improvement block — Outcome + Experience axes */
-    .bp-impact {
-      padding: 16px 26px 22px;
-      background: rgba(167,139,250,0.04);
-      border-top: 1px dashed var(--border-accent);
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .bp-impact-row {
-      display: grid; grid-template-columns: 88px 1fr; gap: 12px;
-      align-items: baseline;
-    }
-    .bp-impact-label {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.10em;
-      text-transform: uppercase; font-weight: 600;
-      padding: 3px 8px; border-radius: 4px;
-      text-align: center;
-    }
-    .bp-impact-row.outcome .bp-impact-label {
-      color: var(--accent-primary); background: rgba(167,139,250,0.14);
-      border: 1px solid var(--border-accent);
-    }
-    .bp-impact-row.experience .bp-impact-label {
-      color: var(--text-secondary); background: var(--surface-glass);
-      border: 1px solid var(--border-subtle);
-    }
-    .bp-impact-text {
-      font-size: 12.5px; line-height: 1.55; color: var(--text-primary);
+    .bp-counter-text em {
+      color: var(--accent-primary); font-style: italic; font-weight: 500;
     }
 
     /* ============================================================
        SECTION B — Positive-led pursuit spine
-       + response-tools comparison strip (factual, not deficit-led)
+       Per-row two-bubble comparison: Propagent purple + response tools
        ============================================================ */
     .ps-wrap { max-width: 1200px; margin: 0 auto; }
-    .ps-head { text-align: center; margin-bottom: 36px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .ps-head { text-align: center; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; }
     .ps-head h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); color: #fff; font-weight: 500; letter-spacing: -0.01em; margin: 14px 0 14px; line-height: 1.15; }
     .ps-head h2 em { color: var(--accent-primary); font-style: italic; }
     .ps-head p { color: var(--text-secondary); font-size: 16px; line-height: 1.55; margin: 0; }
 
-    /* Track label above each track */
-    .ps-track-label {
-      display: flex; align-items: baseline; gap: 12px;
-      margin-bottom: 14px;
-    }
-    .ps-track-tag {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
-      text-transform: uppercase; font-weight: 600;
-      padding: 4px 12px; border-radius: 999px;
-      border: 1px solid currentColor;
-    }
-    .ps-track-tag.us {
-      color: var(--accent-primary);
-      background: rgba(167,139,250,0.12);
-      border-color: var(--border-accent);
-    }
-    .ps-track-tag.them {
-      color: var(--text-secondary);
+    /* Legend — quick key for the two-bubble system */
+    .ps-legend {
+      display: flex; gap: 24px; justify-content: center; align-items: center;
+      margin-bottom: 28px; padding: 12px 18px;
       background: var(--surface-glass);
-      border-color: var(--border-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      width: max-content; margin-left: auto; margin-right: auto;
     }
-    .ps-track-sub {
-      font-family: var(--font-serif); font-style: italic; font-size: 14px;
-      color: var(--text-secondary);
-    }
+    .ps-legend-item { display: flex; gap: 8px; align-items: center; }
+    .ps-legend-label { letter-spacing: 0.06em; text-transform: uppercase; }
+    .ps-legend .ps-mark { width: 11px; height: 11px; }
 
-    /* Propagent track — 5 phase cards */
+    /* 5 phase columns */
     .ps-grid {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
     }
@@ -263,67 +229,40 @@
       color: var(--accent-primary); margin-bottom: 18px;
       line-height: 1.3;
     }
+
+    /* Activity row — two-bubble marks + text */
     .ps-act {
       padding: 12px 0; border-top: 1px solid var(--border-subtle);
       font-size: 13px; line-height: 1.5; color: var(--text-primary);
+      display: flex; gap: 10px; align-items: flex-start;
     }
-    .ps-act:last-child { padding-bottom: 0; }
-    .ps-act b { color: var(--accent-primary); font-weight: 500; }
-
-    /* Response tools comparison strip — same 5-column grid for visual alignment.
-       Only Respond + part of Submit have content. Empty columns are dashed/muted. */
-    .ps-cmp-wrap {
-      margin-top: 28px;
-      padding: 20px 18px 18px;
-      background: var(--surface-glass);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
+    .ps-act-marks {
+      display: flex; gap: 4px; flex-shrink: 0;
+      padding-top: 4px;
     }
-    .ps-cmp-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+    .ps-mark {
+      width: 10px; height: 10px; border-radius: 999px;
+      display: inline-block;
+      flex-shrink: 0;
     }
-    @media (max-width: 980px) { .ps-cmp-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .ps-cmp-grid { grid-template-columns: 1fr; } }
-    .ps-cmp-cell {
-      border-radius: var(--radius-md);
-      padding: 16px 14px;
-      min-height: 90px;
-      display: flex; flex-direction: column; gap: 4px;
-      font-size: 12px; line-height: 1.45;
+    .ps-mark.us {
+      background: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
     }
-    .ps-cmp-cell.empty {
-      border: 1px dashed var(--border-subtle);
+    .ps-mark.them.empty {
       background: transparent;
+      border: 1px dashed rgba(248,113,113,0.55);
     }
-    .ps-cmp-cell.empty .ps-cmp-phase {
-      color: var(--text-dim);
+    .ps-mark.them.full {
+      background: var(--status-error-fg);
+      border: 1px solid var(--status-error-fg);
     }
-    .ps-cmp-cell.empty .ps-cmp-note {
-      color: var(--text-dim); font-style: italic;
+    .ps-mark.them.partial {
+      background: linear-gradient(90deg, var(--status-error-fg) 50%, transparent 50%);
+      border: 1px solid var(--status-error-fg);
     }
-    .ps-cmp-cell.filled {
-      border: 1px solid var(--border-default);
-      background: var(--surface-raised);
-    }
-    .ps-cmp-cell.filled .ps-cmp-phase {
-      color: var(--text-secondary);
-    }
-    .ps-cmp-cell.filled .ps-cmp-note {
-      color: var(--text-primary);
-    }
-    .ps-cmp-cell.filled.partial { border-style: dashed; }
-    .ps-cmp-phase {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
-      text-transform: uppercase; font-weight: 500;
-    }
-    .ps-cmp-where {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
-      color: var(--accent-primary); margin: 2px 0;
-      text-transform: uppercase; font-weight: 500;
-    }
-    .ps-cmp-note {
-      font-size: 12px; line-height: 1.45;
-    }
+    .ps-act-text { flex: 1; }
+    .ps-act-text b { color: var(--accent-primary); font-weight: 500; }
 
     /* Pursuit memory band */
     .ps-memory {
@@ -392,7 +331,7 @@
 
   <div class="explore-hero">
     <h1>Section finalists</h1>
-    <p>Two finalists. <a href="#a-final" style="color: var(--accent-primary);">Section A</a>: three moments where Propagent measurably changes the pursuit week, with Outcome and Experience improvements made explicit per card. <a href="#b-final" style="color: var(--accent-primary);">Section B</a>: positive-led pursuit spine, with a response-tools comparison strip that uses the same 5-column grid (factual, not deficit-led) to show what point solutions cover vs what the full system covers.</p>
+    <p>Two finalists. <a href="#a-final" style="color: var(--accent-primary);">Section A</a>: three moments where the system measurably helps, with outcome and experience improvements implicit in the counter copy. <a href="#b-final" style="color: var(--accent-primary);">Section B</a>: positive-led pursuit spine, with per-row two-bubble marks (purple = Propagent, red = response tools) doing the comparison.</p>
   </div>
 
   <nav class="explore-nav">
@@ -400,13 +339,13 @@
       <div class="explore-nav-group">
         <span class="explore-nav-label">Finalists:</span>
         <a href="#a-final">Section A · 3 moments</a>
-        <a href="#b-final">Section B · pursuit spine + comparison</a>
+        <a href="#b-final">Section B · pursuit spine + two-bubble marks</a>
       </div>
     </div>
   </nav>
 
   <!-- ============================================================
-       SECTION A — 3 consolidated moments
+       SECTION A — 3 consolidated moments, implicit dual-axis
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
@@ -417,16 +356,15 @@
     <article class="variant" id="a-final">
       <div class="variant-label">
         <span class="variant-label-tag">A11 × A4 · 3 moments</span>
-        <h3>Three moments · with Outcome + Experience axes</h3>
-        <p>Same three consolidated moments. Headline reframed to focus on where the system measurably helps. Each card now carries explicit Outcome and Experience improvements at the bottom.</p>
+        <h3>Three moments where the full system helps</h3>
+        <p>Pain → Propagent counter. Outcome and experience improvements baked into the counter copy, not labeled. Cleaner read.</p>
       </div>
       <div class="variant-body">
-        <p class="qa-note"><b>What changed from the previous Section A:</b>
+        <p class="qa-note"><b>What changed:</b>
           <ul>
-            <li><b>Headline reframed</b> from "Three moments that <em>decide</em> a pursuit" (overclaiming) to "Three moments where Propagent measurably changes the pursuit week" (factual — the system helps here, doesn't claim to be the only thing that matters).</li>
-            <li><b>Subhead now names both axes explicitly</b>: "Notable improvement in win rate and in the hours it takes to get there."</li>
-            <li><b>Each card gets an Outcome + Experience block</b> below the Propagent counter. Reader sees both axes for every moment: what changes in the win column, and what changes in the human-cost column.</li>
-            <li>Card identity and content unchanged — same three consolidated moments (vanishing runway / context drops / sounds-generic).</li>
+            <li>Dropped the explicit Outcome / Experience labels at the bottom of each card — they were doing the work overtly. Both axes now live <em>inside</em> the Propagent counter copy.</li>
+            <li>Each counter ends with a phrase that carries the dual improvement implicitly — e.g., "eleven days of headroom for win themes, SME input, and no submit-night all-nighters" (outcome = better-developed bid, experience = no all-nighters).</li>
+            <li>Card structure simplified back to: symptom tag → quote → attribution → counter. Three rows, not five.</li>
           </ul>
         </p>
 
@@ -434,7 +372,7 @@
           <div class="bp-head">
             <span class="section-eyebrow">From RFP to response</span>
             <h2>Three moments where Propagent measurably changes the pursuit week.</h2>
-            <p>For each one, teams report notable improvement on both axes — the win column, and the hours it takes to get there.</p>
+            <p>Each one shows up in customer-development calls again and again. Each one is the kind of friction the team only talks about over coffee.</p>
           </div>
 
           <div class="bp-grid">
@@ -454,17 +392,7 @@
               </div>
               <div class="bp-counter">
                 <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Bid Scout flags every fit RFP within an hour of publication. Compliance is a continuous artifact, populated as the team works. Submit-ready by Day 3 — eleven days of headroom.</span>
-              </div>
-              <div class="bp-impact">
-                <div class="bp-impact-row outcome">
-                  <span class="bp-impact-label">Outcome</span>
-                  <span class="bp-impact-text">Bids developed over 14 days instead of 6. More time for win-themes, SME input, and competitive intel — pursuits the team actually competes for, not chases.</span>
-                </div>
-                <div class="bp-impact-row experience">
-                  <span class="bp-impact-label">Experience</span>
-                  <span class="bp-impact-text">Zero submit-night all-nighters. The team works pursuits like a deliberate process, not a panic.</span>
-                </div>
+                <span class="bp-counter-text">Bid Scout flags every fit RFP within an hour of publication. Compliance is a continuous artifact, populated as the team works. Submit-ready by Day 3 — <em>eleven days of headroom for win themes, SME input, and no submit-night all-nighters</em>.</span>
               </div>
             </div>
 
@@ -483,17 +411,7 @@
               </div>
               <div class="bp-counter">
                 <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Storyline lives in the system from first qualification — the PM picks it up where it is, not where it was. Reviewers get a one-page provenance summary; click through to source only where they want to verify.</span>
-              </div>
-              <div class="bp-impact">
-                <div class="bp-impact-row outcome">
-                  <span class="bp-impact-label">Outcome</span>
-                  <span class="bp-impact-text">Fewer rewrites, no drift between capture and PM. Reviewer signs off on what the team actually built — not a skim of what they had time for.</span>
-                </div>
-                <div class="bp-impact-row experience">
-                  <span class="bp-impact-label">Experience</span>
-                  <span class="bp-impact-text">PMs stop the Monday-morning context rebuild. Reviewers stop dreading the 80-page PDF.</span>
-                </div>
+                <span class="bp-counter-text">Storyline lives in the system from first qualification — the PM picks it up where it is, not where it was. Reviewers get a one-page provenance summary; click through to source only where they want to verify. <em>No Monday-morning rebuilds, no dreaded 80-page PDF</em>.</span>
               </div>
             </div>
 
@@ -512,17 +430,7 @@
               </div>
               <div class="bp-counter">
                 <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Past performance is queried live from project records. Win themes are built from this pursuit's qualification data — not last month's draft. Drafts carry firm voice with provenance on every claim.</span>
-              </div>
-              <div class="bp-impact">
-                <div class="bp-impact-row outcome">
-                  <span class="bp-impact-label">Outcome</span>
-                  <span class="bp-impact-text">Proposals read like they were built for this RFP. Less "looks the same as the other eight" feedback in debrief; better evaluator scores on differentiation.</span>
-                </div>
-                <div class="bp-impact-row experience">
-                  <span class="bp-impact-label">Experience</span>
-                  <span class="bp-impact-text">No copy-paste shame. Drafts the team can put their name on without an internal apology.</span>
-                </div>
+                <span class="bp-counter-text">Past performance queried live from project records. Win themes built from this pursuit's qualification data — not last month's draft. <em>Drafts the team puts their name on without an internal apology — and that reviewers can tell were built for this RFP</em>.</span>
               </div>
             </div>
 
@@ -535,8 +443,7 @@
   </section>
 
   <!-- ============================================================
-       SECTION B — Positive-led pursuit spine
-       + factual response-tools comparison strip
+       SECTION B — Pursuit spine + per-row two-bubble marks
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
@@ -546,18 +453,17 @@
 
     <article class="variant" id="b-final">
       <div class="variant-label">
-        <span class="variant-label-tag">B3 · pursuit spine + comparison</span>
-        <h3>The pursuit spine, with response-tools comparison</h3>
-        <p>Propagent's 5-phase coverage on top. Below it, a response-tools strip using the same 5-column grid — factual, positive language about what they do in their phases; empty columns where they don't reach. The visual asymmetry does the comparing.</p>
+        <span class="variant-label-tag">B3 · two-bubble marks</span>
+        <h3>Pursuit spine with per-row Propagent + response-tools bubbles</h3>
+        <p>Each activity row carries two bubbles: purple for Propagent (always, since these are Propagent's activities), red/dashed for response tools (filled, partial, or outlined depending on coverage).</p>
       </div>
       <div class="variant-body">
-        <p class="qa-note"><b>What changed from the previous Section B:</b>
+        <p class="qa-note"><b>What changed:</b>
           <ul>
-            <li><b>Comparison is back</b> — the section's whole job is to compare Propagent to response tools, and last pass stripped that too aggressively.</li>
-            <li><b>How it's brought back without deficit framing</b>: a response-tools strip <em>using the same 5-column grid</em> sits below Propagent's spine. Only the Respond and Submit columns are filled — and they describe positively what response tools cover in those phases. The three empty columns are dashed, muted, with neutral labels.</li>
-            <li>The reader sees the asymmetry visually (Propagent fills 5 columns of activities; response tools fill ~1.5 columns) without ever reading "they fail at X."</li>
-            <li>Memory band and loop-arrow card unchanged — those carry the "full system unlocks compounding" story.</li>
-            <li>Bottom takeaway names the structural advantage explicitly: pursuit memory and compounding require touching every phase, which is the difference between a full system and a point solution.</li>
+            <li>Dropped the response-tools comparison strip below the spine — replaced with per-row two-bubble marks on each activity, the way the user described.</li>
+            <li>Each activity row now carries two small circles: <span style="color: var(--accent-primary);">●</span> Propagent (purple, always filled) + <span style="color: var(--status-error-fg);">●</span> response tools (filled where they cover, half-filled for partial, dashed-outline where they don't).</li>
+            <li>Tiny legend below the headline explains the two bubbles. The visual asymmetry — Propagent's column is all purple, response tools' column is mostly dashed-outlines — does the comparison work row-by-row.</li>
+            <li>Activity copy unchanged. Memory band and loop-arrow card unchanged.</li>
           </ul>
         </p>
 
@@ -568,89 +474,105 @@
             <p>A point solution lives in one phase. A full system runs all five — and unlocks the memory layer that response tools structurally can't reach.</p>
           </div>
 
-          <!-- PROPAGENT TRACK -->
-          <div class="ps-track-label">
-            <span class="ps-track-tag us">Propagent · the full pursuit</span>
-            <span class="ps-track-sub">All five phases, pursuit memory captured throughout.</span>
+          <!-- Legend -->
+          <div class="ps-legend">
+            <div class="ps-legend-item"><span class="ps-mark us"></span><span class="ps-legend-label">Propagent</span></div>
+            <div class="ps-legend-item"><span class="ps-mark them full"></span><span class="ps-legend-label">Response tools — covered</span></div>
+            <div class="ps-legend-item"><span class="ps-mark them partial"></span><span class="ps-legend-label">Partial</span></div>
+            <div class="ps-legend-item"><span class="ps-mark them empty"></span><span class="ps-legend-label">Not covered</span></div>
           </div>
 
+          <!-- 5 phase columns with two-bubble marks per activity -->
           <div class="ps-grid">
 
             <div class="ps-col">
               <span class="ps-col-name">Find</span>
               <span class="ps-col-sub">RFPs reach the team Day 0, not Day 8.</span>
-              <div class="ps-act">Watches every relevant portal in real time</div>
-              <div class="ps-act">Flags fit RFPs within an hour of publication</div>
-              <div class="ps-act">Scored against firm fit before the team sees it</div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Watches every relevant portal in real time</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Flags fit RFPs within an hour of publication</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Scored against firm fit before the team sees it</span>
+              </div>
             </div>
 
             <div class="ps-col">
               <span class="ps-col-name">Qualify</span>
               <span class="ps-col-sub">Decisions backed by data, not instinct.</span>
-              <div class="ps-act">Scores go/no-go with confidence on every match</div>
-              <div class="ps-act">Surfaces past performance live, by relevance</div>
-              <div class="ps-act">Confidence-rates win probability against firm history</div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Scores go/no-go with confidence on every match</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Surfaces past performance live, by relevance</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Confidence-rates win probability against firm history</span>
+              </div>
             </div>
 
             <div class="ps-col">
               <span class="ps-col-name">Analyze</span>
               <span class="ps-col-sub">Compliance is continuous, not a panic.</span>
-              <div class="ps-act">Builds the compliance matrix continuously, not pre-submit</div>
-              <div class="ps-act">Identifies win themes from this pursuit's data</div>
-              <div class="ps-act">Scopes SME questions before they're asked</div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Builds the compliance matrix continuously, not pre-submit</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Identifies win themes from this pursuit's data</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Scopes SME questions before they're asked</span>
+              </div>
             </div>
 
             <div class="ps-col">
               <span class="ps-col-name">Respond</span>
               <span class="ps-col-sub">Drafts that read like the firm wrote them.</span>
-              <div class="ps-act">Drafts in firm voice with provenance on every claim</div>
-              <div class="ps-act">Pulls past performance live from project records</div>
-              <div class="ps-act">Verifies every claim against source documents</div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Drafts in firm voice with provenance on every claim</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Pulls past performance live from project records</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Verifies every claim against source documents</span>
+              </div>
             </div>
 
             <div class="ps-col">
               <span class="ps-col-name">Submit</span>
               <span class="ps-col-sub">Submit-ready by Day 3, not the day before.</span>
-              <div class="ps-act">Reviewer gets a one-page provenance summary</div>
-              <div class="ps-act">Captures debrief automatically after submit</div>
-              <div class="ps-act">Indexes win/loss intel for the next pursuit</div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them full"></span></div>
+                <span class="ps-act-text">Final compliance check at submit</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Reviewer gets a one-page provenance summary</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Captures debrief and indexes win/loss intel</span>
+              </div>
             </div>
 
           </div>
 
-          <!-- RESPONSE-TOOLS TRACK — same 5-column grid, factual where they live -->
-          <div class="ps-cmp-wrap">
-            <div class="ps-track-label">
-              <span class="ps-track-tag them">Response tools · point solutions</span>
-              <span class="ps-track-sub">Optimize one phase plus a final check. They do that work well, and that's the scope.</span>
-            </div>
-            <div class="ps-cmp-grid">
-              <div class="ps-cmp-cell empty">
-                <span class="ps-cmp-phase">Find</span>
-                <span class="ps-cmp-note">Out of scope.</span>
-              </div>
-              <div class="ps-cmp-cell empty">
-                <span class="ps-cmp-phase">Qualify</span>
-                <span class="ps-cmp-note">Out of scope.</span>
-              </div>
-              <div class="ps-cmp-cell empty">
-                <span class="ps-cmp-phase">Analyze</span>
-                <span class="ps-cmp-note">Out of scope.</span>
-              </div>
-              <div class="ps-cmp-cell filled">
-                <span class="ps-cmp-phase">Respond</span>
-                <span class="ps-cmp-where">Response tools live here</span>
-                <span class="ps-cmp-note">AI-assisted drafting against a content library. They do this well.</span>
-              </div>
-              <div class="ps-cmp-cell filled partial">
-                <span class="ps-cmp-phase">Submit</span>
-                <span class="ps-cmp-where">Partial coverage</span>
-                <span class="ps-cmp-note">Compliance check before submit. Good at the gate, nothing after it.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- PURSUIT MEMORY BAND -->
+          <!-- Memory band -->
           <div class="ps-memory">
             <div class="ps-memory-head">
               <span class="ps-memory-label">Pursuit memory</span>
@@ -680,7 +602,7 @@
             </div>
           </div>
 
-          <!-- LOOP ARROW -->
+          <!-- Loop arrow -->
           <div class="ps-loop">
             <svg class="ps-loop-svg" viewBox="0 0 160 56" aria-hidden="true">
               <path d="M 8 48 Q 8 8 80 8 Q 152 8 152 48" stroke="var(--accent-primary)" stroke-width="2.5" fill="none"/>
