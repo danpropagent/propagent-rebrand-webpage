@@ -2642,7 +2642,7 @@ a:hover { color: var(--accent-primary-strong); }
 }
 
 /* ============================================================================
-   CONTACT — Calendly inline embed (replaces the old contact-form)
+   CONTACT — Calendly inline embed
    ============================================================================ */
 .contact-schedule {
   display: flex;
@@ -2650,7 +2650,6 @@ a:hover { color: var(--accent-primary-strong); }
   gap: 12px;
 }
 .calendly-inline-widget {
-  /* match the visual weight the old form had: bordered card, surface bg */
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   background: var(--surface-overlay);
@@ -2665,10 +2664,6 @@ a:hover { color: var(--accent-primary-strong); }
   margin: 0;
   text-align: right;
 }
-.contact-fallback a {
-  color: var(--accent-primary);
-}
-.contact-fallback a:hover {
-  color: var(--accent-primary-strong);
-}
+.contact-fallback a { color: var(--accent-primary); }
+.contact-fallback a:hover { color: var(--accent-primary-strong); }
 
