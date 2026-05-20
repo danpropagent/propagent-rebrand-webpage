@@ -1,4 +1,4 @@
-/* ============================================================================
+﻿/* ============================================================================
    PROPAGENT v12 — Mirrors v10 single-accent design system
    - Single violet accent (no indigo→violet gradient on text/fills)
    - Fraunces serif reserved for editorial moments only
@@ -157,8 +157,34 @@ a:hover { color: var(--accent-primary-strong); }
    ============================================================================ */
 .hero {
   position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
   padding: 80px 0 88px;
 }
+.hero > .container { width: 100%; }
+
+/* Briefing — full-viewport animated overview iframe directly below the hero.
+   Background matches the briefing's internal canvas/stage at #0A0A0A so
+   there's no visible seam between iframe and parent. The briefing area
+   reads as a slightly-lighter slice of the page than the hero's #050505. */
+.briefing-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #0A0A0A;
+  overflow: hidden;
+}
+.briefing-section iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
 .hero-split {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
@@ -1770,7 +1796,7 @@ a:hover { color: var(--accent-primary-strong); }
    Benchmarks band — peer-category outcome chips (Vercel move)
    ============================================================================ */
 .benchmarks {
-  padding: 36px 0 40px;
+  padding: 96px 0;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -2229,4 +2255,415 @@ a:hover { color: var(--accent-primary-strong); }
 @media (max-width: 980px) {
   .lc-memory-wrap { grid-template-columns: 1fr; }
 }
+
+/* ============================================================================
+   ACCENT-DARK SYSTEM — Linear / Vercel direction
+   Page stays committed to dark. Variation comes from:
+     * Accent-purple gradient section dividers (replaces grey 1px borders)
+     * Radial accent glow modifiers (.section--glow-tl/-tr/-bl/-br)
+     * One deep-purple "feature wash" for the spine section (.section--feature)
+   No light sections, no parallel light-theme component overrides.
+   ============================================================================ */
+
+/* Override the plain grey border-top divider with a gradient accent line */
+.section-divider {
+  border-top: 0;
+  position: relative;
+}
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, 80%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(167, 139, 250, 0.35) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Radial accent-glow corner washes — soft, low-opacity, behind the content */
+.section--glow-tl,
+.section--glow-tr,
+.section--glow-bl,
+.section--glow-br {
+  position: relative;
+  overflow: hidden;
+}
+.section--glow-tl::after,
+.section--glow-tr::after,
+.section--glow-bl::after,
+.section--glow-br::after {
+  content: "";
+  position: absolute;
+  width: 720px;
+  height: 720px;
+  background: radial-gradient(
+    circle at center,
+    rgba(167, 139, 250, 0.16),
+    rgba(167, 139, 250, 0.06) 35%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(8px);
+}
+.section--glow-tl::after { top: -280px; left: -280px; }
+.section--glow-tr::after { top: -280px; right: -280px; }
+.section--glow-bl::after { bottom: -280px; left: -280px; }
+.section--glow-br::after { bottom: -280px; right: -280px; }
+
+/* keep content above the glow */
+.section--glow-tl > *,
+.section--glow-tr > *,
+.section--glow-bl > *,
+.section--glow-br > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Feature wash — for the spine section that anchors the page. Stays dark
+   but with a deep-purple-tinted radial wash at top + accent bloom at bottom,
+   so the section visually announces itself as the heart of the story. */
+.section--feature {
+  background:
+    radial-gradient(ellipse 1200px 700px at 50% 0%, rgba(167, 139, 250, 0.12), transparent 60%),
+    radial-gradient(ellipse 900px 500px at 50% 100%, rgba(139, 92, 246, 0.07), transparent 70%),
+    #0E0A1F;
+}
+.section--feature.section-divider::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(167, 139, 250, 0.55) 50%,
+    transparent 100%
+  );
+}
+
+/* Mobile: shrink the glow radius so it doesn't dominate narrow viewports */
+@media (max-width: 720px) {
+  .section--glow-tl::after,
+  .section--glow-tr::after,
+  .section--glow-bl::after,
+  .section--glow-br::after {
+    width: 420px;
+    height: 420px;
+  }
+  .section--glow-tl::after { top: -160px; left: -160px; }
+  .section--glow-tr::after { top: -160px; right: -160px; }
+  .section--glow-bl::after { bottom: -160px; left: -160px; }
+  .section--glow-br::after { bottom: -160px; right: -160px; }
+}
+/* ============================================================================
+   FROM RFP TO RESPONSE — three-moments card layout
+   (replaces the v17 va-grid before/after vignette in #what-changes)
+   ============================================================================ */
+.bp-wrap { max-width: 1180px; margin: 0 auto; }
+.bp-head { margin-bottom: 40px; max-width: 760px; }
+.bp-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 500; letter-spacing: -0.01em;
+  margin: 14px 0 14px; line-height: 1.15;
+}
+.bp-head p {
+  color: var(--text-secondary);
+  font-size: 16px; line-height: 1.55; margin: 0;
+}
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+.bp-quote-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.bp-quote-body { padding: 28px 26px 24px; }
+.bp-symptom-tag {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-primary);
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(167, 139, 250, 0.10);
+  border: 1px solid var(--border-accent);
+  margin-bottom: 18px; font-weight: 500;
+}
+.bp-quote {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 19px; line-height: 1.5;
+  color: var(--text-primary); margin: 0;
+  text-wrap: balance;
+}
+.bp-attr {
+  display: flex; gap: 12px; align-items: center;
+  padding: 14px 26px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--surface-overlay);
+}
+.bp-attr-avatar {
+  width: 32px; height: 32px; border-radius: 999px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em; flex-shrink: 0;
+  font-weight: 500;
+}
+.bp-attr-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.bp-attr-name {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--status-error-fg);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  font-weight: 500;
+}
+.bp-counter {
+  padding: 18px 26px 22px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.10), rgba(167, 139, 250, 0.04));
+  border-top: 1px solid var(--border-accent);
+  display: flex; gap: 12px; align-items: baseline;
+}
+.bp-counter-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-primary);
+  flex-shrink: 0; padding-top: 1px;
+  font-weight: 500;
+}
+.bp-counter-text {
+  font-size: 13.5px; line-height: 1.55;
+  color: var(--text-primary);
+}
+.bp-counter-text em {
+  color: var(--accent-primary);
+  font-style: italic; font-weight: 500;
+}
+
+/* Light-theme overrides for the cream-background context */
+.section--cream .bp-quote-card {
+  background: rgba(255, 250, 235, 0.85);
+  border-color: var(--border-on-cream-default);
+}
+.section--cream .bp-quote { color: var(--text-on-cream); }
+.section--cream .bp-symptom-tag {
+  background: rgba(109, 78, 209, 0.10);
+  border-color: rgba(109, 78, 209, 0.35);
+  color: var(--accent-on-light);
+}
+.section--cream .bp-attr {
+  background: rgba(255, 250, 235, 0.55);
+  border-top-color: var(--border-on-cream-default);
+}
+.section--cream .bp-attr-avatar {
+  background: rgba(255, 250, 235, 0.95);
+  border-color: var(--border-on-cream-default);
+  color: var(--text-on-cream-muted);
+}
+.section--cream .bp-attr-name { color: #7C2020; }
+.section--cream .bp-counter {
+  background: linear-gradient(180deg, rgba(109, 78, 209, 0.10), rgba(109, 78, 209, 0.03));
+  border-top-color: rgba(109, 78, 209, 0.35);
+}
+.section--cream .bp-counter-tag { color: var(--accent-on-light); }
+.section--cream .bp-counter-text { color: var(--text-on-cream); }
+.section--cream .bp-counter-text em { color: var(--accent-on-light); }
+
+/* ============================================================================
+   VS RESPONSE TOOLS — pursuit spine (replaces the v17 #wedge lifecycle diagram)
+   Dark / charcoal context only — no light-theme override needed
+   ============================================================================ */
+.ps-wrap { max-width: 1200px; margin: 0 auto; }
+.ps-head { text-align: center; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; }
+.ps-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 500; letter-spacing: -0.01em;
+  margin: 14px 0 14px; line-height: 1.15;
+}
+.ps-head p {
+  color: var(--text-secondary);
+  font-size: 16px; line-height: 1.55; margin: 0;
+}
+
+/* Legend */
+.ps-legend {
+  display: flex; gap: 28px;
+  justify-content: center; align-items: center;
+  margin-bottom: 28px; padding: 12px 22px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  width: max-content; margin-left: auto; margin-right: auto;
+}
+.ps-legend-item { display: flex; gap: 8px; align-items: center; }
+.ps-legend-label { letter-spacing: 0.06em; text-transform: uppercase; }
+.ps-legend .ps-mark { width: 11px; height: 11px; }
+
+/* 5 phase columns */
+.ps-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+}
+@media (max-width: 980px) { .ps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ps-grid { grid-template-columns: 1fr; } }
+.ps-col {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px 20px;
+  display: flex; flex-direction: column;
+}
+.ps-col-name {
+  font-family: var(--font-mono); font-size: 13px;
+  letter-spacing: 0.10em; font-weight: 600;
+  color: #fff; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ps-col-sub {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 12px; color: var(--accent-primary);
+  margin-bottom: 18px; line-height: 1.3;
+}
+
+/* Two-bubble activity rows */
+.ps-act {
+  padding: 12px 0; border-top: 1px solid var(--border-subtle);
+  font-size: 13px; line-height: 1.5;
+  color: var(--text-primary);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.ps-act-marks {
+  display: flex; gap: 4px; flex-shrink: 0;
+  padding-top: 4px;
+}
+.ps-mark {
+  width: 10px; height: 10px; border-radius: 999px;
+  display: inline-block; flex-shrink: 0;
+}
+.ps-mark.us {
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+.ps-mark.them.empty {
+  background: transparent;
+  border: 1px dashed rgba(248, 113, 113, 0.55);
+}
+.ps-mark.them.full {
+  background: var(--status-error-fg);
+  border: 1px solid var(--status-error-fg);
+}
+.ps-mark.them.partial {
+  background: linear-gradient(90deg, var(--status-error-fg) 50%, transparent 50%);
+  border: 1px solid var(--status-error-fg);
+}
+.ps-act-text { flex: 1; }
+.ps-act-text b { color: var(--accent-primary); font-weight: 500; }
+
+/* Pursuit memory box */
+.ps-memory {
+  margin-top: 18px;
+  padding: 24px 26px 22px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+}
+.ps-memory-head {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.ps-memory-label {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-primary);
+  padding: 4px 12px;
+  background: rgba(167, 139, 250, 0.16);
+  border: 1px solid var(--border-accent);
+  border-radius: 999px; font-weight: 600;
+}
+.ps-memory-sub {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 15px; color: var(--text-primary);
+  line-height: 1.5;
+}
+.ps-memory-sub b {
+  font-style: normal; font-weight: 500;
+  color: var(--accent-primary);
+}
+.ps-memory-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+}
+@media (max-width: 980px) { .ps-memory-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ps-memory-grid { grid-template-columns: 1fr; } }
+.ps-memory-chip {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.ps-memory-chip-from {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.ps-memory-chip-val {
+  font-size: 13.5px; color: #fff; font-weight: 500; line-height: 1.3;
+}
+.ps-memory-foot {
+  margin-top: 20px; padding-top: 18px;
+  border-top: 1px solid var(--border-accent);
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 17px; line-height: 1.5;
+  color: var(--text-primary);
+}
+.ps-memory-foot em {
+  font-style: italic; color: var(--accent-primary); font-weight: 500;
+}
+.ps-memory-foot b {
+  font-style: normal; font-weight: 500;
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  display: block; margin-bottom: 6px;
+}
+
+/* ============================================================================
+   CONTACT — Calendly inline embed
+   ============================================================================ */
+.contact-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.calendly-inline-widget {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-overlay);
+  overflow: hidden;
+  min-height: 700px;
+}
+.contact-fallback {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+}
+.contact-fallback a { color: var(--accent-primary); }
+.contact-fallback a:hover { color: var(--accent-primary-strong); }
 

@@ -59,6 +59,21 @@
     </section>
 
     <!-- ============================================================
+         BRIEFING — full-viewport animated overview (1440x900 deck
+         that auto-fits to the iframe size). Self-contained page at
+         marketing/briefing.html, embedded via iframe so its fixed
+         positioning + keyboard shortcuts stay scoped.
+         ============================================================ -->
+    <section class="briefing-section" aria-label="The Briefing — animated overview">
+      <iframe
+        src="briefing.html"
+        title="The Briefing"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </section>
+
+    <!-- ============================================================
          CUSTOMER PROOF BAND — live customers, named selection
          ============================================================ -->
     <section class="customer-band" aria-label="Customers running Propagent">
@@ -75,130 +90,72 @@
     </section>
 
     <!-- ============================================================
-         BEFORE / AFTER — pursuit-week vignette grid (Today vs Propagent)
-         Stake stats now live in the lede area, not their own section.
+         FROM RFP TO RESPONSE — three moments where Propagent
+         measurably changes the pursuit week (SME bandwidth ·
+         institutional knowledge · poor-fit pursuits)
          ============================================================ -->
-    <section class="section-charcoal section-divider beforeafter" id="what-changes">
+    <section class="section section-charcoal section-divider section--glow-tr" id="what-changes">
       <div class="container">
-        <div class="section-eyebrow">From RFP to response</div>
-        <h2>The pursuit cycle, <span class="text-agent-gradient">before and after Propagent.</span></h2>
-        <p class="lede">
-          Same RFP, same deadline, same fourteen-day calendar. One team starts late and scrambles. The other is done by Day 2.
-        </p>
-        <div class="bf-stake-strip" aria-label="Industry context">
-          <span><em>~60%</em> of AEC growth runs through formal procurement</span>
-          <span><em>~$13K</em> direct labor per pursuit, before any win</span>
-          <span><em>~75%</em> of proposal teams miss submission goals</span>
-        </div>
-
-        <div class="va-grid" role="table" aria-label="Pursuit week, Today vs With Propagent">
-          <div class="va-headers" role="row" aria-hidden="true">
-            <span class="va-headers-spacer"></span>
-            <span class="va-headers-then">Today</span>
-            <span class="va-headers-arrow"></span>
-            <span class="va-headers-now">With Propagent</span>
+        <div class="bp-wrap">
+          <div class="bp-head">
+            <div class="section-eyebrow">From RFP to response</div>
+            <h2>Three moments where Propagent <span class="text-agent-gradient">measurably changes the pursuit week.</span></h2>
           </div>
 
-          <div class="va-row" role="row">
-            <div class="va-moment">
-              <span class="va-moment-num">01</span>
-              <span class="va-moment-name">The RFP lands</span>
+          <div class="bp-grid">
+
+            <div class="bp-quote-card">
+              <div class="bp-quote-body">
+                <span class="bp-symptom-tag">The SME bottleneck</span>
+                <p class="bp-quote">"Matrix has 38 rows. Three SMEs to answer them. Each one's calendar is buried with client work. We'll submit with gaps."</p>
+              </div>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">1</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Pain · SME bandwidth caps the work</span>
+                </div>
+              </div>
+              <div class="bp-counter">
+                <span class="bp-counter-tag">Propagent</span>
+                <span class="bp-counter-text">Scoped questions auto-route to the right experts, async-friendly. SMEs answer in batches, not one-offs — <em>and the team isn't waiting on any single person to ship</em>.</span>
+              </div>
             </div>
-            <article class="va-card va-then" role="cell">
-              <span class="va-chip">Day 8 of 14</span>
-              <p>RFP went live eight days ago. BD spots it on a portal scan with six days to deadline. Nobody has read it yet.</p>
-            </article>
-            <span class="va-arrow" aria-hidden="true">→</span>
-            <article class="va-card va-now" role="cell">
-              <span class="va-chip">Day 0 of 14</span>
-              <p>Bid Scout flagged it the day it dropped, matched against firm fit, surfaced with a one-line summary. The full runway still on the clock.</p>
-            </article>
-          </div>
 
-          <div class="va-row" role="row">
-            <div class="va-moment">
-              <span class="va-moment-num">02</span>
-              <span class="va-moment-name">Go / No-Go</span>
+            <div class="bp-quote-card">
+              <div class="bp-quote-body">
+                <span class="bp-symptom-tag">The forgotten win story</span>
+                <p class="bp-quote">"Our strongest past-performance project for this RFP was in Maria's head. She wasn't on the pursuit. We submitted without it."</p>
+              </div>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">2</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Pain · institutional knowledge locked in heads</span>
+                </div>
+              </div>
+              <div class="bp-counter">
+                <span class="bp-counter-tag">Propagent</span>
+                <span class="bp-counter-text">Past performance is queried live from project records — every relevant project surfaced, regardless of who staffed it. <em>The right stories make it into the response, every time.</em></span>
+              </div>
             </div>
-            <article class="va-card va-then" role="cell">
-              <span class="va-chip">Day 10 of 14</span>
-              <p>Instinct plus calendar pressure. Decided in a 20-minute hallway conversation, four days from deadline.</p>
-            </article>
-            <span class="va-arrow" aria-hidden="true">→</span>
-            <article class="va-card va-now" role="cell">
-              <span class="va-chip">Day 1 of 14</span>
-              <p>Propagent scored the fit, pulled competitive context, and assembled a Go/No-Go memo overnight. The Principal walks in Day 1 to a defensible decision packet, not a hallway conversation.</p>
-            </article>
-          </div>
 
-          <div class="va-row" role="row">
-            <div class="va-moment">
-              <span class="va-moment-num">03</span>
-              <span class="va-moment-name">SME ask</span>
+            <div class="bp-quote-card">
+              <div class="bp-quote-body">
+                <span class="bp-symptom-tag">The qualification regret</span>
+                <p class="bp-quote">"We bid anyway, knowing the firm hadn't done a project this size in five years. Forty hours. Loss. 'Should've called it earlier.'"</p>
+              </div>
+              <div class="bp-attr">
+                <div class="bp-attr-avatar">3</div>
+                <div class="bp-attr-meta">
+                  <span class="bp-attr-name">Pain · 40+ hours on bad-fit bids</span>
+                </div>
+              </div>
+              <div class="bp-counter">
+                <span class="bp-counter-tag">Propagent</span>
+                <span class="bp-counter-text">Go / No-Go scores every match against firm history with confidence. Bad-fit pursuits get a clear signal before the team commits resources — <em>and the team's effort goes to pursuits they can actually win</em>.</span>
+              </div>
             </div>
-            <article class="va-card va-then" role="cell">
-              <span class="va-chip">Day 11 of 14</span>
-              <p>"Can you write the phasing section by EOD?" pinged at 10pm. Four SMEs each drafting whole sections from scratch, between billable work.</p>
-            </article>
-            <span class="va-arrow" aria-hidden="true">→</span>
-            <article class="va-card va-now" role="cell">
-              <span class="va-chip">Day 2 of 14</span>
-              <p>Propagent routes one scoped question to the right SME in Slack, email, Teams, or wherever they already work. Propagent drafts the section in their voice from prior numbers; they confirm or update.</p>
-            </article>
-          </div>
 
-          <div class="va-row" role="row">
-            <div class="va-moment">
-              <span class="va-moment-num">04</span>
-              <span class="va-moment-name">Draft kickoff</span>
-            </div>
-            <article class="va-card va-then" role="cell">
-              <span class="va-chip">Day 11 of 14</span>
-              <p>Starts that same afternoon. Blank doc plus boilerplate from the 2022 win that no longer matches the firm's voice.</p>
-            </article>
-            <span class="va-arrow" aria-hidden="true">→</span>
-            <article class="va-card va-now" role="cell">
-              <span class="va-chip">Day 2 of 14</span>
-              <p>Propagent's draft engine pulls from the knowledge graph and stages 19 of 22 sections by end of Day 2, in Voice of the Org, grounded in 41 cited sources, twelve days before deadline.</p>
-            </article>
           </div>
-
-          <div class="va-row" role="row">
-            <div class="va-moment">
-              <span class="va-moment-num">05</span>
-              <span class="va-moment-name">Late addendum</span>
-            </div>
-            <article class="va-card va-then" role="cell">
-              <span class="va-chip">Day 12 of 14</span>
-              <p>Addendum lands one day into the scramble: revised eval criteria, new pricing schedule. Half the work they just started is scrap. The team starts over with two days left.</p>
-            </article>
-            <span class="va-arrow" aria-hidden="true">→</span>
-            <article class="va-card va-now" role="cell">
-              <span class="va-chip">Day 12 of 14</span>
-              <p>Same addendum lands. Propagent ingests it, re-runs gap analysis, re-stages affected sections in 20 minutes. The team finds out by notification, not by all-hands.</p>
-            </article>
-          </div>
-
-          <div class="va-row" role="row">
-            <div class="va-moment">
-              <span class="va-moment-num">06</span>
-              <span class="va-moment-name">Day-before review</span>
-            </div>
-            <article class="va-card va-then" role="cell">
-              <span class="va-chip">Day 14 of 14</span>
-              <p>Crammed weekend. Contradictions in fee, schedule, and staffing only caught if someone notices.</p>
-            </article>
-            <span class="va-arrow" aria-hidden="true">→</span>
-            <article class="va-card va-now" role="cell">
-              <span class="va-chip">Day 13 of 14</span>
-              <p>Propagent flags contradictions in fee, schedule, and staffing the moment they appear. Every claim carries its source. The reviewer opens the doc and sees exactly what the system used, and where it pulled it from.</p>
-            </article>
-          </div>
-        </div>
-
-        <div class="va-summary">
-          <span class="va-summary-label">Same 14 days.</span>
-          <span class="va-summary-val">Today: 6-day scramble after an 8-day blind spot. The addendum scraps half the work. Propagent: complete by Day 2, addendum absorbed in 20 minutes, eleven days of headroom on the clock. Same calendar. Different posture.</span>
         </div>
       </div>
     </section>
@@ -207,7 +164,7 @@
          BENCHMARKS — industry-published outcomes, paired with the
          Before/After narrative to quantify the visceral story.
          ============================================================ -->
-    <section class="section-charcoal benchmarks">
+    <section class="benchmarks">
       <div class="container">
         <div class="bench-label">Estimated impact</div>
         <div class="bench-grid">
@@ -237,7 +194,7 @@
     <!-- ============================================================
          PERSONA SWITCHER — built for [role]
          ============================================================ -->
-    <section class="section-divider persona-switcher" id="for-your-team">
+    <section class="section section-divider persona-switcher section--feature" id="for-your-team">
       <div class="container">
         <div class="section-eyebrow">For your team</div>
         <h2>Built for <span class="text-agent-gradient">every role on the pursuit.</span></h2>
@@ -509,65 +466,149 @@
     </section>
 
     <!-- ============================================================
-         WEDGE — response tools vs Propagent, with continuous memory
-         layer underneath the Propagent track (capture is lifecycle-wide,
-         not post-Submit-only).
+         WEDGE — pursuit spine grounded in the canonical 5-phase
+         pipeline (Bid Intake -> Response Maturity), with per-activity
+         two-bubble marks comparing Propagent to response tools.
+         Pursuit memory box carries the compounding payoff.
          ============================================================ -->
-    <section class="section section-divider section-charcoal" id="wedge">
+    <section class="section section-divider section-charcoal section--glow-bl" id="wedge">
       <div class="container">
-        <div class="section-eyebrow">vs response tools</div>
-        <h2 class="wedge-title">
-          Where every other tool stops,
-          <br />
-          Propagent <em>keeps going.</em>
-        </h2>
-        <p class="lede">
-          Every other tool in this category optimizes a slice of the work and stops the moment the proposal is sent. Propagent runs the lifecycle, captures every step into a memory layer, and compounds it into the next pursuit.
-        </p>
-
-        <div class="lifecycle" role="img" aria-label="Pursuit lifecycle. Response tools cover three of eight stages and stop at Submit. Propagent covers all eight stages and feeds every stage into a continuous memory layer that loops into the next pursuit.">
-          <div class="lc-track lc-them">
-            <span class="lc-track-name">Response tools</span>
-            <div class="lc-stages">
-              <div class="lc-stage missing"><span class="lc-dot"></span><span class="lc-label">Find</span></div>
-              <div class="lc-stage missing"><span class="lc-dot"></span><span class="lc-label">Qualify</span></div>
-              <div class="lc-stage missing"><span class="lc-dot"></span><span class="lc-label">Analysis</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Knowledge</span><span class="lc-tag">Content library</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">SMEs</span><span class="lc-tag">Require login, manual routing</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Draft</span><span class="lc-tag">Boilerplate</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Review</span><span class="lc-tag">Manual fact-check</span></div>
-              <div class="lc-stage submit"><span class="lc-dot"></span><span class="lc-label">Submit</span></div>
-              <div class="lc-end">stops</div>
-            </div>
+        <div class="ps-wrap">
+          <div class="ps-head">
+            <div class="section-eyebrow">vs response tools</div>
+            <h2>The full pursuit, not a sliver of it. <span class="text-agent-gradient">And memory that compounds.</span></h2>
+            <p>A point solution lives in one phase. A full system runs all five — and unlocks the memory layer that response tools structurally can't reach.</p>
           </div>
 
-          <div class="lc-track lc-us">
-            <span class="lc-track-name">Propagent</span>
-            <div class="lc-stages">
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Find</span><span class="lc-tag">Bid Scout watches portals</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Qualify</span><span class="lc-tag">Confidence-scored</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Analysis</span><span class="lc-tag">Competitive · strategic</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Knowledge</span><span class="lc-tag">Live, not boilerplate</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">SMEs</span><span class="lc-tag">Scoped Qs, not reviews</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Draft</span><span class="lc-tag">Voice of the Org</span></div>
-              <div class="lc-stage"><span class="lc-dot"></span><span class="lc-label">Review</span><span class="lc-tag">Provenance on every claim</span></div>
-              <div class="lc-stage submit"><span class="lc-dot"></span><span class="lc-label">Submit</span></div>
-            </div>
+          <div class="ps-legend">
+            <div class="ps-legend-item"><span class="ps-mark us"></span><span class="ps-legend-label">Propagent</span></div>
+            <div class="ps-legend-item"><span class="ps-mark them full"></span><span class="ps-legend-label">Response tools</span></div>
           </div>
 
-          <div class="lc-memory-wrap" aria-label="Memory layer captures at every stage and compounds into the next pursuit">
-            <span class="lc-memory-spacer" aria-hidden="true"></span>
-            <div class="lc-memory-band">
-              <span class="lc-memory-band-label">Memory layer · captures at every stage</span>
-              <span class="lc-memory-band-meta">drafts · edits · outcomes · decisions</span>
-              <span class="lc-loop-arrow">next pursuit starts smarter</span>
+          <div class="ps-grid">
+
+            <div class="ps-col">
+              <span class="ps-col-name">Bid Intake</span>
+              <span class="ps-col-sub">Understand intent.</span>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Surfaces 99% of National, State, City, and County opportunities</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Flags fit RFPs within an hour of publication</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Parses what the buyer is actually asking for</span>
+              </div>
+            </div>
+
+            <div class="ps-col">
+              <span class="ps-col-name">Gap Analysis</span>
+              <span class="ps-col-sub">See where you're thin.</span>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Maps RFP requirements against firm capability</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Builds the compliance matrix continuously, not pre-submit</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Identifies SME questions before they're asked</span>
+              </div>
+            </div>
+
+            <div class="ps-col">
+              <span class="ps-col-name">Go / No-Go</span>
+              <span class="ps-col-sub">Decide what to pursue.</span>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Scores go/no-go with confidence on every match</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Confidence-rates win probability against firm history</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Surfaces competitive context for the decision</span>
+              </div>
+            </div>
+
+            <div class="ps-col">
+              <span class="ps-col-name">Answer Coordination</span>
+              <span class="ps-col-sub">Route to the right people.</span>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Routes scoped SME questions to the right experts</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Pulls past performance live by relevance</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them full"></span></div>
+                <span class="ps-act-text">Tracks responses and dependencies across contributors</span>
+              </div>
+            </div>
+
+            <div class="ps-col">
+              <span class="ps-col-name">Response Maturity</span>
+              <span class="ps-col-sub">Speak in your voice.</span>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
+                <span class="ps-act-text">Drafts in firm voice with provenance on every claim</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them full"></span></div>
+                <span class="ps-act-text">Verifies every claim against source documents</span>
+              </div>
+              <div class="ps-act">
+                <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them empty"></span></div>
+                <span class="ps-act-text">Matures voice and themes against the firm's prior winning bids</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="ps-memory">
+            <div class="ps-memory-head">
+              <span class="ps-memory-label">Pursuit memory</span>
+              <span class="ps-memory-sub">Captured from every phase. <b>Indexed and searchable across pursuits — every pursuit makes the next one sharper.</b></span>
+            </div>
+
+            <div class="ps-memory-grid">
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Bid Intake</span>
+                <span class="ps-memory-chip-val">Fit signals</span>
+              </div>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Gap Analysis</span>
+                <span class="ps-memory-chip-val">Compliance interpretations</span>
+              </div>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Go / No-Go</span>
+                <span class="ps-memory-chip-val">Win-probability data</span>
+              </div>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Answer Coord.</span>
+                <span class="ps-memory-chip-val">SME knowledge index</span>
+              </div>
+              <div class="ps-memory-chip">
+                <span class="ps-memory-chip-from">From Response Mat.</span>
+                <span class="ps-memory-chip-val">Voice + win themes</span>
+              </div>
+            </div>
+
+            <div class="ps-memory-foot">
+              <b>The compounding payoff</b>
+              By Pursuit 50, the firm is fighting with all 49 prior pursuits behind it — sharper qualification, better drafts from move 1, compliance instincts ready, win-rate compounding. <em>A structural advantage point solutions can't produce.</em>
             </div>
           </div>
         </div>
-
-        <p class="lifecycle-caption">
-          Response tools cover a slice of the work. Propagent runs the lifecycle, feeds every stage into a memory layer, and compounds it into the next pursuit.
-        </p>
       </div>
     </section>
 
@@ -650,7 +691,7 @@
     <!-- ============================================================
          TRUST LAYER — five capabilities
          ============================================================ -->
-    <section class="section section-divider" id="trust">
+    <section class="section section-divider section--glow-bl" id="trust">
       <div class="container">
         <div class="section-eyebrow">Trust by default</div>
         <h2>Output that <span class="text-agent-gradient">reviewers can audit.</span></h2>
@@ -733,7 +774,7 @@
     <!-- ============================================================
          PRICING — four tiers
          ============================================================ -->
-    <section class="section section-divider section-charcoal" id="pricing">
+    <section class="section section-divider section-charcoal section--glow-tr" id="pricing">
       <div class="container">
         <div class="section-eyebrow">Pricing</div>
         <h2>One price. One system. <span class="text-agent-gradient">Annual pursuit volume, not seat counts.</span></h2>
@@ -817,25 +858,15 @@
               <li>You leave with the artifact</li>
             </ul>
           </div>
-          <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Sent. We will reach out shortly.';">
-            <label>
-              <span class="mono-label">Name</span>
-              <input type="text" name="name" required autocomplete="name" />
-            </label>
-            <label>
-              <span class="mono-label">Firm</span>
-              <input type="text" name="firm" required autocomplete="organization" />
-            </label>
-            <label>
-              <span class="mono-label">Work email</span>
-              <input type="email" name="email" required autocomplete="email" />
-            </label>
-            <label>
-              <span class="mono-label">What pursuit do you want to run through Propagent?</span>
-              <textarea name="pursuit" rows="3"></textarea>
-            </label>
-            <button type="submit" class="btn btn-primary btn-lg">Request a working session →</button>
-          </form>
+          <div class="contact-schedule">
+            <div class="calendly-inline-widget"
+                 data-url="https://calendly.com/danielbeecham/propagent-demo?primary_color=A78BFA&text_color=F3F4F6&background_color=0A0A0A&hide_event_type_details=1&hide_gdpr_banner=1"
+                 style="min-width:320px; height:700px;"></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <p class="contact-fallback">
+              Prefer email? <a href="mailto:daniel@propagent.ai">daniel@propagent.ai</a>
+            </p>
+          </div>
         </div>
       </div>
     </section>

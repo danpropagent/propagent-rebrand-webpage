@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Briefing — Propagent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ─── Reset + frame ──────────────────────────────────────────────────── */
+  /* All three surfaces share #0A0A0A so the briefing area reads as a single
+     uniform darker slice of the page (slightly lighter than the hero's
+     #050505) with no internal letterbox seams. */
+  html, body { margin: 0; padding: 0; background: #0A0A0A; font-family: "Inter", system-ui, sans-serif; min-height: 100vh; }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Aspect-ratio stage so it scales to any viewport */
+  .briefing-stage {
+    position: fixed; inset: 0;
+    background: #0A0A0A;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .briefing-canvas {
+    width: 1440px;
+    height: 900px;
+    flex-shrink: 0;
+    background: #0A0A0A;
+    color: #F3F4F6;
+    overflow: hidden;
+    font-family: "Inter", system-ui, sans-serif;
+    transform-origin: center center;
+    position: relative;
+  }
+
+  /* ─── Type + color helpers ───────────────────────────────────────────── */
+  .pa-mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+  .pa-grad { background: linear-gradient(135deg, #6366F1, #8B5CF6); }
+  .pa-grad-text {
+    background: linear-gradient(90deg, #6366F1, #8B5CF6);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+
+  /* Subtle scanlines */
+  .pa-scanlines::before {
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:50;
+    background: repeating-linear-gradient(180deg, rgba(255,255,255,0.014) 0, rgba(255,255,255,0.014) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode: overlay;
+  }
+
+  /* Caret blink */
+  @keyframes pa-blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+  .pa-caret { display: inline-block; width: 0.55ch; background: #8B5CF6; margin-left: 2px; animation: pa-blink 1s steps(1) infinite; vertical-align: baseline; }
+
+  @keyframes pa-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
+  .pa-pulse-dot { animation: pa-pulse 1.6s ease-in-out infinite; }
+
+  @keyframes pa-glow { 0%, 100% { transform: scale(1); opacity: 0.18 } 50% { transform: scale(1.25); opacity: 0.32 } }
+  .pa-glow-dot { animation: pa-glow 3.4s ease-in-out infinite; }
+
+  .briefing-canvas *::-webkit-scrollbar { display: none; }
+  .briefing-canvas * { scrollbar-width: none; }
+
+  /* Scene base — absolute fill, opacity-controlled */
+  .scene { position: absolute; inset: 0; }
+</style>
+</head>
+<body>
+
+<div class="briefing-stage">
+  <div id="briefing" class="briefing-canvas pa-scanlines"></div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ─── DOM helper ───────────────────────────────────────────────────────
+     h('div', {style:{...}, class:'foo', text:'hi', onclick: fn}, child, [children])
+     For SVG: h('svg:rect', {x:0,y:0}) etc.                               */
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  function h(tag, props, ...children) {
+    let el;
+    if (tag.startsWith('svg:')) el = document.createElementNS(SVG_NS, tag.slice(4));
+    else el = document.createElement(tag);
+    if (props && typeof props === 'object' && !props.nodeType && !Array.isArray(props)) {
+      for (const k in props) {
+        const v = props[k];
+        if (v == null) continue;
+        if (k === 'style')      Object.assign(el.style, v);
+        else if (k === 'class') el.className = v;
+        else if (k === 'text')  el.textContent = v;
+        else if (k === 'html')  el.innerHTML = v;
+        else if (k.startsWith('on')) el.addEventListener(k.slice(2).toLowerCase(), v);
+        else {
+          if (tag.startsWith('svg:')) el.setAttributeNS(null, k, v);
+          else el.setAttribute(k, v);
+        }
+      }
+    } else if (props != null) {
+      children.unshift(props);
+    }
+    for (const c of children.flat()) {
+      if (c == null || c === false) continue;
+      el.appendChild(typeof c === 'string' || typeof c === 'number'
+        ? document.createTextNode(String(c))
+        : c);
+    }
+    return el;
+  }
+
+  /* ─── Tiny anim utils ──────────────────────────────────────────────── */
+  const clamp01 = (x) => Math.max(0, Math.min(1, x));
+  const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+  // Char-by-char typewriter slice for a target string.
+  function typedSlice(text, t, msPerChar = 22, startMs = 0) {
+    const local = Math.max(0, t - startMs);
+    const n = Math.min(text.length, Math.floor(local / msPerChar));
+    return text.slice(0, n);
+  }
+
+  /* ─── Brand bits ───────────────────────────────────────────────────── */
+  const PA_LOGO_SVG = `
+    <svg viewBox="440 470 1170 1110" width="100%" height="100%" fill="#fff">
+      <path d="M1339.4,924.573C1322.747,883.553 1299.099,847.502 1268.939,815.711C1250.228,795.989 1229.743,778.296 1206.737,763.725C1176.054,744.292 1143.448,729.047 1108.23,719.733C1090.503,715.045 1072.476,712.272 1054.18,710.843C1027.156,708.731 1000.172,709.26 973.491,713.557C684.198,1068.579 613.871,1068.579 470.357,1068.579C470.357,1057.441 552.102,760.783 568.302,737.143 618.903,670.682 658.37,633.348 702.053,600.412C787.413,549.101 854.535,520.888 935.904,498.528 978.016,494.483 1015.571,490.876 1053.228,490.837 1090.622,496.896C1248.311,541.46 1322.959,582.631 1356.684,606.915 1411.933,654.221 1450.073,696.388 1486.827,745.024 1519.972,800.826 1543.452,857.086 1566.949,937.013 1576.799,979.138 1579.939,1021.777 1580.041,1064.81 1508.162,1068.633 1364.869,1068.633 Z"/>
+    </svg>`;
+
+  function chip({ size = 32, radius = 8, glow = false } = {}) {
+    return h('span', { style: {
+      position:'relative', display:'inline-flex',
+      width: size+'px', height: size+'px', alignItems:'center', justifyContent:'center',
+    }},
+      glow ? h('span', { class: 'pa-glow-dot', style: {
+        position:'absolute', inset: (-size*0.7)+'px', borderRadius:'50%',
+        background:'#6366F1', filter:'blur(28px)', opacity: 0.28,
+      }}) : null,
+      h('span', { class:'pa-grad', style: {
+        position:'relative', width: size+'px', height: size+'px', borderRadius: radius+'px',
+        display:'flex', alignItems:'center', justifyContent:'center',
+      }},
+        h('span', { html: PA_LOGO_SVG, style: { width: (size*0.55)+'px', height:(size*0.55)+'px', display:'block' }})
+      )
+    );
+  }
+
+  function wordmark() {
+    return h('span', { style: { display:'inline-flex', alignItems:'center', gap:'10px' }},
+      chip({ size:26 }),
+      h('span', { style: { fontWeight:600, fontSize:'15px', letterSpacing:'-0.01em', color:'#F3F4F6' }, text:'Propagent' })
+    );
+  }
+
+  /* ─── Channel glyphs ───────────────────────────────────────────────── */
+  function channelGlyph(ch) {
+    const wrap = (innerHTML) => h('span', {
+      html: innerHTML,
+      style: {
+        width:'26px', height:'26px', borderRadius:'6px',
+        display:'inline-flex', alignItems:'center', justifyContent:'center', flexShrink:0,
+      }
+    });
+    if (ch === 'slack') {
+      return wrap(`
+        <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3"  y="10" width="5" height="4" rx="2" fill="#36C5F0"/>
+          <rect x="10" y="16" width="4" height="5" rx="2" fill="#2EB67D"/>
+          <rect x="16" y="10" width="5" height="4" rx="2" fill="#ECB22E"/>
+          <rect x="10" y="3"  width="4" height="5" rx="2" fill="#E01E5A"/>
+          <rect x="7"  y="7"  width="4" height="4" rx="1" fill="#E01E5A"/>
+          <rect x="13" y="7"  width="4" height="4" rx="1" fill="#ECB22E"/>
+          <rect x="7"  y="13" width="4" height="4" rx="1" fill="#36C5F0"/>
+          <rect x="13" y="13" width="4" height="4" rx="1" fill="#2EB67D"/>
+        </svg>`);
+    }
+    if (ch === 'teams') {
+      return wrap(`
+        <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="5" width="14" height="14" rx="2.5" fill="#4B53BC"/>
+          <circle cx="18.5" cy="9" r="3" fill="#7B83EB"/>
+          <rect x="5"   y="8.5" width="8"   height="1.6" rx="0.4" fill="#fff"/>
+          <rect x="8.2" y="8.5" width="1.6" height="7"   rx="0.4" fill="#fff"/>
+        </svg>`);
+    }
+    if (ch === 'whatsapp') {
+      return wrap(`
+        <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.5C6.7 2.5 2.5 6.7 2.5 12c0 1.7.4 3.3 1.2 4.7L2.5 21.5l4.9-1.2c1.4.7 3 1.2 4.6 1.2 5.3 0 9.5-4.2 9.5-9.5S17.3 2.5 12 2.5z" fill="#25D366"/>
+          <path d="M9 7.4c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.4 4.6 2.7 1 3.2.8 3.8.8.6 0 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5l-.9-.4c-.2-.1-1.2-.6-1.4-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.5.2-.3v-.4l-.7-1.5z" fill="#fff"/>
+        </svg>`);
+    }
+    // email envelope
+    return wrap(`
+      <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <rect x="3" y="5" width="18" height="14" rx="2" fill="#1F2937" stroke="#4B5563" stroke-width="1.2"/>
+        <path d="M4 7l8 6 8-6" stroke="#9CA3AF" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`);
+  }
+  const CHANNEL_LABEL = { slack:'Slack', email:'Email', teams:'Microsoft Teams', whatsapp:'WhatsApp' };
+
+  /* ─── Scene timings ────────────────────────────────────────────────── */
+  const SCENES = [
+    { id: 'cold',  in: 0,     dur: 1200 },
+    { id: 'greet', in: 1200,  dur: 5200 },
+    { id: 'match', in: 6400,  dur: 6400 },
+    { id: 'draft', in: 12800, dur: 6600 },
+    { id: 'smes',  in: 19400, dur: 6800 },
+    { id: 'cta',   in: 26200, dur: 5500 },
+  ];
+  const TOTAL = 31700;
+
+  /* ─── Chrome ──────────────────────────────────────────────────────── */
+  function buildChrome() {
+    const tcSpan   = h('span', { class:'pa-mono', style:{ fontSize:'11px', color:'#6B7280', letterSpacing:'0.06em' }, text:'00:00:00' });
+    const dotsRow  = h('div', { style:{ display:'flex', gap:'6px' }},
+      ['ESC','SPACE','←','→'].map(k =>
+        h('span', { class:'pa-mono', style:{
+          fontSize:'10px', padding:'3px 6px', border:'1px solid rgba(255,255,255,0.12)',
+          borderRadius:'4px', color:'#9CA3AF', letterSpacing:'0.06em'
+        }, text:k })
+      )
+    );
+
+    const scrubFill   = h('div', { style:{ position:'absolute', left:0, height:'2px', width:'0%', background:'linear-gradient(90deg,#6366F1,#8B5CF6)', borderRadius:'2px' }});
+    const scrubHead   = h('div', { style:{ position:'absolute', left:'0%', transform:'translateX(-50%)', width:'10px', height:'10px', borderRadius:'50%', background:'#fff', boxShadow:'0 0 0 4px rgba(139,92,246,0.25)' }});
+
+    const scrubTrack = h('div', {
+      style:{ position:'relative', flex:1, height:'18px', cursor:'pointer', display:'flex', alignItems:'center' },
+      onclick: (e) => {
+        const rect = scrubTrack.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        engine.seek(clamp01(x) * TOTAL);
+      }
+    },
+      h('div', { style:{ position:'absolute', left:0, right:0, height:'2px', background:'rgba(255,255,255,0.08)', borderRadius:'2px' }}),
+      scrubFill,
+      SCENES.map(s => h('div', { style:{
+        position:'absolute', left:`${(s.in/TOTAL)*100}%`, top:'50%', width:'1px', height:'8px',
+        background:'rgba(255,255,255,0.14)', transform:'translateY(-50%)'
+      }})),
+      scrubHead
+    );
+
+    const totalSec   = Math.floor(TOTAL/1000);
+    const totalLabel = `00:${String(totalSec).padStart(2,'0')}:00`;
+
+    const topRight = h('div', { style:{
+      position:'absolute', top:'28px', right:'32px', zIndex:20,
+      display:'flex', alignItems:'center', gap:'14px'
+    }},
+      h('span', { class:'pa-mono', style:{ fontSize:'10px', letterSpacing:'0.18em', textTransform:'uppercase', color:'#6B7280' }, text:'The Briefing' }),
+      h('span', { class:'pa-pulse-dot', style:{ width:'6px', height:'6px', borderRadius:'50%', background:'#EF4444' }})
+    );
+
+    const transport = h('div', { style:{
+      position:'absolute', left:'32px', right:'32px', bottom:'24px', zIndex:30,
+      display:'flex', alignItems:'center', gap:'16px'
+    }},
+      tcSpan,
+      scrubTrack,
+      h('span', { class:'pa-mono', style:{ fontSize:'11px', color:'#6B7280', letterSpacing:'0.06em' }, text: totalLabel }),
+      dotsRow
+    );
+
+    return {
+      els: [topRight, transport],
+      update(t) {
+        const sec = Math.floor((t % TOTAL) / 1000);
+        const frame = Math.floor((((t % TOTAL) % 1000) / 1000) * 24);
+        tcSpan.textContent = `00:${String(sec).padStart(2,'0')}:${String(frame).padStart(2,'0')}`;
+        const pct = (t % TOTAL) / TOTAL * 100;
+        scrubFill.style.width = pct + '%';
+        scrubHead.style.left  = pct + '%';
+      }
+    };
+  }
+
+  /* ─── Glow blob behind everything (drifts per scene) ───────────────── */
+  function buildBackdrop() {
+    const blob = h('div', { style:{
+      position:'absolute', left:'50%', top:'50%', width:'900px', height:'900px', borderRadius:'50%',
+      background:'#6366F1', filter:'blur(180px)',
+      transform:'translate(-50%, -50%)',
+      opacity: 0.22, transition:'opacity 600ms ease',
+      pointerEvents:'none', zIndex:0,
+    }});
+    return {
+      el: blob,
+      update(t) {
+        const op =
+          t < 1200  ? 0.22 :
+          t < 6400  ? 0.18 :
+          t < 12800 ? 0.14 :
+          t < 19400 ? 0.12 :
+          t < 26200 ? 0.16 : 0.30;
+        blob.style.opacity = op;
+      }
+    };
+  }
+
+  /* ─── Scene helpers ────────────────────────────────────────────────── */
+  function buildCold() {
+    const root = h('div', { class:'scene', style:{ display:'flex', alignItems:'center', justifyContent:'center' }});
+    return { root, in: 0, dur: 1200, update(){} };
+  }
+
+  /* ─── Scene 1: Greet ──────────────────────────────────────────────── */
+  function buildGreet() {
+    const line1 = "Hello.";
+    const line2 = "Propagent has been working.";
+
+    const v1Span = h('span', { text:'' });
+    const caret1 = h('span', { class:'pa-caret', style:{ height:'0.85em' }});
+    const line1El = h('div', null, v1Span, caret1);
+
+    const v2Span = h('span', { text:'' });
+    const caret2 = h('span', { class:'pa-caret', style:{ height:'0.8em' }});
+    const line2El = h('div', { style:{ color:'#9CA3AF', fontWeight:500, fontSize:'64px', letterSpacing:'-0.025em', marginTop:'18px' }}, v2Span, caret2);
+
+    const root = h('div', { class:'scene', style:{
+      display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'flex-start',
+      padding:'0 110px', opacity: 0,
+    }},
+      h('div', { style:{ fontSize:'96px', lineHeight:1.02, fontWeight:600, letterSpacing:'-0.03em', color:'#fff' }},
+        line1El, line2El
+      ),
+      h('div', { class:'pa-mono', style:{ marginTop:'46px', fontSize:'11px', color:'#6B7280', letterSpacing:'0.14em', textTransform:'uppercase' },
+        text:'Briefing · 09:14 PT · Tuesday, May 5' })
+    );
+
+    return { root, in: 1200, dur: 5200, update(local) {
+      root.style.opacity = clamp01(local/300);
+      const v1 = typedSlice(line1, local, 90, 200);
+      const v2 = typedSlice(line2, local, 38, 1500);
+      v1Span.textContent = v1;
+      v2Span.textContent = v2;
+      caret1.style.display = (v1.length < line1.length && local < 3600) ? '' : 'none';
+      caret2.style.display = (v1.length === line1.length && v2.length < line2.length && local < 3600) ? '' : 'none';
+    }};
+  }
+
+  /* ─── Scene 2: Go / No-Go strong match ────────────────────────────── */
+  const ANALYZE_LINES = [
+    'Parsing solicitation · 247 pages',
+    'Mapping to 4 prior healthcare CMAR wins',
+    'Checking trade-partner coverage · 28 / 28 CSI divisions',
+    'Confirming bench · 3 PMs / 5 supers free by Aug 1',
+    'Pulling bonding capacity · $310M available',
+    'Estimating shortlist · 7 likely competitors',
+  ];
+  const GNG_SCORES = [
+    { label: 'Capability fit',        value: 92 },
+    { label: 'Past performance',      value: 88 },
+    { label: 'Resource availability', value: 84 },
+    { label: 'Win probability',       value: 71 },
+  ];
+  const REASONS = [
+    { t: 1300, text: 'Mirrors 3 prior hospital expansions — 91% scope overlap' },
+    { t: 1600, text: '3 PMs + 5 supers free by Aug 1 — zero crew gap' },
+    { t: 1900, text: 'PLA & OSHPD-equivalent terms match your 2023 Cedars submission' },
+  ];
+
+  function buildMatch() {
+    const alertEl = h('div', { style:{
+      display:'inline-flex', alignSelf:'flex-start', alignItems:'center', gap:'10px',
+      padding:'7px 12px', borderRadius:'6px',
+      background:'rgba(139,92,246,0.10)', border:'1px solid rgba(139,92,246,0.35)',
+      marginBottom:'22px', transformOrigin:'left center',
+    }},
+      h('span', { class:'pa-pulse-dot', style:{ width:'6px', height:'6px', borderRadius:'50%', background:'#8B5CF6' }}),
+      h('span', { class:'pa-mono', style:{ fontSize:'10px', letterSpacing:'0.22em', color:'#C4B5FD', textTransform:'uppercase' },
+        text:'New pursuit · Surfaced 04:12 ET · Analysis cleared 04:38 ET' })
+    );
+
+    const headlineWrap = h('div', { style:{ marginBottom:'18px' }},
+      h('div', { class:'pa-mono', style:{ fontSize:'11px', letterSpacing:'0.16em', color:'#9CA3AF', textTransform:'uppercase', marginBottom:'14px' },
+        text:'Riverstone Health System · CMAR RFP 2025-118 · $148M GMP · 28-month schedule' }),
+      h('div', { style:{ fontSize:'54px', fontWeight:600, letterSpacing:'-0.025em', color:'#fff', lineHeight:1.05, maxWidth:'1100px' }},
+        'Patient Tower & Surgery Pavilion ',
+        h('span', { style:{ color:'#9CA3AF', fontWeight:500 }, text:'— Phase II.' })
+      )
+    );
+
+    // Ticker stack
+    const tickerLines = ANALYZE_LINES.map(text => {
+      const dot = h('span', { style:{ width:'6px', height:'6px', borderRadius:'50%', background:'#8B5CF6' }});
+      const lbl = h('span', { class:'pa-mono', style:{ fontSize:'12px', color:'#C4B5FD', letterSpacing:'0.04em' }, text });
+      const row = h('div', { style:{ display:'flex', alignItems:'center', gap:'10px', opacity: 0 }}, dot, lbl);
+      return { row, dot, lbl };
+    });
+    const tickerStack = h('div', { style:{
+      position:'absolute', left:0, top:0, right:0,
+      display:'flex', flexDirection:'column', gap:'8px',
+      transition:'opacity 400ms ease', pointerEvents:'none', opacity:0,
+    }}, tickerLines.map(t => t.row));
+
+    // Score bars
+    const barRefs = GNG_SCORES.map(s => {
+      const label = h('span', { style:{ fontSize:'13px', color:'#9CA3AF' }, text: s.label });
+      const numEl = h('span', { class:'pa-mono', style:{ fontSize:'13px' }, text:'0' });
+      const fill  = h('div', { style:{ position:'absolute', left:0, top:0, bottom:0, width:'0%', borderRadius:'2px' }});
+      const row = h('div', { style:{ display:'flex', flexDirection:'column', gap:'5px' }},
+        h('div', { style:{ display:'flex', justifyContent:'space-between', alignItems:'baseline' }}, label, numEl),
+        h('div', { style:{ position:'relative', height:'3px', background:'rgba(255,255,255,0.06)', borderRadius:'2px', overflow:'hidden' }}, fill)
+      );
+      const color =
+        s.value >= 85 ? '#34D399' :
+        s.value >= 70 ? '#FBBF24' : '#9CA3AF';
+      const fillBg =
+        s.value >= 85 ? 'linear-gradient(90deg,#34D399,#10B981)' :
+        s.value >= 70 ? 'linear-gradient(90deg,#FBBF24,#F59E0B)' : 'rgba(255,255,255,0.18)';
+      return { s, row, numEl, fill, color, fillBg };
+    });
+    const barsGrid = h('div', { style:{
+      position:'absolute', left:0, top:0, right:0,
+      display:'grid', gridTemplateColumns:'1fr 1fr', columnGap:'36px', rowGap:'12px',
+      opacity:0, transition:'opacity 400ms ease',
+    }}, barRefs.map(b => b.row));
+
+    const stage = h('div', { style:{ position:'relative', minHeight:'180px' }}, tickerStack, barsGrid);
+
+    // Reasons
+    const reasonRefs = REASONS.map(r => {
+      const wrap = h('div', { style:{ display:'flex', alignItems:'center', gap:'10px', opacity:0 }},
+        h('span', { html: `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6.5L4.8 9L10 3.5" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` }),
+        h('span', { style:{ fontSize:'13.5px', color:'#E5E7EB', lineHeight:1.4 }, text: r.text })
+      );
+      return { wrap, t: r.t };
+    });
+    const reasonsCol = h('div', { style:{ display:'flex', flexDirection:'column', gap:'6px', marginTop:'6px' }}, reasonRefs.map(r => r.wrap));
+
+    const leftCol = h('div', { style:{ flex:1, display:'flex', flexDirection:'column', gap:'14px', justifyContent:'center', opacity:0 }},
+      stage, reasonsCol
+    );
+
+    // Score panel
+    const scoreNum = h('span', { style:{ fontSize:'96px', fontWeight:600, letterSpacing:'-0.03em', color:'#F3F4F6', transition:'color 300ms ease', fontVariantNumeric:'tabular-nums' }, text:'0' });
+    const verdictLbl = h('span', { class:'pa-mono', style:{
+      fontSize:'10px', letterSpacing:'0.22em', color:'#9CA3AF', textTransform:'uppercase', marginBottom:'8px', transition:'color 300ms ease'
+    }, text:'Scoring…' });
+
+    const scorePanel = h('div', { style:{
+      width:'300px', flexShrink:0, position:'relative',
+      display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
+      padding:'24px 18px', borderRadius:'16px',
+      background:'linear-gradient(180deg, rgba(52,211,153,0.10), rgba(52,211,153,0.02))',
+      border:'1px solid rgba(52,211,153,0.25)', opacity:0,
+    }},
+      h('div', { style:{ position:'absolute', inset:'-30px', borderRadius:'50%', background:'#10B981', filter:'blur(80px)', opacity:0.18, pointerEvents:'none' }}),
+      verdictLbl,
+      h('div', { style:{ display:'flex', alignItems:'baseline', gap:'2px', lineHeight:1 }},
+        scoreNum,
+        h('span', { class:'pa-mono', style:{ fontSize:'20px', color:'rgba(255,255,255,0.35)' }, text:'/100' })
+      ),
+      h('div', { class:'pa-mono', style:{ fontSize:'10px', letterSpacing:'0.18em', color:'#6B7280', textTransform:'uppercase', marginTop:'10px' },
+        text:'Confidence 0.91 · ‹ 22 min to verdict' })
+    );
+
+    const bottomRow = h('div', { style:{ display:'flex', alignItems:'stretch', gap:'36px', marginTop:'22px' }}, leftCol, scorePanel);
+
+    const root = h('div', { class:'scene', style:{
+      display:'flex', flexDirection:'column', padding:'0 110px', justifyContent:'center', opacity:0,
+    }}, alertEl, headlineWrap, bottomRow);
+
+    return { root, in: 6400, dur: 6400, update(local) {
+      root.style.opacity = clamp01(local/200);
+
+      // Alert
+      const alertOp = clamp01(local/200);
+      const alertScale = 0.92 + 0.08 * clamp01(local/300);
+      alertEl.style.opacity = alertOp;
+      alertEl.style.transform = `scale(${alertScale})`;
+
+      // Headline
+      const titleIn = clamp01((local - 500)/500);
+      headlineWrap.style.opacity = titleIn;
+      headlineWrap.style.transform = `translateY(${(1-titleIn)*14}px)`;
+      leftCol.style.opacity = titleIn;
+
+      // Score counter
+      const counterStart = 2400;
+      const counterDur = 1400;
+      const cp = clamp01((local - counterStart)/counterDur);
+      const score = Math.round(easeOutCubic(cp) * 84);
+      const scoringStarted = local >= counterStart;
+      const verdictRevealed = local >= counterStart + counterDur - 200;
+
+      scorePanel.style.opacity = clamp01((local - 1600)/500);
+      scoreNum.textContent = score;
+      scoreNum.style.color = verdictRevealed ? '#6EE7B7' : '#F3F4F6';
+      verdictLbl.style.color = verdictRevealed ? '#34D399' : '#9CA3AF';
+      verdictLbl.textContent = verdictRevealed ? 'Strong match' : 'Scoring…';
+
+      // Ticker stack
+      tickerStack.style.opacity = scoringStarted ? 0 : clamp01((local - 700)/300);
+      tickerLines.forEach((tl, i) => {
+        const start = 800 + i*240;
+        const lp = clamp01((local - start)/260);
+        const settled = local >= start + 260 + 80;
+        tl.row.style.opacity = lp;
+        tl.row.style.transform = `translateY(${(1-lp)*6}px)`;
+        tl.dot.style.background = settled ? '#34D399' : '#8B5CF6';
+        tl.dot.classList.toggle('pa-pulse-dot', !settled);
+        tl.lbl.style.color = settled ? '#9CA3AF' : '#C4B5FD';
+      });
+
+      // Score bars
+      barsGrid.style.opacity = verdictRevealed ? 1 : 0;
+      barRefs.forEach((b, i) => {
+        const start = counterStart + counterDur - 200 + i*140;
+        const p = clamp01((local - start)/600);
+        const w = b.s.value * p;
+        b.numEl.textContent = Math.round(b.s.value * p);
+        b.numEl.style.color = b.color;
+        b.fill.style.width = w + '%';
+        b.fill.style.background = b.fillBg;
+      });
+
+      // Reasons
+      reasonRefs.forEach(r => {
+        const start = counterStart + counterDur + r.t - 1300;
+        const p = clamp01((local - start)/350);
+        r.wrap.style.opacity = p;
+        r.wrap.style.transform = `translateX(${(1-p)*-8}px)`;
+      });
+    }};
+  }
+
+  /* ─── Scene 3: RFP draft ──────────────────────────────────────────── */
+  const DRAFT_SECTIONS = [
+    { name: 'Vol I · Executive Summary',                  pages: 4,  cites: 6,  reuse: 38 },
+    { name: 'Vol I · Project Approach & Methodology',     pages: 52, cites: 31, reuse: 68 },
+    { name: 'Vol I · Schedule, Phasing & Logistics',      pages: 38, cites: 22, reuse: 74 },
+    { name: 'Vol II · Past Performance — Comparable',     pages: 28, cites: 18, reuse: 88 },
+    { name: 'Vol II · Key Personnel & Resumes',           pages: 22, cites: 0,  reuse: 96 },
+    { name: 'Vol III · Self-Perform & Subcontractor Plan',pages: 24, cites: 14, reuse: 62 },
+  ];
+  const PAPER_LINE_WEIGHTS = [0.95, 0.92, 0.88, 0.96, 0.7, 0.93, 0.85];
+
+  function buildDraft() {
+    const headLabel = h('div', { class:'pa-mono', style:{
+      fontSize:'11px', color:'#8B5CF6', letterSpacing:'0.18em', textTransform:'uppercase', marginBottom:'18px', opacity:0
+    }, text:'Response Draft · v0.1 · 247 pages · 4 volumes' });
+    const headTitle = h('div', { style:{
+      fontSize:'60px', fontWeight:600, letterSpacing:'-0.025em', color:'#fff', marginBottom:'32px', lineHeight:1.05, opacity:0
+    }},
+      'Your ',
+      h('span', { class:'pa-grad-text', text:'first draft' }),
+      ' is written.'
+    );
+
+    // Paper stack — 4 sheets, only the top one has content
+    const paperLines = PAPER_LINE_WEIGHTS.map(w => {
+      const fill = h('div', { style:{ width:'0%', height:'100%', background:'rgba(17,17,17,0.55)', borderRadius:'1px' }});
+      const row  = h('div', { style:{ height:'3px', background:'rgba(17,17,17,0.10)', borderRadius:'1px' }}, fill);
+      return { fill, row, w };
+    });
+    const topPaper = h('div', { style:{
+      position:'absolute', left:'0px', top:'0px', right:'-12px', bottom:'-12px',
+      background:'#FAFAF7', borderRadius:'6px',
+      boxShadow:'0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.05)',
+      padding:'18px 16px', fontFamily:'ui-serif, Georgia, serif', transform:'rotate(2.1deg)',
+    }},
+      h('div', { style:{ display:'flex', flexDirection:'column', gap:'6px' }},
+        h('div', { class:'pa-mono', style:{ fontSize:'8px', letterSpacing:'0.14em', color:'#666' }, text:'VOLUME I · TECHNICAL' }),
+        h('div', { style:{ fontSize:'14px', fontWeight:600, color:'#111', letterSpacing:'-0.01em', lineHeight:1.2, marginBottom:'6px' },
+          text:'Patient Tower & Surgery Pavilion — Phase II' }),
+        paperLines.map(l => l.row),
+        h('div', { style:{ marginTop:'6px', height:'3px', background:'rgba(17,17,17,0.10)', borderRadius:'1px' }}),
+        h('div', { style:{ height:'3px', background:'rgba(17,17,17,0.10)', borderRadius:'1px' }})
+      )
+    );
+
+    const paperBack = [3,2,1].map(i => h('div', { style:{
+      position:'absolute', left:(i*8)+'px', top:(i*8)+'px', right:(-i*4)+'px', bottom:(-i*4)+'px',
+      background:'#FAFAF7', borderRadius:'6px',
+      boxShadow:'0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.05)',
+      transform: `rotate(${(i-1.5)*1.4}deg)`,
+    }}));
+
+    const paperStack = h('div', { style:{ position:'relative', width:'240px', height:'300px', flexShrink:0, opacity:0 }},
+      h('div', { style:{ position:'absolute', inset:'-40px', borderRadius:'50%', background:'#6366F1', filter:'blur(80px)', opacity:0.18 }}),
+      paperBack, topPaper
+    );
+
+    // Section roster
+    const sectionRefs = DRAFT_SECTIONS.map(s => {
+      const dot = h('span', { style:{ width:'10px', height:'10px', borderRadius:'50%', background:'rgba(139,92,246,0.6)', boxShadow:'0 0 12px rgba(139,92,246,0.6)' }, class:'pa-pulse-dot' });
+      const fill = h('div', { style:{ position:'absolute', inset:0, width: s.reuse+'%', background:'linear-gradient(90deg,#6366F1,#8B5CF6)', borderRadius:'2px' }});
+      const row = h('div', { style:{
+        display:'grid', gridTemplateColumns:'14px 1fr 64px 90px 1fr', alignItems:'center', gap:'18px',
+        padding:'12px 16px', background:'#141414', border:'1px solid rgba(255,255,255,0.08)', borderRadius:'10px',
+        opacity:0,
+      }},
+        dot,
+        h('span', { style:{ fontSize:'14px', color:'#F3F4F6' }, text: s.name }),
+        h('span', { class:'pa-mono', style:{ fontSize:'12px', color:'#9CA3AF', textAlign:'right' }, text: s.pages + 'pp' }),
+        h('span', { class:'pa-mono', style:{ fontSize:'11px', color:'#6B7280' }, text: s.cites + ' cites' }),
+        h('div', { style:{ display:'flex', alignItems:'center', gap:'8px' }},
+          h('div', { style:{ position:'relative', flex:1, height:'3px', background:'rgba(255,255,255,0.06)', borderRadius:'2px' }}, fill),
+          h('span', { class:'pa-mono', style:{ fontSize:'11px', color:'#9CA3AF', minWidth:'34px', textAlign:'right' }, text: s.reuse + '%' })
+        )
+      );
+      return { row, dot };
+    });
+    const roster = h('div', { style:{ flex:1, display:'flex', flexDirection:'column', gap:'8px', minWidth:0 }}, sectionRefs.map(s => s.row));
+
+    const signature = h('div', { style:{ marginTop:'22px', display:'flex', alignItems:'center', gap:'10px', opacity:0 }},
+      h('div', { style:{ width:'14px', height:'14px', borderRadius:'4px', background:'linear-gradient(135deg,#6366F1,#8B5CF6)' }}),
+      h('span', { class:'pa-mono', style:{ fontSize:'11px', color:'#6B7280', letterSpacing:'0.06em' },
+        text:'Drafted by Propagent · 11m 24s · 43 sources cited · 76% reused from prior wins' })
+    );
+
+    const root = h('div', { class:'scene', style:{
+      display:'flex', flexDirection:'column', padding:'0 110px', justifyContent:'center', opacity:0
+    }},
+      headLabel, headTitle,
+      h('div', { style:{ display:'flex', gap:'36px', alignItems:'stretch' }}, paperStack, roster),
+      signature
+    );
+
+    return { root, in: 12800, dur: 6600, update(local) {
+      root.style.opacity = clamp01(local/300);
+      const headIn = clamp01(local/400);
+      headLabel.style.opacity = headIn;
+      headTitle.style.opacity = headIn;
+      // Paper stack
+      paperStack.style.opacity = clamp01((local-300)/400);
+      paperLines.forEach((pl, j) => {
+        const start = 700 + j*180;
+        const lw = Math.min(pl.w*100, Math.max(0, (local - start)/600 * pl.w*100));
+        pl.fill.style.width = lw + '%';
+      });
+      // Sections
+      sectionRefs.forEach((sr, i) => {
+        const start = 600 + i*340;
+        const p = clamp01((local - start)/450);
+        sr.row.style.opacity = p;
+        sr.row.style.transform = `translateY(${(1-p)*10}px)`;
+        if (p >= 1) {
+          sr.dot.style.background = '#34D399';
+          sr.dot.style.boxShadow = 'none';
+          sr.dot.classList.remove('pa-pulse-dot');
+        } else {
+          sr.dot.style.background = 'rgba(139,92,246,0.6)';
+          sr.dot.style.boxShadow = '0 0 12px rgba(139,92,246,0.6)';
+          sr.dot.classList.add('pa-pulse-dot');
+        }
+      });
+      signature.style.opacity = clamp01((local - 3200)/400);
+    }};
+  }
+
+  /* ─── Scene 4: SME routing ────────────────────────────────────────── */
+  const SME_ROWS = [
+    { name:'Maria Chen',    role:'Preconstruction',    channel:'slack',    handle:'#precon-riverstone',  q:'Confirm clash detection coverage for Level 3 MEP runs?',         photo:'https://i.pravatar.cc/96?img=47' },
+    { name:'James Park',    role:'Chief Estimator',    channel:'email',    handle:'jpark@…',             q:'Refresh OR finish package unit costs from the 2023 Cedars bid?', photo:'https://i.pravatar.cc/96?img=12' },
+    { name:'Priya Shah',    role:'Operations',         channel:'teams',    handle:'Field Leadership',    q:'Can we hold 3 PMs + 5 supers for Aug 1 mobilization?',           photo:'https://i.pravatar.cc/96?img=44' },
+    { name:'Carlos Méndez', role:'Subcontractor Mgmt', channel:'whatsapp', handle:'+1 (415) ••• ••86',   q:'Lock mechanical scope with the Daly Group at 2024 pricing?',     photo:'https://i.pravatar.cc/96?img=33' },
+  ];
+
+  function buildSmes() {
+    const headLabel = h('div', { class:'pa-mono', style:{
+      fontSize:'11px', color:'#8B5CF6', letterSpacing:'0.18em', textTransform:'uppercase', marginBottom:'18px', opacity:0
+    }, text:'17 open questions · 9 SMEs · 4 channels' });
+    const headTitle = h('div', { style:{
+      fontSize:'60px', fontWeight:600, letterSpacing:'-0.025em', color:'#fff', marginBottom:'30px', lineHeight:1.05, opacity:0
+    }},
+      'Asked the right people, ',
+      h('span', { class:'pa-grad-text', text:'where they already work.' })
+    );
+
+    const rowRefs = SME_ROWS.map(r => {
+      const photo = h('img', { src: r.photo, alt: r.name, style:{
+        width:'40px', height:'40px', borderRadius:'50%', objectFit:'cover',
+        border:'1px solid rgba(255,255,255,0.12)', background:'rgba(255,255,255,0.04)'
+      }});
+      const routingEl = h('span', { style:{ display:'inline-flex', alignItems:'center', gap:'6px' }},
+        h('span', { class:'pa-pulse-dot', style:{ width:'6px', height:'6px', borderRadius:'50%', background:'#FBBF24' }}),
+        h('span', { class:'pa-mono', style:{ fontSize:'10px', color:'#FBBF24', letterSpacing:'0.12em', textTransform:'uppercase' }, text:'routing' })
+      );
+      const sentEl = h('span', { style:{ display:'inline-flex', alignItems:'center', gap:'6px', opacity:0 }},
+        h('span', { html: `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6.5L4.8 9L10 3.5" stroke="#34D399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>` }),
+        h('span', { class:'pa-mono', style:{ fontSize:'10px', color:'#34D399', letterSpacing:'0.12em', textTransform:'uppercase' }, text:'Sent' })
+      );
+      const statusCell = h('div', { style:{ display:'flex', justifyContent:'flex-end', alignItems:'center', gap:'6px' }}, routingEl, sentEl);
+
+      const row = h('div', { style:{
+        display:'grid', gridTemplateColumns:'40px 180px 26px 1fr 110px',
+        alignItems:'center', gap:'18px', padding:'12px 18px',
+        background:'#141414', border:'1px solid rgba(255,255,255,0.08)', borderRadius:'12px',
+        opacity:0,
+      }},
+        photo,
+        h('div', { style:{ display:'flex', flexDirection:'column', minWidth:0 }},
+          h('span', { style:{ fontSize:'14px', color:'#F3F4F6', fontWeight:500 }, text: r.name }),
+          h('span', { class:'pa-mono', style:{ fontSize:'10px', color:'#6B7280', letterSpacing:'0.06em', textTransform:'uppercase' }, text: r.role })
+        ),
+        channelGlyph(r.channel),
+        h('div', { style:{ display:'flex', flexDirection:'column', gap:'3px', minWidth:0 }},
+          h('span', { class:'pa-mono', style:{ fontSize:'10px', color:'#9CA3AF', letterSpacing:'0.04em' },
+            text: `${CHANNEL_LABEL[r.channel]} · ${r.handle}` }),
+          h('span', { style:{
+            fontSize:'14px', color:'#E5E7EB', lineHeight:1.4,
+            whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis',
+          }, text: `“${r.q}”` })
+        ),
+        statusCell
+      );
+      return { row, routingEl, sentEl };
+    });
+
+    const list = h('div', { style:{ display:'flex', flexDirection:'column', gap:'10px', maxWidth:'1080px' }}, rowRefs.map(r => r.row));
+
+    const footer = h('div', { style:{ marginTop:'22px', display:'flex', alignItems:'center', gap:'10px', opacity:0 }},
+      h('span', { class:'pa-pulse-dot', style:{ width:'6px', height:'6px', borderRadius:'50%', background:'#8B5CF6' }}),
+      h('span', { class:'pa-mono', style:{ fontSize:'11px', color:'#9CA3AF', letterSpacing:'0.04em' },
+        text:'+ 13 more researched & answered from prior pursuits · no SME ping required' })
+    );
+
+    const root = h('div', { class:'scene', style:{
+      display:'flex', flexDirection:'column', padding:'0 110px', justifyContent:'center', opacity:0
+    }}, headLabel, headTitle, list, footer);
+
+    return { root, in: 19400, dur: 6800, update(local) {
+      root.style.opacity = clamp01(local/300);
+      const headIn = clamp01(local/400);
+      headLabel.style.opacity = headIn;
+      headTitle.style.opacity = headIn;
+
+      rowRefs.forEach((rf, i) => {
+        const start = 400 + i*520;
+        const p = clamp01((local - start)/380);
+        const sentAt = start + 900;
+        const sent = local >= sentAt;
+        const sentOp = clamp01((local - sentAt)/280);
+        rf.row.style.opacity = p;
+        rf.row.style.transform = `translateY(${(1-p)*14}px)`;
+        rf.routingEl.style.display = sent ? 'none' : '';
+        rf.sentEl.style.opacity = sent ? sentOp : 0;
+      });
+
+      footer.style.opacity = clamp01((local - 3400)/400);
+    }};
+  }
+
+  /* ─── Scene 5: CTA ────────────────────────────────────────────────── */
+  const CTA_PILLARS = [
+    { k:'Scout',      v:'Surfaces qualified pursuits before they hit typical channels.' },
+    { k:'Qualify',    v:'Scores every opportunity against your strategy, capacity, and win history.' },
+    { k:'Shape',      v:'Turns prior work, firm knowledge, and win themes into stronger responses.' },
+    { k:'Coordinate', v:'Brings the right questions to the right people, on the right surface.' },
+    { k:'Learn',      v:'Every pursuit improves the next one.' },
+  ];
+
+  function buildCta() {
+    const hero = h('div', { style:{
+      fontSize:'78px', fontWeight:600, letterSpacing:'-0.03em', color:'#fff', marginBottom:'22px',
+      textAlign:'center', lineHeight:1.02, opacity:0,
+    }},
+      'The pursuit system',
+      h('br'),
+      h('span', { class:'pa-grad-text', text:'that never sleeps.' })
+    );
+    const sub = h('div', { style:{
+      fontSize:'19px', color:'#9CA3AF', marginBottom:'42px', letterSpacing:'-0.005em',
+      maxWidth:'880px', textAlign:'center', lineHeight:1.5, opacity:0,
+    }, text: 'From bid discovery to final submission, Propagent turns firm knowledge into a working system that helps teams make better decisions, shape stronger responses, and deliver compliant, winning submissions.' });
+
+    const pillarRefs = CTA_PILLARS.map((p, i) => {
+      const card = h('div', { style:{
+        display:'flex', flexDirection:'column', gap:'8px',
+        padding:'16px 18px',
+        background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:'10px',
+        opacity:0,
+      }},
+        h('span', { class:'pa-mono', style:{ fontSize:'10px', letterSpacing:'0.18em', color:'#C4B5FD', textTransform:'uppercase' },
+          text: `0${i+1} · ${p.k}` }),
+        h('span', { style:{ fontSize:'13px', color:'#E5E7EB', lineHeight:1.45 }, text: p.v })
+      );
+      return { card };
+    });
+    const grid = h('div', { style:{
+      display:'grid', gridTemplateColumns:'repeat(5, 1fr)', gap:'12px',
+      maxWidth:'1200px', width:'100%', marginBottom:'38px'
+    }}, pillarRefs.map(p => p.card));
+
+    const footer = h('div', { class:'pa-mono', style:{
+      fontSize:'11px', color:'#4B5563', letterSpacing:'0.22em', textTransform:'uppercase', textAlign:'center'
+    }, text:'For pursuit teams · BD leaders · proposal managers' });
+
+    const root = h('div', { class:'scene', style:{
+      display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'0 110px', opacity:0
+    }}, hero, sub, grid, footer);
+
+    return { root, in: 26200, dur: 5500, update(local) {
+      root.style.opacity = clamp01(local/500);
+      const titleIn = clamp01(local/400);
+      hero.style.opacity = titleIn;
+      sub.style.opacity = titleIn;
+      pillarRefs.forEach((pr, i) => {
+        const start = 500 + i*180;
+        const p = clamp01((local - start)/400);
+        pr.card.style.opacity = p;
+        pr.card.style.transform = `translateY(${(1-p)*10}px)`;
+      });
+    }};
+  }
+
+  /* ─── Engine ──────────────────────────────────────────────────────── */
+  const root = document.getElementById('briefing');
+  const backdrop = buildBackdrop();
+  const chrome   = buildChrome();
+  const scenes = [
+    buildCold(),
+    buildGreet(),
+    buildMatch(),
+    buildDraft(),
+    buildSmes(),
+    buildCta(),
+  ];
+
+  root.appendChild(backdrop.el);
+  scenes.forEach(s => root.appendChild(s.root));
+  chrome.els.forEach(el => root.appendChild(el));
+
+  let startTime = performance.now();
+  let seekBase = 0;
+  let paused = false;
+  let pausedAt = 0;
+
+  const engine = {
+    seek(target) {
+      const tRaw = performance.now() - startTime;
+      seekBase = ((target - tRaw) % TOTAL + TOTAL) % TOTAL;
+    },
+    togglePause() {
+      if (paused) {
+        startTime += performance.now() - pausedAt;
+        paused = false;
+      } else {
+        pausedAt = performance.now();
+        paused = true;
+      }
+    },
+    step(deltaMs) {
+      const tRaw = performance.now() - startTime;
+      const t = (tRaw + seekBase) % TOTAL;
+      this.seek((t + deltaMs + TOTAL) % TOTAL);
+    },
+  };
+
+  function frame() {
+    if (!paused) {
+      const tRaw = performance.now() - startTime;
+      const t = (tRaw + seekBase) % TOTAL;
+      backdrop.update(t);
+      chrome.update(t);
+      for (const s of scenes) {
+        const active = t >= s.in && t < s.in + s.dur;
+        if (active) {
+          s.root.style.display = 'flex';
+          s.update(t - s.in);
+        } else {
+          s.root.style.display = 'none';
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // Keyboard
+  window.addEventListener('keydown', (e) => {
+    if (e.key === ' ')          { engine.togglePause(); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') engine.step(2000);
+    else if (e.key === 'ArrowLeft')  engine.step(-2000);
+    else if (e.key === 'Escape')     engine.seek(0);
+  });
+
+  // Fit the 1440×900 design canvas into the viewport via transform:scale.
+  // Letterboxes on the shorter axis. This is how decks/videos stay readable
+  // at any size.
+  function fitCanvas() {
+    const s = Math.min(window.innerWidth / 1440, window.innerHeight / 900);
+    root.style.transform = `scale(${s})`;
+  }
+  window.addEventListener('resize', fitCanvas);
+  fitCanvas();
+})();
+</script>
+
+</body>
+</html>
