@@ -2230,3 +2230,927 @@ a:hover { color: var(--accent-primary-strong); }
   .lc-memory-wrap { grid-template-columns: 1fr; }
 }
 
+/* ============================================================================
+   3-COLOR ROTATION — Black · Lavender · Cream
+   Replaces the old charcoal/black alternation with a deliberate B→L→C cycle.
+   Light sections (lavender, cream) invert text colors and adapt component
+   chrome (cards, chips, borders, accent contrast).
+   ============================================================================ */
+
+:root {
+  --bg-lavender: #D6C5EC;
+  --bg-cream: #FAF3E0;
+
+  --text-on-lavender: #281F45;
+  --text-on-lavender-secondary: #5A4A82;
+  --text-on-lavender-muted: #6B5C95;
+  --text-on-lavender-dim: #8A7BB0;
+
+  --text-on-cream: #2B2418;
+  --text-on-cream-secondary: #5C4F38;
+  --text-on-cream-muted: #7A6B4F;
+  --text-on-cream-dim: #9C8E70;
+
+  /* deeper purple for accent text/buttons on light backgrounds (the default
+     #A78BFA gets lost against pale purple) */
+  --accent-on-light: #6D4ED1;
+  --accent-on-light-strong: #5B3CB8;
+
+  /* light-section borders */
+  --border-on-lavender-subtle: rgba(40, 31, 69, 0.10);
+  --border-on-lavender-default: rgba(40, 31, 69, 0.16);
+  --border-on-cream-subtle: rgba(43, 36, 24, 0.10);
+  --border-on-cream-default: rgba(43, 36, 24, 0.16);
+}
+
+/* ----- Lavender sections ----------------------------------------------- */
+.section--lavender {
+  background: var(--bg-lavender);
+  color: var(--text-on-lavender);
+}
+.section--lavender.section-divider,
+.section--lavender + .section-divider {
+  border-top-color: rgba(40, 31, 69, 0.10);
+}
+.section--lavender .section-eyebrow {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .section-eyebrow::before {
+  background: var(--border-on-lavender-default);
+}
+.section--lavender h2,
+.section--lavender h3,
+.section--lavender h4 {
+  color: var(--text-on-lavender);
+}
+.section--lavender .text-agent-gradient {
+  color: var(--accent-on-light);
+}
+.section--lavender .lede {
+  color: var(--text-on-lavender-secondary);
+}
+.section--lavender p {
+  color: var(--text-on-lavender-secondary);
+}
+.section--lavender a {
+  color: var(--accent-on-light);
+}
+.section--lavender a:hover {
+  color: var(--accent-on-light-strong);
+}
+.section--lavender .btn {
+  color: var(--text-on-lavender);
+  border-color: var(--border-on-lavender-default);
+}
+.section--lavender .btn:hover {
+  background: rgba(40, 31, 69, 0.06);
+  color: var(--text-on-lavender);
+}
+.section--lavender .btn-primary {
+  background: var(--accent-on-light);
+  color: #fff;
+}
+.section--lavender .btn-primary:hover {
+  background: var(--accent-on-light-strong);
+  color: #fff;
+}
+
+/* card/surface overrides on lavender — product mocks should look like real
+   UI screenshots, not blend into the section bg */
+.section--lavender .mv-card,
+.section--lavender .price-card,
+.section--lavender .trust-card,
+.section--lavender .memory-card,
+.section--lavender .expert-intake-card,
+.section--lavender .routing-board,
+.section--lavender .lifecycle {
+  background: #FBF9FE;
+  border-color: rgba(40, 31, 69, 0.18);
+  color: var(--text-on-lavender);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 6px 18px -8px rgba(40, 31, 69, 0.22),
+    0 2px 6px -2px rgba(40, 31, 69, 0.12);
+}
+.section--lavender .ei-row {
+  background: transparent;
+  border-color: var(--border-on-lavender-subtle);
+  color: var(--text-on-lavender);
+}
+.section--lavender .mv-tag,
+.section--lavender .mono-meta,
+.section--lavender .mv-k {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .mv-v {
+  color: var(--text-on-lavender);
+}
+.section--lavender .mv-chip,
+.section--lavender .va-chip {
+  background: rgba(109, 78, 209, 0.08);
+  color: var(--accent-on-light);
+  border-color: rgba(109, 78, 209, 0.18);
+}
+.section--lavender .bench-num {
+  color: var(--text-on-lavender);
+}
+.section--lavender .bench-lbl {
+  color: var(--text-on-lavender-secondary);
+}
+.section--lavender .bench-unit {
+  color: var(--accent-on-light);
+}
+.section--lavender .bench-caveat {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .bench-label {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .lc-track-name { color: var(--text-on-lavender-muted); }
+.section--lavender .lc-track.lc-us .lc-track-name { color: var(--accent-on-light); }
+.section--lavender .lc-label { color: var(--text-on-lavender-secondary); }
+.section--lavender .lc-tag { color: var(--text-on-lavender-muted); }
+.section--lavender .lc-dot { background: var(--text-on-lavender-muted); border-color: var(--text-on-lavender-muted); }
+.section--lavender .lc-track.lc-us .lc-dot { background: var(--accent-on-light); border-color: var(--accent-on-light); }
+.section--lavender .lc-stage.missing .lc-dot { background: transparent; border-color: var(--text-on-lavender-dim); }
+.section--lavender .lc-end { color: var(--text-on-lavender-muted); }
+.section--lavender .lc-memory-band {
+  background: linear-gradient(90deg, rgba(109, 78, 209, 0.18), rgba(109, 78, 209, 0.06) 80%);
+  border-color: rgba(109, 78, 209, 0.35);
+}
+.section--lavender .lc-memory-band-label,
+.section--lavender .lc-loop-arrow { color: var(--accent-on-light); }
+.section--lavender .lc-memory-band-meta { color: var(--text-on-lavender-secondary); }
+
+/* persona switcher on lavender */
+.section--lavender .ps-tab { color: var(--text-on-lavender-muted); }
+.section--lavender .ps-tab-num { color: var(--text-on-lavender-dim); }
+.section--lavender .ps-tab-name { color: var(--text-on-lavender-secondary); }
+.section--lavender .ps-input:checked + .ps-tabs .ps-tab,
+.section--lavender .ps-tab:hover { color: var(--text-on-lavender); }
+.section--lavender .ps-side-tag { color: var(--text-on-lavender-muted); }
+.section--lavender .ps-side-tag.accent { color: var(--accent-on-light); }
+.section--lavender .ps-pain li,
+.section--lavender .ps-gain li { color: var(--text-on-lavender-secondary); }
+
+/* pricing cards on lavender */
+.section--lavender .price-card.featured {
+  border-color: var(--accent-on-light);
+  box-shadow: 0 8px 24px -8px rgba(109, 78, 209, 0.30);
+}
+.section--lavender .tier-name { color: var(--text-on-lavender); }
+.section--lavender .price { color: var(--text-on-lavender); }
+.section--lavender .per { color: var(--text-on-lavender-muted); }
+.section--lavender .desc { color: var(--text-on-lavender-secondary); }
+.section--lavender .featured-flag {
+  background: var(--accent-on-light);
+  color: #fff;
+}
+
+/* contact form on lavender */
+.section--lavender input,
+.section--lavender textarea {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text-on-lavender);
+  border-color: var(--border-on-lavender-default);
+}
+.section--lavender .mono-label { color: var(--text-on-lavender-muted); }
+
+/* bf-stake-strip on lavender */
+.section--lavender .bf-stake-strip { color: var(--text-on-lavender-muted); }
+.section--lavender .bf-stake-strip em { color: var(--text-on-lavender); }
+.section--lavender .bf-stake-strip > span:not(:last-child)::after { color: var(--text-on-lavender-dim); }
+
+/* va-grid before/after cards on lavender */
+.section--lavender .va-card { background: rgba(255, 255, 255, 0.6); border-color: var(--border-on-lavender-default); }
+.section--lavender .va-then { background: rgba(248, 113, 113, 0.10); border-color: rgba(248, 113, 113, 0.35); }
+.section--lavender .va-now  { background: rgba(109, 78, 209, 0.12); border-color: rgba(109, 78, 209, 0.40); }
+.section--lavender .va-then p { color: #7C2020; }
+.section--lavender .va-now p { color: var(--text-on-lavender); }
+.section--lavender .va-headers-then { color: rgba(124, 32, 32, 0.85); }
+.section--lavender .va-headers-now { color: var(--accent-on-light); }
+.section--lavender .va-moment-name { color: var(--text-on-lavender); }
+.section--lavender .va-moment-num { color: var(--accent-on-light); }
+.section--lavender .va-summary {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: var(--border-on-lavender-default);
+}
+.section--lavender .va-summary-label { color: var(--accent-on-light); }
+.section--lavender .va-summary-val { color: var(--text-on-lavender); }
+.section--lavender .va-arrow { color: var(--accent-on-light); }
+
+/* customer-band on lavender */
+.section--lavender.customer-band,
+.section--lavender .customer-band-label { color: var(--text-on-lavender-muted); }
+.section--lavender .customer-list li { color: var(--text-on-lavender); }
+
+/* ----- Cream sections -------------------------------------------------- */
+.section--cream {
+  background: var(--bg-cream);
+  color: var(--text-on-cream);
+}
+.section--cream.section-divider,
+.section--cream + .section-divider {
+  border-top-color: rgba(43, 36, 24, 0.10);
+}
+.section--cream .section-eyebrow { color: var(--text-on-cream-muted); }
+.section--cream .section-eyebrow::before { background: var(--border-on-cream-default); }
+.section--cream h2,
+.section--cream h3,
+.section--cream h4 { color: var(--text-on-cream); }
+.section--cream .text-agent-gradient { color: var(--accent-on-light); }
+.section--cream .lede { color: var(--text-on-cream-secondary); }
+.section--cream p { color: var(--text-on-cream-secondary); }
+.section--cream a { color: var(--accent-on-light); }
+.section--cream a:hover { color: var(--accent-on-light-strong); }
+.section--cream .btn {
+  color: var(--text-on-cream);
+  border-color: var(--border-on-cream-default);
+}
+.section--cream .btn:hover { background: rgba(43, 36, 24, 0.06); }
+.section--cream .btn-primary { background: var(--accent-on-light); color: #fff; }
+.section--cream .btn-primary:hover { background: var(--accent-on-light-strong); color: #fff; }
+
+.section--cream .mv-card,
+.section--cream .price-card,
+.section--cream .trust-card,
+.section--cream .memory-card,
+.section--cream .expert-intake-card,
+.section--cream .routing-board,
+.section--cream .lifecycle {
+  background: #FFFFFF;
+  border-color: rgba(43, 36, 24, 0.16);
+  color: var(--text-on-cream);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 6px 18px -8px rgba(43, 36, 24, 0.20),
+    0 2px 6px -2px rgba(43, 36, 24, 0.10);
+}
+.section--cream .ei-row {
+  background: transparent;
+  border-color: var(--border-on-cream-subtle);
+  color: var(--text-on-cream);
+}
+.section--cream .mv-tag,
+.section--cream .mono-meta,
+.section--cream .mv-k { color: var(--text-on-cream-muted); }
+.section--cream .mv-v { color: var(--text-on-cream); }
+.section--cream .mv-chip,
+.section--cream .va-chip {
+  background: rgba(109, 78, 209, 0.08);
+  color: var(--accent-on-light);
+  border-color: rgba(109, 78, 209, 0.18);
+}
+.section--cream .bench-num { color: var(--text-on-cream); }
+.section--cream .bench-lbl { color: var(--text-on-cream-secondary); }
+.section--cream .bench-unit { color: var(--accent-on-light); }
+.section--cream .bench-caveat,
+.section--cream .bench-label { color: var(--text-on-cream-muted); }
+
+.section--cream .lc-track-name { color: var(--text-on-cream-muted); }
+.section--cream .lc-track.lc-us .lc-track-name { color: var(--accent-on-light); }
+.section--cream .lc-label { color: var(--text-on-cream-secondary); }
+.section--cream .lc-tag { color: var(--text-on-cream-muted); }
+.section--cream .lc-dot { background: var(--text-on-cream-muted); border-color: var(--text-on-cream-muted); }
+.section--cream .lc-track.lc-us .lc-dot { background: var(--accent-on-light); border-color: var(--accent-on-light); }
+.section--cream .lc-stage.missing .lc-dot { background: transparent; border-color: var(--text-on-cream-dim); }
+.section--cream .lc-end { color: var(--text-on-cream-muted); }
+.section--cream .lc-memory-band {
+  background: linear-gradient(90deg, rgba(109, 78, 209, 0.16), rgba(109, 78, 209, 0.04) 80%);
+  border-color: rgba(109, 78, 209, 0.30);
+}
+.section--cream .lc-memory-band-label,
+.section--cream .lc-loop-arrow { color: var(--accent-on-light); }
+.section--cream .lc-memory-band-meta { color: var(--text-on-cream-secondary); }
+
+.section--cream .ps-tab { color: var(--text-on-cream-muted); }
+.section--cream .ps-tab-num { color: var(--text-on-cream-dim); }
+.section--cream .ps-tab-name { color: var(--text-on-cream-secondary); }
+.section--cream .ps-tab:hover { color: var(--text-on-cream); }
+.section--cream .ps-side-tag { color: var(--text-on-cream-muted); }
+.section--cream .ps-side-tag.accent { color: var(--accent-on-light); }
+.section--cream .ps-pain li,
+.section--cream .ps-gain li { color: var(--text-on-cream-secondary); }
+
+.section--cream .price-card.featured {
+  border-color: var(--accent-on-light);
+  box-shadow: 0 8px 24px -8px rgba(109, 78, 209, 0.30);
+}
+.section--cream .tier-name { color: var(--text-on-cream); }
+.section--cream .price { color: var(--text-on-cream); }
+.section--cream .per { color: var(--text-on-cream-muted); }
+.section--cream .desc { color: var(--text-on-cream-secondary); }
+.section--cream .featured-flag { background: var(--accent-on-light); color: #fff; }
+
+.section--cream input,
+.section--cream textarea {
+  background: rgba(255, 250, 235, 0.85);
+  color: var(--text-on-cream);
+  border-color: var(--border-on-cream-default);
+}
+.section--cream .mono-label { color: var(--text-on-cream-muted); }
+
+.section--cream .bf-stake-strip { color: var(--text-on-cream-muted); }
+.section--cream .bf-stake-strip em { color: var(--text-on-cream); }
+.section--cream .bf-stake-strip > span:not(:last-child)::after { color: var(--text-on-cream-dim); }
+
+.section--cream .va-card { background: rgba(255, 250, 235, 0.75); border-color: var(--border-on-cream-default); }
+.section--cream .va-then { background: rgba(248, 113, 113, 0.10); border-color: rgba(248, 113, 113, 0.35); }
+.section--cream .va-now  { background: rgba(109, 78, 209, 0.10); border-color: rgba(109, 78, 209, 0.35); }
+.section--cream .va-then p { color: #7C2020; }
+.section--cream .va-now p { color: var(--text-on-cream); }
+.section--cream .va-headers-then { color: rgba(124, 32, 32, 0.85); }
+.section--cream .va-headers-now { color: var(--accent-on-light); }
+.section--cream .va-moment-name { color: var(--text-on-cream); }
+.section--cream .va-moment-num { color: var(--accent-on-light); }
+.section--cream .va-summary {
+  background: rgba(255, 250, 235, 0.75);
+  border-color: var(--border-on-cream-default);
+}
+.section--cream .va-summary-label { color: var(--accent-on-light); }
+.section--cream .va-summary-val { color: var(--text-on-cream); }
+.section--cream .va-arrow { color: var(--accent-on-light); }
+
+.section--cream.customer-band,
+.section--cream .customer-band-label { color: var(--text-on-cream-muted); }
+.section--cream .customer-list li { color: var(--text-on-cream); }
+
+/* Lavender + cream variant of section-charcoal override
+   (the section-charcoal rule has high specificity due to its bg color, so
+   we explicitly null it out when combined with a light modifier) */
+.section--lavender.section-charcoal,
+.section--cream.section-charcoal {
+  background: inherit;
+}
+.section--lavender.section-charcoal { background: var(--bg-lavender); }
+.section--cream.section-charcoal { background: var(--bg-cream); }
+
+/* ----- Light-section legibility patches ------------------------------- */
+
+/* va-card "Today" / "With Propagent" pair — stronger color separation on
+   light sections so the contrast story still lands */
+.section--cream .va-card,
+.section--lavender .va-card {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 4px 10px -4px rgba(43, 36, 24, 0.12);
+}
+.section--cream .va-then {
+  background: rgba(220, 80, 80, 0.14);
+  border-color: rgba(160, 40, 40, 0.40);
+}
+.section--cream .va-then p {
+  color: #5A1414;
+}
+.section--cream .va-now {
+  background: rgba(109, 78, 209, 0.14);
+  border-color: rgba(109, 78, 209, 0.50);
+}
+.section--cream .va-now p {
+  color: var(--text-on-cream);
+}
+.section--lavender .va-then {
+  background: rgba(220, 80, 80, 0.16);
+  border-color: rgba(160, 40, 40, 0.45);
+}
+.section--lavender .va-then p {
+  color: #5A1414;
+}
+.section--lavender .va-now {
+  background: rgba(109, 78, 209, 0.18);
+  border-color: rgba(109, 78, 209, 0.55);
+}
+.section--lavender .va-now p {
+  color: var(--text-on-lavender);
+}
+
+/* trust-receipt-body uses #fff for <strong> — kills it on cream. Patch. */
+.section--cream .trust-receipt-body strong,
+.section--lavender .trust-receipt-body strong {
+  color: var(--text-on-cream);
+}
+.section--lavender .trust-receipt-body strong {
+  color: var(--text-on-lavender);
+}
+.section--cream .trust-receipt-body em,
+.section--lavender .trust-receipt-body em {
+  color: var(--accent-on-light);
+}
+
+/* pm-cite-chip — has its own purple tint; on light sections bump to the
+   darker accent so it reads against the lighter card background */
+.section--cream .pm-cite-chip,
+.section--lavender .pm-cite-chip {
+  background: rgba(109, 78, 209, 0.12);
+  color: var(--accent-on-light);
+  border-color: rgba(109, 78, 209, 0.25);
+}
+.section--cream .pm-cite-chip:hover,
+.section--lavender .pm-cite-chip:hover {
+  background: rgba(109, 78, 209, 0.22);
+}
+
+/* moment-row text in Workflow (cream) — ensure h3 and step text contrast */
+.section--cream .moment-step,
+.section--cream .moment-name,
+.section--lavender .moment-step,
+.section--lavender .moment-name {
+  color: inherit;
+}
+.section--cream .moment-row h3,
+.section--lavender .moment-row h3 {
+  color: var(--text-on-cream);
+}
+.section--lavender .moment-row h3 {
+  color: var(--text-on-lavender);
+}
+.section--cream .moment-row p,
+.section--lavender .moment-row p {
+  color: inherit;
+}
+
+/* trust card hover/active states */
+.section--cream .trust-card h3,
+.section--lavender .trust-card h3 {
+  color: var(--text-on-cream);
+}
+.section--lavender .trust-card h3 {
+  color: var(--text-on-lavender);
+}
+
+/* memory-card pill on cream/lavender — accent treatment */
+.section--cream .memory-pill,
+.section--lavender .memory-pill {
+  background: rgba(109, 78, 209, 0.12);
+  color: var(--accent-on-light);
+  border: 1px solid rgba(109, 78, 209, 0.25);
+}
+.section--cream .memory-arrow,
+.section--lavender .memory-arrow {
+  color: var(--accent-on-light);
+}
+.section--cream .memory-card.now,
+.section--lavender .memory-card.now {
+  border-color: var(--accent-on-light);
+  box-shadow: 0 8px 22px -8px rgba(109, 78, 209, 0.30);
+}
+.section--cream .memory-card strong,
+.section--lavender .memory-card strong {
+  color: var(--text-on-cream);
+}
+.section--lavender .memory-card strong {
+  color: var(--text-on-lavender);
+}
+.section--cream .provenance-chip,
+.section--lavender .provenance-chip {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .provenance-chip {
+  color: var(--text-on-lavender-muted);
+}
+.section--cream .provenance-chip::before,
+.section--lavender .provenance-chip::before {
+  background: var(--accent-on-light);
+}
+.section--cream .provenance-chip .src,
+.section--lavender .provenance-chip .src {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .provenance-chip .src {
+  color: var(--text-on-lavender-muted);
+}
+
+/* Routing board row backgrounds on light sections */
+.section--lavender .routing-bar-head,
+.section--cream .routing-bar-head {
+  color: var(--text-on-cream-muted);
+  border-bottom-color: var(--border-on-cream-default);
+}
+.section--lavender .routing-bar-head {
+  color: var(--text-on-lavender-muted);
+  border-bottom-color: var(--border-on-lavender-default);
+}
+.section--lavender .routing-row,
+.section--cream .routing-row {
+  border-top-color: var(--border-on-cream-subtle);
+  color: var(--text-on-cream);
+}
+.section--lavender .routing-row {
+  border-top-color: var(--border-on-lavender-subtle);
+  color: var(--text-on-lavender);
+}
+.section--lavender .r-meter > i,
+.section--cream .r-meter > i {
+  background: var(--accent-on-light);
+}
+.section--lavender .r-meter > em,
+.section--cream .r-meter > em {
+  color: var(--accent-on-light);
+}
+.section--lavender .r-stamp,
+.section--cream .r-stamp {
+  color: var(--accent-on-light);
+}
+.section--lavender .r-owner,
+.section--cream .r-owner {
+  color: var(--text-on-cream-secondary);
+}
+.section--lavender .r-owner {
+  color: var(--text-on-lavender-secondary);
+}
+
+/* Expert intake card buttons on lavender */
+.section--lavender .ei-btn,
+.section--cream .ei-btn {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text-on-cream);
+  border: 1px solid var(--border-on-cream-default);
+}
+.section--lavender .ei-btn {
+  color: var(--text-on-lavender);
+  border-color: var(--border-on-lavender-default);
+}
+.section--lavender .ei-btn.primary,
+.section--cream .ei-btn.primary {
+  background: var(--accent-on-light);
+  color: #fff;
+  border-color: var(--accent-on-light);
+}
+.section--lavender .ei-q,
+.section--cream .ei-q {
+  background: rgba(109, 78, 209, 0.06);
+  border-left: 3px solid var(--accent-on-light);
+}
+.section--lavender .ei-q em,
+.section--cream .ei-q em {
+  color: var(--accent-on-light);
+}
+.section--lavender .ei-q-label,
+.section--cream .ei-q-label {
+  color: var(--accent-on-light);
+}
+.section--lavender .ei-context,
+.section--cream .ei-context {
+  color: var(--text-on-cream-secondary);
+}
+.section--lavender .ei-context {
+  color: var(--text-on-lavender-secondary);
+}
+.section--lavender .ei-context-label,
+.section--cream .ei-context-label {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .ei-context-label {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .ei-ok,
+.section--cream .ei-ok {
+  color: #2E7D55;
+}
+.section--lavender .ei-gap,
+.section--cream .ei-gap {
+  color: #B27520;
+}
+.section--lavender .ei-k,
+.section--cream .ei-k {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .ei-k {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .ei-v,
+.section--cream .ei-v {
+  color: var(--text-on-cream);
+}
+.section--lavender .ei-v {
+  color: var(--text-on-lavender);
+}
+
+/* expert-intake caption */
+.section--lavender .expert-intake-cap,
+.section--cream .expert-intake-cap {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .expert-intake-cap {
+  color: var(--text-on-lavender-muted);
+}
+.section--lavender .expert-intake-tag,
+.section--cream .expert-intake-tag {
+  color: var(--accent-on-light);
+}
+.section--lavender .expert-intake-meta,
+.section--cream .expert-intake-meta {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .expert-intake-meta {
+  color: var(--text-on-lavender-muted);
+}
+
+/* trust-receipt caption + meta */
+.section--cream .trust-receipt-cap,
+.section--lavender .trust-receipt-cap {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .trust-receipt-cap {
+  color: var(--text-on-lavender-muted);
+}
+.section--cream .trust-receipt-tag,
+.section--lavender .trust-receipt-tag {
+  color: var(--accent-on-light);
+}
+.section--cream .trust-receipt-meta,
+.section--lavender .trust-receipt-meta {
+  color: var(--text-on-cream-muted);
+}
+.section--lavender .trust-receipt-meta {
+  color: var(--text-on-lavender-muted);
+}
+.section--cream .trust-receipt-body,
+.section--lavender .trust-receipt-body {
+  color: var(--text-on-cream);
+}
+.section--lavender .trust-receipt-body {
+  color: var(--text-on-lavender);
+}
+
+/* ============================================================================
+   FROM RFP TO RESPONSE — three-moments card layout
+   (replaces the v17 va-grid before/after vignette in #what-changes)
+   ============================================================================ */
+.bp-wrap { max-width: 1180px; margin: 0 auto; }
+.bp-head { margin-bottom: 40px; max-width: 760px; }
+.bp-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 500; letter-spacing: -0.01em;
+  margin: 14px 0 14px; line-height: 1.15;
+}
+.bp-head p {
+  color: var(--text-secondary);
+  font-size: 16px; line-height: 1.55; margin: 0;
+}
+.bp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+.bp-quote-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.bp-quote-body { padding: 28px 26px 24px; }
+.bp-symptom-tag {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-primary);
+  padding: 4px 10px; border-radius: 999px;
+  background: rgba(167, 139, 250, 0.10);
+  border: 1px solid var(--border-accent);
+  margin-bottom: 18px; font-weight: 500;
+}
+.bp-quote {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 19px; line-height: 1.5;
+  color: var(--text-primary); margin: 0;
+  text-wrap: balance;
+}
+.bp-attr {
+  display: flex; gap: 12px; align-items: center;
+  padding: 14px 26px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--surface-overlay);
+}
+.bp-attr-avatar {
+  width: 32px; height: 32px; border-radius: 999px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em; flex-shrink: 0;
+  font-weight: 500;
+}
+.bp-attr-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.bp-attr-name {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--status-error-fg);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  font-weight: 500;
+}
+.bp-counter {
+  padding: 18px 26px 22px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.10), rgba(167, 139, 250, 0.04));
+  border-top: 1px solid var(--border-accent);
+  display: flex; gap: 12px; align-items: baseline;
+}
+.bp-counter-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-primary);
+  flex-shrink: 0; padding-top: 1px;
+  font-weight: 500;
+}
+.bp-counter-text {
+  font-size: 13.5px; line-height: 1.55;
+  color: var(--text-primary);
+}
+.bp-counter-text em {
+  color: var(--accent-primary);
+  font-style: italic; font-weight: 500;
+}
+
+/* Light-theme overrides for the cream-background context */
+.section--cream .bp-quote-card {
+  background: rgba(255, 250, 235, 0.85);
+  border-color: var(--border-on-cream-default);
+}
+.section--cream .bp-quote { color: var(--text-on-cream); }
+.section--cream .bp-symptom-tag {
+  background: rgba(109, 78, 209, 0.10);
+  border-color: rgba(109, 78, 209, 0.35);
+  color: var(--accent-on-light);
+}
+.section--cream .bp-attr {
+  background: rgba(255, 250, 235, 0.55);
+  border-top-color: var(--border-on-cream-default);
+}
+.section--cream .bp-attr-avatar {
+  background: rgba(255, 250, 235, 0.95);
+  border-color: var(--border-on-cream-default);
+  color: var(--text-on-cream-muted);
+}
+.section--cream .bp-attr-name { color: #7C2020; }
+.section--cream .bp-counter {
+  background: linear-gradient(180deg, rgba(109, 78, 209, 0.10), rgba(109, 78, 209, 0.03));
+  border-top-color: rgba(109, 78, 209, 0.35);
+}
+.section--cream .bp-counter-tag { color: var(--accent-on-light); }
+.section--cream .bp-counter-text { color: var(--text-on-cream); }
+.section--cream .bp-counter-text em { color: var(--accent-on-light); }
+
+/* ============================================================================
+   VS RESPONSE TOOLS — pursuit spine (replaces the v17 #wedge lifecycle diagram)
+   Dark / charcoal context only — no light-theme override needed
+   ============================================================================ */
+.ps-wrap { max-width: 1200px; margin: 0 auto; }
+.ps-head { text-align: center; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; }
+.ps-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 500; letter-spacing: -0.01em;
+  margin: 14px 0 14px; line-height: 1.15;
+}
+.ps-head p {
+  color: var(--text-secondary);
+  font-size: 16px; line-height: 1.55; margin: 0;
+}
+
+/* Legend */
+.ps-legend {
+  display: flex; gap: 28px;
+  justify-content: center; align-items: center;
+  margin-bottom: 28px; padding: 12px 22px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  width: max-content; margin-left: auto; margin-right: auto;
+}
+.ps-legend-item { display: flex; gap: 8px; align-items: center; }
+.ps-legend-label { letter-spacing: 0.06em; text-transform: uppercase; }
+.ps-legend .ps-mark { width: 11px; height: 11px; }
+
+/* 5 phase columns */
+.ps-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+}
+@media (max-width: 980px) { .ps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ps-grid { grid-template-columns: 1fr; } }
+.ps-col {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px 20px;
+  display: flex; flex-direction: column;
+}
+.ps-col-name {
+  font-family: var(--font-mono); font-size: 13px;
+  letter-spacing: 0.10em; font-weight: 600;
+  color: #fff; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ps-col-sub {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 12px; color: var(--accent-primary);
+  margin-bottom: 18px; line-height: 1.3;
+}
+
+/* Two-bubble activity rows */
+.ps-act {
+  padding: 12px 0; border-top: 1px solid var(--border-subtle);
+  font-size: 13px; line-height: 1.5;
+  color: var(--text-primary);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.ps-act-marks {
+  display: flex; gap: 4px; flex-shrink: 0;
+  padding-top: 4px;
+}
+.ps-mark {
+  width: 10px; height: 10px; border-radius: 999px;
+  display: inline-block; flex-shrink: 0;
+}
+.ps-mark.us {
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+.ps-mark.them.empty {
+  background: transparent;
+  border: 1px dashed rgba(248, 113, 113, 0.55);
+}
+.ps-mark.them.full {
+  background: var(--status-error-fg);
+  border: 1px solid var(--status-error-fg);
+}
+.ps-mark.them.partial {
+  background: linear-gradient(90deg, var(--status-error-fg) 50%, transparent 50%);
+  border: 1px solid var(--status-error-fg);
+}
+.ps-act-text { flex: 1; }
+.ps-act-text b { color: var(--accent-primary); font-weight: 500; }
+
+/* Pursuit memory box */
+.ps-memory {
+  margin-top: 18px;
+  padding: 24px 26px 22px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.04));
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+}
+.ps-memory-head {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.ps-memory-label {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-primary);
+  padding: 4px 12px;
+  background: rgba(167, 139, 250, 0.16);
+  border: 1px solid var(--border-accent);
+  border-radius: 999px; font-weight: 600;
+}
+.ps-memory-sub {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 15px; color: var(--text-primary);
+  line-height: 1.5;
+}
+.ps-memory-sub b {
+  font-style: normal; font-weight: 500;
+  color: var(--accent-primary);
+}
+.ps-memory-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+}
+@media (max-width: 980px) { .ps-memory-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ps-memory-grid { grid-template-columns: 1fr; } }
+.ps-memory-chip {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.ps-memory-chip-from {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.ps-memory-chip-val {
+  font-size: 13.5px; color: #fff; font-weight: 500; line-height: 1.3;
+}
+.ps-memory-foot {
+  margin-top: 20px; padding-top: 18px;
+  border-top: 1px solid var(--border-accent);
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 17px; line-height: 1.5;
+  color: var(--text-primary);
+}
+.ps-memory-foot em {
+  font-style: italic; color: var(--accent-primary); font-weight: 500;
+}
+.ps-memory-foot b {
+  font-style: normal; font-weight: 500;
+  color: var(--accent-primary);
+  font-family: var(--font-mono);
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  display: block; margin-bottom: 6px;
+}
+
