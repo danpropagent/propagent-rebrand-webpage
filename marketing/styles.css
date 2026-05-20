@@ -165,12 +165,15 @@ a:hover { color: var(--accent-primary-strong); }
 }
 .hero > .container { width: 100%; }
 
-/* Briefing — full-viewport animated overview iframe directly below the hero */
+/* Briefing — full-viewport animated overview iframe directly below the hero.
+   Background matches the briefing's internal canvas/stage at #0A0A0A so
+   there's no visible seam between iframe and parent. The briefing area
+   reads as a slightly-lighter slice of the page than the hero's #050505. */
 .briefing-section {
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
-  background: #050505;
+  background: #0A0A0A;
   overflow: hidden;
 }
 .briefing-section iframe {
@@ -2636,5 +2639,36 @@ a:hover { color: var(--accent-primary-strong); }
   font-family: var(--font-mono);
   font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
   display: block; margin-bottom: 6px;
+}
+
+/* ============================================================================
+   CONTACT — Calendly inline embed (replaces the old contact-form)
+   ============================================================================ */
+.contact-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.calendly-inline-widget {
+  /* match the visual weight the old form had: bordered card, surface bg */
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-overlay);
+  overflow: hidden;
+  min-height: 700px;
+}
+.contact-fallback {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: right;
+}
+.contact-fallback a {
+  color: var(--accent-primary);
+}
+.contact-fallback a:hover {
+  color: var(--accent-primary-strong);
 }
 

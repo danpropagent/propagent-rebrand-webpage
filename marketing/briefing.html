@@ -10,13 +10,16 @@
 
 <style>
   /* ─── Reset + frame ──────────────────────────────────────────────────── */
-  html, body { margin: 0; padding: 0; background: #050505; font-family: "Inter", system-ui, sans-serif; min-height: 100vh; }
+  /* All three surfaces share #0A0A0A so the briefing area reads as a single
+     uniform darker slice of the page (slightly lighter than the hero's
+     #050505) with no internal letterbox seams. */
+  html, body { margin: 0; padding: 0; background: #0A0A0A; font-family: "Inter", system-ui, sans-serif; min-height: 100vh; }
   *, *::before, *::after { box-sizing: border-box; }
 
   /* Aspect-ratio stage so it scales to any viewport */
   .briefing-stage {
     position: fixed; inset: 0;
-    background: #050505;
+    background: #0A0A0A;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -26,7 +29,7 @@
     width: 1440px;
     height: 900px;
     flex-shrink: 0;
-    background: #050505;
+    background: #0A0A0A;
     color: #F3F4F6;
     overflow: hidden;
     font-family: "Inter", system-ui, sans-serif;
