@@ -103,9 +103,7 @@
     }
 
     /* ============================================================
-       SECTION A — 3 consolidated moments
-       Outcome + experience are now IMPLICIT in the counter copy.
-       No explicit labels.
+       SECTION A — 3 final moments, A11 × A4 card format
        ============================================================ */
     .bp-wrap { max-width: 1180px; margin: 0 auto; }
     .bp-head { margin-bottom: 40px; max-width: 760px; }
@@ -180,8 +178,9 @@
     }
 
     /* ============================================================
-       SECTION B — Positive-led pursuit spine
-       Per-row two-bubble comparison: Propagent purple + response tools
+       SECTION B — Pursuit spine with two-bubble marks
+       Legend simplified (no Partial / Not-covered labels)
+       Loop arrow removed; memory box carries the compounding payoff
        ============================================================ */
     .ps-wrap { max-width: 1200px; margin: 0 auto; }
     .ps-head { text-align: center; margin-bottom: 28px; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -189,10 +188,10 @@
     .ps-head h2 em { color: var(--accent-primary); font-style: italic; }
     .ps-head p { color: var(--text-secondary); font-size: 16px; line-height: 1.55; margin: 0; }
 
-    /* Legend — quick key for the two-bubble system */
+    /* Legend — simplified, just the two players */
     .ps-legend {
-      display: flex; gap: 24px; justify-content: center; align-items: center;
-      margin-bottom: 28px; padding: 12px 18px;
+      display: flex; gap: 28px; justify-content: center; align-items: center;
+      margin-bottom: 28px; padding: 12px 22px;
       background: var(--surface-glass);
       border: 1px solid var(--border-subtle);
       border-radius: 999px;
@@ -264,30 +263,39 @@
     .ps-act-text { flex: 1; }
     .ps-act-text b { color: var(--accent-primary); font-weight: 500; }
 
-    /* Pursuit memory band */
+    /* Pursuit memory box — now carries the compounding payoff */
     .ps-memory {
       margin-top: 18px;
-      padding: 22px 22px 20px;
-      background: linear-gradient(180deg, rgba(167,139,250,0.10), rgba(167,139,250,0.03));
+      padding: 24px 26px 22px;
+      background: linear-gradient(180deg, rgba(167,139,250,0.12), rgba(167,139,250,0.04));
       border: 1px solid var(--border-accent);
       border-radius: var(--radius-lg);
     }
     .ps-memory-head {
       display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
     .ps-memory-label {
       font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--accent-primary);
-      padding: 4px 12px; background: rgba(167,139,250,0.14);
+      padding: 4px 12px; background: rgba(167,139,250,0.16);
       border: 1px solid var(--border-accent); border-radius: 999px;
       font-weight: 600;
     }
     .ps-memory-sub {
-      font-family: var(--font-serif); font-style: italic; font-size: 14px;
-      color: var(--text-primary);
+      font-family: var(--font-serif); font-style: italic; font-size: 15px;
+      color: var(--text-primary); line-height: 1.5;
     }
     .ps-memory-sub b { font-style: normal; font-weight: 500; color: var(--accent-primary); }
+    .ps-memory-lede {
+      margin: 6px 0 18px;
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 16px; line-height: 1.5;
+      color: var(--text-primary);
+    }
+    .ps-memory-lede em {
+      font-style: italic; color: var(--accent-primary); font-weight: 500;
+    }
     .ps-memory-grid {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
     }
@@ -307,65 +315,67 @@
     .ps-memory-chip-val {
       font-size: 13.5px; color: #fff; font-weight: 500; line-height: 1.3;
     }
-
-    /* Loop arrow card */
-    .ps-loop {
-      margin-top: 18px;
-      padding: 20px 24px;
-      background: var(--surface-raised);
-      border: 1px solid var(--border-accent);
-      border-radius: var(--radius-lg);
-      display: flex; align-items: center; gap: 20px;
+    /* Compounding payoff footer inside the memory box */
+    .ps-memory-foot {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-accent);
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 17px; line-height: 1.5;
+      color: var(--text-primary);
     }
-    .ps-loop-svg { flex-shrink: 0; width: 160px; height: 56px; }
-    .ps-loop-label {
-      font-family: var(--font-serif); font-style: italic; font-size: 18px;
-      color: var(--accent-primary); line-height: 1.4;
+    .ps-memory-foot em {
+      font-style: italic; color: var(--accent-primary); font-weight: 500;
     }
-    .ps-loop-label b { font-style: normal; font-weight: 500; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px; }
-    @media (max-width: 600px) { .ps-loop { flex-direction: column; align-items: flex-start; } }
+    .ps-memory-foot b {
+      font-style: normal; font-weight: 500;
+      color: var(--accent-primary);
+      font-family: var(--font-mono);
+      font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+      display: block; margin-bottom: 6px;
+    }
   </style>
 </head>
 <body>
 <main class="container" style="max-width: 1280px;">
 
   <div class="explore-hero">
-    <h1>Section finalists + alternatives</h1>
-    <p><a href="#a-final" style="color: var(--accent-primary);">Section A</a>: three finalist moments + <a href="#a-alts" style="color: var(--accent-primary);">8 alternative candidates</a> rendered at full fidelity so you can compare and pick the strongest three. <a href="#b-final" style="color: var(--accent-primary);">Section B</a>: positive-led pursuit spine, now grounded in the site's canonical 5-phase pipeline (Bid Intake → Response Maturity). Per-row two-bubble marks (purple = Propagent, red = response tools) carry the comparison.</p>
+    <h1>Section finalists</h1>
+    <p><a href="#a-final" style="color: var(--accent-primary);">Section A</a>: three locked moments — SME bandwidth, institutional knowledge locked in heads, time spent on poor-fit pursuits. <a href="#b-final" style="color: var(--accent-primary);">Section B</a>: pursuit spine using the canonical 5-phase pipeline, simplified two-bubble legend, no loop-arrow card — the compounding payoff lives inside the pursuit-memory box.</p>
   </div>
 
   <nav class="explore-nav">
     <div class="explore-nav-inner">
       <div class="explore-nav-group">
-        <span class="explore-nav-label">Finalists + alternatives:</span>
-        <a href="#a-final">Section A · 3 finalists</a>
-        <a href="#a-alts">Section A · 8 alternatives</a>
-        <a href="#b-final">Section B · pursuit spine (canonical phases)</a>
+        <span class="explore-nav-label">Finalists:</span>
+        <a href="#a-final">Section A · 3 locked moments</a>
+        <a href="#b-final">Section B · pursuit spine</a>
       </div>
     </div>
   </nav>
 
   <!-- ============================================================
-       SECTION A — 3 consolidated moments, implicit dual-axis
+       SECTION A — 3 final moments
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
-      <span>Section A · 3 finalists + 8 alternatives</span>
+      <span>Section A · finalist</span>
       <h2>From RFP To Response</h2>
     </div>
 
     <article class="variant" id="a-final">
       <div class="variant-label">
-        <span class="variant-label-tag">A11 × A4 · 3 moments</span>
-        <h3>Three moments where the full system helps</h3>
-        <p>Pain → Propagent counter. Outcome and experience improvements baked into the counter copy, not labeled. Cleaner read.</p>
+        <span class="variant-label-tag">A · final 3</span>
+        <h3>Three locked moments</h3>
+        <p>SME bandwidth (no vacation example) + institutional knowledge locked in heads + time spent on poor-fit pursuits. All three carry the dual-axis improvement implicitly in the counter.</p>
       </div>
       <div class="variant-body">
-        <p class="qa-note"><b>What changed:</b>
+        <p class="qa-note"><b>What's in this pass:</b>
           <ul>
-            <li>Dropped the explicit Outcome / Experience labels at the bottom of each card — they were doing the work overtly. Both axes now live <em>inside</em> the Propagent counter copy.</li>
-            <li>Each counter ends with a phrase that carries the dual improvement implicitly — e.g., "eleven days of headroom for win themes, SME input, and no submit-night all-nighters" (outcome = better-developed bid, experience = no all-nighters).</li>
-            <li>Card structure simplified back to: symptom tag → quote → attribution → counter. Three rows, not five.</li>
+            <li>Final three moments locked: <b>The SME bottleneck</b>, <b>The forgotten win story</b>, <b>The qualification regret</b>.</li>
+            <li>SME bottleneck quote reworked: the vacation example is gone — replaced with a calendar-bandwidth framing that's more universal (38 rows, three SMEs, calendars stacked with client work).</li>
+            <li>Alternatives sub-section removed; only the locked three remain.</li>
+            <li>Outcome + experience axes stay implicit in the italicized clause at the end of each Propagent counter.</li>
           </ul>
         </p>
 
@@ -378,125 +388,16 @@
 
           <div class="bp-grid">
 
-            <!-- MOMENT 1 -->
+            <!-- MOMENT 1 · SME bottleneck (vacation example removed) -->
             <div class="bp-quote-card">
               <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The vanishing runway</span>
-                <p class="bp-quote">"RFP spotted Day 8 of 14. Compliance matrix at 11pm the night before submit. Six days to do fourteen days of work."</p>
+                <span class="bp-symptom-tag">The SME bottleneck</span>
+                <p class="bp-quote">"Matrix has 38 rows. Three SMEs to answer them. Each one's calendar is buried with client work. We'll submit with gaps."</p>
               </div>
               <div class="bp-attr">
                 <div class="bp-attr-avatar">1</div>
                 <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · 6+ days of runway lost</span>
-                  <span class="bp-attr-role">Reported in every customer-dev call</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Bid Scout flags every fit RFP within an hour of publication. Compliance is a continuous artifact, populated as the team works. Submit-ready by Day 3 — <em>eleven days of headroom for win themes, SME input, and no submit-night all-nighters</em>.</span>
-              </div>
-            </div>
-
-            <!-- MOMENT 2 -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">Context drops in the cracks</span>
-                <p class="bp-quote">"Capture wrote the storyline Friday. PM rebuilt it Monday. The reviewer skimmed three pages of eighty and signed off."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">2</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · context loss + surface review</span>
-                  <span class="bp-attr-role">Reported in 9 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Storyline lives in the system from first qualification — the PM picks it up where it is, not where it was. Reviewers get a one-page provenance summary; click through to source only where they want to verify. <em>No Monday-morning rebuilds, no dreaded 80-page PDF</em>.</span>
-              </div>
-            </div>
-
-            <!-- MOMENT 3 -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The work doesn't sound like the firm</span>
-                <p class="bp-quote">"Past-performance binder from 2022. Boilerplate from last quarter's bid. Generic-sounding — and the reviewer could tell."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">3</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · generic content, "didn't read it" feedback</span>
-                  <span class="bp-attr-role">Reported in 9 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Past performance queried live from project records. Win themes built from this pursuit's qualification data — not last month's draft. <em>Drafts the team puts their name on without an internal apology — and that reviewers can tell were built for this RFP</em>.</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </article>
-
-    <!-- ============================================================
-         SECTION A · 8 alternative moments to compare
-         ============================================================ -->
-    <article class="variant" id="a-alts">
-      <div class="variant-label">
-        <span class="variant-label-tag">A · alternatives</span>
-        <h3>Eight alternative moments to compare</h3>
-        <p>Eight candidate moments rendered at full fidelity. Tell me which three to keep — they can be any combination of the current finalists above plus these alternatives.</p>
-      </div>
-      <div class="variant-body">
-        <p class="qa-note"><b>How to pick:</b>
-          <ul>
-            <li>Same A11 × A4 card format as the finalist set — same shape, same dual-axis (outcome + experience) implicit-in-counter pattern.</li>
-            <li>Avatar letter matches the candidate ID (D–K) so we can reference them cleanly in the next iteration.</li>
-            <li>Each candidate maps to a Propagent capability the live site already names; the italicized clause at the end of each counter carries the dual-axis improvement implicitly.</li>
-          </ul>
-        </p>
-
-        <div class="bp-wrap">
-          <div class="bp-head">
-            <span class="section-eyebrow">From RFP to response · alternatives</span>
-            <h2>Eight other moments where the full system measurably helps.</h2>
-            <p>Each was repeatedly cited in customer-development calls. Each maps to a Propagent capability that already lives in our taxonomy — Bid Intake, Gap Analysis, Go / No-Go, Answer Coordination, or Response Maturity.</p>
-          </div>
-
-          <div class="bp-grid">
-
-            <!-- D · The compliance trap -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The compliance trap</span>
-                <p class="bp-quote">"RFP §4.3 had a 'preferred' qualification that was actually mandatory. Buried on page 47. The reviewer flagged it. We didn't."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">D</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · missed requirements</span>
-                  <span class="bp-attr-role">Reported in 6 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Compliance is built into Gap Analysis from Day 1 — every requirement parsed, weighted, and tracked from the moment the RFP lands. <em>No buried surprises, no 11pm matrix panics.</em></span>
-              </div>
-            </div>
-
-            <!-- E · The SME bottleneck -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The SME bottleneck</span>
-                <p class="bp-quote">"Engineering lead is on PTO. The matrix has 38 open rows. We're choosing between submitting incomplete and chasing him on vacation."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">E</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · SME availability gates quality</span>
+                  <span class="bp-attr-name">Pain · SME bandwidth caps the work</span>
                   <span class="bp-attr-role">Reported in 9 of 10 customer-dev calls</span>
                 </div>
               </div>
@@ -506,33 +407,14 @@
               </div>
             </div>
 
-            <!-- F · The recompete déjà vu -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The recompete déjà vu</span>
-                <p class="bp-quote">"Same RFP came back this cycle. Same buyer. We lost last time — but nobody remembers what the evaluator actually said about why."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">F</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · zero institutional memory</span>
-                  <span class="bp-attr-role">Reported in 8 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Win/loss intel and evaluator feedback are captured automatically and indexed across pursuits. The next response addresses what the last reviewer actually flagged — <em>not a guess at why we lost</em>.</span>
-              </div>
-            </div>
-
-            <!-- G · The forgotten win story -->
+            <!-- MOMENT 2 · Institutional knowledge locked in heads -->
             <div class="bp-quote-card">
               <div class="bp-quote-body">
                 <span class="bp-symptom-tag">The forgotten win story</span>
                 <p class="bp-quote">"Our strongest past-performance project for this RFP was in Maria's head. She wasn't on the pursuit. We submitted without it."</p>
               </div>
               <div class="bp-attr">
-                <div class="bp-attr-avatar">G</div>
+                <div class="bp-attr-avatar">2</div>
                 <div class="bp-attr-meta">
                   <span class="bp-attr-name">Pain · institutional knowledge locked in heads</span>
                   <span class="bp-attr-role">Reported in 7 of 10 customer-dev calls</span>
@@ -544,52 +426,14 @@
               </div>
             </div>
 
-            <!-- H · The differentiator question -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The differentiator question</span>
-                <p class="bp-quote">"Evaluator asked us to differentiate ourselves in three sentences. We managed two — and neither one was specific to their RFP."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">H</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · generic "why you" answers</span>
-                  <span class="bp-attr-role">Reported in 8 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Win themes are generated from this pursuit's qualification data — not from a template. <em>The "why us" answer is grounded in the firm's actual wins on the work that's actually in front of you.</em></span>
-              </div>
-            </div>
-
-            <!-- I · The risk in plain sight -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The risk in plain sight</span>
-                <p class="bp-quote">"Indemnification language was buried on page 89. Our PM caught it the night before submit. Too late to renegotiate the terms."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">I</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · late-stage risk discovery</span>
-                  <span class="bp-attr-role">Reported in 5 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Gap Analysis surfaces high-risk terms during intake — insurance, indemnification, unusual reps &amp; warranties. <em>Negotiation happens before submit-night, not after.</em></span>
-              </div>
-            </div>
-
-            <!-- J · The qualification regret -->
+            <!-- MOMENT 3 · Time spent on poor-fit pursuits -->
             <div class="bp-quote-card">
               <div class="bp-quote-body">
                 <span class="bp-symptom-tag">The qualification regret</span>
                 <p class="bp-quote">"We bid anyway, knowing the firm hadn't done a project this size in five years. Forty hours. Loss. 'Should've called it earlier.'"</p>
               </div>
               <div class="bp-attr">
-                <div class="bp-attr-avatar">J</div>
+                <div class="bp-attr-avatar">3</div>
                 <div class="bp-attr-meta">
                   <span class="bp-attr-name">Pain · 40+ hours on bad-fit bids</span>
                   <span class="bp-attr-role">Reported in 7 of 10 customer-dev calls</span>
@@ -598,25 +442,6 @@
               <div class="bp-counter">
                 <span class="bp-counter-tag">Propagent</span>
                 <span class="bp-counter-text">Go / No-Go scores every match against firm history with confidence. Bad-fit pursuits get a clear signal before the team commits resources — <em>and the team's effort goes to pursuits they can actually win</em>.</span>
-              </div>
-            </div>
-
-            <!-- K · The forgotten relationship -->
-            <div class="bp-quote-card">
-              <div class="bp-quote-body">
-                <span class="bp-symptom-tag">The forgotten relationship</span>
-                <p class="bp-quote">"Turned out the procurement officer worked with our managing principal years ago. We didn't know until after the loss. It would have changed the framing."</p>
-              </div>
-              <div class="bp-attr">
-                <div class="bp-attr-avatar">K</div>
-                <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · relationships invisible to the team</span>
-                  <span class="bp-attr-role">Reported in 4 of 10 customer-dev calls</span>
-                </div>
-              </div>
-              <div class="bp-counter">
-                <span class="bp-counter-tag">Propagent</span>
-                <span class="bp-counter-text">Relationship signals surface during Bid Intake — past colleagues, prior work together, mutual connections. <em>The team frames the proposal with the full picture, not the org-chart one.</em></span>
               </div>
             </div>
 
@@ -629,7 +454,7 @@
   </section>
 
   <!-- ============================================================
-       SECTION B — Pursuit spine + per-row two-bubble marks
+       SECTION B — Pursuit spine + simplified legend + memory payoff
        ============================================================ -->
   <section class="explore-group">
     <div class="explore-group-head">
@@ -640,17 +465,17 @@
     <article class="variant" id="b-final">
       <div class="variant-label">
         <span class="variant-label-tag">B3 · canonical phases</span>
-        <h3>Pursuit spine with canonical 5-phase names + two-bubble marks</h3>
-        <p>Five-phase pipeline grounded in the live site's taxonomy (Bid Intake → Response Maturity). Per-row two-bubble marks carry the response-tools comparison.</p>
+        <h3>Pursuit spine · simplified legend · memory payoff in the box</h3>
+        <p>Canonical 5 phases (Bid Intake → Response Maturity), two-bubble marks per activity, no loop-arrow card — the compounding story now lives inside the pursuit-memory box itself.</p>
       </div>
       <div class="variant-body">
         <p class="qa-note"><b>What changed in this pass:</b>
           <ul>
-            <li><b>Renamed the 5 phases to match the live site's canonical taxonomy</b>: Bid Intake → Gap Analysis → Go / No-Go → Answer Coordination → Response Maturity. These are the phases the site already uses in <code>#how-it-works</code>, the pricing copy, and the contact CTA. The wedge now grounds in our own vocabulary, not generic Find→Submit.</li>
-            <li><b>Italic subheads use the live site's verbatim sub-pattern</b>: "Understand intent" / "See where you're thin" / "Decide what to pursue" / "Route to the right people" / "Speak in your voice."</li>
-            <li><b>Activities remapped</b> to fit each phase's new identity — compliance matrix in Gap Analysis, SME routing in Answer Coordination, drafting in Response Maturity, etc.</li>
-            <li><b>Memory band chip labels updated</b>: "From Bid Intake" / "From Gap Analysis" / etc., mapping each phase to what it contributes to pursuit memory.</li>
-            <li><b>Capability marks preserved at the same general distribution</b>: 4 partials, 11 empties. The specific mark calibration (e.g., should "drafts in firm voice" be partial or full for response tools?) is queued for the next iteration — user flagged we may be underselling some response-tool capabilities.</li>
+            <li><b>Legend simplified</b> to just the two players: <span style="color: var(--accent-primary);">●</span> Propagent and <span style="color: var(--status-error-fg);">●</span> Response tools. The "Partial" and "Not covered" labels are gone — the visual gradient (filled / half-filled / dashed outline) speaks for itself.</li>
+            <li><b>Loop-arrow card dropped.</b> The "every pursuit feeds the next one" statement is no longer a separate block under the memory band.</li>
+            <li><b>The compounding payoff now lives inside the memory box.</b> A serif italic footer at the bottom of the memory box carries what the loop-arrow card used to say — making the box itself the climax of the section, not a stop-on-the-way.</li>
+            <li>Memory box subhead strengthened: "Indexed and searchable across pursuits — every pursuit makes the next one sharper."</li>
+            <li>Phase columns, activities, and per-row two-bubble marks unchanged from the canonical-phase rename.</li>
           </ul>
         </p>
 
@@ -661,15 +486,13 @@
             <p>A point solution lives in one phase. A full system runs all five — and unlocks the memory layer that response tools structurally can't reach.</p>
           </div>
 
-          <!-- Legend -->
+          <!-- Simplified legend -->
           <div class="ps-legend">
             <div class="ps-legend-item"><span class="ps-mark us"></span><span class="ps-legend-label">Propagent</span></div>
-            <div class="ps-legend-item"><span class="ps-mark them full"></span><span class="ps-legend-label">Response tools — covered</span></div>
-            <div class="ps-legend-item"><span class="ps-mark them partial"></span><span class="ps-legend-label">Partial</span></div>
-            <div class="ps-legend-item"><span class="ps-mark them empty"></span><span class="ps-legend-label">Not covered</span></div>
+            <div class="ps-legend-item"><span class="ps-mark them full"></span><span class="ps-legend-label">Response tools</span></div>
           </div>
 
-          <!-- 5 phase columns with two-bubble marks per activity -->
+          <!-- 5 phase columns with two-bubble marks -->
           <div class="ps-grid">
 
             <div class="ps-col">
@@ -759,12 +582,13 @@
 
           </div>
 
-          <!-- Memory band -->
+          <!-- Pursuit memory box — now carries the compounding payoff -->
           <div class="ps-memory">
             <div class="ps-memory-head">
               <span class="ps-memory-label">Pursuit memory</span>
-              <span class="ps-memory-sub">Captured from every phase. <b>Indexed, searchable, queryable across pursuits.</b></span>
+              <span class="ps-memory-sub">Captured from every phase. <b>Indexed and searchable across pursuits — every pursuit makes the next one sharper.</b></span>
             </div>
+
             <div class="ps-memory-grid">
               <div class="ps-memory-chip">
                 <span class="ps-memory-chip-from">From Bid Intake</span>
@@ -787,20 +611,13 @@
                 <span class="ps-memory-chip-val">Voice + win themes</span>
               </div>
             </div>
-          </div>
 
-          <!-- Loop arrow -->
-          <div class="ps-loop">
-            <svg class="ps-loop-svg" viewBox="0 0 160 56" aria-hidden="true">
-              <path d="M 8 48 Q 8 8 80 8 Q 152 8 152 48" stroke="var(--accent-primary)" stroke-width="2.5" fill="none"/>
-              <path d="M 0 40 L 8 48 L 16 40" stroke="var(--accent-primary)" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
-              <circle cx="80" cy="8" r="3" fill="var(--accent-primary)"/>
-            </svg>
-            <div>
-              <b>Every pursuit feeds the next one</b>
-              The memory captured here sharpens qualification, drafting, and SME routing on the very next bid. By Pursuit 50, the firm is fighting with all 49 prior pursuits behind it — a compounding advantage a point solution structurally can't produce.
+            <div class="ps-memory-foot">
+              <b>The compounding payoff</b>
+              By Pursuit 50, the firm is fighting with all 49 prior pursuits behind it — sharper qualification, better drafts from move 1, compliance instincts ready, win-rate compounding. <em>A structural advantage point solutions can't produce.</em>
             </div>
           </div>
+
         </div>
 
       </div>
@@ -809,7 +626,7 @@
   </section>
 
   <footer style="text-align: center; padding: 64px 0 80px; color: var(--text-muted); font-size: 12px; font-family: var(--font-mono); letter-spacing: 0.06em;">
-    Two finalists, one per section · branch <code>section-explorations</code> · not linked from production
+    Two finalists locked · branch <code>section-explorations</code> · not linked from production
   </footer>
 
 </main>
