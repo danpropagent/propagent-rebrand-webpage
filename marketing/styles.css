@@ -1435,37 +1435,74 @@ a:hover { color: var(--accent-primary-strong); }
   gap: 16px 28px;
   justify-content: center;
 }
-.customer-band-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.customer-list {
+.customer-logo-list {
   list-style: none;
   margin: 0; padding: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 28px;
+  justify-content: center;
+  gap: 16px 34px;
 }
-.customer-list li {
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--text-primary);
+.customer-logo {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  height: 44px;
 }
-.customer-list li + li::before {
+.customer-logo + .customer-logo::before {
   content: "";
   position: absolute;
-  left: -16px; top: 50%;
+  left: -18px; top: 50%;
   width: 3px; height: 3px;
   border-radius: 999px;
   background: var(--text-dim);
   transform: translateY(-50%);
+}
+.customer-logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 34px;
+  object-fit: contain;
+  opacity: 0.72;
+  transition: filter var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard);
+}
+.customer-logo:hover img {
+  filter: none;
+  opacity: 1;
+  transform: translateY(-1px);
+}
+.customer-logo--market img {
+  width: 218px;
+  max-height: 46px;
+  filter: grayscale(1) invert(1) contrast(1.12) brightness(1.22);
+  mix-blend-mode: screen;
+}
+.customer-logo--market:hover img {
+  mix-blend-mode: normal;
+}
+.customer-logo--mckibbon img {
+  width: 188px;
+  filter: grayscale(1) saturate(0) contrast(1.08) brightness(1.02);
+}
+.customer-logo--impact img {
+  width: 178px;
+  filter: grayscale(1) invert(1) contrast(0.92) brightness(1.2);
+}
+@media (max-width: 720px) {
+  .customer-band-inner { gap: 14px; }
+  .customer-logo-list { gap: 18px 0; width: 100%; }
+  .customer-logo {
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+  }
+  .customer-logo + .customer-logo::before { display: none; }
+  .customer-logo--market img { width: min(230px, 78vw); }
+  .customer-logo--mckibbon img { width: min(190px, 72vw); }
+  .customer-logo--impact img { width: min(190px, 72vw); }
 }
 
 /* ============================================================================
