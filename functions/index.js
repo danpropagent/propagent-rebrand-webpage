@@ -77,3 +77,6 @@ exports.api = onRequest(options, app);
 
 // Export the RFP grader function
 exports.gradeRfp = require("./rfpGrader").gradeRfp;
+
+// Export the "Ask Propagent" concierge (/api/ask)
+exports.ask = require("./ask").ask;

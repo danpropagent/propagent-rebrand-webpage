@@ -1,4 +1,7 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "functions": [
     {
       "source": "functions",
@@ -16,12 +19,49 @@
       ]
     }
   ],
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
+  },
   "hosting": {
     "public": "dist",
     "ignore": [
       "firebase.json",
-      "**/.*",
       "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "**/*.txt",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/plain; charset=utf-8"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/30min-meeting",
+        "destination": "https://calendar.google.com/appointments/schedules/AcZssZ17Ntcm0gE6uKMbImPTu2l2zdINy7NvWTo3n3Q4qzyjeawRS9-WbZGgvKqY1AyZos8LfSU5DRlS",
+        "type": 302
+      },
+      {
+        "source": "/60min-meeting",
+        "destination": "https://calendar.app.google/6FZpR1n3KAQGgoNS8",
+        "type": 302
+      }
     ],
     "rewrites": [
       {
@@ -29,12 +69,12 @@
         "function": "gradeRfp"
       },
       {
-        "source": "/rfp-grader/**",
-        "destination": "/rfp-grader/index.html"
+        "source": "/api/ask",
+        "function": "ask"
       },
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/rfp-grader/**",
+        "destination": "/rfp-grader/index.html"
       }
     ]
   }

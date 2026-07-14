@@ -5,6 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Propagent is the proposal system for AEC firms. One centralized system that turns scattered institutional knowledge and team expertise into stronger proposals — across intake, gap analysis, go/no-go, answer coordination, and response maturity." />
   <title>Propagent | The Proposal System for AEC Firms</title>
+  <link rel="canonical" href="https://propagent.ai/" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+
+  <!-- Social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Propagent" />
+  <meta property="og:title" content="Propagent — The Proposal System for AEC Firms" />
+  <meta property="og:description" content="One system that turns scattered institutional knowledge and team expertise into stronger proposals — across intake, gap analysis, go/no-go, answer coordination, and response maturity." />
+  <meta property="og:url" content="https://propagent.ai/" />
+  <meta property="og:image" content="https://propagent.ai/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Propagent — The Proposal System for AEC Firms" />
+  <meta name="twitter:description" content="One system that turns scattered institutional knowledge and team expertise into stronger proposals." />
+  <meta name="twitter:image" content="https://propagent.ai/og-image.png" />
+
+  <script defer data-domain="propagent.ai" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Structured data for AI answer engines and page understanding (Google
+       dropped FAQ/SoftwareApplication rich results — the audience here is
+       agents). Wording is canonical in functions/content/site-facts.md:
+       edit there first, then mirror here and in the visible FAQ. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://propagent.ai/#org",
+        "name": "Propagent",
+        "url": "https://propagent.ai/",
+        "logo": "https://propagent.ai/logo.svg",
+        "email": "daniel@propagent.ai"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Propagent",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://propagent.ai/",
+        "description": "The proposal system for AEC firms — bid intake, gap analysis, go / no-go, answer coordination, and response maturity, in one system that learns from every response.",
+        "provider": { "@id": "https://propagent.ai/#org" },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Small",
+            "price": "1000",
+            "priceCurrency": "USD",
+            "description": "US$1,000 per month. For firms with up to 25 annual responses. Full workflow, source grounding and claim verification, contradiction and gap detection, review visibility."
+          },
+          {
+            "@type": "Offer",
+            "name": "Medium",
+            "price": "2000",
+            "priceCurrency": "USD",
+            "description": "US$2,000 per month. For firms with up to 50 annual responses. Everything in Small plus cross-proposal learning, expert routing across teams, and compounding edge build-up."
+          },
+          {
+            "@type": "Offer",
+            "name": "Large",
+            "price": "5000",
+            "priceCurrency": "USD",
+            "description": "US$5,000 per month. For firms with up to 200 annual responses. Everything in Medium plus multi-office coordination, outcome learning at portfolio scale, and priority response support."
+          },
+          {
+            "@type": "Offer",
+            "name": "Enterprise",
+            "description": "Custom pricing for firms with portfolio-wide response operations: custom response volume, custom integrations, dedicated success engineering, and procurement, security and compliance review."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Propagent?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Propagent is the proposal system for AEC firms. It qualifies every RFP against your firm's real record, drafts in your voice with a source behind every claim, and pulls your experts in only where the system isn't sure." }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Propagent work?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Every response runs through five stages: Bid Intake (understand what the issuer is really asking), Gap Analysis (map requirements against your firm's record), Go / No-Go (score fit, competitiveness, and risk), Answer Coordination (route scoped questions to the right experts where confidence drops), and Response Maturity (a final response in your firm's voice, grounded and specific)." }
+          },
+          {
+            "@type": "Question",
+            "name": "How is Propagent different from RFP response tools?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Response tools stop at Submit. Propagent runs the whole proposal lifecycle — bid intake, gap analysis, Go / No-Go, answer coordination, and response maturity — and it learns: fit signals, compliance interpretations, SME answers, and voice are captured from every response and reused on the next one." }
+          },
+          {
+            "@type": "Question",
+            "name": "What does Propagent cost?",
+            "acceptedAnswer": { "@type": "Answer", "text": "$1,000/month for up to 25 responses a year, $2,000/month for up to 50, $5,000/month for up to 200, and custom Enterprise pricing above that. Every tier includes the full workflow; tiers are based on annual response volume, not seat counts." }
+          },
+          {
+            "@type": "Question",
+            "name": "What counts as a response?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A response is any RFP, RFQ, RFI, or DDQ you run through Propagent — including opportunities you no-bid after Go / No-Go. Approaching your tier's ceiling? We flag it and move you up at the next cycle; we never cut you off mid-proposal." }
+          },
+          {
+            "@type": "Question",
+            "name": "Who is Propagent for?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Architecture, engineering, and construction firms — and every role on the response team: principals, BD and capture leads, marketing and proposal managers, and pre-con SMEs." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can reviewers trust the output?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Every claim ties back to a source — the RFP, a prior submission, an SME note, a contract precedent. Contradictions between parts of a response are caught before submit, and gaps are surfaced rather than papered over." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I try Propagent without a call?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload an RFP or a past response at the free RFP Grader for a graded report by email. Or book a 30-minute proposal review and leave with the artifact." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
@@ -135,11 +255,16 @@
     <section class="customer-band" aria-label="Customers running Propagent">
       <div class="container">
         <div class="customer-band-inner">
-          <span class="customer-band-label">Live with</span>
-          <ul class="customer-list">
-            <li>Market District Development</li>
-            <li>McKibbon Places</li>
-            <li>Impact Development Management</li>
+          <ul class="customer-logo-list">
+            <li class="customer-logo customer-logo--market">
+              <img src="logos/market-district-development.png" alt="Market District Development" />
+            </li>
+            <li class="customer-logo customer-logo--mckibbon">
+              <img src="logos/mckibbon-places.webp" alt="McKibbon Places" />
+            </li>
+            <li class="customer-logo customer-logo--impact">
+              <img src="logos/impact-development-management.png" alt="Impact Development Management" />
+            </li>
           </ul>
         </div>
       </div>
@@ -350,19 +475,19 @@
         <div class="bench-label">Estimated impact</div>
         <div class="bench-grid">
           <div class="bench">
-            <div class="bench-num">60–80<span class="bench-unit">%</span></div>
+            <div class="bench-num" data-countup>60–80<span class="bench-unit">%</span></div>
             <div class="bench-lbl">Time-per-response reduction</div>
           </div>
           <div class="bench">
-            <div class="bench-num">10–25<span class="bench-unit">%</span></div>
+            <div class="bench-num" data-countup>10–25<span class="bench-unit">%</span></div>
             <div class="bench-lbl">Win-rate lift on formal procurements</div>
           </div>
           <div class="bench">
-            <div class="bench-num">+30–50<span class="bench-unit">%</span></div>
+            <div class="bench-num" data-countup>+30–50<span class="bench-unit">%</span></div>
             <div class="bench-lbl">More responses per year at the same headcount</div>
           </div>
           <div class="bench">
-            <div class="bench-num">3–5<span class="bench-unit">x</span></div>
+            <div class="bench-num" data-countup>3–5<span class="bench-unit">x</span></div>
             <div class="bench-lbl">Faster turnaround on RFP / RFI / DDQ</div>
           </div>
         </div>
@@ -781,7 +906,7 @@
         <div class="pricing pricing-4">
           <div class="price-card">
             <div class="tier-name">Small</div>
-            <div class="price">$1,000<span class="per">/mo</span></div>
+            <div class="price" data-countup>$1,000<span class="per">/mo</span></div>
             <div class="desc">For firms with up to 25 annual responses.</div>
             <ul>
               <li>✓ Full workflow included</li>
@@ -795,7 +920,7 @@
           <div class="price-card featured">
             <span class="featured-flag">Most firms start here</span>
             <div class="tier-name">Medium</div>
-            <div class="price">$2,000<span class="per">/mo</span></div>
+            <div class="price" data-countup>$2,000<span class="per">/mo</span></div>
             <div class="desc">For firms with up to 50 annual responses.</div>
             <ul>
               <li>✓ Everything in Small</li>
@@ -808,7 +933,7 @@
 
           <div class="price-card">
             <div class="tier-name">Large</div>
-            <div class="price">$5,000<span class="per">/mo</span></div>
+            <div class="price" data-countup>$5,000<span class="per">/mo</span></div>
             <div class="desc">For firms with up to 200 annual responses.</div>
             <ul>
               <li>✓ Everything in Medium</li>
@@ -831,6 +956,53 @@
             </ul>
             <a href="#contact" class="btn">Talk to us →</a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ — visible source for the FAQPage JSON-LD in the head.
+         Native details/summary, no JS. Wording is canonical in
+         functions/content/site-facts.md — edit there first.
+         ============================================================ -->
+    <section class="section section-divider section--glow-tl" id="faq">
+      <div class="container">
+        <div class="section-eyebrow">FAQ</div>
+        <h2>Straight answers, <span class="text-agent-gradient">quotable by anyone's agent.</span></h2>
+
+        <div class="faq-list">
+          <details>
+            <summary>What is Propagent?</summary>
+            <p>Propagent is the proposal system for AEC firms. It qualifies every RFP against your firm's real record, drafts in your voice with a source behind every claim, and pulls your experts in only where the system isn't sure.</p>
+          </details>
+          <details>
+            <summary>How does Propagent work?</summary>
+            <p>Every response runs through five stages: <b>Bid Intake</b> (understand what the issuer is really asking), <b>Gap Analysis</b> (map requirements against your firm's record), <b>Go / No-Go</b> (score fit, competitiveness, and risk), <b>Answer Coordination</b> (route scoped questions to the right experts where confidence drops), and <b>Response Maturity</b> (a final response in your firm's voice, grounded and specific).</p>
+          </details>
+          <details>
+            <summary>How is Propagent different from RFP response tools?</summary>
+            <p>Response tools stop at Submit. Propagent runs the whole proposal lifecycle — bid intake, gap analysis, Go / No-Go, answer coordination, and response maturity — and it learns: fit signals, compliance interpretations, SME answers, and voice are captured from every response and reused on the next one.</p>
+          </details>
+          <details>
+            <summary>What does Propagent cost?</summary>
+            <p>$1,000/month for up to 25 responses a year, $2,000/month for up to 50, $5,000/month for up to 200, and custom Enterprise pricing above that. Every tier includes the full workflow; tiers are based on annual response volume, not seat counts.</p>
+          </details>
+          <details>
+            <summary>What counts as a response?</summary>
+            <p>A response is any RFP, RFQ, RFI, or DDQ you run through Propagent — including opportunities you no-bid after Go / No-Go. Approaching your tier's ceiling? We flag it and move you up at the next cycle; we never cut you off mid-proposal.</p>
+          </details>
+          <details>
+            <summary>Who is Propagent for?</summary>
+            <p>Architecture, engineering, and construction firms — and every role on the response team: principals, BD and capture leads, marketing and proposal managers, and pre-con SMEs.</p>
+          </details>
+          <details>
+            <summary>Can reviewers trust the output?</summary>
+            <p>Every claim ties back to a source — the RFP, a prior submission, an SME note, a contract precedent. Contradictions between parts of a response are caught before submit, and gaps are surfaced rather than papered over.</p>
+          </details>
+          <details>
+            <summary>Can I try Propagent without a call?</summary>
+            <p>Yes. Upload an RFP or a past response at <a href="/rfp-grader/">the free RFP Grader</a> for a graded report by email. Or book a 30-minute <a href="#contact">proposal review</a> and leave with the artifact.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -886,6 +1058,7 @@
               <li><a href="#how-it-works">How it works</a></li>
               <li><a href="#routing">Confidence Routing</a></li>
               <li><a href="#trust">Trust layer</a></li>
+              <li><a href="#faq">FAQ</a></li>
               <li><a href="/rfp-grader/">RFP Grader</a></li>
             </ul>
           </div>
@@ -904,5 +1077,8 @@
       </div>
     </footer>
   </main>
+  <script src="reveal.js" defer></script>
+  <script src="analytics.js" defer></script>
+  <script src="ask.js" defer></script>
 </body>
 </html>

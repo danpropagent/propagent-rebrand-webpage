@@ -1,0 +1,15 @@
+# propagent.ai — humans and agents welcome; API endpoints are not pages.
+User-agent: *
+Disallow: /api/
+
+# Explicit welcome for AI crawlers and agents. Named groups override *,
+# so the Disallow is repeated for each.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+Disallow: /api/
+
+Sitemap: https://propagent.ai/sitemap.xml
