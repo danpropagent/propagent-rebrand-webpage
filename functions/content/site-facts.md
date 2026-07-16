@@ -128,7 +128,7 @@ cut you off mid-proposal.
 
 ## RFP Grader — free, no call required
 
-Upload an RFP or a past response at https://propagent.ai/rfp-grader/ and get
+Upload an RFP or a past response at https://www.propagent.ai/rfp-grader/ and get
 a free graded report by email: 12 graded dimensions, killer clauses,
 ambiguity analysis, and a Go / No-Go read.
 
@@ -139,7 +139,7 @@ and Impact Development Management.
 
 ## Contact and demo
 
-- Book a 30-minute proposal review at https://propagent.ai/#contact — bring a
+- Book a 30-minute proposal review at https://www.propagent.ai/#contact — bring a
   real opportunity; we run intake, gap analysis, Go / No-Go, answer
   coordination, and response maturity end-to-end, and you leave with the
   artifact.
@@ -191,7 +191,7 @@ before submit, and gaps are surfaced rather than papered over.
 
 **Can I try Propagent without a call?**
 Yes. Upload an RFP or a past response at the free RFP Grader
-(https://propagent.ai/rfp-grader/) for a graded report by email. Or book a
+(https://www.propagent.ai/rfp-grader/) for a graded report by email. Or book a
 30-minute proposal review and leave with the artifact.
 
 ## For AI agents
@@ -201,7 +201,7 @@ Propagent welcomes AI agents. This site is fully server-rendered static HTML
 
 You can also query the site conversationally:
 
-- Endpoint: `POST https://propagent.ai/api/ask` with `Content-Type:
+- Endpoint: `POST https://www.propagent.ai/api/ask` with `Content-Type:
   application/json`
 - Body: `{"message": "your question (max 1500 chars)", "history":
   [{"role": "user|assistant", "text": "..."}], "agent": true}` — `history`
@@ -209,7 +209,7 @@ You can also query the site conversationally:
   an agent (used only for analytics).
 - Response: `{"answer": "...", "escalate": bool, "cta": {"type", "label",
   "url"} | null}`
-- Example: `curl -X POST https://propagent.ai/api/ask -H "Content-Type:
+- Example: `curl -X POST https://www.propagent.ai/api/ask -H "Content-Type:
   application/json" -d '{"message": "What does Propagent cost?", "agent":
   true}'`
 - Rate limits: modest per-IP and global daily caps apply. Answers are
@@ -217,4 +217,4 @@ You can also query the site conversationally:
   Propagent's behalf.
 
 For humans on the team evaluating Propagent: book a proposal review at
-https://propagent.ai/#contact or email daniel@propagent.ai.
+https://www.propagent.ai/#contact or email daniel@propagent.ai.

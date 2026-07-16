@@ -3627,7 +3627,7 @@ const gradeRfpHandler = async (req, res) => {
 // Browser origins allowed to call this endpoint: the live site,
 // Firebase preview channels, and local dev/emulator hosts.
 const ALLOWED_ORIGIN_RE = new RegExp(
-    "^(https://propagent\\.ai" +
+    "^(https://(www\\.)?propagent\\.ai" +
     "|https://propagentlanding(--[\\w-]+)?\\.web\\.app" +
     "|https://propagentlanding\\.firebaseapp\\.com" +
     "|http://localhost:\\d+" +

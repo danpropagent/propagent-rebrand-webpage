@@ -2,7 +2,7 @@
 // preview channels, and local dev/emulator hosts. Non-browser callers
 // (AI agents, curl) send no Origin header and are unaffected.
 const ALLOWED_ORIGIN_RE = new RegExp(
-    "^(https://propagent\\.ai" +
+    "^(https://(www\\.)?propagent\\.ai" +
     "|https://propagentlanding(--[\\w-]+)?\\.web\\.app" +
     "|https://propagentlanding\\.firebaseapp\\.com" +
     "|http://localhost:\\d+" +

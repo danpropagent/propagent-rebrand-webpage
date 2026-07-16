@@ -6,15 +6,15 @@ Pricing starts at $1,000/month (up to 25 responses a year); tiers are based on a
 
 ## Docs
 
-- [Full site facts](https://propagent.ai/llms-full.txt): everything about Propagent in one plain-text file — product, five workflow stages, trust layer, pricing tiers, FAQ, and the /api/ask contract for agents
-- [Homepage](https://propagent.ai/): product overview, workflow, pricing, and demo booking
+- [Full site facts](https://www.propagent.ai/llms-full.txt): everything about Propagent in one plain-text file — product, five workflow stages, trust layer, pricing tiers, FAQ, and the /api/ask contract for agents
+- [Homepage](https://www.propagent.ai/): product overview, workflow, pricing, and demo booking
 
 ## Tools
 
-- [RFP Grader](https://propagent.ai/rfp-grader/): free — upload an RFP or past response, get a graded report by email (12 dimensions, killer clauses, Go / No-Go read)
-- [Ask Propagent API](https://propagent.ai/llms-full.txt): POST /api/ask with {"message": "...", "agent": true} for grounded JSON answers about the product
+- [RFP Grader](https://www.propagent.ai/rfp-grader/): free — upload an RFP or past response, get a graded report by email (12 dimensions, killer clauses, Go / No-Go read)
+- [Ask Propagent API](https://www.propagent.ai/llms-full.txt): POST /api/ask with {"message": "...", "agent": true} for grounded JSON answers about the product
 
 ## Contact
 
-- [Book a proposal review](https://propagent.ai/#contact): 30 minutes, bring a real opportunity, leave with the artifact
+- [Book a proposal review](https://www.propagent.ai/#contact): 30 minutes, bring a real opportunity, leave with the artifact
 - [Email the founder](mailto:daniel@propagent.ai): daniel@propagent.ai

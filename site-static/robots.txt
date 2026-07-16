@@ -12,4 +12,4 @@ User-agent: PerplexityBot
 User-agent: Google-Extended
 Disallow: /api/
 
-Sitemap: https://propagent.ai/sitemap.xml
+Sitemap: https://www.propagent.ai/sitemap.xml
