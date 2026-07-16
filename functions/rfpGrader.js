@@ -3,6 +3,7 @@ const {Storage} = require("@google-cloud/storage");
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
+const {getDb} = require("./lib/db");
 const nodemailer = require("nodemailer");
 const PDFDocument = require("pdfkit");
 const path = require("path");
@@ -62,7 +63,7 @@ const isValidRunId = (id) =>
  */
 const createRunReporter = (runId) => {
   if (!isValidRunId(runId)) return null;
-  const doc = admin.firestore().collection("gradeRuns").doc(runId);
+  const doc = getDb().collection("gradeRuns").doc(runId);
   return {
     runId,
     report: async (patch) => {
@@ -84,8 +85,8 @@ const createRunReporter = (runId) => {
  */
 const assertDailyCap = async () => {
   const day = new Date().toISOString().slice(0, 10);
-  const doc = admin.firestore().collection("usage").doc(`gradeRuns-${day}`);
-  await admin.firestore().runTransaction(async (tx) => {
+  const doc = getDb().collection("usage").doc(`gradeRuns-${day}`);
+  await getDb().runTransaction(async (tx) => {
     const snap = await tx.get(doc);
     const count = (snap.exists && snap.data().count) || 0;
     if (count >= MAX_RUNS_PER_DAY) {

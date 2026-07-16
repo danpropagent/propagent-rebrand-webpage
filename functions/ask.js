@@ -13,6 +13,7 @@ const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs");
 const {applyCors} = require("./lib/cors");
+const {getDb} = require("./lib/db");
 
 const MODEL = "gemini-3.1-flash-lite";
 const MAX_ASKS_PER_DAY = 300;
@@ -261,7 +262,7 @@ const withinBurstLimit = (hash) => {
  * @return {Promise<void>} Rejects with {code} on over-cap or infra error
  */
 const assertDailyCaps = async (day, hash) => {
-  const db = admin.firestore();
+  const db = getDb();
   const globalRef = db.collection("usage").doc(`askRuns-${day}`);
   const ipRef = db.collection("usage").doc(`askIp-${day}-${hash}`);
   const expiresAt = admin.firestore.Timestamp.fromMillis(
@@ -384,7 +385,7 @@ const postProcess = (rawText) => {
  */
 const logAsk = async (entry) => {
   try {
-    await admin.firestore().collection("askLogs").add({
+    await getDb().collection("askLogs").add({
       ...entry,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       expiresAt: admin.firestore.Timestamp.fromMillis(

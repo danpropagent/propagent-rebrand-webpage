@@ -9,6 +9,8 @@ const fs = require("fs");
 const path = require("path");
 
 const ASK_URL = process.env.ASK_URL || "http://127.0.0.1:5000/api/ask";
+// Pace requests below the endpoint's 8/min burst limit (0 for emulator).
+const DELAY_MS = Number(process.env.GOLDEN_DELAY_MS || 8000);
 const golden = JSON.parse(
     fs.readFileSync(path.join(__dirname, "golden.json"), "utf8"));
 
@@ -67,7 +69,12 @@ const runCase = async (c) => {
 (async () => {
   console.log(`Golden set vs ${ASK_URL} (${golden.cases.length} cases)\n`);
   let failed = 0;
+  let first = true;
   for (const c of golden.cases) {
+    if (!first && DELAY_MS) {
+      await new Promise((resolve) => setTimeout(resolve, DELAY_MS));
+    }
+    first = false;
     const r = await runCase(c);
     console.log(`${r.pass ? "PASS" : "FAIL"}  ${r.id}`);
     if (!r.pass) {
