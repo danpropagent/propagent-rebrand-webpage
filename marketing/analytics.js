@@ -1,6 +1,9 @@
-/* Propagent analytics (Plausible).
+/* Propagent analytics (Umami Cloud — MIT-licensed, free Hobby tier).
  *
  * Segments AI-referred visits and tags conversions with the channel.
+ * Umami's script must load before this file (both defer, document order).
+ * A window.plausible shim keeps ask.js's tracking calls working unchanged.
+ *
  * Known limits: AI apps often strip referrers — 35-70% of AI sessions land
  * as Direct, so "AI Visit" is a lower bound, not a total. The concierge's
  * demo CTA points at /#contact (the Calendly embed), so concierge-driven
@@ -10,9 +13,15 @@
 (function () {
   "use strict";
 
-  // Queue stub: safe if the Plausible script is blocked or still loading.
-  window.plausible = window.plausible || function () {
-    (window.plausible.q = window.plausible.q || []).push(arguments);
+  var track = function (name, props) {
+    if (window.umami && window.umami.track) {
+      window.umami.track(name, props);
+    }
+  };
+
+  // Shim so existing plausible-style call sites (ask.js) work unchanged.
+  window.plausible = function (name, opts) {
+    track(name, opts && opts.props);
   };
 
   // ---- AI channel detection --------------------------------------------
@@ -71,7 +80,14 @@
   var source = detectAiSource();
   if (source) {
     try { sessionStorage.setItem("pa-channel", source); } catch (e) { /* ok */ }
-    window.plausible("AI Visit", { props: { source: source } });
+    // Umami may not have initialized yet on a cold cache; retry on load.
+    if (window.umami) {
+      track("AI Visit", {source: source});
+    } else {
+      window.addEventListener("load", function () {
+        track("AI Visit", {source: source});
+      });
+    }
   }
 
   // ---- Conversions, tagged with channel --------------------------------
@@ -80,7 +96,7 @@
   window.addEventListener("message", function (e) {
     if (e.origin !== "https://calendly.com") return;
     if (e.data && e.data.event === "calendly.event_scheduled") {
-      window.plausible("Booking Complete", { props: { channel: channel() } });
+      track("Booking Complete", {channel: channel()});
     }
   });
 
@@ -88,7 +104,7 @@
   document.addEventListener("click", function (e) {
     var a = e.target && e.target.closest && e.target.closest("a[href^='/rfp-grader']");
     if (a) {
-      window.plausible("Grader Click", { props: { channel: channel() } });
+      track("Grader Click", {channel: channel()});
     }
   });
 })();
