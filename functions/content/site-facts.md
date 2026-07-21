@@ -122,9 +122,10 @@ counts. Each tier covers the full proposal workflow plus the trust layer.
   engineering, and procurement, security & compliance review.
 
 **What counts as a response:** any RFP, RFQ, RFI, or DDQ you run through
-Propagent — including opportunities you no-bid after Go / No-Go. Approaching
-your tier's ceiling? We flag it and move you up at the next cycle; we never
-cut you off mid-proposal.
+Propagent — including opportunities you no-bid after Go / No-Go. We track usage on a
+three-month rolling average: if you're on pace to pass your tier's ceiling,
+we tell you early — and when you reach it, upgrading is your call. Billing
+never increases automatically.
 
 ## RFP Grader — free, no call required
 
@@ -139,8 +140,8 @@ and Impact Development Management.
 
 ## Contact and demo
 
-- Book a 30-minute proposal review at https://www.propagent.ai/#contact — bring a
-  real opportunity; we run intake, gap analysis, Go / No-Go, answer
+- Book a 30-minute proposal review at https://www.propagent.ai/30min-meeting —
+  bring a real opportunity; we run intake, gap analysis, Go / No-Go, answer
   coordination, and response maturity end-to-end, and you leave with the
   artifact.
 - Email the founder: daniel@propagent.ai
@@ -175,9 +176,10 @@ not seat counts.
 
 **What counts as a response?**
 A response is any RFP, RFQ, RFI, or DDQ you run through Propagent — including
-opportunities you no-bid after Go / No-Go. Approaching your tier's ceiling?
-We flag it and move you up at the next cycle; we never cut you off
-mid-proposal.
+opportunities you no-bid after Go / No-Go. We track usage on a three-month
+rolling average: if you're on pace to pass your tier's ceiling, we tell you
+early — and when you reach it, upgrading is your call. Billing never
+increases automatically.
 
 **Who is Propagent for?**
 Architecture, engineering, and construction firms — and every role on the

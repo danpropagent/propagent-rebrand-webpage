@@ -120,7 +120,7 @@ const RESPONSE_SCHEMA = {
 
 // CTA targets are server-owned; the model only ever picks an enum value.
 const CTA_MAP = {
-  demo: {type: "demo", label: "Book a 30-min proposal review", url: "/#contact"},
+  demo: {type: "demo", label: "Book a 30-min proposal review", url: "/30min-meeting"},
   grader: {type: "grader", label: "Try the free RFP Grader", url: "/rfp-grader/"},
   email: {type: "email", label: "Email the founder", url: "mailto:daniel@propagent.ai"},
 };

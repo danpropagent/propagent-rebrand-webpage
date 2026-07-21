@@ -5,10 +5,11 @@
  * A window.plausible shim keeps ask.js's tracking calls working unchanged.
  *
  * Known limits: AI apps often strip referrers — 35-70% of AI sessions land
- * as Direct, so "AI Visit" is a lower bound, not a total. The concierge's
- * demo CTA points at /#contact (the Calendly embed), so concierge-driven
- * bookings DO fire "Booking Complete"; "Ask CTA Click" (fired in ask.js)
- * is the earlier-funnel signal.
+ * as Direct, so "AI Visit" is a lower bound, not a total. Booking runs on a
+ * Google Calendar appointment schedule (/30min-meeting), whose embed emits
+ * no completion event — "Booking Click" is click-level intent only; actual
+ * bookings live in Google Calendar. "Ask CTA Click" (fired in ask.js) is
+ * the concierge-funnel signal.
  */
 (function () {
   "use strict";
@@ -92,11 +93,13 @@
 
   // ---- Conversions, tagged with channel --------------------------------
 
-  // Calendly inline widget: booking completed.
-  window.addEventListener("message", function (e) {
-    if (e.origin !== "https://calendly.com") return;
-    if (e.data && e.data.event === "calendly.event_scheduled") {
-      track("Booking Complete", {channel: channel()});
+  // Booking CTA clicks (completion isn't observable from the Google
+  // Calendar embed; real bookings show up in Google Calendar).
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest &&
+      e.target.closest("a[href*='30min-meeting'], a[href$='#contact']");
+    if (a) {
+      track("Booking Click", {channel: channel()});
     }
   });
 
