@@ -38,7 +38,7 @@ const pages = [
         eyebrow: 'Explore by proposal challenge',
         title: 'Use the guide that matches the work in front of you.',
         cards: [
-          ['AI proposal management for AEC', 'What a system-led response process should carry from RFP intake through final approval.', '/ai-proposal-management-aec/'],
+          ['AI proposal management for AEC', 'How Propagent carries the response from RFP intake through final approval.', '/ai-proposal-management-aec/'],
           ['AEC operational memory', 'How approved proof, decisions, expert input, and review history become useful on the next pursuit.', '/aec-operational-memory/'],
           ['Go/no-go scoring', 'How to make pursuit decisions visible, evidence-based, and accountable.', '/aec-go-no-go-scoring/'],
           ['RFP compliance matrices', 'How a living compliance record connects requirements, sources, owners, and response status.', '/rfp-compliance-matrix/'],
@@ -59,7 +59,7 @@ const pages = [
     faqs: [
       ['What is Propagent?', 'Propagent is the proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms.'],
       ['Who are these resources for?', 'They are for AEC proposal managers, business-development and capture leaders, executives, subject-matter experts, and procurement teams evaluating a proposal system.'],
-      ['Does Propagent replace the proposal team?', 'No. Propagent is designed to carry requirements analysis, coordination, content maturity, and quality checks while people contribute expertise, set strategy, resolve exceptions, and approve the response.'],
+      ['Does Propagent replace the proposal team?', 'No. Propagent carries requirements analysis, coordination, content maturity, and quality checks while people contribute expertise, set strategy, resolve exceptions, and approve the response.'],
       ['Can I evaluate Propagent with a real RFP?', 'Yes. Use the free RFP Grader for an initial read or book a Propagent demo and bring a live opportunity.'],
     ],
     cta: ['See Propagent on a real pursuit', 'Bring an RFP. We will show how the requirements, gaps, evidence, expert input, and review connect.', '/60min-meeting', 'Book a Propagent demo'],
@@ -81,10 +81,10 @@ const pages = [
     sections: [
       {
         eyebrow: 'Why Propagent exists',
-        title: 'The project team should not have to be the process engine.',
+        title: 'Propagent carries the process; the project team carries the expertise.',
         paragraphs: [
           'AEC proposal teams may have content libraries, search tools, drafting assistants, spreadsheets, portals, email, and project databases. Yet people still interpret the RFP, assemble the response plan, find credible proof, chase experts, reconcile sections, apply review comments, and polish the final submission.',
-          'Propagent was created to change that operating model. The system is designed to carry the connected response process while the firm’s people stay responsible for expertise, relationships, strategy, risk, and approval.',
+          'Propagent changes that operating model. The system carries the connected response process while the firm’s people stay responsible for expertise, relationships, strategy, risk, and approval.',
         ],
       },
       {
@@ -129,7 +129,7 @@ const pages = [
     faqs: [
       ['What does Propagent do?', 'Propagent analyzes RFP requirements against firm capabilities, identifies gaps, coordinates focused expert input, matures source-grounded content, and supports quality review through human approval.'],
       ['Who is Propagent for?', 'Propagent is for architecture, engineering, construction, and infrastructure firms, including proposal managers, BD and capture leaders, executives, and subject-matter experts.'],
-      ['How is Propagent different from a proposal writing tool?', 'Writing is one step. Propagent is designed to manage the connected response process: requirements, evidence, planning, expert coordination, content maturity, review, and reusable institutional knowledge.'],
+      ['How is Propagent different from a proposal writing tool?', 'Writing is one step. Propagent manages the connected response process: requirements, evidence, planning, expert coordination, content maturity, review, and reusable institutional knowledge.'],
       ['Where can I learn more?', 'Explore the resource library, use the free RFP Grader, or book a Propagent demo with a real opportunity.'],
     ],
     cta: ['Bring us the work, not a hypothetical', 'Use a real opportunity to see how Propagent connects the RFP, the firm’s proof, focused expert input, and final review.', '/60min-meeting', 'Book a Propagent demo'],
@@ -140,9 +140,9 @@ const pages = [
     title: 'AI Proposal Management Software for AEC Firms | Propagent',
     navLabel: 'AI proposal management',
     eyebrow: 'System-led response management',
-    h1: 'AI proposal management for AEC firms should manage the response.',
+    h1: 'Propagent manages the entire AEC response—not just the writing.',
     description: 'See how Propagent connects RFP analysis, firm evidence, response planning, SME input, source-grounded content, quality review, and human approval for AEC firms.',
-    answer: 'AI proposal management for AEC should manage the response, not merely generate text. Propagent analyzes the RFP against firm capabilities, turns gaps into a response plan and focused expert questions, matures source-grounded content, and rechecks the work through human approval. The system carries the process; people provide expertise, strategy, and judgment.',
+    answer: 'Propagent manages the response, not merely the text. It analyzes the RFP against firm capabilities, turns gaps into a response plan and focused expert questions, matures source-grounded content, and rechecks the work through human approval. The system carries the process; people provide expertise, strategy, and judgment.',
     highlights: [
       ['Measurable Quality', 'Evaluate the response against this pursuit, its evidence, and buyer priorities.'],
       ['Dynamic Workflow', 'Keep requirements, owners, expert input, revisions, and review moving together.'],
@@ -154,7 +154,7 @@ const pages = [
         title: 'Search and drafting assistance do not equal response management.',
         paragraphs: [
           'A search result does not decide whether the evidence is relevant. A first draft does not resolve missing facts, coordinate contributors, reconcile changes, or prove that the response addresses the buyer’s evaluation criteria. When those steps remain disconnected, the proposal team still carries the process.',
-          'Propagent is designed around a system-led workflow. It connects what the buyer requires to what the firm can prove, maintains the response plan, turns gaps into focused work, and makes evidence and open decisions visible through final review.',
+          'Propagent uses a system-led workflow. It connects what the buyer requires to what the firm can prove, maintains the response plan, turns gaps into focused work, and makes evidence and open decisions visible through final review.',
         ],
       },
       {
@@ -190,7 +190,7 @@ const pages = [
     checkpoint: 'People set the win strategy, contribute firm and relationship expertise, resolve sensitive or ambiguous work, make commercial decisions, and approve the response.',
     faqs: [
       ['What is AI proposal management software for AEC?', 'It is software that uses AI to help architecture, engineering, and construction firms analyze solicitations, connect requirements to firm knowledge, coordinate contributors, build response content, and review the work. Propagent extends that idea into a connected, system-led response process.'],
-      ['Does Propagent only write proposal text?', 'No. Propagent is designed to connect requirements analysis, capability matching, gap detection, response planning, focused expert input, source-grounded content, quality checks, and reusable operational memory.'],
+      ['Does Propagent only write proposal text?', 'No. Propagent connects requirements analysis, capability matching, gap detection, response planning, focused expert input, source-grounded content, quality checks, and reusable operational memory.'],
       ['Does Propagent replace proposal managers or SMEs?', 'No. The system carries process work while proposal managers control strategy and approval and SMEs contribute the expertise and judgment the response requires.'],
       ['Can Propagent work with a real RFP?', 'Yes. Bring a live opportunity to a Propagent demo or use the free RFP Grader for an initial analysis.'],
     ],
@@ -230,7 +230,7 @@ const pages = [
       },
       {
         eyebrow: 'Meaningful search',
-        title: 'Search should produce insight, not a stack of old answers.',
+        title: 'Propagent turns search into insight—not a stack of old answers.',
         bullets: [
           'Connect the active requirement to relevant experience and proof.',
           'Show why the evidence is useful and where it came from.',
@@ -263,7 +263,7 @@ const pages = [
     eyebrow: 'Pursuit qualification',
     h1: 'Make the go/no-go decision visible before the proposal hours begin.',
     description: 'See how Propagent frames AEC go/no-go decisions around strategic fit, requirements, evidence readiness, risk, capacity, pursuit cost, and accountable human judgment.',
-    answer: 'AEC go/no-go scoring should make the pursuit decision traceable, not hide it behind a single number. Propagent is built to compare each opportunity with strategic fit, requirements, evidence readiness, risk, capacity, and pursuit cost; show the supporting evidence and gaps; and leave the final pursue/no-pursue decision with firm leadership.',
+    answer: 'Propagent makes the pursuit decision traceable instead of hiding it behind a single number. It compares each opportunity with strategic fit, requirements, evidence readiness, risk, capacity, and pursuit cost; shows the supporting evidence and gaps; and keeps the final pursue/no-pursue decision with firm leadership.',
     highlights: [
       ['Pursuit-specific', 'Evaluate this opportunity against the firm’s priorities and proof.'],
       ['Evidence visible', 'Show why the opportunity looks strong, weak, or uncertain.'],
@@ -275,7 +275,7 @@ const pages = [
         title: 'A score without its evidence is not a decision system.',
         paragraphs: [
           'AEC firms cannot chase every opportunity. The cost is not only proposal hours; it is leadership attention, expert time, partner coordination, and the opportunity cost of the work the firm did not pursue.',
-          'A useful qualification process makes the basis of the decision visible. It shows where the firm fits, which requirements are difficult, whether the evidence is ready, what risks remain, and where executive judgment should override a default recommendation.',
+          'A useful qualification process makes the basis of the decision visible. It shows where the firm fits, which requirements are difficult, whether the evidence is ready, what risks remain, and where executive judgment overrides a default recommendation.',
         ],
       },
       {
@@ -306,10 +306,10 @@ const pages = [
     },
     checkpoint: 'Firm leadership makes the final pursue/no-pursue decision and can add relationship, capacity, commercial, and strategic context that no document alone contains.',
     faqs: [
-      ['What is go/no-go scoring for AEC pursuits?', 'It is a structured way to evaluate whether an opportunity fits the firm, whether the evidence and team are ready, what risks and costs exist, and whether leadership should commit proposal resources.'],
-      ['Does go/no-go scoring predict whether the firm will win?', 'It can organize evidence and confidence factors, but it should not be treated as a guarantee. Propagent keeps the basis, uncertainty, and human decision visible.'],
-      ['What factors should an AEC go/no-go process consider?', 'Common factors include strategic and client fit, project relevance, firm proof, team availability, requirements, contract risk, competitive context when verified, response cost, and the quality of the available evidence.'],
-      ['Who makes the final decision?', 'The designated firm leader or pursuit owner. Propagent is designed to frame and record the decision, not remove executive judgment.'],
+      ['What is go/no-go scoring for AEC pursuits?', 'It is a structured way to evaluate whether an opportunity fits the firm, whether the evidence and team are ready, what risks and costs exist, and whether committing proposal resources is warranted.'],
+      ['Does go/no-go scoring predict whether the firm will win?', 'It organizes evidence and confidence factors, but it is not a guarantee. Propagent keeps the basis, uncertainty, and human decision visible.'],
+      ['Which factors matter in an AEC go/no-go process?', 'Common factors include strategic and client fit, project relevance, firm proof, team availability, requirements, contract risk, competitive context when verified, response cost, and the quality of the available evidence.'],
+      ['Who makes the final decision?', 'The designated firm leader or pursuit owner. Propagent frames and records the decision without removing executive judgment.'],
     ],
     cta: ['Put a real opportunity through the decision', 'Bring an RFP and see how requirements, evidence, risk, readiness, and judgment come together.', '/60min-meeting', 'See it in a demo'],
     related: ['rfp-compliance-matrix', 'aec-operational-memory', 'ai-proposal-management-aec'],
@@ -365,8 +365,8 @@ const pages = [
     checkpoint: 'People resolve ambiguous requirements, approve exceptions, validate commitments, and confirm that the final response satisfies both the submission instructions and the pursuit strategy.',
     faqs: [
       ['What is an RFP compliance matrix?', 'It is a structured record of solicitation requirements, evaluation criteria, forms, deadlines, owners, evidence, response locations, and completion status.'],
-      ['Can AI parse an RFP and build a compliance matrix?', 'AI can help identify and organize requirements. A dependable workflow keeps every item connected to its source and gives people a clear way to resolve ambiguity and approve exceptions.'],
-      ['How should addenda be handled?', 'New or changed requirements should remain connected to the original source, show which response work is affected, and trigger review where commitments or instructions changed.'],
+      ['Can AI parse an RFP and build a compliance matrix?', 'Propagent identifies and organizes requirements while keeping every item connected to its source and giving people a clear way to resolve ambiguity and approve exceptions.'],
+      ['How does Propagent handle addenda?', 'Propagent keeps new or changed requirements connected to the original source, shows which response work is affected, and triggers review where commitments or instructions changed.'],
       ['Is a compliance matrix enough to create a winning response?', 'No. It prevents avoidable misses, but the team still has to connect buyer priorities to credible firm proof and develop a persuasive case to win.'],
     ],
     cta: ['Start with the RFP in front of you', 'Use the free RFP Grader for an initial read, or bring the document to a Propagent demo.', '/rfp-grader/', 'Grade an RFP'],
@@ -488,7 +488,7 @@ const pages = [
     faqs: [
       ['What is source-grounded proposal drafting?', 'It is a drafting process that connects response content to the RFP requirement and firm-approved evidence, makes gaps visible, and preserves human review and approval.'],
       ['Does source-grounded mean every sentence needs a footnote?', 'No. It means substantive firm claims and response decisions have a defensible basis reviewers can inspect when trust matters.'],
-      ['What happens when the firm does not have enough evidence?', 'The gap should be surfaced as a missing source, open question, or positioning decision rather than covered with generic language.'],
+      ['What happens when the firm does not have enough evidence?', 'Propagent surfaces the gap as a missing source, open question, or positioning decision instead of covering it with generic language.'],
       ['Does Propagent submit proposals without human approval?', 'No. People remain responsible for strategy, sensitive decisions, review, and final approval.'],
     ],
     cta: ['See what your current response can prove', 'Grade an RFP or draft response, then see how requirements, evidence, gaps, and review connect.', '/rfp-grader/', 'Use the free RFP Grader'],
@@ -529,22 +529,22 @@ const pages = [
         eyebrow: 'Controlled diligence',
         title: 'Get the detail your review requires.',
         paragraphs: [
-          'Your team can review current, customer-relevant facts about controls and the data lifecycle. Sensitive architecture, testing, or customer-specific material can be shared through an appropriate diligence process when available and required.',
+          'Propagent provides current, customer-relevant facts about controls and the data lifecycle. When available, appropriate, and required, Propagent shares sensitive architecture, testing, or customer-specific material through a controlled diligence process.',
           'The review distinguishes current capabilities from planned work and identifies open items directly, so your team can make an informed procurement decision.',
         ],
       },
     ],
     proof: {
       title: 'Current answers for your security review.',
-      body: 'Your review can cover current data-flow, access, retention, deletion, service-provider, incident, and procurement questions with a named contact for follow-up.',
+      body: 'Your review addresses current data-flow, access, retention, deletion, service-provider, incident, and procurement questions with a named contact for follow-up.',
       items: ['Plain-language view of the customer-data lifecycle', 'Current answers and available supporting materials', 'Direct security and procurement follow-up'],
       artifact: [['Review topic', 'Upload and report data flow'], ['What you receive', 'Current processing and storage information'], ['Follow-up', 'Propagent security contact']],
     },
     checkpoint: 'Customer administrators control what firm data enters the system and who is authorized to use it. People remain responsible for reviewing sensitive outputs and approving external submissions.',
     faqs: [
-      ['What security information can my team review with Propagent?', 'Your review can cover data flow, hosting, access controls, encryption posture, retention, deletion, backups, subprocessors, incident contact, contractual documents, and current certification status where applicable.'],
+      ['What security information does Propagent provide for review?', 'Propagent provides current information relevant to data flow, hosting, access controls, encryption posture, retention, deletion, backups, subprocessors, incident contact, and procurement. It also identifies which contractual documents and certifications are currently available.'],
       ['Why does proposal data require special care?', 'It can contain confidential client, employee, project, pricing, contract, partner, and active-pursuit information that affects both commercial and professional obligations.'],
-      ['How does Propagent handle sensitive security detail?', 'Your team receives clear control and data-lifecycle information. Sensitive topology, detection methods, testing artifacts, and customer-specific details can be shared through controlled diligence when appropriate.'],
+      ['How does Propagent handle sensitive security detail?', 'Your team receives clear control and data-lifecycle information. Propagent shares sensitive topology, detection methods, testing artifacts, and customer-specific details only when those materials are available and appropriate for the diligence process.'],
       ['How can I complete a Propagent security review?', 'Email Propagent with your firm-specific questionnaire, diligence priorities, and contractual requirements to receive current review materials and coordinate follow-up questions.'],
     ],
     cta: ['Start a security review', 'Send us your questionnaire or diligence requirements. We will provide the current Propagent materials and work through open questions with your team.', 'mailto:daniel@propagent.ai?subject=Propagent%20security%20and%20procurement%20review', 'Start the security review'],
