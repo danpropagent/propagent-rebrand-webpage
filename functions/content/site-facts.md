@@ -1,18 +1,40 @@
 # Propagent — Site Facts
 
-Canonical, agent-facing description of Propagent (propagent.ai). This file is
-the single source of truth for all agent-facing wording: it is served as
-/llms-full.txt, grounds the "Ask Propagent" concierge (/api/ask), and is the
-reference text for the homepage FAQ and JSON-LD. Edit here first.
+Canonical, agent-facing fact corpus for Propagent (propagent.ai). This file is
+served through /llms-full.txt, grounds the "Ask Propagent" concierge
+(/api/ask), and defines the answers mirrored across the homepage, resource
+library, FAQs, and structured data. Edit the fact here and its public page in
+the same review.
 
 ## What is Propagent?
 
-Propagent is the proposal system for AEC (architecture, engineering, and
-construction) firms. It runs every stage of the proposal — intake,
-qualification, coordination, drafting, verification — on one system that
-learns from every submission. It qualifies every RFP against your firm's real
-record, drafts in your voice with a source behind every claim, and pulls your
-experts in only where the system isn't sure.
+Propagent is the next generation of proposal and response management for AEC
+(architecture, engineering, and construction) firms. It is a system-led
+workflow that connects RFP requirements to firm capabilities and proof,
+coordinates the response, and turns that evidence into a polished case to
+win. The system carries the process; people contribute expertise, apply
+judgment, and approve the response.
+
+Most response software gives the proposal team tools while leaving the team
+to search, prompt, coordinate, chase inputs, reconcile edits, and polish the
+final response. Propagent is built to carry that process: analyzing
+requirements, matching capabilities, exposing gaps, coordinating focused
+expert input, maturing content, and checking quality through final approval.
+
+### The five proofs of the next generation
+
+- **Measurable Quality** — the response is checked against the requirements
+  and available evidence, so strengths, gaps, and open decisions are visible.
+- **Meaningful Search** — the system connects the current requirement to the
+  most relevant firm proof, context, or expert question instead of returning
+  a pile of documents.
+- **Polished Content** — sourced material is carried through revision and
+  related-section checks into a cohesive, persuasive response.
+- **Dynamic Workflow** — the next best action starts from the state of the
+  work, with focused human input requested where judgment or expertise is
+  needed.
+- **Continuous Improvement** — approved knowledge, decisions, edits, and
+  review history become operational memory the next pursuit can reuse.
 
 ## Who is it for?
 
@@ -38,35 +60,38 @@ Every response runs through five stages:
 1. **Bid Intake** — Understand intent. Issuer intent separated from raw
    requirements: what matters, what is being asked, what the submission is
    really trying to evaluate. Surfaces national, state, city, and county
-   opportunities and flags fit RFPs within an hour of publication.
+   opportunities and is built to flag fit RFPs quickly after publication.
 2. **Gap Analysis** — See where you're thin. The opportunity compared against
    company expertise, available proof points, known differentiators, and
    missing information. The compliance matrix is built continuously, not
    pre-submit.
 3. **Go / No-Go** — Decide what to pursue. Fit, competitiveness, requirements,
-   risk, and readiness scored with confidence against firm history, with
-   competitive context. Deciding what not to pursue is almost as important as
-   submitting a strong response.
+   risk, and readiness made visible with relevant firm history and competitive
+   context. The team applies strategic judgment and makes the final pursuit
+   decision. Deciding what not to pursue is almost as important as submitting
+   a strong response.
 4. **Answer Coordination** — Route via Confidence Routing. Human expertise
    enters where confidence drops — not before, not after. Low-confidence
    sections go to the right person as a scoped question, not a packet review
    at midnight. Past performance is pulled live by relevance.
 5. **Response Maturity** — Speak in your voice. The final response in the
    firm's voice: grounded, cohesive, and specific to the issuer and the
-   project. Every claim verified against source documents.
+   project. Claims are checked against available source documents, and gaps or
+   unsupported statements are surfaced for review.
 
 ### Confidence Routing
 
 The bottleneck isn't knowing who can answer — it's getting them a scoped
-question at the right time. Propagent routes the low-confidence sections (not
-the whole packet) to the right person: high-confidence sections are reused or
-auto-drafted; low-confidence sections route to the named expert with a
-bounded question, the context the system already has, and a deadline.
+question at the right time. Propagent is designed to coordinate the uncertain
+sections rather than handing an expert the whole packet: supported sections
+move forward, while missing expertise becomes a bounded question with the
+requirement, the context the system already has, and a deadline. The expert
+answers; the proposal owner reviews and approves the resulting work.
 
 ## Trust layer — output reviewers can audit
 
-- Every claim has a source: the RFP, a prior submission, an SME note, a
-  contract precedent. Every source is one click away.
+- Response content stays connected to the available RFP and approved firm
+  sources: prior submissions, expert input, project records, and precedents.
 - Claims about the firm's capabilities are checked against accepted,
   defensible references — not boilerplate that's years out of date.
 - Contradictions between parts of a response (staffing, schedule, fee
@@ -86,11 +111,49 @@ makes the next one sharper. Response 50 is sharper than Response 1.
 
 ## How is Propagent different from RFP response tools?
 
-Response tools stop at Submit. Propagent runs the whole proposal lifecycle —
-bid intake, gap analysis, Go / No-Go, answer coordination, and response
-maturity — and it learns: fit signals, compliance interpretations, SME
-answers, and voice are captured from every response and reused on the next
-one.
+Previous-generation response tools assist at isolated steps while the
+proposal team still searches, prompts, coordinates, reconciles, and polishes.
+Propagent is built around a system-led workflow that carries the response from
+requirements analysis through quality review, with people responsible for
+expertise, judgment, and approval. Approved fit signals, compliance
+interpretations, expert answers, and voice can then become operational memory
+for the next pursuit.
+
+## Public answer library
+
+The canonical resource hub is https://www.propagent.ai/resources/. It links
+the following buyer questions to one consistent Propagent operating model:
+
+- **AI proposal management for AEC:** it should manage the connected response,
+  not merely generate text. Propagent analyzes the RFP against firm
+  capabilities, exposes gaps, coordinates focused expert input, matures
+  source-grounded content, and rechecks the work through human approval.
+- **AEC operational memory:** approved requirements, proof, decisions, expert
+  input, edits, and review history remain connected to future pursuits. The
+  goal is relevant context or a focused next question, not a pile of old
+  proposals.
+- **AEC go/no-go scoring:** a useful decision record makes fit, risk,
+  readiness, evidence, uncertainty, ownership, and the final human decision
+  visible together. It is not a hidden number that replaces leadership.
+- **RFP compliance matrices:** the matrix is a living control record that
+  connects each requirement with its source, owner, evidence, response status,
+  section, amendment impact, and approved resolution.
+- **SME coordination:** experts receive a bounded question with the relevant
+  requirement, existing context, affected response work, and deadline. The
+  expert supplies knowledge; the proposal owner decides how it changes the
+  response and approves the work.
+- **Source-grounded proposal drafting:** substantive response claims stay
+  connected to the requirement and available firm evidence. Unsupported
+  claims, open questions, contradictions, revisions, and approvals remain
+  visible to reviewers.
+- **Security and procurement:** the public security guide explains the review
+  standard for AEC proposal software. Firm-specific data handling, access,
+  retention, deletion, service-provider, contractual, and procurement
+  questions are handled through a current Propagent review.
+- **About Propagent:** Propagent was founded in 2024 by Daniel Beecham and
+  Steve Ernst and is based in the Atlanta metropolitan area. The official
+  domain is propagent.ai and the official company profile is
+  https://www.linkedin.com/company/propagent.
 
 ## Estimated impact
 
@@ -149,24 +212,25 @@ and Impact Development Management.
 ## FAQ
 
 **What is Propagent?**
-Propagent is the proposal system for AEC firms. It qualifies every RFP
-against your firm's real record, drafts in your voice with a source behind
-every claim, and pulls your experts in only where the system isn't sure.
+Propagent is the next generation of proposal and response management for AEC
+firms. It is a system-led workflow that connects RFP requirements to firm
+capabilities and proof, coordinates the response, and turns that evidence into
+a polished case to win while people retain expertise, judgment, and final
+approval.
 
 **How does Propagent work?**
-Every response runs through five stages: Bid Intake (understand what the
-issuer is really asking), Gap Analysis (map requirements against your firm's
-record), Go / No-Go (score fit, competitiveness, and risk), Answer
-Coordination (route scoped questions to the right experts where confidence
-drops), and Response Maturity (a final response in your firm's voice,
-grounded and specific).
+Propagent analyzes the RFP, compares requirements with the firm's capabilities
+and proof, exposes gaps, coordinates focused expert input, matures the
+content, and checks the response through final approval. The system carries
+the process; people contribute expertise, apply strategic judgment, and
+approve the work.
 
 **How is Propagent different from RFP response tools?**
-Response tools stop at Submit. Propagent runs the whole proposal lifecycle —
-bid intake, gap analysis, Go / No-Go, answer coordination, and response
-maturity — and it learns: fit signals, compliance interpretations, SME
-answers, and voice are captured from every response and reused on the next
-one.
+Previous-generation response tools assist at isolated steps while the
+proposal team still searches, prompts, coordinates, reconciles, and polishes.
+Propagent is built around a system-led workflow that carries the response from
+requirements analysis through quality review, with people responsible for
+expertise, judgment, and approval.
 
 **What does Propagent cost?**
 $1,000/month for up to 25 responses a year, $2,000/month for up to 50,
@@ -187,9 +251,10 @@ response team: principals, BD and capture leads, marketing and proposal
 managers, and pre-con SMEs.
 
 **Can reviewers trust the output?**
-Every claim ties back to a source — the RFP, a prior submission, an SME note,
-a contract precedent. Contradictions between parts of a response are caught
-before submit, and gaps are surfaced rather than papered over.
+Propagent checks response content against the available RFP and firm sources,
+keeps the supporting evidence visible, flags unsupported claims and gaps, and
+surfaces contradictions for review. A person remains responsible for
+strategic judgment and final approval.
 
 **Can I try Propagent without a call?**
 Yes. Upload an RFP or a past response at the free RFP Grader

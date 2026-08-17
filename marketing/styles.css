@@ -3255,3 +3255,58 @@ a:hover { color: var(--accent-primary-strong); }
     to { opacity: 1; transform: none; }
   }
 }
+
+/* Responsive navigation shared by the homepage, resource pages, and grader. */
+.mobile-nav {
+  position: relative;
+  display: none;
+  margin-left: auto;
+}
+
+.mobile-nav summary {
+  padding: 8px 11px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+}
+
+.mobile-nav summary::-webkit-details-marker { display: none; }
+.mobile-nav[open] summary { border-color: var(--border-accent); color: var(--text-primary); }
+
+.mobile-nav-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 200;
+  display: grid;
+  width: min(280px, calc(100vw - 32px));
+  padding: 10px;
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-xl);
+  background: rgba(10, 10, 10, 0.98);
+  box-shadow: var(--shadow-lg);
+}
+
+.mobile-nav-panel a {
+  padding: 12px 11px;
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.mobile-nav-panel a:hover { background: var(--surface-hover); color: var(--text-primary); }
+
+@media (max-width: 1100px) {
+  .topbar-nav { display: none; }
+  .mobile-nav { display: block; }
+}
+
+@media (max-width: 640px) {
+  .topbar-status { display: none; }
+}

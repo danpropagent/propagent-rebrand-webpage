@@ -24,6 +24,14 @@ const genAI = new GoogleGenAI({
 // gemini-2.0-flash was retired 2026-06-01; 3.1-flash-lite is the project
 // standard on the global endpoint (announced shutdown 2027-05-07).
 const MODEL = "gemini-3.1-flash-lite";
+const MAX_UPLOAD_BYTES = 20 * 1024 * 1024;
+const ALLOWED_UPLOAD_EXTENSIONS = new Set(["pdf", "docx", "txt"]);
+
+const decodedBase64Bytes = (content) => {
+  const value = typeof content === "string" ? content : "";
+  const padding = value.endsWith("==") ? 2 : value.endsWith("=") ? 1 : 0;
+  return Math.max(0, Math.floor((value.length * 3) / 4) - padding);
+};
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -3404,6 +3412,29 @@ const gradeRfpHandler = async (req, res) => {
     if (mode === "response" && (!responseFiles || responseFiles.length === 0)) {
       return res.status(400).json(
           {error: "Response files are required in response mode"});
+    }
+
+    const submittedFiles = [
+      ...(Array.isArray(rfpFiles) ? rfpFiles : []),
+      ...(Array.isArray(responseFiles) ? responseFiles : []),
+    ];
+    const invalidFile = submittedFiles.find((file) => {
+      if (!file || typeof file.name !== "string" ||
+          typeof file.content !== "string") return true;
+      const extension = file.name.split(".").pop().toLowerCase();
+      return !ALLOWED_UPLOAD_EXTENSIONS.has(extension);
+    });
+    if (invalidFile) {
+      return res.status(400).json({
+        error: "Files must be PDF, DOCX, or TXT documents",
+      });
+    }
+    const uploadBytes = submittedFiles.reduce(
+        (sum, file) => sum + decodedBase64Bytes(file.content), 0);
+    if (uploadBytes > MAX_UPLOAD_BYTES) {
+      return res.status(413).json({
+        error: "Combined uploads must be 20 MB or less",
+      });
     }
 
     // Shared daily cap across the grader tool, the homepage lab, and

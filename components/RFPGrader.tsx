@@ -7,12 +7,27 @@ interface FileState {
 }
 
 const VALID_EXTENSIONS = ['pdf', 'docx', 'txt'];
-const MAX_FILE_BYTES = 100 * 1024 * 1024; // 100MB
+const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
+
+const RFP_DIMENSIONS = [
+  'Scope and deliverables precision',
+  'Evaluation criteria transparency',
+  'Technical requirements and drawings',
+  'Fair competition and true discriminators',
+  'Purpose, outcomes, and project context',
+  'Schedule realism and milestones',
+  'Internal consistency',
+  'Commercial terms and risk allocation',
+  'Innovation flexibility and trade-offs',
+  'Compliance requirements',
+  'Submission instructions and format',
+  'Communication and Q&A process',
+];
 
 const filterFiles = (incoming: FileList | File[]): File[] => {
   return Array.from(incoming).filter((file) => {
     const ext = file.name.split('.').pop()?.toLowerCase();
-    return !!ext && VALID_EXTENSIONS.includes(ext) && file.size <= MAX_FILE_BYTES;
+    return !!ext && VALID_EXTENSIONS.includes(ext) && file.size <= MAX_TOTAL_BYTES;
   });
 };
 
@@ -106,6 +121,15 @@ const RFPGrader: React.FC = () => {
       setSubmitStatus({ type: 'error', message: 'Please fill in all required fields.' });
       return;
     }
+    const totalBytes = [...rfpFiles.files, ...responseFiles.files]
+      .reduce((sum, file) => sum + file.size, 0);
+    if (totalBytes > MAX_TOTAL_BYTES) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please keep the combined upload at or below 20 MB.',
+      });
+      return;
+    }
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -128,7 +152,7 @@ const RFPGrader: React.FC = () => {
         : [];
 
       const payload = { email, mode, rfpFiles: rfpFilesData, responseFiles: responseFilesData };
-      const response = await fetch('https://graderfp-nzrxc3sypq-uc.a.run.app', {
+      const response = await fetch('/api/gradeRfp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -164,13 +188,13 @@ const RFPGrader: React.FC = () => {
   const rfpLabel = mode === 'rfp' ? 'Upload your RFP documents' : 'Upload the original RFP';
 
   return (
-    <section className="grader-section">
+    <main className="grader-section" id="main-content">
       <div className="container">
-        <header className="grader-header">
-          <div className="section-eyebrow">RFP Grader</div>
+        <header className="grader-header" data-direct-answer>
+          <div className="section-eyebrow">Free RFP Grader</div>
           <h1>Grade an RFP, or grade a <span className="text-agent-gradient">response to one.</span></h1>
           <p className="lede">
-            Upload an RFP for a quality and clarity read, or pair it with a draft response for compliance and fit. Results land in your inbox.
+            Propagent's RFP Grader assesses an RFP across 12 quality dimensions or compares a draft response against its source RFP for compliance and fit. It turns the documents into a decision-ready report delivered by email for human review.
           </p>
         </header>
 
@@ -197,6 +221,7 @@ const RFPGrader: React.FC = () => {
                 type="button"
                 onClick={() => handleModeChange('rfp')}
                 className={`grader-mode-btn ${mode === 'rfp' ? 'is-active' : ''}`}
+                aria-pressed={mode === 'rfp'}
               >
                 <span className="mode-title">Grade my RFP</span>
                 <span className="mode-desc">Analyze the quality, clarity, and completeness of your RFP document.</span>
@@ -205,6 +230,7 @@ const RFPGrader: React.FC = () => {
                 type="button"
                 onClick={() => handleModeChange('response')}
                 className={`grader-mode-btn ${mode === 'response' ? 'is-active' : ''}`}
+                aria-pressed={mode === 'response'}
               >
                 <span className="mode-title">Grade my response</span>
                 <span className="mode-desc">Compare your response against the original RFP for compliance and fit.</span>
@@ -220,6 +246,12 @@ const RFPGrader: React.FC = () => {
               onDragLeave={handleDragLeave}
               onDrop={(e) => handleDrop(e, 'rfp')}
               onClick={() => rfpInputRef.current?.click()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  rfpInputRef.current?.click();
+                }
+              }}
               role="button"
               tabIndex={0}
             >
@@ -233,7 +265,7 @@ const RFPGrader: React.FC = () => {
                 key={`rfp-${mode}`}
               />
               <p className="grader-dropzone-title">Drop files here, or click to browse</p>
-              <p className="grader-dropzone-hint">PDF, DOCX, or TXT · up to 100MB each</p>
+              <p className="grader-dropzone-hint">PDF, DOCX, or TXT · 20 MB combined per submission</p>
             </div>
             {rfpFiles.files.length > 0 && (
               <ul className="grader-files">
@@ -261,6 +293,12 @@ const RFPGrader: React.FC = () => {
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, 'response')}
                 onClick={() => responseInputRef.current?.click()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    responseInputRef.current?.click();
+                  }
+                }}
                 role="button"
                 tabIndex={0}
               >
@@ -274,7 +312,7 @@ const RFPGrader: React.FC = () => {
                   key={`response-${mode}`}
                 />
                 <p className="grader-dropzone-title">Drop files here, or click to browse</p>
-                <p className="grader-dropzone-hint">PDF, DOCX, or TXT · up to 100MB each</p>
+                <p className="grader-dropzone-hint">PDF, DOCX, or TXT · 20 MB combined per submission</p>
               </div>
               {responseFiles.files.length > 0 && (
                 <ul className="grader-files">
@@ -300,6 +338,10 @@ const RFPGrader: React.FC = () => {
             </div>
           )}
 
+          <p className="grader-data-use">
+            Your email address and uploaded files are submitted to Propagent to generate and deliver the requested report. See the <a href="/security/">security and procurement guide</a>.
+          </p>
+
           <div className="grader-submit-row">
             <p className="grader-help">Submission is processed asynchronously. Expect results within a few minutes.</p>
             <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting || !isFormValid()}>
@@ -307,8 +349,79 @@ const RFPGrader: React.FC = () => {
             </button>
           </div>
         </form>
+
+        <div className="grader-content">
+          <section className="grader-content-section" aria-labelledby="grader-modes-heading">
+            <div className="grader-content-head">
+              <div className="section-eyebrow">Two grading modes</div>
+              <h2 id="grader-modes-heading">Start with the document you need to understand.</h2>
+            </div>
+            <div className="grader-summary-grid">
+              <article className="grader-summary-card">
+                <span className="grader-card-kicker">RFP quality</span>
+                <h3>Grade the RFP itself</h3>
+                <p>Assess clarity, completeness, ambiguity, commercial risk, submission instructions, and the conditions that shape bidder response quality.</p>
+              </article>
+              <article className="grader-summary-card">
+                <span className="grader-card-kicker">Response fit</span>
+                <h3>Grade a response against the RFP</h3>
+                <p>Compare a draft response with the source solicitation to surface compliance gaps, weak coverage, clarity issues, and areas requiring human attention.</p>
+              </article>
+            </div>
+          </section>
+
+          <section className="grader-content-section" aria-labelledby="grader-report-heading">
+            <div className="grader-content-head">
+              <div className="section-eyebrow">Inside the report</div>
+              <h2 id="grader-report-heading">Twelve dimensions, plus the risks between them.</h2>
+              <p>The RFP-quality report evaluates the following dimensions and adds ambiguity, killer-clause, improvement-priority, and bid/no-bid context.</p>
+            </div>
+            <ol className="grader-dimension-grid">
+              {RFP_DIMENSIONS.map((dimension) => <li key={dimension}>{dimension}</li>)}
+            </ol>
+          </section>
+
+          <aside className="grader-human-note" aria-labelledby="human-decision-heading">
+            <span className="grader-card-kicker">Human decision</span>
+            <h2 id="human-decision-heading">A sharper read, not an automatic verdict.</h2>
+            <p>The grader organizes evidence, gaps, and pursuit risk so a proposal leader, capture team, procurement team, or executive can decide what to fix, clarify, pursue, or decline.</p>
+          </aside>
+
+          <section className="grader-content-section" aria-labelledby="grader-faq-heading">
+            <div className="grader-content-head">
+              <div className="section-eyebrow">FAQ</div>
+              <h2 id="grader-faq-heading">How the RFP Grader works.</h2>
+            </div>
+            <div className="grader-faq-list">
+              <details>
+                <summary>What is the Propagent RFP Grader?</summary>
+                <p>It is a free tool for assessing an RFP's quality or comparing a draft response against the source RFP. It emails a structured report for human review.</p>
+              </details>
+              <details>
+                <summary>What can I grade?</summary>
+                <p>Upload an RFP for a quality and clarity assessment, or upload an RFP with a draft response for a compliance and fit comparison.</p>
+              </details>
+              <details>
+                <summary>What does the RFP report cover?</summary>
+                <p>The report covers 12 dimensions: scope precision, evaluation transparency, technical requirements, fair competition, project context, schedule realism, internal consistency, commercial risk, innovation flexibility, compliance requirements, submission instructions, and the communication process.</p>
+              </details>
+              <details>
+                <summary>Does it make the final bid or no-bid decision?</summary>
+                <p>No. It provides structured decision support. Your proposal, capture, procurement, or leadership team makes the final decision.</p>
+              </details>
+              <details>
+                <summary>Which files can I upload?</summary>
+                <p>PDF, DOCX, and TXT files are supported, with a 20 MB combined limit per submission.</p>
+              </details>
+              <details>
+                <summary>How are submitted files used?</summary>
+                <p>Your email address and uploaded files are submitted to Propagent to generate and deliver the requested report. See the <a href="/security/">security and procurement guide</a>.</p>
+              </details>
+            </div>
+          </section>
+        </div>
       </div>
-    </section>
+    </main>
   );
 };
 

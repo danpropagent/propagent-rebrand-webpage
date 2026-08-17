@@ -1,0 +1,850 @@
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const SITE = 'https://www.propagent.ai';
+const CONTENT_DATE = '2026-08-14';
+
+const pages = [
+  {
+    slug: 'resources',
+    title: 'AEC Proposal & Response Management Resources',
+    navLabel: 'Resources',
+    eyebrow: 'Propagent resource library',
+    h1: 'The next generation of proposal and response management, explained.',
+    description: 'Practical, citation-ready guides to AI proposal management, operational memory, go/no-go decisions, RFP compliance, SME coordination, source-grounded drafting, and security for AEC firms.',
+    answer: 'Propagent’s resource library explains how AEC firms can move from isolated search and drafting tools to system-led proposal and response management. Each guide covers a buyer problem, the operating shift, the visible output, the human checkpoint, and the customer value—without turning the public site into an implementation manual.',
+    highlights: [
+      ['One connected process', 'Requirements, evidence, experts, content, review, and approval stay connected.'],
+      ['Built for AEC', 'Architecture, engineering, construction, and infrastructure proposal workflows.'],
+      ['People stay accountable', 'The system carries the process; people apply expertise, judgment, and approval.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'Start here',
+        title: 'Understand the operating-model shift.',
+        paragraphs: [
+          'Most proposal technology helps at one step. A user searches, prompts, drafts, exports, and then manually coordinates everything around the output. That leaves the proposal team acting as both strategist and workflow engine.',
+          'Propagent is designed around a different division of labor. It analyzes what the buyer asks for, connects the requirement to what the firm can prove, turns gaps into focused work, carries content through review, and preserves approved context for the next pursuit. People retain strategy, expertise, exception handling, and final approval.',
+        ],
+        bullets: [
+          'Measurable Quality: evaluate the response against the pursuit, evidence, and buyer priorities.',
+          'Meaningful Search: connect requirements to proof, decisions, and the people who hold missing knowledge.',
+          'Polished Content: carry source-grounded material beyond a rough first draft.',
+          'Dynamic Workflow: keep the response plan moving while the owner controls strategy and approval.',
+          'Continuous Improvement: preserve approved institutional knowledge across pursuits.',
+        ],
+      },
+      {
+        eyebrow: 'Explore by buyer question',
+        title: 'Use the guide that matches the work in front of you.',
+        cards: [
+          ['AI proposal management for AEC', 'What a system-led response process should carry from RFP intake through final approval.', '/ai-proposal-management-aec/'],
+          ['AEC operational memory', 'How approved proof, decisions, expert input, and review history become useful on the next pursuit.', '/aec-operational-memory/'],
+          ['Go/no-go scoring', 'How to make pursuit decisions visible, evidence-based, and accountable.', '/aec-go-no-go-scoring/'],
+          ['RFP compliance matrices', 'How a living compliance record connects requirements, sources, owners, and response status.', '/rfp-compliance-matrix/'],
+          ['SME coordination', 'How focused expert questions replace broad packet reviews and repetitive chasing.', '/sme-coordination/'],
+          ['Source-grounded drafting', 'How proposal claims stay connected to firm-approved evidence and human review.', '/source-grounded-proposal-drafting/'],
+          ['Security and procurement', 'What buyers should know about data handling, access, retention, and evaluation.', '/security/'],
+          ['About Propagent', 'The company, category, founders, and point of view behind the system.', '/about/'],
+        ],
+      },
+    ],
+    proof: {
+      title: 'One category story, visible from every buyer question.',
+      body: 'The library connects the same operating model to the work buyers evaluate: requirements, evidence, expert input, response quality, decisions, and human approval.',
+      items: ['Direct answers for common buyer questions', 'Visible outputs and named human checkpoints', 'Cross-linked definitions that reinforce one category story'],
+      artifact: [['Category', 'System-led proposal and response management'], ['System role', 'Carry the connected process'], ['Human role', 'Expertise, judgment, and approval']],
+    },
+    checkpoint: 'Every workflow described in this library keeps people responsible for strategy, expertise, commercial decisions, exceptions, and final approval.',
+    faqs: [
+      ['What is Propagent?', 'Propagent is the proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms.'],
+      ['Who are these resources for?', 'They are for AEC proposal managers, business-development and capture leaders, executives, subject-matter experts, and procurement teams evaluating a proposal system.'],
+      ['Does Propagent replace the proposal team?', 'No. Propagent is designed to carry requirements analysis, coordination, content maturity, and quality checks while people contribute expertise, set strategy, resolve exceptions, and approve the response.'],
+      ['Can I evaluate Propagent with a real RFP?', 'Yes. Use the free RFP Grader for an initial read or book a proposal review and bring a live opportunity.'],
+    ],
+    cta: ['See Propagent on a real pursuit', 'Bring an RFP. We will show how the requirements, gaps, evidence, expert input, and review connect.', '/30min-meeting', 'Book a proposal review'],
+    related: ['about', 'ai-proposal-management-aec', 'security'],
+  },
+  {
+    slug: 'about',
+    title: 'About Propagent | Proposal Response Management for AEC',
+    navLabel: 'About Propagent',
+    eyebrow: 'About Propagent',
+    h1: 'The proposal pursuit system for the built world.',
+    description: 'Learn what Propagent is, who it serves, who founded it, and why AEC proposal and response management needs a system-led operating model.',
+    answer: 'Propagent is the proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms. Founded in 2024 by Daniel Beecham and Steve Ernst, Propagent is building a system-led workflow that analyzes requirements, connects firm evidence, coordinates expert input, matures content, and keeps people responsible for judgment and approval.',
+    highlights: [
+      ['Founded', '2024'],
+      ['Based in', 'The Atlanta metropolitan area'],
+      ['Category', 'Proposal pursuit system for the built world'],
+    ],
+    sections: [
+      {
+        eyebrow: 'Why Propagent exists',
+        title: 'The project team should not have to be the process engine.',
+        paragraphs: [
+          'AEC proposal teams may have content libraries, search tools, drafting assistants, spreadsheets, portals, email, and project databases. Yet people still interpret the RFP, assemble the response plan, find credible proof, chase experts, reconcile sections, apply review comments, and polish the final submission.',
+          'Propagent was created to change that operating model. The system is designed to carry the connected response process while the firm’s people stay responsible for expertise, relationships, strategy, risk, and approval.',
+        ],
+      },
+      {
+        eyebrow: 'The Propagent point of view',
+        title: 'A compliant answer is not automatically a persuasive case to win.',
+        paragraphs: [
+          'The RFP defines what the buyer will evaluate. The firm’s experience, people, evidence, and positioning determine whether the response is credible. Strong response management has to connect those two sides and keep them connected as the work changes.',
+          'That is why Propagent focuses on five connected outcomes: Measurable Quality, Meaningful Search, Polished Content, Dynamic Workflow, and Continuous Improvement.',
+        ],
+        bullets: [
+          'Requirements are connected to firm capabilities and proof.',
+          'Missing facts become focused questions, not broad requests for help.',
+          'Content remains connected to sources and related response sections.',
+          'The response owner controls strategy, exceptions, and final approval.',
+        ],
+      },
+      {
+        eyebrow: 'Founders',
+        title: 'Built from the realities of complex pursuits.',
+        cards: [
+          ['Daniel Beecham', 'Founder and CEO. Daniel’s work sits at the intersection of the built world, technology, business development, and the way complex opportunities become coordinated responses.', 'https://www.linkedin.com/in/daniel-beecham', 'View Daniel’s profile'],
+          ['Steve Ernst', 'Co-founder. Steve brings complementary experience to Propagent’s mission of making proposal and response management more connected, accountable, and effective.', 'https://www.linkedin.com/in/sternst/', 'View Steve’s profile'],
+        ],
+      },
+      {
+        eyebrow: 'Propagent in the industry',
+        title: 'Company and category references.',
+        cards: [
+          ['Tech Square ATL', 'A profile of Propagent’s system-led approach to ending the RFP scramble for AEC teams.', 'https://www.techsquareatl.com/tech-square-news/2026/7/7/propagent-wants-to-end-the-rfp-scramble', 'Read the profile'],
+          ['Hypepotamus', 'An Atlanta startup profile covering Propagent, its founders, and its focus on RFP work.', 'https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/', 'Read the profile'],
+          ['Construction Executive', 'Daniel Beecham on why construction firms need a stronger RFP approval process.', 'https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/', 'Read the article'],
+        ],
+      },
+    ],
+    proof: {
+      title: 'A stable company identity for buyers and answer engines.',
+      body: 'Propagent uses one company name, one canonical domain, one category definition, and one operating-model story across its site and agent-readable resources.',
+      items: ['Official domain: propagent.ai', 'Official LinkedIn company profile', 'AEC-focused proposal and response-management category'],
+      artifact: [['Company', 'Propagent'], ['Founded', '2024'], ['Category', 'Proposal pursuit system for the built world']],
+    },
+    checkpoint: 'Propagent does not remove professional judgment from the pursuit. People make the strategic, commercial, legal, and final approval decisions.',
+    faqs: [
+      ['What does Propagent do?', 'Propagent analyzes RFP requirements against firm capabilities, identifies gaps, coordinates focused expert input, matures source-grounded content, and supports quality review through human approval.'],
+      ['Who is Propagent for?', 'Propagent is for architecture, engineering, construction, and infrastructure firms, including proposal managers, BD and capture leaders, executives, and subject-matter experts.'],
+      ['How is Propagent different from a proposal writing tool?', 'Writing is one step. Propagent is designed to manage the connected response process: requirements, evidence, planning, expert coordination, content maturity, review, and reusable institutional knowledge.'],
+      ['Where can I learn more?', 'Explore the resource library, use the free RFP Grader, or book a proposal review with a real opportunity.'],
+    ],
+    cta: ['Bring us the work, not a hypothetical', 'Use a real opportunity to see how Propagent connects the RFP, the firm’s proof, focused expert input, and final review.', '/30min-meeting', 'Book a proposal review'],
+    related: ['ai-proposal-management-aec', 'resources', 'security'],
+  },
+  {
+    slug: 'ai-proposal-management-aec',
+    title: 'AI Proposal Management Software for AEC Firms | Propagent',
+    navLabel: 'AI proposal management',
+    eyebrow: 'System-led response management',
+    h1: 'AI proposal management for AEC firms should manage the response.',
+    description: 'See how Propagent connects RFP analysis, firm evidence, response planning, SME input, source-grounded content, quality review, and human approval for AEC firms.',
+    answer: 'AI proposal management for AEC should manage the response, not merely generate text. Propagent analyzes the RFP against firm capabilities, turns gaps into a response plan and focused expert questions, matures source-grounded content, and rechecks the work through human approval. The system carries the process; people provide expertise, strategy, and judgment.',
+    highlights: [
+      ['Measurable Quality', 'Evaluate the response against this pursuit, its evidence, and buyer priorities.'],
+      ['Dynamic Workflow', 'Keep requirements, owners, expert input, revisions, and review moving together.'],
+      ['Continuous Improvement', 'Preserve approved context the next pursuit can use.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'The category shift',
+        title: 'Search and drafting assistance do not equal response management.',
+        paragraphs: [
+          'A search result does not decide whether the evidence is relevant. A first draft does not resolve missing facts, coordinate contributors, reconcile changes, or prove that the response addresses the buyer’s evaluation criteria. When those steps remain disconnected, the proposal team still carries the process.',
+          'Propagent is designed around a system-led workflow. It connects what the buyer requires to what the firm can prove, maintains the response plan, turns gaps into focused work, and makes evidence and open decisions visible through final review.',
+        ],
+      },
+      {
+        eyebrow: 'Connected workflow',
+        title: 'From requirements analysis to final approval.',
+        steps: [
+          ['01', 'Analyze the RFP', 'Identify requirements, evaluation criteria, buyer intent, risks, ambiguities, and submission instructions.'],
+          ['02', 'Connect firm capability', 'Match the opportunity with relevant experience, proof, prior work, and available expertise.'],
+          ['03', 'Plan the response', 'Turn requirements and gaps into sections, owners, next actions, dependencies, and review points.'],
+          ['04', 'Capture focused knowledge', 'Ask the right expert a bounded question when evidence or judgment is missing.'],
+          ['05', 'Mature the content', 'Develop source-grounded material in the firm’s voice and keep related sections aligned.'],
+          ['06', 'Review and approve', 'Surface weak evidence, open decisions, and exceptions so people can resolve and approve them.'],
+        ],
+      },
+      {
+        eyebrow: 'What teams receive',
+        title: 'Visible work, not an invisible automation claim.',
+        bullets: [
+          'A requirements and compliance view connected to source material.',
+          'A pursuit-specific capability and gap analysis.',
+          'Focused SME questions with the context needed to answer.',
+          'Source-grounded content with open questions and evidence visible.',
+          'A review state that shows what changed and where judgment is required.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'See the connected work, not another AI promise.',
+      body: 'A buyer can inspect how a requirement connects to firm evidence, ownership, content state, and approval as the response moves forward.',
+      items: ['RFP-specific requirements and evidence', 'Focused questions and visible ownership', 'Content carried through review and approval'],
+      artifact: [['Requirement', 'Demonstrate relevant delivery experience'], ['Connected proof', 'Approved project record'], ['Status', 'Ready for proposal-owner review']],
+    },
+    checkpoint: 'People set the win strategy, contribute firm and relationship expertise, resolve sensitive or ambiguous work, make commercial decisions, and approve the response.',
+    faqs: [
+      ['What is AI proposal management software for AEC?', 'It is software that uses AI to help architecture, engineering, and construction firms analyze solicitations, connect requirements to firm knowledge, coordinate contributors, build response content, and review the work. Propagent extends that idea into a connected, system-led response process.'],
+      ['Does Propagent only write proposal text?', 'No. Propagent is designed to connect requirements analysis, capability matching, gap detection, response planning, focused expert input, source-grounded content, quality checks, and reusable operational memory.'],
+      ['Does Propagent replace proposal managers or SMEs?', 'No. The system carries process work while proposal managers control strategy and approval and SMEs contribute the expertise and judgment the response requires.'],
+      ['Can Propagent work with a real RFP?', 'Yes. Bring a live opportunity to a proposal review or use the free RFP Grader for an initial analysis.'],
+    ],
+    cta: ['See the operating-model difference', 'Bring a real RFP and see what changes when the system carries the process.', '/30min-meeting', 'Book a proposal review'],
+    related: ['aec-operational-memory', 'rfp-compliance-matrix', 'source-grounded-proposal-drafting'],
+  },
+  {
+    slug: 'aec-operational-memory',
+    title: 'AEC Operational Memory for Proposals and Pursuits | Propagent',
+    navLabel: 'Operational memory',
+    eyebrow: 'Institutional knowledge that stays useful',
+    h1: 'Stop searching old proposals. Start with connected operational memory.',
+    description: 'Learn how Propagent connects requirements, firm proof, expert input, decisions, edits, and review history so approved AEC knowledge can strengthen future pursuits.',
+    answer: 'AEC operational memory is the approved knowledge created while a pursuit moves: requirements, proof, decisions, expert input, edits, and review history. Propagent connects that context to each new RFP so teams receive relevant evidence, insight, or a focused question—not a pile of old proposals—while each firm’s private knowledge remains isolated.',
+    highlights: [
+      ['More than documents', 'Preserve the decisions, evidence, and expert context behind the final response.'],
+      ['Connected to the requirement', 'Retrieve knowledge because it fits this pursuit, not because keywords happen to match.'],
+      ['Customer-specific', 'Each firm’s private knowledge remains its own.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'The knowledge problem',
+        title: 'The final document leaves most of the useful work behind.',
+        paragraphs: [
+          'Past proposals can show what the firm submitted, but not always why the team chose that positioning, which evidence reviewers trusted, what an expert corrected, or which statement became stale. Those decisions often remain in email, comments, meetings, spreadsheets, and people’s heads.',
+          'Operational memory preserves the approved work behind the response and reconnects it to future requirements. The goal is not to return more old content. It is to provide useful evidence, an informed direction, or a focused question that moves the active pursuit forward.',
+        ],
+      },
+      {
+        eyebrow: 'What becomes reusable',
+        title: 'Capture the context that generic search cannot see.',
+        cards: [
+          ['Requirements and interpretations', 'What the buyer asked, how the team interpreted it, and which source governed the decision.', '/rfp-compliance-matrix/'],
+          ['Firm proof and expert input', 'Projects, people, credentials, facts, and approved answers connected to the work they support.', '/sme-coordination/'],
+          ['Decisions and review history', 'Positioning choices, edits, open questions, approvals, and lessons that shaped the response.', '/source-grounded-proposal-drafting/'],
+        ],
+      },
+      {
+        eyebrow: 'Meaningful search',
+        title: 'Search should produce insight, not a stack of old answers.',
+        bullets: [
+          'Connect the active requirement to relevant experience and proof.',
+          'Show why the evidence is useful and where it came from.',
+          'Surface missing context instead of filling the gap with generic language.',
+          'Turn the missing context into a focused question for the right person.',
+          'Preserve the approved answer and decision for future pursuits.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'See the firm’s knowledge in the context of this pursuit.',
+      body: 'Relevant proof, prior decisions, expert context, and approval history stay connected to the active requirement so the next action is clear.',
+      items: ['Source and approval history visible', 'Knowledge connected to the active RFP', 'Firm-private context preserved for future work'],
+      artifact: [['Active requirement', 'Comparable terminal-delivery experience'], ['Connected context', 'Approved project record and prior response'], ['Next action', 'Confirm current staff availability']],
+    },
+    checkpoint: 'People confirm relevance, correct stale information, add relationship context, and approve knowledge before it becomes part of the response or reusable firm memory.',
+    faqs: [
+      ['What is operational memory for AEC proposals?', 'Operational memory is the approved context created through proposal work: requirements, evidence, decisions, expert input, drafts, edits, review history, and outcomes. It is more useful than a final-document library because it preserves why the work changed.'],
+      ['How is operational memory different from enterprise search?', 'Enterprise search retrieves files or passages. Operational memory connects relevant evidence and prior decisions to the active requirement and can identify when a focused expert question is still needed.'],
+      ['Does Propagent learn from one firm’s data to help another firm?', 'No. The operational-memory story is customer-specific and does not imply pooling one firm’s private proposal knowledge with another firm.'],
+      ['Does old content get reused without review?', 'No. People confirm relevance, resolve stale or sensitive information, and approve what belongs in the current response.'],
+    ],
+    cta: ['Put your firm’s knowledge to work', 'See how a live RFP connects to the proof, decisions, and people already inside your firm.', '/30min-meeting', 'Review a real pursuit'],
+    related: ['ai-proposal-management-aec', 'sme-coordination', 'source-grounded-proposal-drafting'],
+  },
+  {
+    slug: 'aec-go-no-go-scoring',
+    title: 'AEC Go/No-Go Scoring and Pursuit Qualification | Propagent',
+    navLabel: 'Go/no-go scoring',
+    eyebrow: 'Pursuit qualification',
+    h1: 'Make the go/no-go decision visible before the proposal hours begin.',
+    description: 'See how Propagent frames AEC go/no-go decisions around strategic fit, requirements, evidence readiness, risk, capacity, pursuit cost, and accountable human judgment.',
+    answer: 'AEC go/no-go scoring should make the pursuit decision traceable, not hide it behind a single number. Propagent is built to compare each opportunity with strategic fit, requirements, evidence readiness, risk, capacity, and pursuit cost; show the supporting evidence and gaps; and leave the final pursue/no-pursue decision with firm leadership.',
+    highlights: [
+      ['Pursuit-specific', 'Evaluate this opportunity against the firm’s priorities and proof.'],
+      ['Evidence visible', 'Show why the opportunity looks strong, weak, or uncertain.'],
+      ['Leadership decides', 'The system frames the decision; people own it.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'Why go/no-go breaks down',
+        title: 'A score without its evidence is not a decision system.',
+        paragraphs: [
+          'AEC firms cannot chase every opportunity. The cost is not only proposal hours; it is leadership attention, expert time, partner coordination, and the opportunity cost of the work the firm did not pursue.',
+          'A useful qualification process makes the basis of the decision visible. It shows where the firm fits, which requirements are difficult, whether the evidence is ready, what risks remain, and where executive judgment should override a default recommendation.',
+        ],
+      },
+      {
+        eyebrow: 'Decision record',
+        title: 'See the factors, evidence, gaps, and owner.',
+        steps: [
+          ['01', 'Strategic fit', 'How the opportunity aligns with the firm’s market, client, geography, project type, and priorities.'],
+          ['02', 'Capability and proof', 'Whether the firm has relevant experience, people, credentials, and defensible evidence.'],
+          ['03', 'Requirements and risk', 'Which terms, constraints, ambiguities, deadlines, or compliance demands affect the pursuit.'],
+          ['04', 'Readiness and cost', 'What the response will require from the proposal team, experts, leadership, and partners.'],
+          ['05', 'Judgment and approval', 'Which open questions require a person and who owns the final go/no-go decision.'],
+        ],
+      },
+      {
+        eyebrow: 'Win probability',
+        title: 'Use probability as decision context, not a promise.',
+        paragraphs: [
+          'No responsible proposal system can guarantee a win. A useful win-probability view organizes the factors and evidence that should influence confidence, shows uncertainty, and improves as verified firm-specific outcomes become available.',
+          'Propagent’s differentiating promise is not a mysterious percentage. It is a traceable decision record that leaders can inspect, challenge, and approve.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'A pursuit decision the team can challenge and approve.',
+      body: 'The decision record makes strengths, risks, missing evidence, uncertainty, ownership, and the final executive call visible together.',
+      items: ['Evidence-backed strengths and gaps', 'Visible uncertainty and open decisions', 'Named executive approval'],
+      artifact: [['Fit signal', 'Relevant experience is well supported'], ['Open risk', 'Key-person availability unconfirmed'], ['Decision', 'Awaiting principal approval']],
+    },
+    checkpoint: 'Firm leadership makes the final pursue/no-pursue decision and can add relationship, capacity, commercial, and strategic context that no document alone contains.',
+    faqs: [
+      ['What is go/no-go scoring for AEC pursuits?', 'It is a structured way to evaluate whether an opportunity fits the firm, whether the evidence and team are ready, what risks and costs exist, and whether leadership should commit proposal resources.'],
+      ['Does go/no-go scoring predict whether the firm will win?', 'It can organize evidence and confidence factors, but it should not be treated as a guarantee. Propagent keeps the basis, uncertainty, and human decision visible.'],
+      ['What factors should an AEC go/no-go process consider?', 'Common factors include strategic and client fit, project relevance, firm proof, team availability, requirements, contract risk, competitive context when verified, response cost, and the quality of the available evidence.'],
+      ['Who makes the final decision?', 'The designated firm leader or pursuit owner. Propagent is designed to frame and record the decision, not remove executive judgment.'],
+    ],
+    cta: ['Put a real opportunity through the decision', 'Bring an RFP and see how requirements, evidence, risk, readiness, and judgment come together.', '/30min-meeting', 'Run a proposal review'],
+    related: ['rfp-compliance-matrix', 'aec-operational-memory', 'ai-proposal-management-aec'],
+  },
+  {
+    slug: 'rfp-compliance-matrix',
+    title: 'AI RFP Parsing and Compliance Matrix for AEC | Propagent',
+    navLabel: 'RFP compliance matrix',
+    eyebrow: 'Requirements control',
+    h1: 'Turn the RFP into a living compliance matrix.',
+    description: 'Learn how Propagent connects RFP requirements, evaluation criteria, deadlines, forms, addenda, sources, owners, evidence, and response status for AEC teams.',
+    answer: 'An RFP compliance matrix converts solicitation requirements, evaluation criteria, forms, deadlines, and addenda into a living response control record. Propagent links each item to its source, owner, status, evidence, and affected section so missed requirements surface early and the matrix stays current as the response changes. People resolve ambiguity and approve exceptions.',
+    highlights: [
+      ['Traceable', 'Every requirement stays connected to its source.'],
+      ['Living', 'Status changes with the response rather than waiting for a pre-submit check.'],
+      ['Accountable', 'Owners, open questions, evidence, and approvals remain visible.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'The compliance problem',
+        title: 'A checklist built once can become wrong while the proposal changes.',
+        paragraphs: [
+          'Requirements can be scattered across instructions, scope sections, evaluation criteria, forms, exhibits, attachments, and later addenda. The response then evolves across multiple people and sections. A static spreadsheet can show what the team knew at one moment without showing what changed downstream.',
+          'A living compliance matrix keeps the requirement, source, owner, evidence, response location, status, and related change connected. The goal is to surface omissions and ambiguity early enough for the team to act.',
+        ],
+      },
+      {
+        eyebrow: 'What the matrix should show',
+        title: 'From source requirement to approved response.',
+        steps: [
+          ['01', 'Requirement', 'The instruction, criterion, form, deadline, or commitment the response must address.'],
+          ['02', 'Source', 'The RFP page, section, attachment, or addendum supporting the interpretation.'],
+          ['03', 'Owner and evidence', 'Who owns the work and which firm proof or expert input can satisfy it.'],
+          ['04', 'Response status', 'Where the requirement is addressed, what remains incomplete, and what changed.'],
+          ['05', 'Human resolution', 'Which ambiguities, exceptions, or risks require review and approval.'],
+        ],
+      },
+      {
+        eyebrow: 'Beyond compliance',
+        title: 'Use the matrix to strengthen the case to win.',
+        paragraphs: [
+          'Compliance is the floor. The same requirement map can help the team connect evaluation criteria to firm proof, identify weak evidence, coordinate missing input, and keep the response focused on what the buyer will score.',
+          'That turns the matrix from a pre-submit checklist into a response-management control surface.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'A requirement record the team can control.',
+      body: 'Each matrix row keeps the requirement, source location, owner, evidence, response status, and amendment impact connected for review.',
+      items: ['Requirement-to-source trace', 'Owner, evidence, and response status', 'Addendum impact and approved resolution'],
+      artifact: [['Requirement', 'Provide a milestone schedule'], ['Source', 'RFP §4.2 · page 18'], ['Owner · status', 'Project manager · evidence needed']],
+    },
+    checkpoint: 'People resolve ambiguous requirements, approve exceptions, validate commitments, and confirm that the final response satisfies both the submission instructions and the pursuit strategy.',
+    faqs: [
+      ['What is an RFP compliance matrix?', 'It is a structured record of solicitation requirements, evaluation criteria, forms, deadlines, owners, evidence, response locations, and completion status.'],
+      ['Can AI parse an RFP and build a compliance matrix?', 'AI can help identify and organize requirements. A dependable workflow keeps every item connected to its source and gives people a clear way to resolve ambiguity and approve exceptions.'],
+      ['How should addenda be handled?', 'New or changed requirements should remain connected to the original source, show which response work is affected, and trigger review where commitments or instructions changed.'],
+      ['Is a compliance matrix enough to create a winning response?', 'No. It prevents avoidable misses, but the team still has to connect buyer priorities to credible firm proof and develop a persuasive case to win.'],
+    ],
+    cta: ['Start with the RFP in front of you', 'Use the free RFP Grader for an initial read, or bring the document to a proposal review.', '/rfp-grader/', 'Grade an RFP'],
+    related: ['source-grounded-proposal-drafting', 'sme-coordination', 'aec-go-no-go-scoring'],
+  },
+  {
+    slug: 'sme-coordination',
+    title: 'SME Coordination for AEC Proposal Responses | Propagent',
+    navLabel: 'SME coordination',
+    eyebrow: 'Focused knowledge capture',
+    h1: 'Ask the right expert a focused question—not for another packet review.',
+    description: 'See how Propagent is designed to turn proposal gaps into focused SME questions with the relevant requirement, context, ownership, deadline, and human approval.',
+    answer: 'Propagent is built to reduce the SME bottleneck by turning missing facts or low-confidence work into a focused question for the right expert, with the relevant requirement, existing context, and deadline attached. Approved input returns to the affected response work while the proposal owner controls exceptions, positioning, and final approval.',
+    highlights: [
+      ['Focused', 'Ask for the missing fact or judgment, not a review of the entire response.'],
+      ['Context included', 'Attach the requirement, current evidence, and why the answer matters.'],
+      ['Approval visible', 'The proposal owner controls how expert input changes the response.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'The SME bottleneck',
+        title: 'Expert time is scarce. Broad requests make it scarcer.',
+        paragraphs: [
+          'Subject-matter experts are often pulled into proposals late, with a large packet and an unclear ask. They repeat facts the firm already has, search for context, or review material that does not require their judgment. Proposal managers then chase responses and manually work the answers back into multiple sections.',
+          'Propagent is designed to narrow that interaction. When the available evidence is not enough, the system turns the gap into a bounded question and supplies the context the expert needs to answer it.',
+        ],
+      },
+      {
+        eyebrow: 'The focused question',
+        title: 'Give the expert the requirement, current context, and decision.',
+        steps: [
+          ['01', 'Identify the gap', 'Show which requirement, claim, or decision lacks sufficient evidence or confidence.'],
+          ['02', 'Find the right expertise', 'Connect the question to the person or role most able to resolve it.'],
+          ['03', 'Scope the request', 'Provide the relevant context, what is already known, what is missing, and when it is needed.'],
+          ['04', 'Use the approved answer', 'Return the expert input to the affected response work with its source and approval state visible.'],
+          ['05', 'Preserve the knowledge', 'Keep the approved answer available when a future pursuit asks a related question.'],
+        ],
+      },
+      {
+        eyebrow: 'Dynamic workflow',
+        title: 'Keep the response moving without removing owner control.',
+        bullets: [
+          'Proposal owners see which questions are open and why they matter.',
+          'Experts receive focused work rather than full-packet review requests.',
+          'Approved input stays connected to the requirement and affected sections.',
+          'Changes that create new gaps return to the response plan.',
+          'Sensitive, ambiguous, and strategic work remains with people.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'A focused expert request, connected to the response.',
+      body: 'The expert sees the exact question, requirement, existing context, deadline, and affected section instead of receiving a packet and a vague request for help.',
+      items: ['Bounded question with useful context', 'Named responsibility and status', 'Approved answer connected to response work'],
+      artifact: [['Question', 'Confirm the commissioning lead and role'], ['Context', 'RFP §6.1 · team requirement'], ['Deadline · status', 'Tomorrow · expert input requested']],
+    },
+    checkpoint: 'Experts supply firm knowledge and professional judgment. Proposal owners decide how that input affects positioning and approve the response.',
+    faqs: [
+      ['How can AEC firms reduce the SME bottleneck in proposals?', 'Ask experts only for the missing fact or judgment, include the requirement and existing context, make ownership and timing clear, and connect the approved answer back to the response work.'],
+      ['What is a focused SME question?', 'It is a bounded request tied to a specific requirement, gap, claim, or decision, with enough context for the expert to respond without reviewing the entire proposal.'],
+      ['Does the system decide which expert answer is final?', 'No. Experts provide knowledge and proposal owners control positioning, exception handling, and final approval.'],
+      ['Does Propagent preserve approved SME knowledge?', 'Propagent’s operating model is designed to keep approved expert input connected to its source and useful for later pursuits within the same firm.'],
+    ],
+    cta: ['Bring the response that keeps stalling', 'See how missing knowledge becomes focused expert work without turning SMEs into proposal coordinators.', '/30min-meeting', 'Review the workflow'],
+    related: ['aec-operational-memory', 'source-grounded-proposal-drafting', 'rfp-compliance-matrix'],
+  },
+  {
+    slug: 'source-grounded-proposal-drafting',
+    title: 'Source-Grounded Proposal Drafting for AEC | Propagent',
+    navLabel: 'Source-grounded drafting',
+    eyebrow: 'Evidence before prose',
+    h1: 'Draft from what the buyer asks and what the firm can prove.',
+    description: 'Learn how Propagent connects proposal content to RFP requirements, firm-approved evidence, open questions, related sections, human review, and final approval.',
+    answer: 'Source-grounded proposal drafting begins with what the RFP asks and what the firm can substantiate. Propagent connects claims to firm-approved evidence, flags unsupported statements and open questions, keeps related sections aligned as edits occur, and carries content toward the firm’s voice and the buyer’s priorities. Reviewers see the sources and approve the final work.',
+    highlights: [
+      ['Requirement-led', 'Start with the buyer’s question and evaluation criteria.'],
+      ['Evidence visible', 'Keep claims connected to approved firm sources.'],
+      ['Carried through review', 'Treat the first draft as a checkpoint, not the finish line.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'Why grounding matters',
+        title: 'Fluent language is not the same as a defensible proposal claim.',
+        paragraphs: [
+          'Proposal content has to be specific to the buyer and credible for the firm. Generic language can sound polished while relying on stale boilerplate, weak proof, or claims that contradict another section of the response.',
+          'Source-grounded drafting keeps the requirement, the firm’s approved evidence, the developing content, and the reviewer’s decision connected. Where support is weak or missing, the system should surface the gap rather than hide it behind confident prose.',
+        ],
+      },
+      {
+        eyebrow: 'Content maturity',
+        title: 'Carry the content beyond a rough first draft.',
+        steps: [
+          ['01', 'Start with the requirement', 'Use the buyer’s request, evaluation criteria, and submission context as the frame.'],
+          ['02', 'Connect approved proof', 'Bring forward relevant projects, people, facts, credentials, and prior approved material.'],
+          ['03', 'Expose the gaps', 'Flag unsupported statements, stale information, contradictions, and questions that need expert judgment.'],
+          ['04', 'Mature the response', 'Improve buyer alignment, firm voice, clarity, consistency, and related-section coherence.'],
+          ['05', 'Review and approve', 'Show sources and open decisions so a person can resolve and approve the final work.'],
+        ],
+      },
+      {
+        eyebrow: 'Visible trust',
+        title: 'Reviewers should be able to inspect the basis of the response.',
+        bullets: [
+          'Show which requirement the content addresses.',
+          'Keep supporting evidence and its origin available to reviewers.',
+          'Mark missing or contested support as an open question.',
+          'Recheck related sections when approved content changes.',
+          'Leave strategic, commercial, legal, and final decisions with people.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'The source trail stays with the content.',
+      body: 'Reviewers can inspect the requirement, supporting evidence, open questions, related-section checks, revisions, and approval state behind substantive response claims.',
+      items: ['Requirement and source visible', 'Unsupported claims and open questions surfaced', 'Revision and human approval trace'],
+      artifact: [['Response claim', 'The proposed team has delivered occupied renovations'], ['Support', 'Approved project record · page 3'], ['Review', 'Evidence present · owner approval open']],
+    },
+    checkpoint: 'Reviewers validate the evidence, resolve ambiguity, make positioning and commercial decisions, and approve the final response.',
+    faqs: [
+      ['What is source-grounded proposal drafting?', 'It is a drafting process that connects response content to the RFP requirement and firm-approved evidence, makes gaps visible, and preserves human review and approval.'],
+      ['Does source-grounded mean every sentence needs a footnote?', 'No. It means substantive firm claims and response decisions have a defensible basis reviewers can inspect when trust matters.'],
+      ['What happens when the firm does not have enough evidence?', 'The gap should be surfaced as a missing source, open question, or positioning decision rather than covered with generic language.'],
+      ['Does Propagent submit proposals without human approval?', 'No. People remain responsible for strategy, sensitive decisions, review, and final approval.'],
+    ],
+    cta: ['See what your current response can prove', 'Grade an RFP or draft response, then see how requirements, evidence, gaps, and review connect.', '/rfp-grader/', 'Use the free RFP Grader'],
+    related: ['rfp-compliance-matrix', 'aec-operational-memory', 'sme-coordination'],
+  },
+  {
+    slug: 'security',
+    title: 'AEC Proposal Software Security & Procurement Guide | Propagent',
+    navLabel: 'Security guide',
+    eyebrow: 'Security and procurement guide',
+    h1: 'How to evaluate security for AEC proposal software.',
+    description: 'A practical guide for evaluating data handling, access, retention, deletion, subprocessors, deployment, and procurement readiness in AEC proposal and response-management software.',
+    answer: 'AEC proposal software can handle confidential client, project, staff, pricing, and pursuit data. A serious security review should establish where that data goes, who can access it, which services participate, how long information is retained, and how export and deletion work. Propagent uses that buyer standard for security and procurement conversations while keeping sensitive implementation detail in controlled diligence.',
+    highlights: [
+      ['Data flow', 'Understand the path from intake through processing, review, storage, export, and deletion.'],
+      ['Access and accountability', 'Know which people and services can act on customer data.'],
+      ['Procurement clarity', 'Ask for current, specific answers instead of generic security language.'],
+    ],
+    sections: [
+      {
+        eyebrow: 'Buyer standard',
+        title: 'Security claims should answer concrete procurement questions.',
+        paragraphs: [
+          'Proposal data can include client information, staffing, project experience, pricing, contract terms, partner details, and material that affects active pursuits. Buyers need more than a general statement that a product takes security seriously.',
+          'A useful trust center explains the customer-visible data flow, identity and access model, storage and retention posture, subprocessors, export and deletion process, incident contact, and available procurement documents in plain language.',
+        ],
+      },
+      {
+        eyebrow: 'What buyers should be able to review',
+        title: 'The record a serious vendor should maintain.',
+        cards: [
+          ['Data handling', 'What enters the system, why it is processed, where it is stored, how long it remains, and how deletion works.'],
+          ['Access and services', 'How access is controlled, which service providers participate, and which customer responsibilities remain.'],
+          ['Procurement materials', 'Privacy terms, contractual documents, security overview, support path, and a named contact for follow-up.'],
+        ],
+      },
+      {
+        eyebrow: 'Responsible disclosure',
+        title: 'Be transparent without publishing a roadmap for attackers.',
+        paragraphs: [
+          'Public trust content should be specific enough for a buyer to understand the controls and data lifecycle. Detailed infrastructure topology, secrets, detection rules, internal threat models, customer-specific configurations, and sensitive testing material belong in controlled diligence when appropriate.',
+          'In a Propagent review, current controls are distinguished from planned work, and exact legal, certification, retention, and contractual answers are handled as procurement facts rather than marketing slogans.',
+        ],
+      },
+    ],
+    proof: {
+      title: 'Concrete answers for a serious security review.',
+      body: 'A strong review organizes the current data flow, access, encryption, retention, deletion, service-provider, incident, and procurement answers with a named owner for follow-up.',
+      items: ['Plain-language data lifecycle', 'Current service-provider and retention answers', 'Clear security and procurement contact'],
+      artifact: [['Review item', 'Upload and report data flow'], ['Evidence requested', 'Current processing and storage record'], ['Owner', 'Propagent security contact']],
+    },
+    checkpoint: 'Customer administrators control what firm data enters the system and who is authorized to use it. People remain responsible for reviewing sensitive outputs and approving external submissions.',
+    faqs: [
+      ['What security information should an AEC proposal-software vendor provide?', 'Buyers should be able to review data flow, hosting, access controls, encryption posture, retention, deletion, backups, subprocessors, incident contact, contractual documents, and current certification status where applicable.'],
+      ['Why does proposal data require special care?', 'It can contain confidential client, employee, project, pricing, contract, partner, and active-pursuit information that affects both commercial and professional obligations.'],
+      ['Should every security implementation detail be public?', 'No. Buyers need clear control and data-lifecycle facts. Sensitive topology, detection methods, testing artifacts, and customer-specific details can be shared through controlled diligence when appropriate.'],
+      ['How can I complete a Propagent security review?', 'Send Propagent your firm-specific questionnaire, diligence priorities, and contractual requirements so the current answers and any controlled materials can be assembled for review.'],
+    ],
+    cta: ['Start the security review', 'Tell us what your firm’s procurement process requires. We will assemble the current answers and address open questions directly.', 'mailto:daniel@propagent.ai?subject=Propagent%20security%20and%20procurement%20review', 'Start the security review'],
+    related: ['about', 'ai-proposal-management-aec', 'resources'],
+  },
+];
+
+export const pageSlugs = Object.freeze(pages.map((page) => `/${page.slug}/`));
+
+export const llmsResourceLinks = [
+  '## Propagent resources',
+  '',
+  ...pages.map((page) => `- [${page.navLabel}](${SITE}/${page.slug}/): ${page.description}`),
+].join('\n');
+
+const escapeHtml = (value = '') => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#039;');
+
+const renderHighlights = (items = []) => items.length ? `
+  <div class="content-highlights" aria-label="Key points">
+    ${items.map(([title, body]) => `<article class="content-highlight"><span class="mono-label">${escapeHtml(title)}</span><p>${escapeHtml(body)}</p></article>`).join('\n')}
+  </div>` : '';
+
+const renderCards = (items = []) => items.length ? `
+  <div class="content-card-grid">
+    ${items.map(([title, body, href, label]) => href
+      ? `<a class="content-card" href="${escapeHtml(href)}"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><span>${escapeHtml(label || 'Read the guide')} <span aria-hidden="true">→</span></span></a>`
+      : `<article class="content-card content-card--static"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join('\n')}
+  </div>` : '';
+
+const renderSteps = (items = []) => items.length ? `
+  <ol class="content-steps">
+    ${items.map(([number, title, body]) => `<li><span class="content-step-number">${escapeHtml(number)}</span><div><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div></li>`).join('\n')}
+  </ol>` : '';
+
+const renderBullets = (items = []) => items.length ? `
+  <ul class="content-list">
+    ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join('\n')}
+  </ul>` : '';
+
+const renderSections = (sections = []) => sections.map((section, index) => `
+  <section class="content-section${index % 2 ? ' content-section--raised' : ''}">
+    <div class="container content-section-inner">
+      <div class="content-section-heading">
+        <span class="mono-label">${escapeHtml(section.eyebrow)}</span>
+        <h2>${escapeHtml(section.title)}</h2>
+      </div>
+      <div class="content-section-body">
+        ${(section.paragraphs || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('\n')}
+        ${renderBullets(section.bullets)}
+        ${renderSteps(section.steps)}
+        ${renderCards(section.cards)}
+      </div>
+    </div>
+  </section>`).join('\n');
+
+const renderFaqs = (faqs = []) => faqs.map(([question, answer], index) => `
+  <details class="content-faq"${index === 0 ? ' open' : ''}>
+    <summary>${escapeHtml(question)}</summary>
+    <p>${escapeHtml(answer)}</p>
+  </details>`).join('\n');
+
+const relatedPage = (slug) => pages.find((page) => page.slug === slug);
+
+const organizationSchema = {
+  '@type': 'Organization',
+  '@id': `${SITE}/#org`,
+  name: 'Propagent',
+  url: `${SITE}/`,
+  logo: `${SITE}/logo.svg`,
+  description: 'The proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms.',
+  foundingDate: '2024',
+  founder: [
+    { '@type': 'Person', '@id': `${SITE}/about/#daniel-beecham`, name: 'Daniel Beecham' },
+    { '@type': 'Person', '@id': `${SITE}/about/#steve-ernst`, name: 'Steve Ernst' },
+  ],
+  sameAs: ['https://www.linkedin.com/company/propagent'],
+  subjectOf: [
+    { '@type': 'NewsArticle', name: 'Propagent Wants to End the RFP Scramble', url: 'https://www.techsquareatl.com/tech-square-news/2026/7/7/propagent-wants-to-end-the-rfp-scramble' },
+    { '@type': 'NewsArticle', name: 'Atlanta Startup Propagent Takes on RFPs', url: 'https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/' },
+    { '@type': 'Article', name: 'Construction Companies Can’t Chase Every Proposal With a Weak RFP Approval Process', url: 'https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/' },
+  ],
+};
+
+function schemaFor(page) {
+  const canonical = `${SITE}/${page.slug}/`;
+  const graph = [
+    organizationSchema,
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: 'Propagent',
+      publisher: { '@id': `${SITE}/#org` },
+    },
+    {
+      '@type': page.slug === 'about' ? 'AboutPage' : 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: page.title,
+      description: page.description,
+      datePublished: CONTENT_DATE,
+      dateModified: CONTENT_DATE,
+      isPartOf: { '@id': `${SITE}/#website` },
+      about: { '@id': `${SITE}/#org` },
+      breadcrumb: { '@id': `${canonical}#breadcrumb` },
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.content-answer', '.content-faq'] },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonical}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Propagent', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: page.navLabel, item: canonical },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: page.faqs.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    },
+  ];
+
+  if (page.slug === 'ai-proposal-management-aec') {
+    graph.push({
+      '@type': 'SoftwareApplication',
+      '@id': `${SITE}/#software`,
+      name: 'Propagent',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      description: page.description,
+      provider: { '@id': `${SITE}/#org` },
+      url: canonical,
+    });
+  }
+
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c');
+}
+
+function renderNav() {
+  return `
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/" aria-label="Propagent home">
+        <span class="brand-mark"><img src="/logo.svg" alt="" width="26" height="26"></span>
+        <span class="brand-name">Propagent</span>
+      </a>
+      <nav class="topbar-nav content-nav" aria-label="Primary navigation">
+        <a href="/ai-proposal-management-aec/">How it works</a>
+        <a href="/resources/">Resources</a>
+        <a href="/security/">Security</a>
+        <a href="/about/">About</a>
+        <a href="/rfp-grader/">RFP Grader</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary aria-label="Open navigation">Menu</summary>
+        <nav class="mobile-nav-panel" aria-label="Mobile navigation">
+          <a href="/ai-proposal-management-aec/">How it works</a>
+          <a href="/resources/">Resources</a>
+          <a href="/security/">Security guide</a>
+          <a href="/about/">About</a>
+          <a href="/rfp-grader/">RFP Grader</a>
+          <a href="/30min-meeting">Book a proposal review</a>
+        </nav>
+      </details>
+      <a href="/30min-meeting" class="btn btn-primary btn-sm content-nav-cta">Book a proposal review</a>
+    </div>
+  </header>`;
+}
+
+function renderFooter() {
+  return `
+  <footer class="content-footer">
+    <div class="container content-footer-grid">
+      <div>
+        <a class="brand" href="/" aria-label="Propagent home">
+          <span class="brand-mark"><img src="/logo.svg" alt="" width="26" height="26"></span>
+          <span class="brand-name">Propagent</span>
+        </a>
+        <p>The proposal pursuit system for the built world.</p>
+      </div>
+      <div><span class="mono-label">Explore</span><a href="/resources/">Resources</a><a href="/ai-proposal-management-aec/">AI proposal management</a><a href="/rfp-grader/">RFP Grader</a></div>
+      <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/security/">Security</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
+      <div><span class="mono-label">Evaluate</span><a href="/30min-meeting">Book a proposal review</a><a href="/rfp-grader/">Grade an RFP</a></div>
+    </div>
+    <div class="container content-footer-bottom"><span>© ${new Date().getUTCFullYear()} Propagent</span><span>The system carries the process. People apply judgment and approve the response.</span></div>
+  </footer>`;
+}
+
+function renderPage(page) {
+  const canonical = `${SITE}/${page.slug}/`;
+  const [ctaTitle, ctaBody, ctaHref, ctaLabel] = page.cta;
+  const related = page.related.map(relatedPage).filter(Boolean);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <link rel="canonical" href="${canonical}">
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Propagent">
+  <meta property="og:title" content="${escapeHtml(page.title)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${SITE}/og-image-geo-20260814.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(page.title)}">
+  <meta name="twitter:description" content="${escapeHtml(page.description)}">
+  <meta name="twitter:image" content="${SITE}/og-image-geo-20260814.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css?v=20260814-geo">
+  <link rel="stylesheet" href="/content-pages.css?v=20260814-geo">
+  <script type="application/ld+json">${schemaFor(page)}</script>
+</head>
+<body class="content-page">
+  <a class="content-skip" href="#main">Skip to content</a>
+  ${renderNav()}
+  <main id="main">
+    <header class="content-hero">
+      <div class="container">
+        <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
+        <div class="content-hero-grid">
+          <div>
+            <span class="mono-label">${escapeHtml(page.eyebrow)}</span>
+            <h1>${escapeHtml(page.h1)}</h1>
+          </div>
+          <div class="content-answer-wrap" data-direct-answer>
+            <span class="mono-label">Direct answer</span>
+            <p class="content-answer">${escapeHtml(page.answer)}</p>
+            <div class="content-answer-actions"><a class="btn btn-primary" href="${escapeHtml(ctaHref)}">${escapeHtml(ctaLabel)}</a><a class="btn" href="/resources/">Explore the resource library</a></div>
+          </div>
+        </div>
+        ${renderHighlights(page.highlights)}
+      </div>
+    </header>
+    ${renderSections(page.sections)}
+    <section class="content-proof">
+      <div class="container content-proof-grid">
+        <div><span class="mono-label">What your team can inspect</span><h2>${escapeHtml(page.proof.title)}</h2><p>${escapeHtml(page.proof.body)}</p></div>
+        <div>
+          <dl class="content-artifact" aria-label="Representative inspection view">${page.proof.artifact.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('\n')}</dl>
+          <ul>${page.proof.items.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item)}</li>`).join('\n')}</ul>
+        </div>
+      </div>
+    </section>
+    <section class="content-checkpoint">
+      <div class="container"><span class="mono-label">Human checkpoint</span><p>${escapeHtml(page.checkpoint)}</p></div>
+    </section>
+    <section class="content-section content-section--raised" id="faq">
+      <div class="container content-section-inner">
+        <div class="content-section-heading"><span class="mono-label">Frequently asked questions</span><h2>Straight answers for buyers and their agents.</h2></div>
+        <div class="content-section-body">${renderFaqs(page.faqs)}</div>
+      </div>
+    </section>
+    <section class="content-related">
+      <div class="container"><span class="mono-label">Continue exploring</span><div class="content-related-links">${related.map((item) => `<a href="/${item.slug}/"><strong>${escapeHtml(item.navLabel)}</strong><span>${escapeHtml(item.description)}</span></a>`).join('\n')}</div></div>
+    </section>
+    <section class="content-cta">
+      <div class="container content-cta-inner"><div><span class="mono-label">See it on real work</span><h2>${escapeHtml(ctaTitle)}</h2><p>${escapeHtml(ctaBody)}</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(ctaHref)}">${escapeHtml(ctaLabel)} <span aria-hidden="true">→</span></a></div>
+    </section>
+  </main>
+  ${renderFooter()}
+</body>
+</html>`;
+}
+
+export function renderContentPages(dist) {
+  mkdirSync(dist, { recursive: true });
+  for (const page of pages) {
+    const target = join(dist, page.slug);
+    mkdirSync(target, { recursive: true });
+    writeFileSync(join(target, 'index.html'), renderPage(page), 'utf8');
+  }
+  return pageSlugs;
+}
+
+export function renderSitemap(dist) {
+  mkdirSync(dist, { recursive: true });
+  const urls = [
+    ['/', '1.0'],
+    ['/rfp-grader/', '0.9'],
+    ...pageSlugs.map((slug) => [slug, slug === '/resources/' ? '0.9' : '0.8']),
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(([path, priority]) => `  <url>\n    <loc>${SITE}${path}</loc>\n    <lastmod>${CONTENT_DATE}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join('\n')}
+</urlset>\n`;
+  writeFileSync(join(dist, 'sitemap.xml'), xml, 'utf8');
+  return urls.map(([path]) => path);
+}
