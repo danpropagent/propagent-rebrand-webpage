@@ -155,9 +155,9 @@
     }).then(function (res) {
       if (res.status === 429 || res.status === 503) {
         var capacity = "We're at capacity right now — email " +
-          "daniel@propagent.ai or book a proposal review below.";
+          "daniel@propagent.ai or book a Propagent demo below.";
         addMsg("assistant", capacity);
-        addCta({type: "demo", label: "Book a 30-min proposal review", url: "/#contact"});
+        addCta({type: "demo", label: "Book a Propagent demo", url: "/60min-meeting"});
         return null;
       }
       if (!res.ok) throw new Error("HTTP " + res.status);

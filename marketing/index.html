@@ -26,10 +26,7 @@
        logic (AI-channel detection, conversion events) lives in analytics.js. -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="fecadfe5-44c1-40f1-8838-bdd673a0c265"></script>
 
-  <!-- Structured data for AI answer engines and page understanding (Google
-       dropped FAQ/SoftwareApplication rich results — the audience here is
-       agents). Wording is canonical in functions/content/site-facts.md:
-       edit there first, then mirror here and in the visible FAQ. -->
+  <!-- Structured product, company, and FAQ data. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -93,26 +90,26 @@
             "name": "Small",
             "price": "1000",
             "priceCurrency": "USD",
-            "description": "US$1,000 per month. For firms with up to 25 annual responses. Full workflow, source grounding and claim verification, contradiction and gap detection, review visibility."
+            "description": "US$1,000 per month. For firms with up to 25 annual responses. Full workflow, evidence linked to every claim, contradiction and gap detection, and clear reviewer checkpoints."
           },
           {
             "@type": "Offer",
             "name": "Medium",
             "price": "2000",
             "priceCurrency": "USD",
-            "description": "US$2,000 per month. For firms with up to 50 annual responses. Everything in Small plus cross-proposal learning, expert routing across teams, and compounding edge build-up."
+            "description": "US$2,000 per month. For firms with up to 50 annual responses. Everything in Small plus cross-proposal learning, expert routing across teams, and reusable knowledge from every proposal."
           },
           {
             "@type": "Offer",
             "name": "Large",
             "price": "5000",
             "priceCurrency": "USD",
-            "description": "US$5,000 per month. For firms with up to 200 annual responses. Everything in Medium plus multi-office coordination, outcome learning at portfolio scale, and priority response support."
+            "description": "US$5,000 per month. For firms with up to 200 annual responses. Everything in Medium plus multi-office coordination, proposal performance insights across offices, and priority response support."
           },
           {
             "@type": "Offer",
             "name": "Enterprise",
-            "description": "Custom pricing for firms with portfolio-wide response operations: custom response volume, custom integrations, dedicated success engineering, and procurement, security and compliance review."
+            "description": "Custom pricing for firms with portfolio-wide response operations: custom response volume, custom integrations, dedicated implementation and support, and procurement, security and compliance review."
           }
         ]
       },
@@ -157,7 +154,7 @@
           {
             "@type": "Question",
             "name": "Can I try Propagent without a call?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload an RFP or a past response at the free RFP Grader for a graded report by email. Or book a 30-minute proposal review and leave with the artifact." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Upload an RFP or a past response at the free RFP Grader for a graded report by email. Or book a 60-minute Propagent demo and bring a live opportunity for a pursuit-specific walkthrough." }
           }
         ]
       }
@@ -199,7 +196,7 @@
         </nav>
       </details>
       <div class="topbar-status">
-        <a href="/30min-meeting" class="btn btn-primary btn-sm">Book a proposal review</a>
+        <a href="/60min-meeting" class="btn btn-primary btn-sm">Book a Propagent demo</a>
       </div>
     </div>
   </header>
@@ -217,12 +214,12 @@
               <span class="text-agent-gradient">proposal and response management.</span>
             </h1>
             <div class="hero-cta-row">
-              <a href="/30min-meeting" class="btn btn-primary btn-lg">Book a proposal review →</a>
+              <a href="/60min-meeting" class="btn btn-primary btn-lg">Book a Propagent demo →</a>
               <a href="/resources/" class="btn btn-lg">Explore the system</a>
             </div>
           </div>
 
-          <aside class="hero-right" aria-label="What Propagent is, in long form" data-direct-answer>
+          <aside class="hero-right" aria-label="How Propagent manages the proposal process" data-direct-answer>
             <p class="hero-essay">
               Most proposal software gives the team more tools and leaves the team to run the process. Propagent carries it — <em>analyzing requirements, matching capabilities, exposing gaps, coordinating expertise, maturing content, and checking quality</em> — while people apply judgment and approve the response.
             </p>
@@ -253,7 +250,7 @@
               <div class="bp-attr">
                 <div class="bp-attr-avatar">1</div>
                 <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · SME bandwidth caps the work</span>
+                  <span class="bp-attr-name">Expert bandwidth limits proposal quality</span>
                 </div>
               </div>
               <div class="bp-counter">
@@ -270,7 +267,7 @@
               <div class="bp-attr">
                 <div class="bp-attr-avatar">2</div>
                 <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · institutional knowledge locked in heads</span>
+                  <span class="bp-attr-name">Institutional knowledge is hard to find</span>
                 </div>
               </div>
               <div class="bp-counter">
@@ -287,7 +284,7 @@
               <div class="bp-attr">
                 <div class="bp-attr-avatar">3</div>
                 <div class="bp-attr-meta">
-                  <span class="bp-attr-name">Pain · 40+ hours on bad-fit bids</span>
+                  <span class="bp-attr-name">Bad-fit pursuits consume 40+ hours</span>
                 </div>
               </div>
               <div class="bp-counter">
@@ -353,7 +350,7 @@
                 </ul>
                 <div class="mv-chips">
                   <span class="mv-chip">extracted · §3.4 continuous ops</span>
-                  <span class="mv-chip">extracted · §5.1 risk posture</span>
+                  <span class="mv-chip">extracted · §5.1 review focus</span>
                 </div>
               </div>
             </div>
@@ -409,8 +406,8 @@
           <li class="moment-row reverse">
             <div class="moment-copy">
               <div class="moment-step"><span class="moment-name">Answer Coordination</span></div>
-              <h3>Route via <span class="text-agent-gradient">Confidence Routing.</span></h3>
-              <p>Human expertise enters where confidence drops — not before, not after. Low-confidence sections go to the right person with a scoped question, not a packet review at midnight.</p>
+              <h3>Bring in the right expert with <span class="text-agent-gradient">Confidence Routing.</span></h3>
+              <p>Confidence Routing flags sections that lack enough support and sends each one to the right person as a scoped question — not a full packet for midnight review.</p>
             </div>
             <div class="moment-visual" aria-hidden="true">
               <div class="mv-card">
@@ -447,11 +444,11 @@
 
         </ol>
 
-        <div class="workflow-deepdive" aria-label="Deep dive on Answer Coordination">
-          <div class="section-eyebrow">Confidence Routing, up close</div>
-          <h3>Where Answer Coordination <span class="text-agent-gradient">actually happens.</span></h3>
+        <div class="workflow-deepdive" aria-label="How Confidence Routing works">
+          <div class="section-eyebrow">Confidence Routing in practice</div>
+          <h3>Get expert input <span class="text-agent-gradient">only where it matters.</span></h3>
           <p class="lede">
-            The bottleneck isn't knowing who can answer. It's getting them a scoped question at the right time. Propagent routes the low-confidence sections (not the whole packet) to the right person.
+            Propagent shows which sections are already supported and which still need judgment. Confidence Routing sends only the unanswered issue, with its context and deadline, to the right person.
           </p>
 
         <div class="routing-board" aria-label="Confidence routing for an illustrative proposal">
@@ -646,7 +643,7 @@
               <span class="ps-col-sub">Speak in your voice.</span>
               <div class="ps-act">
                 <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them partial"></span></div>
-                <span class="ps-act-text">Drafts in firm voice with provenance on every claim</span>
+                <span class="ps-act-text">Drafts in your firm's voice with evidence attached to every claim</span>
               </div>
               <div class="ps-act">
                 <div class="ps-act-marks"><span class="ps-mark us"></span><span class="ps-mark them full"></span></div>
@@ -669,7 +666,7 @@
             <div class="ps-memory-grid">
               <div class="ps-memory-chip">
                 <span class="ps-memory-chip-from">From Bid Intake</span>
-                <span class="ps-memory-chip-val">Fit signals</span>
+                <span class="ps-memory-chip-val">Opportunity fit evidence</span>
               </div>
               <div class="ps-memory-chip">
                 <span class="ps-memory-chip-from">From Gap Analysis</span>
@@ -677,29 +674,27 @@
               </div>
               <div class="ps-memory-chip">
                 <span class="ps-memory-chip-from">From Go / No-Go</span>
-                <span class="ps-memory-chip-val">Win-probability data</span>
+                <span class="ps-memory-chip-val">Go / No-Go decisions and outcomes</span>
               </div>
               <div class="ps-memory-chip">
                 <span class="ps-memory-chip-from">From Answer Coord.</span>
-                <span class="ps-memory-chip-val">SME knowledge index</span>
+                <span class="ps-memory-chip-val">Approved SME answers</span>
               </div>
               <div class="ps-memory-chip">
                 <span class="ps-memory-chip-from">From Response Mat.</span>
-                <span class="ps-memory-chip-val">Voice + win themes</span>
+                <span class="ps-memory-chip-val">Approved firm voice + win themes</span>
               </div>
             </div>
 
             <div class="ps-memory-foot">
-              <b>How it compounds</b>
+              <b>What the next proposal gains</b>
               By proposal 50, every prior proposal is helping with the current one — sharper qualification, better drafts from day one, fewer compliance surprises.
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- ============================================================
-         TRUST LAYER — five capabilities
-         ============================================================ -->
+    <!-- Evidence and review controls -->
     <section class="section section-divider section--glow-bl" id="trust">
       <div class="container">
         <div class="section-eyebrow">Sources behind every claim</div>
@@ -729,7 +724,7 @@
           </article>
           <article class="trust-card">
             <h3>Contradictions caught before submit</h3>
-            <p>When two parts of the response disagree (staffing, schedule, fee posture), the contradiction is surfaced before the submission leaves the firm.</p>
+            <p>When two parts of the response disagree on staffing, schedule, or fee assumptions, the contradiction is surfaced before the submission leaves the firm.</p>
           </article>
           <article class="trust-card">
             <h3>Gaps surfaced, not papered over</h3>
@@ -744,51 +739,51 @@
     </section>
 
     <!-- ============================================================
-         OPERATIONAL MEMORY — cross-response compounding (distinct from
-         the in-response memory layer shown in the lifecycle diagram).
+         OPERATIONAL MEMORY — approved knowledge carried from one
+         response to the next.
          ============================================================ -->
     <section class="section section-divider section--glow-tr" id="memory">
       <div class="container">
-        <div class="section-eyebrow">It compounds</div>
+        <div class="section-eyebrow">Knowledge that carries forward</div>
         <h2>Every response makes <span class="text-agent-gradient">the next one sharper.</span></h2>
         <p class="lede">
-          Inside any one response, every step feeds the memory layer. Across responses, that memory makes the firm sharper. Response 50 is sharper than Response 1.
+          Propagent preserves the source-backed content, expert input, edits, and decisions your team approves. Each pursuit starts with more of your firm's best work already available.
         </p>
 
         <div class="memory-tape">
           <article class="memory-card">
             <span class="memory-pill">Response 1</span>
-            <strong>Live workflow</strong>
-            <p>Propagent learns from drafts, edits, source documents, prior work, and team decisions as the work happens.</p>
-            <span class="provenance-chip"><span class="src">posture:</span> usable on day one</span>
+            <strong>Useful from the first pursuit</strong>
+            <p>Propagent starts with your source documents, prior work, approved content, and team decisions.</p>
+            <span class="provenance-chip">Ready for your first response</span>
           </article>
           <span class="memory-arrow" aria-hidden="true">→</span>
           <article class="memory-card">
             <span class="memory-pill">Response 10</span>
-            <strong>Visible patterns</strong>
-            <p>The firm sees what it consistently wins, where it consistently leaks deals, and how its voice actually lands.</p>
-            <span class="provenance-chip"><span class="src">signal:</span> first portfolio read</span>
+            <strong>Patterns your team can use</strong>
+            <p>Your team sees which experience consistently wins, where responses fall short, and how approved firm language performs.</p>
+            <span class="provenance-chip">Prior proposal patterns become visible</span>
           </article>
           <span class="memory-arrow" aria-hidden="true">→</span>
           <article class="memory-card now">
             <span class="memory-pill">Response 100+</span>
-            <strong>Compounding edge</strong>
-            <p>How the firm qualifies, proves, routes, and reviews, getting sharper with every response at portfolio scale.</p>
-            <span class="provenance-chip"><span class="src">asset:</span> compounds, not depreciates</span>
+            <strong>Your firm's knowledge, ready to reuse</strong>
+            <p>Qualification, evidence, expert routing, and review begin with the firm's accumulated, approved experience.</p>
+            <span class="provenance-chip">Each approved response strengthens the next</span>
           </article>
         </div>
       </div>
     </section>
     <!-- ============================================================
-         BRIEFING — full-viewport animated overview (1440x900 deck
+         PRODUCT OVERVIEW — full-viewport animated walkthrough (1440x900
          that auto-fits to the iframe size). Self-contained page at
          marketing/briefing.html, embedded via iframe so its fixed
          positioning + keyboard shortcuts stay scoped.
          ============================================================ -->
-    <section class="briefing-section" aria-label="The Briefing — animated overview">
+    <section class="briefing-section" aria-label="See the Propagent proposal workflow">
       <iframe
         src="briefing.html"
-        title="The Briefing"
+        title="Propagent proposal workflow overview"
         loading="lazy"
         referrerpolicy="no-referrer"
       ></iframe>
@@ -833,11 +828,11 @@
             <div class="ps-visual">
               <span class="ps-side-tag accent">With Propagent</span>
               <div class="mv-card">
-                <span class="mv-tag">Response posture · this week</span>
+                <span class="mv-tag">Active pursuits · this week</span>
                 <ul class="mv-list">
                   <li><span class="mv-k">In flight</span><span class="mv-v">7 responses · est. value $42M</span></li>
                   <li><span class="mv-k">Avg fit score</span><span class="mv-v">0.71 (range 0.38–0.92)</span></li>
-                  <li><span class="mv-k">Recommend kill</span><span class="mv-v">2 (low fit, high effort)</span></li>
+                  <li><span class="mv-k">Recommend no-bid</span><span class="mv-v">2 (low fit, high effort)</span></li>
                   <li><span class="mv-k">SME hours used</span><span class="mv-v">82 of 200 budget</span></li>
                 </ul>
               </div>
@@ -898,15 +893,15 @@
                 <span class="mv-tag">Response coordination · today</span>
                 <ul class="mv-list">
                   <li><span class="mv-k">In flight</span><span class="mv-v">3 responses · Tacoma, Olympia, FMD-119</span></li>
-                  <li><span class="mv-k">Sections drafted</span><span class="mv-v">19 of 22 in Voice of the Org</span></li>
+                  <li><span class="mv-k">Sections drafted</span><span class="mv-v">19 of 22 in the firm's approved voice</span></li>
                   <li><span class="mv-k">SMEs queried</span><span class="mv-v">5 scoped Qs · avg 6-min reply</span></li>
                   <li><span class="mv-k">Status answer time</span><span class="mv-v">60 seconds, not 60 minutes</span></li>
                 </ul>
               </div>
               <ul class="ps-gain">
                 <li>Route only the SMEs whose expertise is genuinely missing</li>
-                <li>Knowledge graph surfaces accepted past content per claim</li>
-                <li>Status is queryable. Answer in 60 seconds, not 60 minutes.</li>
+                <li>Approved past content is surfaced for each claim</li>
+                <li>See response status in 60 seconds, not 60 minutes</li>
               </ul>
             </div>
           </div>
@@ -953,7 +948,7 @@
         <div class="section-eyebrow">Pricing</div>
         <h2>One price. One system. <span class="text-agent-gradient">Annual response volume, not seat counts.</span></h2>
         <p class="lede">
-          Each tier covers the full proposal workflow plus the trust layer. Tiers differ by annual proposal volume, not seat counts.
+          Each tier covers the full proposal workflow, evidence-backed drafting, and clear reviewer controls. Tiers differ by annual proposal volume, not seat counts.
         </p>
 
         <div class="pricing pricing-4">
@@ -963,9 +958,9 @@
             <div class="desc">For firms with up to 25 annual responses.</div>
             <ul>
               <li>✓ Full workflow included</li>
-              <li>✓ Source grounding &amp; claim verification</li>
+              <li>✓ Evidence linked to every claim</li>
               <li>✓ Contradiction &amp; gap detection</li>
-              <li>✓ Review visibility</li>
+              <li>✓ Clear reviewer checkpoints</li>
             </ul>
             <a href="#contact" class="btn">Start with Small →</a>
           </div>
@@ -979,7 +974,7 @@
               <li>✓ Everything in Small</li>
               <li>✓ Cross-proposal learning</li>
               <li>✓ Expert routing across teams</li>
-              <li>✓ Compounding edge build-up</li>
+              <li>✓ Reusable knowledge from every proposal</li>
             </ul>
             <a href="#contact" class="btn btn-primary">Start with Medium →</a>
           </div>
@@ -991,7 +986,7 @@
             <ul>
               <li>✓ Everything in Medium</li>
               <li>✓ Multi-office coordination</li>
-              <li>✓ Outcome learning at portfolio scale</li>
+              <li>✓ Proposal performance insights across offices</li>
               <li>✓ Priority response support</li>
             </ul>
             <a href="#contact" class="btn">Start with Large →</a>
@@ -1004,7 +999,7 @@
             <ul>
               <li>✓ Custom response volume</li>
               <li>✓ Custom integrations</li>
-              <li>✓ Dedicated success engineering</li>
+              <li>✓ Dedicated implementation &amp; support</li>
               <li>✓ Procurement, security &amp; compliance review</li>
             </ul>
             <a href="#contact" class="btn">Talk to us →</a>
@@ -1013,19 +1008,16 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         ANSWER LIBRARY — citation-ready pages for the questions AEC
-         proposal teams and answer engines ask most often.
-         ============================================================ -->
+    <!-- Proposal-management resources -->
     <section class="section section-charcoal section-divider section--glow-tr" id="resources">
       <div class="container">
-        <div class="section-eyebrow">Propagent answer library</div>
-        <h2>Direct answers for the <span class="text-agent-gradient">next proposal decision.</span></h2>
-        <p class="lede">Explore the operating model behind system-led proposal management: what changes, what the team sees, and where people retain judgment and approval.</p>
+        <div class="section-eyebrow">Proposal management resources</div>
+        <h2>Answers for your <span class="text-agent-gradient">next proposal decision.</span></h2>
+        <p class="lede">See how Propagent handles requirements, fit, evidence, SME input, review, and approval across the full response.</p>
 
         <div class="resource-grid">
           <a class="resource-card" href="/ai-proposal-management-aec/">
-            <span class="resource-card-kicker">Category guide</span>
+            <span class="resource-card-kicker">Manage the whole response</span>
             <h3>AI proposal management for AEC</h3>
             <p>Why the next generation manages the response process instead of merely generating text.</p>
           </a>
@@ -1040,7 +1032,7 @@
             <p>Build persuasive content from approved evidence while unsupported claims and conflicts stay visible.</p>
           </a>
           <a class="resource-card" href="/aec-operational-memory/">
-            <span class="resource-card-kicker">Compound the work</span>
+            <span class="resource-card-kicker">Reuse approved knowledge</span>
             <h3>AEC operational memory</h3>
             <p>Preserve approved pursuit knowledge so the next team starts from the firm's real record.</p>
           </a>
@@ -1059,15 +1051,11 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         FAQ — visible source for the FAQPage JSON-LD in the head.
-         Native details/summary, no JS. Wording is canonical in
-         functions/content/site-facts.md — edit there first.
-         ============================================================ -->
+    <!-- Frequently asked questions -->
     <section class="section section-divider section--glow-tl" id="faq">
       <div class="container">
         <div class="section-eyebrow">FAQ</div>
-        <h2>Straight answers, <span class="text-agent-gradient">quotable by anyone's agent.</span></h2>
+        <h2>Straight answers to the questions <span class="text-agent-gradient">proposal teams ask most.</span></h2>
 
         <div class="faq-list">
           <details>
@@ -1100,7 +1088,7 @@
           </details>
           <details>
             <summary>Can I try Propagent without a call?</summary>
-            <p>Yes. Upload an RFP or a past response at <a href="/rfp-grader/">the free RFP Grader</a> for a graded report by email. Or book a 30-minute <a href="#contact">proposal review</a> and leave with the artifact.</p>
+            <p>Yes. Upload an RFP or a past response at <a href="/rfp-grader/">the free RFP Grader</a> for a graded report by email. Or book a 60-minute <a href="#contact">Propagent demo</a> and bring a live opportunity for a pursuit-specific walkthrough.</p>
           </details>
         </div>
       </div>
@@ -1114,26 +1102,25 @@
         <div class="contact-grid">
           <div class="contact-copy">
             <div class="section-eyebrow">Talk to Propagent</div>
-            <h2>Book a <span class="text-agent-gradient">proposal review.</span></h2>
+            <h2>Book a <span class="text-agent-gradient">Propagent demo.</span></h2>
             <p class="lede">
-              30 minutes. Bring a real opportunity. Leave with the artifact. We run intake, gap analysis, Go / No-Go, answer coordination, and response maturity end-to-end so you see where the response gets sharper, faster, and more specific.
+              60 minutes. Bring a real opportunity. We'll work through intake, gap analysis, Go / No-Go, answer coordination, and response maturity so you can see where the response gets sharper, faster, and more specific.
             </p>
             <ul class="contact-bullets mono-label-list">
-              <li>30 minutes, real RFP</li>
-              <li>Source grounding shown live</li>
-              <li>Confidence routing on real claims</li>
-              <li>You leave with the artifact</li>
+              <li>60 minutes, real RFP</li>
+              <li>See every claim connected to its source</li>
+              <li>See focused questions routed to the right expert with Confidence Routing</li>
+              <li>Leave with a prioritized pursuit assessment</li>
             </ul>
           </div>
           <div class="contact-schedule">
-            <!-- Google Calendar appointment schedule — same calendar as
-                 /30min-meeting (the canonical booking URL). -->
-            <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ17Ntcm0gE6uKMbImPTu2l2zdINy7NvWTo3n3Q4qzyjeawRS9-WbZGgvKqY1AyZos8LfSU5DRlS?gv=true"
-                    title="Book a 30-minute proposal review"
+            <!-- Google Calendar appointment schedule -->
+            <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0I6OhfmjXdPNT9Db952vfTpBLV3uL8VNF89MT3LPLxDEHdktc1s_TqeIKajA1JwKN5zLy16IVZ?gv=true"
+                    title="Book a Propagent demo"
                     style="border:0; width:100%; min-width:320px; height:700px;"
                     loading="lazy"></iframe>
             <p class="contact-fallback">
-              Direct link: <a href="/30min-meeting" target="_blank" rel="noopener">propagent.ai/30min-meeting</a>
+              Direct link: <a href="/60min-meeting" target="_blank" rel="noopener">propagent.ai/60min-meeting</a>
               · Prefer email? <a href="mailto:daniel@propagent.ai">daniel@propagent.ai</a>
             </p>
           </div>
@@ -1158,7 +1145,7 @@
             <ul>
               <li><a href="#what-changes">What changes</a></li>
               <li><a href="#how-it-works">How it works</a></li>
-              <li><a href="#trust">Trust layer</a></li>
+              <li><a href="#trust">Evidence &amp; review controls</a></li>
               <li><a href="#faq">FAQ</a></li>
               <li><a href="/rfp-grader/">RFP Grader</a></li>
             </ul>
@@ -1166,11 +1153,11 @@
           <div>
             <h5>Resources &amp; company</h5>
             <ul>
-              <li><a href="/resources/">Answer library</a></li>
+              <li><a href="/resources/">Proposal resources</a></li>
               <li><a href="/about/">About Propagent</a></li>
               <li><a href="/security/">Security &amp; data handling</a></li>
               <li><a href="#pricing">Pricing</a></li>
-              <li><a href="/30min-meeting">Talk to us</a></li>
+              <li><a href="/60min-meeting">Book a demo</a></li>
             </ul>
           </div>
         </div>

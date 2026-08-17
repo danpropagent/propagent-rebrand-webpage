@@ -158,27 +158,21 @@ const RFPGrader: React.FC = () => {
         body: JSON.stringify(payload),
       });
 
-      let result: any;
-      try {
-        result = await response.json();
-      } catch {
-        throw new Error(`Server error: unable to process response (status ${response.status})`);
-      }
       if (!response.ok) {
-        throw new Error(result.details || result.error || 'Submission failed');
+        throw new Error('We couldn\'t grade these files. Please try again or contact daniel@propagent.ai.');
       }
 
       setSubmitStatus({
         type: 'success',
-        message: result.message || 'Your submission is being analyzed. Results will arrive by email shortly.',
+        message: "We're grading your documents now. Your report will arrive by email shortly.",
       });
       setEmail('');
       setRfpFiles({ files: [] });
       setResponseFiles({ files: [] });
-    } catch (error) {
+    } catch {
       setSubmitStatus({
         type: 'error',
-        message: error instanceof Error ? error.message : 'Something went wrong. Please try again.',
+        message: 'We couldn\'t grade these files. Please try again or contact daniel@propagent.ai.',
       });
     } finally {
       setIsSubmitting(false);
@@ -194,7 +188,7 @@ const RFPGrader: React.FC = () => {
           <div className="section-eyebrow">Free RFP Grader</div>
           <h1>Grade an RFP, or grade a <span className="text-agent-gradient">response to one.</span></h1>
           <p className="lede">
-            Propagent's RFP Grader assesses an RFP across 12 quality dimensions or compares a draft response against its source RFP for compliance and fit. It turns the documents into a decision-ready report delivered by email for human review.
+            Propagent's RFP Grader scores an RFP across 12 quality dimensions or compares your draft response with the source RFP. You receive an emailed report showing the gaps, risks, and priority fixes.
           </p>
         </header>
 
@@ -343,7 +337,7 @@ const RFPGrader: React.FC = () => {
           </p>
 
           <div className="grader-submit-row">
-            <p className="grader-help">Submission is processed asynchronously. Expect results within a few minutes.</p>
+            <p className="grader-help">Your report usually arrives by email within a few minutes.</p>
             <button type="submit" className="btn btn-primary btn-lg" disabled={isSubmitting || !isFormValid()}>
               {isSubmitting ? 'Submitting…' : 'Submit for grading →'}
             </button>
@@ -354,7 +348,7 @@ const RFPGrader: React.FC = () => {
           <section className="grader-content-section" aria-labelledby="grader-modes-heading">
             <div className="grader-content-head">
               <div className="section-eyebrow">Two grading modes</div>
-              <h2 id="grader-modes-heading">Start with the document you need to understand.</h2>
+              <h2 id="grader-modes-heading">Choose what you want to evaluate.</h2>
             </div>
             <div className="grader-summary-grid">
               <article className="grader-summary-card">
@@ -365,7 +359,7 @@ const RFPGrader: React.FC = () => {
               <article className="grader-summary-card">
                 <span className="grader-card-kicker">Response fit</span>
                 <h3>Grade a response against the RFP</h3>
-                <p>Compare a draft response with the source solicitation to surface compliance gaps, weak coverage, clarity issues, and areas requiring human attention.</p>
+                <p>Compare a draft response with the source solicitation to surface compliance gaps, weak coverage, clarity issues, and sections that need revision or clarification.</p>
               </article>
             </div>
           </section>
@@ -373,8 +367,8 @@ const RFPGrader: React.FC = () => {
           <section className="grader-content-section" aria-labelledby="grader-report-heading">
             <div className="grader-content-head">
               <div className="section-eyebrow">Inside the report</div>
-              <h2 id="grader-report-heading">Twelve dimensions, plus the risks between them.</h2>
-              <p>The RFP-quality report evaluates the following dimensions and adds ambiguity, killer-clause, improvement-priority, and bid/no-bid context.</p>
+              <h2 id="grader-report-heading">Twelve dimensions. One clearer decision.</h2>
+              <p>The RFP-quality report scores each dimension and flags ambiguous terms, high-risk clauses, priority fixes, and bid/no-bid considerations.</p>
             </div>
             <ol className="grader-dimension-grid">
               {RFP_DIMENSIONS.map((dimension) => <li key={dimension}>{dimension}</li>)}
@@ -382,9 +376,9 @@ const RFPGrader: React.FC = () => {
           </section>
 
           <aside className="grader-human-note" aria-labelledby="human-decision-heading">
-            <span className="grader-card-kicker">Human decision</span>
-            <h2 id="human-decision-heading">A sharper read, not an automatic verdict.</h2>
-            <p>The grader organizes evidence, gaps, and pursuit risk so a proposal leader, capture team, procurement team, or executive can decide what to fix, clarify, pursue, or decline.</p>
+            <span className="grader-card-kicker">Your decision</span>
+            <h2 id="human-decision-heading">Know what to fix before you decide.</h2>
+            <p>See the evidence, gaps, and pursuit risks that matter most, then decide what to clarify, improve, pursue, or decline.</p>
           </aside>
 
           <section className="grader-content-section" aria-labelledby="grader-faq-heading">
@@ -395,7 +389,7 @@ const RFPGrader: React.FC = () => {
             <div className="grader-faq-list">
               <details>
                 <summary>What is the Propagent RFP Grader?</summary>
-                <p>It is a free tool for assessing an RFP's quality or comparing a draft response against the source RFP. It emails a structured report for human review.</p>
+                <p>It is a free tool for assessing an RFP's quality or comparing a draft response against the source RFP. It emails a structured report showing scores, gaps, risks, and priority fixes.</p>
               </details>
               <details>
                 <summary>What can I grade?</summary>
@@ -407,7 +401,7 @@ const RFPGrader: React.FC = () => {
               </details>
               <details>
                 <summary>Does it make the final bid or no-bid decision?</summary>
-                <p>No. It provides structured decision support. Your proposal, capture, procurement, or leadership team makes the final decision.</p>
+                <p>No. It highlights evidence, gaps, and risks. Your proposal, capture, procurement, or leadership team makes the final decision.</p>
               </details>
               <details>
                 <summary>Which files can I upload?</summary>

@@ -19,11 +19,11 @@ const Navbar: React.FC = () => {
             <a href="/resources/">Resources</a>
             <a href="/about/">About</a>
             <a href="/security/">Security guide</a>
-            <a href="/30min-meeting">Book a proposal review</a>
+            <a href="/60min-meeting">Book a Propagent demo</a>
           </nav>
         </details>
         <div className="topbar-status">
-          <a href="/30min-meeting" className="btn btn-primary btn-sm">Book a proposal review</a>
+          <a href="/60min-meeting" className="btn btn-primary btn-sm">Book a Propagent demo</a>
         </div>
       </div>
     </header>

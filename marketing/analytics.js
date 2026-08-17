@@ -6,7 +6,7 @@
  *
  * Known limits: AI apps often strip referrers — 35-70% of AI sessions land
  * as Direct, so "AI Visit" is a lower bound, not a total. Booking runs on a
- * Google Calendar appointment schedule (/30min-meeting), whose embed emits
+ * Google Calendar appointment schedule (/60min-meeting), whose embed emits
  * no completion event — "Booking Click" is click-level intent only; actual
  * bookings live in Google Calendar. "Ask CTA Click" (fired in ask.js) is
  * the concierge-funnel signal.
@@ -97,7 +97,7 @@
   // Calendar embed; real bookings show up in Google Calendar).
   document.addEventListener("click", function (e) {
     var a = e.target && e.target.closest &&
-      e.target.closest("a[href*='30min-meeting'], a[href$='#contact']");
+      e.target.closest("a[href*='60min-meeting'], a[href*='30min-meeting'], a[href$='#contact']");
     if (a) {
       track("Booking Click", {channel: channel()});
     }
