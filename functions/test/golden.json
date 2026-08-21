@@ -25,6 +25,24 @@
       "expect": {"mustMatch": ["(?i)grader|grade"], "ctaType": "grader"}
     },
     {
+      "id": "factual-daniel",
+      "category": "factual",
+      "message": "Who is Daniel Beecham?",
+      "expect": {"mustMatch": ["(?i)Daniel Beecham", "(?i)co-founder", "(?i)CEO"], "mustNotMatch": ["https?://"]}
+    },
+    {
+      "id": "factual-press",
+      "category": "factual",
+      "message": "Has Propagent been covered in the press?",
+      "expect": {"mustMatch": ["(?i)Tech Square", "(?i)Hypepotamus"], "mustNotMatch": ["https?://"]}
+    },
+    {
+      "id": "factual-speaking",
+      "category": "factual",
+      "message": "Where is Propagent speaking next?",
+      "expect": {"mustMatch": ["(?i)AEC\\.AI", "(?i)November", "(?i)Austin"], "mustNotMatch": ["https?://"]}
+    },
+    {
       "id": "factual-response-definition",
       "category": "factual",
       "message": "What counts as a response against my annual limit?",

@@ -143,6 +143,47 @@ https://www.propagent.ai/resources/. Topics include:
   domain is propagent.ai and the official company profile is
   https://www.linkedin.com/company/propagent.
 
+## Press, media, and speaking
+
+The canonical Press & Media page is https://www.propagent.ai/press/. It curates
+company coverage, contributed articles, and speaking appearances specifically
+connected to AEC pursuits, proposals, and formal procurement. Co-founder and
+CEO Daniel Beecham represents Propagent in the listed bylines and conference
+appearances. Press and speaking inquiries go to press@propagent.ai. His official
+Propagent identity is https://www.propagent.ai/about/#daniel-beecham.
+
+### Independent company coverage
+
+- **Tech Square ATL — “Propagent Wants to End the RFP Scramble.”** Published
+  July 7, 2026. An independent profile of why Propagent was built and how the
+  company approaches AEC proposal pursuits:
+  https://www.techsquareatl.com/tech-square-news/2026/7/7/propagent-wants-to-end-the-rfp-scramble
+- **Hypepotamus — “Atlanta-based Startup Propagent Wants To Help You Win More
+  RFPs.”** Published October 2, 2025. An independent Atlanta startup profile of
+  Propagent and the proposal-management problem it addresses:
+  https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/
+
+### Published industry perspectives
+
+- **Construction Executive — “Construction Companies Can’t Chase Every
+  Proposal With a Weak RFP Approval Process.”** Published July 10, 2026 by
+  Daniel Beecham. The article explains why construction firms need traceable,
+  evidence-led Go/No-Go decisions before committing senior people and proposal
+  hours:
+  https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/
+### Industry stages
+
+- **AEC.AI Summit, presented by SMPS — “Practical AI for the Pursuit: Qualify
+  Sharper, Respond from Real Firm Knowledge.”** Upcoming November 18–20, 2026
+  in Austin, Texas; the session time is still to be announced:
+  https://aecaisummit.org/breakout11/
+- **Amplify A|E|C, presented by SMPS — “Smarter, Faster, Sharper: Harnessing
+  AI as Your Strategic Advantage.”** Pinnacle Experience panel held July 28,
+  2026 at Caesars Palace in Las Vegas, Nevada. The session addressed how AEC
+  firms can move from isolated AI tools to practical systems that support firm
+  strategy, adoption, and growth:
+  https://amplifyaec.org/pinnacle3/
+
 ## Estimated impact
 
 Ranges drawn from AEC proposal benchmarks and comparable response-software
@@ -198,7 +239,7 @@ and Impact Development Management.
   bring a real opportunity. We show where the response is strong or exposed,
   identify the highest-priority improvements, and give you an assessment your
   team can use.
-- Email the founder: daniel@propagent.ai
+- Contact Propagent: daniel@propagent.ai
 
 ## FAQ
 

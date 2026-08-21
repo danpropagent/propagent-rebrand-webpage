@@ -13,6 +13,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
 const ORIGIN = 'https://www.propagent.ai';
 const INTERNAL_HOSTS = new Set(['propagent.ai', 'www.propagent.ai']);
+const FAQ_OPTIONAL_ROUTES = new Set(['/press/']);
 const VIRTUAL_ROUTES = new Set([
   '/30min-meeting',
   '/60min-meeting',
@@ -44,6 +45,7 @@ const FORBIDDEN_PATHS = [
 
 const errors = [];
 const htmlByFile = new Map();
+const jsonLdByFile = new Map();
 
 const report = (message) => errors.push(message);
 const posix = (value) => value.replaceAll('\\', '/');
@@ -189,11 +191,59 @@ for (const entry of canonicalRoutes) {
   const hasFaqQuestion =
     /<details\b/i.test(html) ||
     /\bclass\s*=\s*["'][^"']*\bfaq-(?:item|question)\b/i.test(html);
-  if (!hasFaqContainer || !hasFaqQuestion) {
+  if ((!hasFaqContainer || !hasFaqQuestion) && !FAQ_OPTIONAL_ROUTES.has(entry.route)) {
     report(`${entry.file}: missing visible FAQ section with at least one question`);
   }
 
-  extractJsonLd(html, entry.file);
+  jsonLdByFile.set(entry.file, extractJsonLd(html, entry.file));
+}
+
+const pressHtml = htmlByFile.get('press/index.html');
+if (pressHtml) {
+  const pressTags = pressHtml.match(/<[^>]+\bdata-press-url\s*=\s*(?:"[^"]*"|'[^']*')[^>]*>/gi) ?? [];
+  const visibleUrls = pressTags.map((tag) => getAttribute(tag, 'data-press-url')).filter(Boolean);
+  const visibleUrlSet = new Set(visibleUrls);
+  if (visibleUrlSet.size !== visibleUrls.length) {
+    report('press/index.html: featured and archive entries must not duplicate media URLs');
+  }
+
+  const classTags = pressHtml.match(/<[^>]+\bclass\s*=\s*(?:"[^"]*"|'[^']*')[^>]*>/gi) ?? [];
+  const countClass = (className) => classTags.filter((tag) =>
+    (getAttribute(tag, 'class') ?? '').split(/\s+/).includes(className)
+  ).length;
+  if (countClass('press-featured-lead') !== 1) {
+    report('press/index.html: expected exactly one featured lead');
+  }
+  const secondaryCount = countClass('press-featured-secondary');
+  if (secondaryCount < 1 || secondaryCount > 3) {
+    report('press/index.html: expected one to three compact featured items');
+  }
+  if (countClass('press-archive-item') !== visibleUrls.length - 1 - secondaryCount) {
+    report('press/index.html: archive count must equal all visible press items minus the featured items');
+  }
+
+  const pressGraph = (jsonLdByFile.get('press/index.html') ?? [])
+    .flatMap((block) => block?.['@graph'] ?? []);
+  const mediaList = pressGraph.find((item) => item?.['@type'] === 'ItemList' && item?.['@id']?.endsWith('#media'));
+  const schemaUrls = (mediaList?.itemListElement ?? []).map((entry) => entry?.item?.url).filter(Boolean);
+  const schemaUrlSet = new Set(schemaUrls);
+  if (!mediaList) {
+    report('press/index.html: missing press ItemList JSON-LD');
+  } else if (mediaList.numberOfItems !== schemaUrls.length) {
+    report('press/index.html: ItemList numberOfItems does not match its entries');
+  }
+  if (schemaUrlSet.size !== schemaUrls.length) {
+    report('press/index.html: ItemList contains duplicate media URLs');
+  }
+  if (
+    visibleUrlSet.size !== schemaUrlSet.size ||
+    [...visibleUrlSet].some((url) => !schemaUrlSet.has(url))
+  ) {
+    report('press/index.html: visible press items and ItemList JSON-LD must contain the same URLs');
+  }
+  if (visibleUrls.some((url, index) => schemaUrls[index] !== url)) {
+    report('press/index.html: ItemList JSON-LD order must match the visible press order');
+  }
 }
 
 const sitemap = readDistFile('sitemap.xml');

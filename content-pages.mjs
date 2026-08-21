@@ -2,7 +2,227 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SITE = 'https://www.propagent.ai';
-const CONTENT_DATE = '2026-08-17';
+const CONTENT_DATE = '2026-08-20';
+
+const pressMedia = Object.freeze({
+  coverage: [
+    {
+      outlet: 'Tech Square ATL',
+      title: 'Propagent Wants to End the RFP Scramble',
+      date: 'July 7, 2026',
+      isoDate: '2026-07-07',
+      format: 'Company profile',
+      relationshipLabel: 'Coverage of Propagent',
+      summary: 'An independent profile of why Propagent was built and how the company approaches AEC proposal pursuits.',
+      url: 'https://www.techsquareatl.com/tech-square-news/2026/7/7/propagent-wants-to-end-the-rfp-scramble',
+      cta: 'Read the profile',
+      relatedHref: '/ai-proposal-management-aec/',
+      relatedLabel: 'See how Propagent works',
+      relationship: 'coverage',
+      schemaType: 'NewsArticle',
+    },
+    {
+      outlet: 'Hypepotamus',
+      title: 'Atlanta-based Startup Propagent Wants To Help You Win More RFPs',
+      date: 'October 2, 2025',
+      isoDate: '2025-10-02',
+      format: 'Company profile',
+      relationshipLabel: 'Coverage of Propagent',
+      summary: 'An independent Atlanta startup profile covering Propagent and the proposal-management problem the company set out to solve.',
+      url: 'https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/',
+      cta: 'Read the profile',
+      relationship: 'coverage',
+      schemaType: 'NewsArticle',
+    },
+  ],
+  authored: [
+    {
+      outlet: 'Construction Executive',
+      title: 'Construction Companies Can\u2019t Chase Every Proposal With a Weak RFP Approval Process',
+      date: 'July 10, 2026',
+      isoDate: '2026-07-10',
+      format: 'Industry article',
+      relationshipLabel: 'Propagent contributed article',
+      summary: 'Why construction firms need a disciplined, evidence-led approval process before committing people and proposal hours to a pursuit.',
+      url: 'https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/',
+      cta: 'Read the article',
+      relatedHref: '/aec-go-no-go-scoring/',
+      relatedLabel: 'Explore Go/No-Go decisions',
+      relationship: 'authored',
+      schemaType: 'Article',
+    },
+    {
+      outlet: 'Utility Analytics Institute',
+      title: 'AI for Utility EOCs: A Use Case in Emergency Response',
+      date: 'March 20, 2025',
+      isoDate: '2025-03-20',
+      format: 'Industry article',
+      summary: 'A practical look at applying AI to fragmented operational data, compliance reporting, and human decision-making in high-stakes emergency operations.',
+      url: 'https://utilityanalytics.com/ai-for-utility-eocs/',
+      cta: 'Read the article',
+      relationship: 'authored',
+      schemaType: 'Article',
+      coAuthors: ['Sean Quealy'],
+    },
+  ],
+  appearances: [
+    {
+      outlet: 'GTM AI Podcast',
+      title: 'AI Strategy and Adoption: Unlocking AI\u2019s Potential in Business',
+      date: 'April 16, 2025',
+      isoDate: '2025-04-16',
+      format: 'Podcast interview',
+      summary: 'A conversation about AI strategy, adoption, trust, measurable outcomes, and why agentic workflows need a clear business purpose.',
+      url: 'https://www.listennotes.com/podcasts/gtm-ai-podcast/ai-strategy-and-adoption-wDP6Ql9aCuT/',
+      cta: 'Listen to the episode',
+      relationship: 'appearance',
+      schemaType: 'PodcastEpisode',
+    },
+    {
+      outlet: '11Alive',
+      title: '11Alive News: The Take | Shutdown: How AI can help a job search (11/7/25)',
+      date: 'November 7, 2025',
+      isoDate: '2025-11-07',
+      format: 'Television interview',
+      summary: 'Practical ways people can use AI while navigating a changing job market, discussed on 11Alive\u2019s The Take.',
+      url: 'https://www.youtube.com/watch?v=4kizqxUF_Xo',
+      cta: 'Watch the segment',
+      relationship: 'appearance',
+      schemaType: 'VideoObject',
+      thumbnailUrl: 'https://i.ytimg.com/vi/4kizqxUF_Xo/hqdefault.jpg',
+      embedUrl: 'https://www.youtube.com/embed/4kizqxUF_Xo',
+    },
+  ],
+  speaking: [
+    {
+      outlet: 'AEC.AI Summit, presented by SMPS',
+      title: 'Practical AI for the Pursuit: Qualify Sharper, Respond from Real Firm Knowledge',
+      date: 'Upcoming \u00b7 November 18\u201320, 2026',
+      isoDate: '2026-11-18',
+      format: 'AEC conference session',
+      relationshipLabel: 'Propagent AEC conference session',
+      summary: 'An AEC-focused session on qualifying pursuits with evidence, making clearer Go/No-Go decisions, responding from real firm knowledge, and preserving pursuit memory.',
+      url: 'https://aecaisummit.org/breakout11/',
+      cta: 'View the session',
+      relatedHref: '/aec-operational-memory/',
+      relatedLabel: 'Explore operational memory',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      location: 'Austin, Texas',
+    },
+    {
+      outlet: 'Amplify A|E|C, presented by SMPS',
+      title: 'Smarter, Faster, Sharper: Harnessing AI as Your Strategic Advantage',
+      date: 'July 28, 2026',
+      isoDate: '2026-07-28',
+      format: 'Pinnacle Experience panel',
+      relationshipLabel: 'Propagent AEC panel appearance',
+      summary: 'An AEC leadership panel on turning AI from isolated tools into practical systems that support firm strategy, adoption, and growth.',
+      url: 'https://amplifyaec.org/pinnacle3/',
+      cta: 'View the session',
+      relatedHref: '/ai-proposal-management-aec/',
+      relatedLabel: 'See the pursuit workflow',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      location: 'Las Vegas, Nevada',
+    },
+    {
+      outlet: 'Contractors, Closers & Connections',
+      title: 'Propagent at CCC’s The AI Revolution',
+      date: 'July 23, 2026',
+      isoDate: '2026-07-23',
+      format: 'Reverse tradeshow',
+      summary: 'A commercial-real-estate gathering centered on practical AI tools, live demonstrations, and direct conversations with operators and experts.',
+      url: 'https://luma.com/g5q19u6p',
+      cta: 'View the event',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      schemaName: 'CCC “THE AI REVOLUTION” — A Private Event for Elite Commercial Real Estate Professionals',
+      schemaPerformer: false,
+      location: 'Brookhaven, Georgia',
+    },
+    {
+      outlet: 'The AI Summit London',
+      title: 'Panel: Vibe Coding Is Here \u2014 What Changes When Everyone Can Ship Software?',
+      date: 'June 10, 2026',
+      isoDate: '2026-06-10',
+      format: 'Conference panel',
+      summary: 'A discussion with technology leaders about speed, quality, security, and ownership in AI-assisted software development.',
+      url: 'https://attend.londontechweek.virtual.informatech.com/event/the-ai-summit-london-2026/planning/UGxhbm5pbmdfNDQxOTM1NA%3D%3D',
+      cta: 'View the session',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      location: 'London, United Kingdom',
+    },
+    {
+      outlet: 'Optimized AI Conference',
+      title: 'How Companies Are Adapting AI Agents in Their Ecosystem',
+      date: 'March 31, 2026',
+      isoDate: '2026-03-31',
+      format: 'Conference panel',
+      summary: 'An enterprise panel on how organizations are integrating AI agents across retail, procurement, and government environments.',
+      url: 'https://www.youtube.com/watch?v=s27tNnOu94Y',
+      cta: 'Watch the panel',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      location: 'Atlanta, Georgia',
+    },
+    {
+      outlet: 'The AI Summit New York',
+      title: 'Rise of the AgentOps Stack: Building for Autonomy at Scale',
+      date: 'December 11, 2025',
+      isoDate: '2025-12-11',
+      format: 'Conference panel',
+      summary: 'An enterprise-AI panel on the operating systems, oversight, and infrastructure needed to move autonomous systems into production.',
+      url: 'https://attend.techevents.informaconnect.com/event/the-ai-summit-new-york-2025/planning/UGxhbm5pbmdfMzI2NjgwOA%3D%3D',
+      cta: 'View the session',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      location: 'New York, New York',
+    },
+    {
+      outlet: 'The AI Summit London',
+      title: 'The Open vs. Closed Debate: Transparency in AI Ecosystems',
+      date: 'June 11, 2025',
+      isoDate: '2025-06-11',
+      format: 'Conference panel',
+      summary: 'A panel examining transparency, intellectual property, collaboration, governance, and trust across open and proprietary AI ecosystems.',
+      url: 'https://attend.londontechweek.virtual.informatech.com/event/the-ai-summit-london-2025/planning/UGxhbm5pbmdfMjY2MzU1Mg%3D%3D',
+      cta: 'View the session',
+      relationship: 'speaking',
+      schemaType: 'Event',
+      location: 'London, United Kingdom',
+    },
+  ],
+});
+
+const allPressMedia = Object.freeze(
+  Object.values(pressMedia).flat().sort((a, b) => b.isoDate.localeCompare(a.isoDate)),
+);
+const publicPressUrls = Object.freeze([
+  pressMedia.authored[0].url,
+  pressMedia.speaking[0].url,
+  pressMedia.coverage[0].url,
+  pressMedia.speaking[1].url,
+  pressMedia.coverage[1].url,
+]);
+const publicPressUrlSet = new Set(publicPressUrls);
+const publicPressMedia = Object.freeze(allPressMedia.filter((item) => publicPressUrlSet.has(item.url)));
+if (publicPressMedia.length !== publicPressUrls.length) {
+  throw new Error('Every public press URL must match a canonical press record.');
+}
+const featuredPressUrls = Object.freeze([
+  pressMedia.authored[0].url,
+  pressMedia.speaking[0].url,
+  pressMedia.coverage[0].url,
+]);
+const featuredPressMedia = Object.freeze(featuredPressUrls.map((url) => publicPressMedia.find((item) => item.url === url)));
+if (featuredPressMedia.some((item) => !item)) {
+  throw new Error('Every featured press URL must match a canonical press record.');
+}
+const featuredPressUrlSet = new Set(featuredPressUrls);
+const pressArchiveMedia = Object.freeze(publicPressMedia.filter((item) => !featuredPressUrlSet.has(item.url)));
+const pressVisibleMedia = Object.freeze([...featuredPressMedia, ...pressArchiveMedia]);
 
 const pages = [
   {
@@ -105,27 +325,21 @@ const pages = [
         eyebrow: 'Founders',
         title: 'Built from the realities of complex pursuits.',
         cards: [
-          ['Daniel Beecham', 'Founder and CEO. Daniel’s work sits at the intersection of the built world, technology, business development, and the way complex opportunities become coordinated responses.', 'https://www.linkedin.com/in/daniel-beecham', 'View Daniel’s profile'],
-          ['Steve Ernst', 'Co-founder. Steve brings complementary experience to Propagent’s mission of making proposal and response management more connected, accountable, and effective.', 'https://www.linkedin.com/in/sternst/', 'View Steve’s profile'],
+          ['Daniel Beecham', 'Co-founder and CEO. Daniel’s work sits at the intersection of the built world, technology, business development, and the way complex opportunities become coordinated responses.', 'https://www.linkedin.com/in/daniel-beecham', 'View Daniel’s profile', 'daniel-beecham'],
+          ['Steve Ernst', 'Co-founder. Steve brings complementary experience to Propagent’s mission of making proposal and response management more connected, accountable, and effective.', 'https://www.linkedin.com/in/sternst/', 'View Steve’s profile', 'steve-ernst'],
         ],
       },
       {
-        eyebrow: 'Independent coverage',
-        title: 'Read more about Propagent and our point of view.',
+        eyebrow: 'Press & media',
+        title: 'Propagent’s perspective, in print and on stage.',
         cards: [
           ['Tech Square ATL', 'A profile of Propagent’s system-led approach to ending the RFP scramble for AEC teams.', 'https://www.techsquareatl.com/tech-square-news/2026/7/7/propagent-wants-to-end-the-rfp-scramble', 'Read the profile'],
-          ['Hypepotamus', 'An Atlanta startup profile covering Propagent, its founders, and its focus on RFP work.', 'https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/', 'Read the profile'],
-          ['Construction Executive', 'Daniel Beecham on why construction firms need a stronger RFP approval process.', 'https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/', 'Read the article'],
+          ['Hypepotamus', 'An Atlanta startup profile covering Propagent and its focus on RFP work.', 'https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/', 'Read the profile'],
+          ['Construction Executive', 'A Propagent perspective on why construction firms need a stronger RFP approval process.', 'https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/', 'Read the article'],
+          ['Press & Media', 'Explore Propagent coverage and perspectives on AEC pursuit decisions, proposals, and formal procurement.', '/press/', 'View Press & Media'],
         ],
       },
     ],
-    proof: {
-      title: 'A company you can verify.',
-      body: 'Review Propagent’s founding team, official profiles, independent coverage, and AEC-focused point of view before you engage.',
-      items: ['Founded in 2024', 'Based in the Atlanta metropolitan area', 'Independent profiles and founder commentary'],
-      artifact: [['Company', 'Propagent'], ['Founded', '2024'], ['Category', 'Proposal pursuit system for the built world']],
-    },
-    checkpoint: 'Propagent does not remove professional judgment from the pursuit. People make the strategic, commercial, legal, and final approval decisions.',
     faqs: [
       ['What does Propagent do?', 'Propagent analyzes RFP requirements against firm capabilities, identifies gaps, coordinates focused expert input, matures source-grounded content, and supports quality review through human approval.'],
       ['Who is Propagent for?', 'Propagent is for architecture, engineering, construction, and infrastructure firms, including proposal managers, BD and capture leaders, executives, and subject-matter experts.'],
@@ -133,7 +347,31 @@ const pages = [
       ['Where can I learn more?', 'Explore the resource library, use the free RFP Grader, or book a Propagent demo with a real opportunity.'],
     ],
     cta: ['Bring us the work, not a hypothetical', 'Use a real opportunity to see how Propagent connects the RFP, the firm’s proof, focused expert input, and final review.', '/60min-meeting', 'Book a Propagent demo'],
-    related: ['ai-proposal-management-aec', 'resources', 'security'],
+    related: ['press', 'ai-proposal-management-aec', 'resources'],
+  },
+  {
+    slug: 'press',
+    title: 'Press & Media | Propagent',
+    navLabel: 'Press & Media',
+    eyebrow: 'Company newsroom',
+    h1: 'Press & Media',
+    description: 'Propagent coverage, contributed articles, and speaking appearances focused on AEC pursuits, proposals, and formal procurement.',
+    intro: 'Coverage and perspectives on how AEC firms qualify pursuits, manage proposals, and respond to formal procurement.',
+    featuredMedia: featuredPressMedia,
+    archiveMedia: pressArchiveMedia,
+    contact: {
+      eyebrow: 'Media and speaking inquiries',
+      title: 'Contact Propagent',
+      body: 'Share the outlet or event, audience, topic, timing, and requested format.',
+      href: 'mailto:press@propagent.ai?subject=Propagent%20media%20or%20speaking%20inquiry',
+      label: 'Contact Propagent',
+    },
+    about: 'Propagent is the proposal pursuit system for AEC firms. It connects RFP requirements, firm evidence, focused expert input, response development, quality review, and human approval in one managed process.',
+    productLink: {
+      prefix: 'Product information',
+      href: '/ai-proposal-management-aec/',
+      label: 'Product overview',
+    },
   },
   {
     slug: 'ai-proposal-management-aec',
@@ -296,6 +534,14 @@ const pages = [
           'No responsible proposal system can guarantee a win. Propagent organizes the factors, evidence, and uncertainty behind the team’s confidence. As your firm records actual outcomes, leaders can compare them with the original decision and refine future qualification.',
           'You get more than a mysterious percentage: a traceable decision record your leaders can inspect, challenge, and approve.',
         ],
+      },
+      {
+        eyebrow: 'Further reading',
+        title: 'Why construction firms need a stronger RFP approval process.',
+        paragraphs: [
+          'In Construction Executive, Propagent Co-founder and CEO Daniel Beecham explains how informal pursuit choices consume senior time and why durable decision records make future Go/No-Go decisions stronger.',
+        ],
+        media: [pressMedia.authored[0]],
       },
     ],
     proof: {
@@ -574,10 +820,52 @@ const renderHighlights = (items = []) => items.length ? `
 
 const renderCards = (items = []) => items.length ? `
   <div class="content-card-grid">
-    ${items.map(([title, body, href, label]) => href
-      ? `<a class="content-card" href="${escapeHtml(href)}"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><span>${escapeHtml(label || 'Read the guide')} <span aria-hidden="true">→</span></span></a>`
-      : `<article class="content-card content-card--static"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`).join('\n')}
+    ${items.map(([title, body, href, label, id]) => {
+      const idAttribute = id ? ` id="${escapeHtml(id)}"` : '';
+      return href
+        ? `<a class="content-card"${idAttribute} href="${escapeHtml(href)}"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><span>${escapeHtml(label || 'Read the guide')} <span aria-hidden="true">→</span></span></a>`
+        : `<article class="content-card content-card--static"${idAttribute}><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></article>`;
+    }).join('\n')}
   </div>` : '';
+
+const renderMediaEntries = (items = [], variant = 'default') => {
+  if (!items.length) return '';
+  const className = `content-media-list content-media-list--${escapeHtml(variant)}`;
+  return `
+  <div class="${className}">
+    ${items.map((item) => {
+      const content = `
+        <div class="content-media-meta"><span>${escapeHtml(item.format)}</span><time${item.isoDate ? ` datetime="${escapeHtml(item.isoDate)}"` : ''}>${escapeHtml(item.date)}</time></div>
+        <span class="content-media-outlet">${escapeHtml(item.outlet)}</span>
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.summary)}</p>`;
+      if (variant === 'featured') {
+        return `<article class="content-media-item content-media-item--featured">
+          ${content}
+          <div class="content-media-actions">
+            <a class="content-media-link" href="${escapeHtml(item.url)}">${escapeHtml(item.cta || 'View the source')} <span aria-hidden="true">↗</span></a>
+            ${item.relatedHref ? `<a class="content-media-link content-media-link--internal" href="${escapeHtml(item.relatedHref)}">${escapeHtml(item.relatedLabel || 'Explore Propagent')} <span aria-hidden="true">→</span></a>` : ''}
+          </div>
+        </article>`;
+      }
+      return `<a class="content-media-item${variant === 'compact' ? ' content-media-item--compact' : ''}" href="${escapeHtml(item.url)}">
+        ${content}
+        <span class="content-media-link">${escapeHtml(item.cta || 'View the source')} <span aria-hidden="true">↗</span></span>
+      </a>`;
+    }).join('\n')}
+  </div>`;
+};
+
+const renderSectionMedia = (section) => {
+  const media = renderMediaEntries(section.media, section.mediaVariant);
+  if (!media || !section.collapsible) return media;
+  const count = section.media.length;
+  return `
+    <details class="content-media-archive">
+      <summary>${escapeHtml(section.archiveLabel || `View ${count} additional ${count === 1 ? 'appearance' : 'appearances'}`)}</summary>
+      ${media}
+    </details>`;
+};
 
 const renderSteps = (items = []) => items.length ? `
   <ol class="content-steps">
@@ -590,7 +878,7 @@ const renderBullets = (items = []) => items.length ? `
   </ul>` : '';
 
 const renderSections = (sections = []) => sections.map((section, index) => `
-  <section class="content-section${index % 2 ? ' content-section--raised' : ''}">
+  <section class="content-section${index % 2 ? ' content-section--raised' : ''}${section.layout === 'wide' ? ' content-section--wide' : ''}">
     <div class="container content-section-inner">
       <div class="content-section-heading">
         <span class="mono-label">${escapeHtml(section.eyebrow)}</span>
@@ -601,6 +889,7 @@ const renderSections = (sections = []) => sections.map((section, index) => `
         ${renderBullets(section.bullets)}
         ${renderSteps(section.steps)}
         ${renderCards(section.cards)}
+        ${renderSectionMedia(section)}
       </div>
     </div>
   </section>`).join('\n');
@@ -610,6 +899,80 @@ const renderFaqs = (faqs = []) => faqs.map(([question, answer], index) => `
     <summary>${escapeHtml(question)}</summary>
     <p>${escapeHtml(answer)}</p>
   </details>`).join('\n');
+
+const renderPressFeatured = (items = []) => {
+  const [lead, ...secondary] = items;
+  if (!lead) return '';
+
+  return `
+  <div class="press-featured-layout">
+    <article class="press-featured-lead" data-press-url="${escapeHtml(lead.url)}">
+      <a href="${escapeHtml(lead.url)}">
+        <div class="press-item-meta"><span>${escapeHtml(lead.relationshipLabel || lead.format)}</span><time${lead.isoDate ? ` datetime="${escapeHtml(lead.isoDate)}"` : ''}>${escapeHtml(lead.date)}</time></div>
+        <span class="press-item-outlet">${escapeHtml(lead.outlet)}</span>
+        <h3>${escapeHtml(lead.title)}</h3>
+        <p>${escapeHtml(lead.summary)}</p>
+        <span class="press-featured-link">${escapeHtml(lead.cta || 'View the source')} <span aria-hidden="true">&#8599;</span></span>
+      </a>
+    </article>
+    <div class="press-featured-stack">
+      ${secondary.map((item) => `<article class="press-featured-secondary" data-press-url="${escapeHtml(item.url)}">
+        <a href="${escapeHtml(item.url)}">
+          <div class="press-featured-secondary-top"><span class="press-item-outlet">${escapeHtml(item.outlet)}</span><span aria-hidden="true">&#8599;</span></div>
+          <h3>${escapeHtml(item.title)}</h3>
+           <div class="press-item-meta"><span>${escapeHtml(item.relationshipLabel || item.format)}</span><time${item.isoDate ? ` datetime="${escapeHtml(item.isoDate)}"` : ''}>${escapeHtml(item.date)}</time></div>
+        </a>
+      </article>`).join('\n')}
+    </div>
+  </div>`;
+};
+
+const renderPressArchive = (items = []) => {
+  return `<div class="press-archive-list">
+        ${items.map((item) => `<a class="press-archive-item" href="${escapeHtml(item.url)}" data-press-url="${escapeHtml(item.url)}">
+          <div class="press-archive-meta"><span>${escapeHtml(item.relationshipLabel || item.format)}</span><time${item.isoDate ? ` datetime="${escapeHtml(item.isoDate)}"` : ''}>${escapeHtml(item.date)}</time></div>
+          <div class="press-archive-title"><span class="press-item-outlet">${escapeHtml(item.outlet)}</span><h3>${escapeHtml(item.title)}</h3></div>
+          <span class="press-archive-arrow" aria-hidden="true">&#8599;</span>
+        </a>`).join('\n')}
+      </div>`;
+};
+
+const renderPressMain = (page) => {
+  return `<main id="main" class="press-main">
+    <header class="press-header">
+      <div class="container">
+        <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
+        <div class="press-header-copy">
+          <span class="mono-label">${escapeHtml(page.eyebrow)}</span>
+          <h1>${escapeHtml(page.h1)}</h1>
+          <p class="press-intro" data-direct-answer>${escapeHtml(page.intro)}</p>
+        </div>
+      </div>
+    </header>
+    <section class="press-featured">
+      <div class="container">
+        <div class="press-section-heading"><span class="mono-label">Featured</span><h2>Featured AEC coverage and perspectives</h2></div>
+        ${renderPressFeatured(page.featuredMedia)}
+      </div>
+    </section>
+    <section class="press-archive">
+      <div class="container">
+        <div class="press-section-heading"><span class="mono-label">More</span><h2>More AEC coverage and appearances</h2></div>
+        ${renderPressArchive(page.archiveMedia)}
+      </div>
+    </section>
+    <section class="press-close">
+      <div class="container press-close-inner">
+        <div class="press-close-copy"><span class="mono-label">About Propagent</span><h2>The proposal pursuit system for the built world</h2><p>${escapeHtml(page.about)}</p></div>
+        <div class="press-close-actions">
+          <a href="/about/">About Propagent <span aria-hidden="true">&#8594;</span></a>
+          <a href="${escapeHtml(page.productLink.href)}">${escapeHtml(page.productLink.label)} <span aria-hidden="true">&#8594;</span></a>
+          <a href="${escapeHtml(page.contact.href)}">Media &amp; speaking inquiries <span aria-hidden="true">&#8594;</span></a>
+        </div>
+      </div>
+    </section>
+  </main>`;
+};
 
 const relatedPage = (slug) => pages.find((page) => page.slug === slug);
 
@@ -626,15 +989,101 @@ const organizationSchema = {
     { '@type': 'Person', '@id': `${SITE}/about/#steve-ernst`, name: 'Steve Ernst' },
   ],
   sameAs: ['https://www.linkedin.com/company/propagent'],
-  subjectOf: [
-    { '@type': 'NewsArticle', name: 'Propagent Wants to End the RFP Scramble', url: 'https://www.techsquareatl.com/tech-square-news/2026/7/7/propagent-wants-to-end-the-rfp-scramble' },
-    { '@type': 'NewsArticle', name: 'Atlanta Startup Propagent Takes on RFPs', url: 'https://www.hypepotamus.com/atlanta-startup-propagent-for-rfps/' },
-    { '@type': 'Article', name: 'Construction Companies Can’t Chase Every Proposal With a Weak RFP Approval Process', url: 'https://constructionexec.com/article/construction-companies-cant-chase-every-proposal-with-a-weak-rfp-approval-process/' },
+  subjectOf: pressMedia.coverage.map((item) => ({
+    '@type': item.schemaType,
+    name: item.title,
+    headline: item.title,
+    datePublished: item.isoDate,
+    url: item.url,
+    publisher: { '@type': 'Organization', name: item.outlet },
+  })),
+};
+
+const danielSchema = {
+  '@type': 'Person',
+  '@id': `${SITE}/about/#daniel-beecham`,
+  name: 'Daniel Beecham',
+  url: `${SITE}/about/#daniel-beecham`,
+  jobTitle: 'Co-founder and CEO',
+  worksFor: { '@id': `${SITE}/#org` },
+  sameAs: [
+    'https://www.linkedin.com/in/daniel-beecham',
+    'https://sessionize.com/daniel-beecham/',
+  ],
+  knowsAbout: [
+    'AEC proposal pursuits',
+    'Formal procurement',
+    'Proposal and response management',
+    'Applied artificial intelligence',
+    'Agentic systems',
   ],
 };
 
+const steveSchema = {
+  '@type': 'Person',
+  '@id': `${SITE}/about/#steve-ernst`,
+  name: 'Steve Ernst',
+  url: `${SITE}/about/#steve-ernst`,
+  jobTitle: 'Co-founder',
+  worksFor: { '@id': `${SITE}/#org` },
+  sameAs: ['https://www.linkedin.com/in/sternst/'],
+};
+
+function schemaForMedia(item) {
+  const schema = {
+    '@type': item.schemaType || 'CreativeWork',
+    name: item.schemaName || item.title,
+    url: item.url,
+  };
+
+  if (item.relationship === 'coverage') {
+    schema.headline = item.title;
+    schema.datePublished = item.isoDate;
+    schema.about = { '@id': `${SITE}/#org` };
+    schema.publisher = { '@type': 'Organization', name: item.outlet };
+  }
+
+  if (item.relationship === 'authored') {
+    schema.headline = item.title;
+    schema.datePublished = item.isoDate;
+    schema.author = [
+      { '@id': `${SITE}/about/#daniel-beecham` },
+      ...(item.coAuthors || []).map((name) => ({ '@type': 'Person', name })),
+    ];
+    schema.publisher = { '@type': 'Organization', name: item.outlet };
+  }
+
+  if (item.schemaType === 'PodcastEpisode') {
+    schema.datePublished = item.isoDate;
+    schema.contributor = { '@id': `${SITE}/about/#daniel-beecham` };
+  }
+
+  if (item.schemaType === 'VideoObject') {
+    schema.uploadDate = item.isoDate;
+    schema.contributor = { '@id': `${SITE}/about/#daniel-beecham` };
+    schema.publisher = { '@type': 'Organization', name: item.outlet };
+    schema.thumbnailUrl = item.thumbnailUrl;
+    schema.embedUrl = item.embedUrl;
+  }
+
+  if (item.schemaType === 'Event') {
+    if (item.isoDate) schema.startDate = item.isoDate;
+    if (item.endDate) schema.endDate = item.endDate;
+    if (item.schemaPerformer !== false) schema.performer = { '@id': `${SITE}/about/#daniel-beecham` };
+    schema.organizer = { '@type': 'Organization', name: item.outlet };
+    if (item.location) schema.location = { '@type': 'Place', name: item.location };
+  }
+
+  return schema;
+}
+
 function schemaFor(page) {
   const canonical = `${SITE}/${page.slug}/`;
+  const pageType = page.slug === 'about'
+    ? 'AboutPage'
+    : page.slug === 'press'
+      ? 'CollectionPage'
+      : 'WebPage';
   const graph = [
     organizationSchema,
     {
@@ -645,7 +1094,7 @@ function schemaFor(page) {
       publisher: { '@id': `${SITE}/#org` },
     },
     {
-      '@type': page.slug === 'about' ? 'AboutPage' : 'WebPage',
+      '@type': pageType,
       '@id': `${canonical}#webpage`,
       url: canonical,
       name: page.title,
@@ -655,7 +1104,12 @@ function schemaFor(page) {
       isPartOf: { '@id': `${SITE}/#website` },
       about: { '@id': `${SITE}/#org` },
       breadcrumb: { '@id': `${canonical}#breadcrumb` },
-      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.content-answer', '.content-faq'] },
+       ...(page.slug === 'press' ? {} : {
+         speakable: {
+           '@type': 'SpeakableSpecification',
+           cssSelector: ['.content-answer', '.content-faq'],
+         },
+       }),
     },
     {
       '@type': 'BreadcrumbList',
@@ -665,7 +1119,10 @@ function schemaFor(page) {
         { '@type': 'ListItem', position: 2, name: page.navLabel, item: canonical },
       ],
     },
-    {
+  ];
+
+  if (page.faqs?.length) {
+    graph.push({
       '@type': 'FAQPage',
       '@id': `${canonical}#faq`,
       mainEntity: page.faqs.map(([question, answer]) => ({
@@ -673,8 +1130,27 @@ function schemaFor(page) {
         name: question,
         acceptedAnswer: { '@type': 'Answer', text: answer },
       })),
-    },
-  ];
+    });
+  }
+
+  if (page.slug === 'about' || page.slug === 'press') {
+    graph.push(danielSchema, steveSchema);
+  }
+
+  if (page.slug === 'press') {
+    graph.push({
+      '@type': 'ItemList',
+      '@id': `${canonical}#media`,
+      name: 'Propagent press, media, and speaking',
+      numberOfItems: pressVisibleMedia.length,
+      itemListElement: pressVisibleMedia.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: schemaForMedia(item),
+      })),
+    });
+    graph.find((item) => item['@id'] === `${canonical}#webpage`).mainEntity = { '@id': `${canonical}#media` };
+  }
 
   if (page.slug === 'ai-proposal-management-aec') {
     graph.push({
@@ -735,7 +1211,7 @@ function renderFooter() {
         <p>The proposal pursuit system for the built world.</p>
       </div>
       <div><span class="mono-label">Explore</span><a href="/resources/">Resources</a><a href="/ai-proposal-management-aec/">AI proposal management</a><a href="/rfp-grader/">RFP Grader</a></div>
-      <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/security/">Security</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
+      <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/press/">Press & Media</a><a href="/security/">Security</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
       <div><span class="mono-label">Evaluate</span><a href="/60min-meeting">Book a Propagent demo</a><a href="/rfp-grader/">Grade an RFP</a></div>
     </div>
     <div class="container content-footer-bottom"><span>© ${new Date().getUTCFullYear()} Propagent</span><span>The system carries the process. People apply judgment and approve the response.</span></div>
@@ -744,8 +1220,10 @@ function renderFooter() {
 
 function renderPage(page) {
   const canonical = `${SITE}/${page.slug}/`;
-  const [ctaTitle, ctaBody, ctaHref, ctaLabel] = page.cta;
-  const related = page.related.map(relatedPage).filter(Boolean);
+  const [ctaTitle, ctaBody, ctaHref, ctaLabel] = page.cta || [];
+  const [heroPrimaryLabel, heroPrimaryHref] = page.heroPrimary || [ctaLabel, ctaHref];
+  const [secondaryLabel, secondaryHref] = page.answerSecondary || ['Explore the resource library', '/resources/'];
+  const related = (page.related || []).map(relatedPage).filter(Boolean);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -772,10 +1250,10 @@ function renderPage(page) {
   <link rel="stylesheet" href="/content-pages.css?v=20260814-geo">
   <script type="application/ld+json">${schemaFor(page)}</script>
 </head>
-<body class="content-page">
+<body class="content-page content-page--${escapeHtml(page.slug)}">
   <a class="content-skip" href="#main">Skip to content</a>
   ${renderNav()}
-  <main id="main">
+  ${page.slug === 'press' ? renderPressMain(page) : `<main id="main">
     <header class="content-hero">
       <div class="container">
         <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
@@ -787,38 +1265,44 @@ function renderPage(page) {
           <div class="content-answer-wrap" data-direct-answer>
             <span class="mono-label">At a glance</span>
             <p class="content-answer">${escapeHtml(page.answer)}</p>
-            <div class="content-answer-actions"><a class="btn btn-primary" href="${escapeHtml(ctaHref)}">${escapeHtml(ctaLabel)}</a><a class="btn" href="/resources/">Explore the resource library</a></div>
+            <div class="content-answer-actions"><a class="btn btn-primary" href="${escapeHtml(heroPrimaryHref)}">${escapeHtml(heroPrimaryLabel)}</a><a class="btn" href="${escapeHtml(secondaryHref)}">${escapeHtml(secondaryLabel)}</a></div>
           </div>
         </div>
         ${renderHighlights(page.highlights)}
       </div>
     </header>
     ${renderSections(page.sections)}
-    <section class="content-proof">
+    ${page.proof ? `<section class="content-proof">
       <div class="container content-proof-grid">
-        <div><span class="mono-label">What your team can inspect</span><h2>${escapeHtml(page.proof.title)}</h2><p>${escapeHtml(page.proof.body)}</p></div>
+        <div><span class="mono-label">${escapeHtml(page.proof.eyebrow || 'What your team sees')}</span><h2>${escapeHtml(page.proof.title)}</h2><p>${escapeHtml(page.proof.body)}</p></div>
         <div>
           <dl class="content-artifact" aria-label="Representative inspection view">${page.proof.artifact.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('\n')}</dl>
           <ul>${page.proof.items.map((item) => `<li><span aria-hidden="true">✓</span>${escapeHtml(item)}</li>`).join('\n')}</ul>
         </div>
       </div>
-    </section>
-    <section class="content-checkpoint">
-      <div class="container"><span class="mono-label">Where your team stays in control</span><p>${escapeHtml(page.checkpoint)}</p></div>
-    </section>
-    <section class="content-section content-section--raised" id="faq">
+    </section>` : ''}
+    ${page.checkpoint ? `<section class="content-checkpoint">
+      <div class="container"><span class="mono-label">${escapeHtml(page.checkpointLabel || 'Where your team stays in control')}</span><p>${escapeHtml(page.checkpoint)}</p></div>
+    </section>` : ''}
+    ${page.faqs?.length ? `<section class="content-section content-section--raised" id="faq">
       <div class="container content-section-inner">
         <div class="content-section-heading"><span class="mono-label">Frequently asked questions</span><h2>Straight answers for your evaluation.</h2></div>
         <div class="content-section-body">${renderFaqs(page.faqs)}</div>
       </div>
-    </section>
+    </section>` : ''}
+    ${page.contact ? `<section class="content-contact">
+      <div class="container content-contact-inner">
+        <div><span class="mono-label">${escapeHtml(page.contact.eyebrow)}</span><h2>${escapeHtml(page.contact.title)}</h2><p>${escapeHtml(page.contact.body)}</p></div>
+        <a class="btn" href="${escapeHtml(page.contact.href)}">${escapeHtml(page.contact.label)} <span aria-hidden="true">→</span></a>
+      </div>
+    </section>` : ''}
     <section class="content-related">
       <div class="container"><span class="mono-label">Continue exploring</span><div class="content-related-links">${related.map((item) => `<a href="/${item.slug}/"><strong>${escapeHtml(item.navLabel)}</strong><span>${escapeHtml(item.description)}</span></a>`).join('\n')}</div></div>
     </section>
     <section class="content-cta">
-      <div class="container content-cta-inner"><div><span class="mono-label">See it on real work</span><h2>${escapeHtml(ctaTitle)}</h2><p>${escapeHtml(ctaBody)}</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(ctaHref)}">${escapeHtml(ctaLabel)} <span aria-hidden="true">→</span></a></div>
+      <div class="container content-cta-inner"><div><span class="mono-label">${escapeHtml(page.ctaEyebrow || 'See it on real work')}</span><h2>${escapeHtml(ctaTitle)}</h2><p>${escapeHtml(ctaBody)}</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(ctaHref)}">${escapeHtml(ctaLabel)} <span aria-hidden="true">→</span></a></div>
     </section>
-  </main>
+  </main>`}
   ${renderFooter()}
 </body>
 </html>`;
