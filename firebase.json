@@ -37,6 +37,10 @@
   },
   "hosting": {
     "public": "dist",
+    "predeploy": [
+      "npm run test:search",
+      "npm run test:site"
+    ],
     "ignore": [
       "firebase.json",
       "**/node_modules/**"
@@ -54,12 +58,12 @@
     ],
     "redirects": [
       {
-        "source": "/30min-meeting",
-        "destination": "https://calendar.app.google/6FZpR1n3KAQGgoNS8",
+        "regex": "^/30min-meeting$",
+        "destination": "https://calendar.google.com/appointments/schedules/AcZssZ17Ntcm0gE6uKMbImPTu2l2zdINy7NvWTo3n3Q4qzyjeawRS9-WbZGgvKqY1AyZos8LfSU5DRlS",
         "type": 302
       },
       {
-        "source": "/60min-meeting",
+        "regex": "^/60min-meeting$",
         "destination": "https://calendar.app.google/6FZpR1n3KAQGgoNS8",
         "type": 302
       }
@@ -72,10 +76,6 @@
       {
         "source": "/api/ask",
         "function": "ask"
-      },
-      {
-        "source": "/rfp-grader/**",
-        "destination": "/rfp-grader/index.html"
       }
     ]
   }

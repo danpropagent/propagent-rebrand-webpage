@@ -1,8 +1,17 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { buyerGuide, memoryRecordsSection, qualificationExample, complianceExample } from './buyer-guide.mjs';
 
 const SITE = 'https://www.propagent.ai';
 const CONTENT_DATE = '2026-08-20';
+const modifiedDates = {
+  resources: '2026-09-07',
+  'aec-proposal-software-guide': '2026-09-08',
+  'aec-operational-memory': '2026-09-07',
+  'aec-go-no-go-scoring': '2026-09-07',
+  'rfp-compliance-matrix': '2026-09-07',
+  press: '2026-09-08',
+};
 
 const pressMedia = Object.freeze({
   coverage: [
@@ -225,14 +234,15 @@ const pressArchiveMedia = Object.freeze(publicPressMedia.filter((item) => !featu
 const pressVisibleMedia = Object.freeze([...featuredPressMedia, ...pressArchiveMedia]);
 
 const pages = [
+  buyerGuide,
   {
     slug: 'resources',
     title: 'AEC Proposal & Response Management Resources',
     navLabel: 'Resources',
     eyebrow: 'Propagent resource library',
-    h1: 'The next generation of proposal and response management, explained.',
+    h1: 'Make your next pursuit stronger.',
     description: 'Practical guides to AI proposal management, operational memory, go/no-go decisions, RFP compliance, SME coordination, source-grounded drafting, and security for AEC firms.',
-    answer: 'Propagent’s resource library shows how your AEC team can move from isolated search and drafting tools to system-led proposal and response management. Each guide explains the problem, how the work changes, what your team can see, where people remain accountable, and the value for each pursuit.',
+    answer: 'Choose proposal software, make an evidence-led Go/No-Go decision, build a compliance matrix, or put your firm’s knowledge to work. These guides and free worksheets help AEC teams connect requirements, proof, expert input, and review.',
     highlights: [
       ['One connected process', 'Requirements, evidence, experts, content, review, and approval stay connected.'],
       ['Built for AEC', 'Architecture, engineering, construction, and infrastructure proposal workflows.'],
@@ -258,6 +268,7 @@ const pages = [
         eyebrow: 'Explore by proposal challenge',
         title: 'Use the guide that matches the work in front of you.',
         cards: [
+          ['Choose AEC proposal software', 'Compare software categories and use nine practical tests in your next demonstration.', '/aec-proposal-software-guide/'],
           ['AI proposal management for AEC', 'How Propagent carries the response from RFP intake through final approval.', '/ai-proposal-management-aec/'],
           ['AEC operational memory', 'How approved proof, decisions, expert input, and review history become useful on the next pursuit.', '/aec-operational-memory/'],
           ['Go/no-go scoring', 'How to make pursuit decisions visible, evidence-based, and accountable.', '/aec-go-no-go-scoring/'],
@@ -277,7 +288,7 @@ const pages = [
     },
     checkpoint: 'Every workflow described in this library keeps people responsible for strategy, expertise, commercial decisions, exceptions, and final approval.',
     faqs: [
-      ['What is Propagent?', 'Propagent is the proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms.'],
+      ['What is Propagent?', 'Propagent is the pursuit system for the built world and the next generation of proposal pursuit management for AEC firms.'],
       ['Who are these resources for?', 'They are for AEC proposal managers, business-development and capture leaders, executives, subject-matter experts, and procurement teams evaluating a proposal system.'],
       ['Does Propagent replace the proposal team?', 'No. Propagent carries requirements analysis, coordination, content maturity, and quality checks while people contribute expertise, set strategy, resolve exceptions, and approve the response.'],
       ['Can I evaluate Propagent with a real RFP?', 'Yes. Use the free RFP Grader for an initial read or book a Propagent demo and bring a live opportunity.'],
@@ -290,9 +301,9 @@ const pages = [
     title: 'About Propagent | Proposal Response Management for AEC',
     navLabel: 'About Propagent',
     eyebrow: 'About Propagent',
-    h1: 'The proposal pursuit system for the built world.',
-    description: 'Learn what Propagent is, who it serves, who founded it, and why AEC proposal and response management needs a system-led operating model.',
-    answer: 'Propagent is the proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms. Founded in 2024 by Daniel Beecham and Steve Ernst, Propagent delivers a system-led workflow that analyzes requirements, connects firm evidence, coordinates expert input, matures content, and keeps people responsible for judgment and approval.',
+    h1: 'The pursuit system for the built world.',
+    description: 'Learn what Propagent is, who it serves, who founded it, and why AEC proposal pursuit management needs a system-led operating model.',
+    answer: 'Propagent is the pursuit system for the built world and the next generation of proposal pursuit management for AEC firms. Founded in 2024 by Daniel Beecham and Steve Ernst, Propagent delivers a system-led workflow that analyzes requirements, connects firm evidence, coordinates expert input, matures content, and keeps people responsible for judgment and approval.',
     highlights: [
       ['Founded', '2024'],
       ['Based in', 'The Atlanta metropolitan area'],
@@ -326,7 +337,7 @@ const pages = [
         title: 'Built from the realities of complex pursuits.',
         cards: [
           ['Daniel Beecham', 'Co-founder and CEO. Daniel’s work sits at the intersection of the built world, technology, business development, and the way complex opportunities become coordinated responses.', 'https://www.linkedin.com/in/daniel-beecham', 'View Daniel’s profile', 'daniel-beecham'],
-          ['Steve Ernst', 'Co-founder. Steve brings complementary experience to Propagent’s mission of making proposal and response management more connected, accountable, and effective.', 'https://www.linkedin.com/in/sternst/', 'View Steve’s profile', 'steve-ernst'],
+          ['Steve Ernst', 'Co-founder. Steve brings complementary experience to Propagent’s mission of making proposal pursuit management more connected, accountable, and effective.', 'https://www.linkedin.com/in/sternst/', 'View Steve’s profile', 'steve-ernst'],
         ],
       },
       {
@@ -441,7 +452,7 @@ const pages = [
     navLabel: 'Operational memory',
     eyebrow: 'Institutional knowledge that stays useful',
     h1: 'Stop searching old proposals. Start with connected operational memory.',
-    description: 'Learn how Propagent connects requirements, firm proof, expert input, decisions, edits, and review history so approved AEC knowledge can strengthen future pursuits.',
+    description: 'Connect AEC project sheets, CVs, résumés, past performance, expert answers, and approved review history to the requirements of the next proposal pursuit.',
     answer: 'AEC operational memory is the approved knowledge created while a pursuit moves: requirements, proof, decisions, expert input, edits, and review history. Propagent connects that context to each new RFP so teams receive relevant evidence, insight, or a focused question—not a pile of old proposals—while each firm’s private knowledge remains isolated.',
     highlights: [
       ['More than documents', 'Preserve the decisions, evidence, and expert context behind the final response.'],
@@ -449,6 +460,7 @@ const pages = [
       ['Private to your firm', 'Each firm’s private knowledge remains its own.'],
     ],
     sections: [
+      memoryRecordsSection,
       {
         eyebrow: 'The knowledge problem',
         title: 'The final document leaves most of the useful work behind.',
@@ -508,6 +520,7 @@ const pages = [
       ['Leadership decides', 'The system frames the decision; people own it.'],
     ],
     sections: [
+      qualificationExample,
       {
         eyebrow: 'Why go/no-go breaks down',
         title: 'A score without its evidence is not a decision system.',
@@ -574,6 +587,7 @@ const pages = [
       ['Accountable', 'Owners, open questions, evidence, and approvals remain visible.'],
     ],
     sections: [
+      complianceExample,
       {
         eyebrow: 'The compliance problem',
         title: 'A checklist built once can become wrong while the proposal changes.',
@@ -800,6 +814,12 @@ const pages = [
 
 export const pageSlugs = Object.freeze(pages.map((page) => `/${page.slug}/`));
 
+// Dates represent substantive content edits, never the clock time of a rebuild.
+export const pageDates = Object.freeze(Object.fromEntries([
+  ['/', '2026-09-07'], ['/rfp-grader/', CONTENT_DATE],
+  ...pages.map(page => [`/${page.slug}/`, modifiedDates[page.slug] || CONTENT_DATE]),
+]));
+
 export const llmsResourceLinks = [
   '## Propagent resources',
   '',
@@ -877,8 +897,11 @@ const renderBullets = (items = []) => items.length ? `
     ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join('\n')}
   </ul>` : '';
 
+const renderTable = (table) => table ? `<div class="guide-table-wrap" tabindex="0" role="region" aria-label="${escapeHtml(table.caption)}"><table class="guide-table"><caption>${escapeHtml(table.caption)}</caption><thead><tr>${table.headers.map(h => `<th scope="col">${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '';
+const renderDownloads = (items = []) => items.map(([href, label]) => `<p class="guide-download"><a class="btn" href="${escapeHtml(href)}">${escapeHtml(label)} <span aria-hidden="true">→</span></a><small>Fill in your browser and print or save as PDF. No signup.</small></p>`).join('');
+
 const renderSections = (sections = []) => sections.map((section, index) => `
-  <section class="content-section${index % 2 ? ' content-section--raised' : ''}${section.layout === 'wide' ? ' content-section--wide' : ''}">
+  <section${section.id ? ` id="${escapeHtml(section.id)}"` : ''} class="content-section${index % 2 ? ' content-section--raised' : ''}${section.layout === 'wide' ? ' content-section--wide' : ''}">
     <div class="container content-section-inner">
       <div class="content-section-heading">
         <span class="mono-label">${escapeHtml(section.eyebrow)}</span>
@@ -886,6 +909,8 @@ const renderSections = (sections = []) => sections.map((section, index) => `
       </div>
       <div class="content-section-body">
         ${(section.paragraphs || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('\n')}
+        ${renderTable(section.table)}
+        ${renderDownloads(section.downloads)}
         ${renderBullets(section.bullets)}
         ${renderSteps(section.steps)}
         ${renderCards(section.cards)}
@@ -963,7 +988,7 @@ const renderPressMain = (page) => {
     </section>
     <section class="press-close">
       <div class="container press-close-inner">
-        <div class="press-close-copy"><span class="mono-label">About Propagent</span><h2>The proposal pursuit system for the built world</h2><p>${escapeHtml(page.about)}</p></div>
+        <div class="press-close-copy"><span class="mono-label">About Propagent</span><h2>The pursuit system for the built world</h2><p>${escapeHtml(page.about)}</p></div>
         <div class="press-close-actions">
           <a href="/about/">About Propagent <span aria-hidden="true">&#8594;</span></a>
           <a href="${escapeHtml(page.productLink.href)}">${escapeHtml(page.productLink.label)} <span aria-hidden="true">&#8594;</span></a>
@@ -982,7 +1007,7 @@ const organizationSchema = {
   name: 'Propagent',
   url: `${SITE}/`,
   logo: `${SITE}/logo.svg`,
-  description: 'The proposal pursuit system for the built world and the next generation of proposal and response management for AEC firms.',
+  description: 'The pursuit system for the built world and the next generation of proposal pursuit management for AEC firms.',
   foundingDate: '2024',
   founder: [
     { '@type': 'Person', '@id': `${SITE}/about/#daniel-beecham`, name: 'Daniel Beecham' },
@@ -1030,6 +1055,10 @@ const steveSchema = {
 };
 
 function schemaForMedia(item) {
+  // This archive links to conference coverage; it is not an event detail page.
+  if (item.schemaType === 'Event') {
+    return { '@type': 'WebPage', name: item.title, url: item.url };
+  }
   const schema = {
     '@type': item.schemaType || 'CreativeWork',
     name: item.schemaName || item.title,
@@ -1066,14 +1095,6 @@ function schemaForMedia(item) {
     schema.embedUrl = item.embedUrl;
   }
 
-  if (item.schemaType === 'Event') {
-    if (item.isoDate) schema.startDate = item.isoDate;
-    if (item.endDate) schema.endDate = item.endDate;
-    if (item.schemaPerformer !== false) schema.performer = { '@id': `${SITE}/about/#daniel-beecham` };
-    schema.organizer = { '@type': 'Organization', name: item.outlet };
-    if (item.location) schema.location = { '@type': 'Place', name: item.location };
-  }
-
   return schema;
 }
 
@@ -1099,8 +1120,8 @@ function schemaFor(page) {
       url: canonical,
       name: page.title,
       description: page.description,
-      datePublished: CONTENT_DATE,
-      dateModified: CONTENT_DATE,
+      datePublished: page.template === 'guide' ? '2026-09-08' : CONTENT_DATE,
+      dateModified: pageDates[`/${page.slug}/`],
       isPartOf: { '@id': `${SITE}/#website` },
       about: { '@id': `${SITE}/#org` },
       breadcrumb: { '@id': `${canonical}#breadcrumb` },
@@ -1208,7 +1229,7 @@ function renderFooter() {
           <span class="brand-mark"><img src="/logo.svg" alt="" width="26" height="26"></span>
           <span class="brand-name">Propagent</span>
         </a>
-        <p>The proposal pursuit system for the built world.</p>
+        <p>The pursuit system for the built world.</p>
       </div>
       <div><span class="mono-label">Explore</span><a href="/resources/">Resources</a><a href="/ai-proposal-management-aec/">AI proposal management</a><a href="/rfp-grader/">RFP Grader</a></div>
       <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/press/">Press & Media</a><a href="/security/">Security</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
@@ -1247,13 +1268,13 @@ function renderPage(page) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=20260814-geo">
-  <link rel="stylesheet" href="/content-pages.css?v=20260814-geo">
+  <link rel="stylesheet" href="/content-pages.css?v=20260907-buyer">
   <script type="application/ld+json">${schemaFor(page)}</script>
 </head>
 <body class="content-page content-page--${escapeHtml(page.slug)}">
   <a class="content-skip" href="#main">Skip to content</a>
   ${renderNav()}
-  ${page.slug === 'press' ? renderPressMain(page) : `<main id="main">
+  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'guide' ? renderGuideMain(page) : `<main id="main">
     <header class="content-hero">
       <div class="container">
         <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
@@ -1318,6 +1339,22 @@ export function renderContentPages(dist) {
   return pageSlugs;
 }
 
+function renderGuideMain(page) {
+  return `<main id="main" class="buyer-guide">
+    <header class="guide-header container">
+      <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span>/</span><a href="/resources/">Resources</a><span>/</span><span>Buyer’s guide</span></nav>
+      <span class="mono-label">${escapeHtml(page.eyebrow)}</span><h1>${escapeHtml(page.h1)}</h1>
+      <p class="guide-byline">By Propagent · Updated <time datetime="${pageDates[`/${page.slug}/`]}">${new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(pageDates[`/${page.slug}/`]))}</time></p>
+      <p class="content-answer" data-direct-answer>${escapeHtml(page.answer)}</p>
+      <nav class="guide-jumps" aria-label="In this guide">${page.sections.map(section => `<a href="#${section.id}">${escapeHtml(section.eyebrow)}</a>`).join('')}</nav>
+    </header>
+    ${renderSections(page.sections)}
+    <section class="content-section"><div class="container"><h2>Common buying questions</h2><div class="guide-faq">${renderFaqs(page.faqs)}</div></div></section>
+    <section class="content-related"><div class="container"><h2>Keep evaluating</h2>${renderCards(page.related.map(slug => {const p = relatedPage(slug); return [p.navLabel, p.description, `/${slug}/`];}))}</div></section>
+    <section class="content-cta"><div class="container content-cta-inner"><div><h2>${escapeHtml(page.cta[0])}</h2><p>${escapeHtml(page.cta[1])}</p></div><a class="btn btn-primary" href="${page.cta[2]}">${escapeHtml(page.cta[3])}</a></div></section>
+  </main>`;
+}
+
 export function renderSitemap(dist) {
   mkdirSync(dist, { recursive: true });
   const urls = [
@@ -1327,7 +1364,7 @@ export function renderSitemap(dist) {
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(([path, priority]) => `  <url>\n    <loc>${SITE}${path}</loc>\n    <lastmod>${CONTENT_DATE}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`).join('\n')}
+${urls.map(([path]) => `  <url>\n    <loc>${SITE}${path}</loc>\n    <lastmod>${pageDates[path]}</lastmod>\n  </url>`).join('\n')}
 </urlset>\n`;
   writeFileSync(join(dist, 'sitemap.xml'), xml, 'utf8');
   return urls.map(([path]) => path);

@@ -2,6 +2,8 @@ import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { execFileSync } from 'node:child_process';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderWorksheets } from './worksheets.mjs';
+import { indexNowKey } from './indexnow-config.mjs';
 
 import {
   llmsResourceLinks,
@@ -35,7 +37,9 @@ for (const file of staticFiles) {
 }
 
 renderContentPages(dist);
+renderWorksheets(dist);
 renderSitemap(dist);
+writeFileSync(resolve(dist, `${indexNowKey}.txt`), `${indexNowKey}\n`, 'utf8');
 
 const content = resolve(root, 'functions', 'content');
 const llmsBase = readFileSync(resolve(content, 'llms.txt'), 'utf8').trimEnd();

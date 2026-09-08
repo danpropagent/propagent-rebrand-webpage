@@ -1,6 +1,6 @@
 # Propagent
 
-> Propagent is the next generation of proposal and response management for AEC (architecture, engineering, and construction) firms. Its system-led workflow manages each response from RFP intake through final review, connects requirements to firm capabilities and approved evidence, coordinates focused expert input, and helps the team produce a stronger, compliant case to win while people retain strategic judgment and final approval.
+> Propagent is the next generation of proposal pursuit management for AEC (architecture, engineering, and construction) firms. Its system-led workflow manages each response from RFP intake through final review, connects requirements to firm capabilities and approved evidence, coordinates focused expert input, and helps the team produce a stronger, compliant case to win while people retain strategic judgment and final approval.
 
 Pricing starts at $1,000/month (up to 25 responses a year); tiers are based on annual response volume, not seat counts. AI agents are welcome on this site—it is fully static, server-rendered HTML with schema.org JSON-LD, and exposes a conversational endpoint at POST /api/ask.
 

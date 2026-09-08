@@ -1,5 +1,38 @@
 /* Propagent resource pages. Extends the native design tokens. */
 
+/* Editorial guides and practical examples use a compact, table-first layout. */
+.guide-header { padding-top: 36px; padding-bottom: 32px; }
+.guide-header .content-breadcrumb { margin-bottom: 24px; flex-wrap: wrap; }
+.guide-header h1 { max-width: 930px; margin: 16px 0; font-size: clamp(34px, 4.2vw, 58px); line-height: 1.08; letter-spacing: -.04em; }
+.guide-byline { color: var(--text-muted); font-size: 13px; }
+.guide-header .content-answer { max-width: 940px; font-family: var(--font-sans); font-size: 19px; line-height: 1.6; }
+.guide-jumps { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-top: 12px; }
+.guide-jumps a { color: var(--accent-primary); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+.buyer-guide .content-section { padding: 38px 0; scroll-margin-top: 86px; }
+.buyer-guide .content-section-inner { grid-template-columns: 1fr; gap: 18px; }
+.buyer-guide .content-section-heading h2 { max-width: 900px; font-size: clamp(26px, 3vw, 36px); }
+.buyer-guide .content-section-body { min-width: 0; max-width: none; }
+.guide-table-wrap { overflow-x: auto; max-width: 100%; margin: 18px 0 24px; border: 1px solid var(--border-subtle); border-radius: 8px; }
+.guide-table-wrap:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 4px; }
+.guide-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; line-height: 1.55; }
+.guide-table caption { text-align: left; color: var(--text-secondary); padding: 14px 16px; background: var(--surface-raised); font-size: 12px; }
+.guide-table th, .guide-table td { padding: 14px 16px; vertical-align: top; border-top: 1px solid var(--border-subtle); }
+.guide-table thead th { color: var(--accent-primary); font-weight: 600; }
+.guide-table tbody th { color: var(--text-primary); font-weight: 500; width: 23%; }
+.guide-table td { color: var(--text-secondary); }
+.guide-table tbody tr:nth-child(even) { background: rgba(255,255,255,.018); }
+.guide-download small { display: block; color: var(--text-muted); margin-top: 10px; font-size: 12px; }
+.guide-faq { max-width: 940px; margin-top: 24px; }
+.content-section-body { min-width: 0; }
+@media (max-width: 640px) {
+  .guide-table-wrap::before { content: 'Scroll sideways to compare all columns'; display: block; position: sticky; left: 0; padding: 10px 12px; color: var(--text-secondary); font-size: 12px; }
+  .guide-header { padding-top: 24px; }
+  .guide-header .content-answer { font-size: 17px; }
+  .guide-table { min-width: 590px; }
+  .guide-table th, .guide-table td { padding: 12px; }
+  .guide-download .btn { white-space: normal; text-align: left; }
+}
+
 .content-page {
   background:
     radial-gradient(circle at 80% 8%, rgba(167, 139, 250, 0.10), transparent 28rem),

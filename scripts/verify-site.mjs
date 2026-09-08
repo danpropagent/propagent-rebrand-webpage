@@ -7,7 +7,10 @@ import {
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { pageSlugs } from '../content-pages.mjs';
+import { pageSlugs, pageDates } from '../content-pages.mjs';
+import { worksheetFiles } from '../worksheets.mjs';
+import { indexNowKey } from '../indexnow-config.mjs';
+import { indexabilityErrors, textContent, discoveryDepths, robotsAllows, hostingRobotsHeaders } from './search-checks.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
@@ -21,6 +24,8 @@ const VIRTUAL_ROUTES = new Set([
   '/api/gradeRfp',
 ]);
 const REQUIRED_FILES = [
+  `${indexNowKey}.txt`,
+  ...worksheetFiles,
   '404.html',
   'analytics.js',
   'ask.js',
@@ -137,6 +142,8 @@ const extractJsonLd = (html, file) => {
 };
 
 const canonicalUrls = new Set();
+const seenTitles = new Map();
+const seenDescriptions = new Map();
 for (const entry of canonicalRoutes) {
   const html = readDistFile(entry.file);
   if (html === null) continue;
@@ -164,6 +171,14 @@ for (const entry of canonicalRoutes) {
       .includes('canonical'),
   );
   const expectedCanonical = new URL(entry.route, `${ORIGIN}/`).href;
+  for (const error of indexabilityErrors(html, expectedCanonical)) report(`${entry.file}: ${error}`);
+  for (const [label, value, seen] of [
+    ['title', textContent(titles[0]?.[1] ?? ''), seenTitles],
+    ['description', getAttribute(descriptionTags[0] ?? '', 'content') ?? '', seenDescriptions],
+  ]) {
+    if (value && seen.has(value)) report(`${entry.file}: duplicate ${label} with ${seen.get(value)}`);
+    if (value) seen.set(value, entry.file);
+  }
   const actualCanonical = canonicalTags.length === 1
     ? getAttribute(canonicalTags[0], 'href')
     : null;
@@ -178,6 +193,7 @@ for (const entry of canonicalRoutes) {
   }
 
   const h1Count = (html.match(/<h1\b[^>]*>/gi) ?? []).length;
+  if (/<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^>]+name=["']robots)/i.test(html)) report(`${entry.file}: canonical pages must not be noindexed`);
   if (h1Count !== 1) report(`${entry.file}: expected exactly one H1; found ${h1Count}`);
 
   const hasDirectAnswer =
@@ -196,6 +212,16 @@ for (const entry of canonicalRoutes) {
   }
 
   jsonLdByFile.set(entry.file, extractJsonLd(html, entry.file));
+  // JSON-LD is not visible buyer content. Schema questions/answers must exist outside scripts.
+  const visible = textContent(html);
+  const nodes = (jsonLdByFile.get(entry.file) ?? []).flatMap(block => block['@graph'] ?? [block]);
+  for (const faq of nodes.filter(node => node['@type'] === 'FAQPage')) {
+    for (const question of faq.mainEntity ?? []) {
+      for (const value of [question.name, question.acceptedAnswer?.text]) {
+        if (!value || !visible.includes(textContent(value))) report(`${entry.file}: FAQ schema has text absent from visible content`);
+      }
+    }
+  }
 }
 
 const pressHtml = htmlByFile.get('press/index.html');
@@ -224,6 +250,15 @@ if (pressHtml) {
 
   const pressGraph = (jsonLdByFile.get('press/index.html') ?? [])
     .flatMap((block) => block?.['@graph'] ?? []);
+  const checkArchiveTypes = (value) => {
+    if (!value || typeof value !== 'object') return;
+    const types = [].concat(value['@type'] ?? []);
+    if (types.includes('Event')) {
+      report('press/index.html: a coverage archive must link to event pages, not publish Event rich-result markup');
+    }
+    for (const child of Object.values(value)) checkArchiveTypes(child);
+  };
+  checkArchiveTypes(pressGraph);
   const mediaList = pressGraph.find((item) => item?.['@type'] === 'ItemList' && item?.['@id']?.endsWith('#media'));
   const schemaUrls = (mediaList?.itemListElement ?? []).map((entry) => entry?.item?.url).filter(Boolean);
   const schemaUrlSet = new Set(schemaUrls);
@@ -248,6 +283,11 @@ if (pressHtml) {
 
 const sitemap = readDistFile('sitemap.xml');
 if (sitemap !== null) {
+  for (const match of sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const url = match[1].match(/<loc>(.*?)<\/loc>/)?.[1];
+    const date = match[1].match(/<lastmod>(.*?)<\/lastmod>/)?.[1];
+    if (!url || date !== pageDates[new URL(url).pathname]) report('Sitemap date must match the route’s recorded substantive edit.');
+  }
   const sitemapUrls = [...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(
     (match) => match[1].replaceAll('&amp;', '&').trim(),
   );
@@ -279,6 +319,29 @@ if (briefing !== null) {
 }
 
 const notFound = readDistFile('404.html');
+if(readDistFile(`${indexNowKey}.txt`)?.trim() !== indexNowKey) report('IndexNow ownership file must match its configured public token.');
+const firebase = JSON.parse(readFileSync(resolve(ROOT, 'firebase.json'), 'utf8'));
+const robots = readDistFile('robots.txt') ?? '';
+for (const agent of ['Googlebot','Bingbot','OAI-SearchBot','ChatGPT-User','PerplexityBot','Claude-SearchBot','Claude-User']) {
+  for (const path of [...canonicalRoutes.map(entry=>entry.route), '/sitemap.xml']) {
+    if (!robotsAllows(robots, agent, path)) report(`robots.txt blocks ${agent} from ${path}`);
+  }
+}
+if (!robots.split(/\r?\n/).some(line => /^sitemap:\s*https:\/\/www\.propagent\.ai\/sitemap\.xml\s*$/i.test(line))) report('robots.txt must reference the canonical sitemap');
+for (const entry of canonicalRoutes) {
+  try {
+    const headers = hostingRobotsHeaders(firebase.hosting, entry.route);
+    for (const error of indexabilityErrors(htmlByFile.get(entry.file) ?? '', ORIGIN+entry.route, headers)) report(`${entry.file}: Hosting preflight: ${error}`);
+  } catch (error) {report(error.message);}
+}
+if (firebase.hosting.rewrites.some(rule => rule.source === '/rfp-grader/**')) report('Grader wildcard rewrite creates soft 404s; serve its real files only.');
+const homeGraph = (jsonLdByFile.get('index.html') || []).flatMap(block => block['@graph'] || []);
+if (!homeGraph.some(item => item['@type'] === 'WebSite' && item.url === `${ORIGIN}/`)) report('Homepage is missing the canonical WebSite entity.');
+for (const worksheet of worksheetFiles) {
+  const html = readDistFile(worksheet);
+  if (!html?.includes('noindex,follow')) report(`${worksheet}: utility worksheet must be noindexed`);
+  if (html?.includes('https://cloud.umami.is')) report(`${worksheet}: private working sheet must not load analytics`);
+}
 if (notFound !== null) htmlByFile.set('404.html', notFound);
 for (const required of REQUIRED_FILES) readDistFile(required);
 
@@ -408,6 +471,19 @@ while (cssQueue.length) {
 }
 
 const allFiles = walkFiles(DIST);
+// A valid sitemap does not compensate for orphaned HTML. Every canonical route needs a crawlable path from home.
+const routeSet = new Set(canonicalRoutes.map(entry => entry.route));
+const edges = new Map(canonicalRoutes.map(entry => [entry.route, new Set()]));
+for (const entry of canonicalRoutes) {
+  for (const anchor of htmlByFile.get(entry.file)?.match(/<a\b[^>]*>/gi) ?? []) {
+    const href = getAttribute(anchor, 'href');
+    const target = href ? normalizeInternalUrl(href, entry.route) : null;
+    if (target?.pathname) edges.get(entry.route).add(target.pathname);
+  }
+}
+const depths = discoveryDepths(routeSet, edges);
+for (const route of routeSet) if (!depths.has(route)) report(`Orphaned canonical route: ${route}`);
+
 for (const file of allFiles) {
   if (FORBIDDEN_PATHS.some((pattern) => pattern.test(file))) {
     report(`Forbidden artifact published: ${file}`);
@@ -432,5 +508,6 @@ if (errors.length) {
 
 console.log(
   `Site verification passed: ${canonicalRoutes.length} canonical routes, ` +
-  `${allFiles.length} approved files, sitemap and internal links valid.`,
+  `${allFiles.length} approved files, sitemap and internal links valid; ` +
+  `all canonical pages reachable within ${Math.max(...depths.values())} HTML link hops from home; FAQ/schema parity checked.`,
 );

@@ -2,7 +2,7 @@
 
 ## What is Propagent?
 
-Propagent is the next generation of proposal and response management for
+Propagent is the next generation of proposal pursuit management for
 architecture, engineering, and construction firms. Its system-led workflow
 manages each response from RFP intake through final review, connects
 requirements to firm capabilities and approved evidence, coordinates focused
@@ -244,7 +244,7 @@ and Impact Development Management.
 ## FAQ
 
 **What is Propagent?**
-Propagent is the next generation of proposal and response management for AEC
+Propagent is the next generation of proposal pursuit management for AEC
 firms. It manages the process from RFP intake through final review, connects
 requirements to firm capabilities and approved evidence, and coordinates
 focused expert input so the team can produce a stronger, compliant response.

@@ -8,7 +8,8 @@
     "build": "node build.mjs",
     "build:vite": "vite build",
     "preview": "vite preview",
-    "test:site": "node scripts/verify-site.mjs"
+    "test:site": "node scripts/verify-site.mjs",
+    "test:search": "node --test scripts/search-checks.test.mjs scripts/search-benchmark.test.mjs"
   },
   "dependencies": {
     "react": "^19.2.1",
