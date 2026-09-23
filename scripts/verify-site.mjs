@@ -225,6 +225,29 @@ for (const entry of canonicalRoutes) {
 }
 
 const pressHtml = htmlByFile.get('press/index.html');
+for (const [file, exampleId, sourceId] of [
+  ['aec-proposal-software-guide/index.html', 'stormwater-response', 'e1'],
+  ['aec-go-no-go-scoring/index.html', 'stormwater-qualification', 'c1'],
+]) {
+  const html = htmlByFile.get(file) ?? '';
+  if (!html.includes(`data-worked-example="${exampleId}"`)) report(`${file}: missing worked example`);
+  if (!textContent(html).includes('not a live product capture or customer result')) report(`${file}: missing illustrative disclosure`);
+  if (!html.includes(`id="${exampleId}-${sourceId}"`)) report(`${file}: missing static source record`);
+  if (!html.includes('Hickory Lane') || !html.includes('Cedar Run')) report(`${file}: missing shared stormwater pursuit`);
+  if (/North Annex|municipal water-facility RFQ/.test(html)) report(`${file}: outdated scenario`);
+}
+for (const privatePath of ['research', 'pursuit-example.mjs', 'pursuit-example-review.html']) {
+  if (existsSync(resolve(DIST, privatePath))) report(`Private illustration source must not be deployed: ${privatePath}`);
+}
+for (const [file, href] of [
+  ['ai-proposal-management-aec/index.html', '/aec-proposal-software-guide/#worked-example'],
+  ['ai-proposal-management-aec/index.html', '/aec-go-no-go-scoring/#worksheet'],
+  ['source-grounded-proposal-drafting/index.html', '/aec-proposal-software-guide/#worked-example'],
+  ['aec-proposal-software-guide/index.html', '/aec-go-no-go-scoring/#worksheet'],
+  ['aec-go-no-go-scoring/index.html', '/aec-proposal-software-guide/#worked-example'],
+]) {
+  if (!htmlByFile.get(file)?.includes(`href="${href}"`)) report(`${file}: missing contextual link ${href}`);
+}
 if (pressHtml) {
   const pressTags = pressHtml.match(/<[^>]+\bdata-press-url\s*=\s*(?:"[^"]*"|'[^']*')[^>]*>/gi) ?? [];
   const visibleUrls = pressTags.map((tag) => getAttribute(tag, 'data-press-url')).filter(Boolean);

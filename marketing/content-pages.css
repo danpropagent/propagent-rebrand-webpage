@@ -1,6 +1,38 @@
 /* Propagent resource pages. Extends the native design tokens. */
 
 /* Editorial guides and practical examples use a compact, table-first layout. */
+.worked-example { min-width: 0; }
+.content-section-body .example-disclosure { max-width: 94ch; margin: 0 0 20px; padding-left: 14px; border-left: 2px solid var(--accent-primary); color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+.example-brief { padding: 18px 22px; background: var(--surface-raised); border: 1px solid var(--border-subtle); border-radius: 8px; }
+.worked-example h3 { margin: 0 0 10px; color: var(--text-primary); font-size: 18px; line-height: 1.35; }
+.content-section-body .worked-example p { max-width: none; margin: 0; font-size: 15px; line-height: 1.65; }
+.example-comparison { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 18px; margin: 18px 0; }
+.example-card { min-width: 0; padding: 24px; border: 1px solid var(--border-default); border-radius: 8px; }
+.example-card--response { border-color: var(--border-accent); background: var(--surface-glass); }
+.example-card .mono-label, .example-decision .mono-label { display: block; margin-bottom: 12px; }
+.content-section-body .example-card p + p { margin-top: 14px; }
+.content-section-body .example-card .example-note { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 12px; }
+.example-decision { margin-top: 18px; padding: 22px; border: 1px solid var(--border-accent); border-radius: 8px; background: var(--surface-glass); }
+.example-checkpoints { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; padding: 0; margin: 24px 0; list-style: none; }
+.example-checkpoints li { border-top: 1px solid var(--border-default); padding-top: 16px; }
+.example-checkpoints h3 { font-size: 15px; }
+.content-section-body .example-checkpoints p { font-size: 13px; }
+.example-sources { border-block: 1px solid var(--border-default); scroll-margin-top: 100px; }
+.example-sources summary { cursor: pointer; padding: 16px 0; color: var(--accent-primary); font-size: 14px; }
+.example-sources dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; margin: 0 0 22px; }
+.example-sources dt { font-size: 13px; color: var(--text-primary); font-weight: 600; }
+.example-sources dd { margin: 6px 0 0; color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
+.example-sources summary:focus-visible, .content-inline-links a:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 4px; }
+.content-inline-links { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 0; margin: 22px 0 0; list-style: none; font-size: 14px; }
+.content-inline-links a { color: var(--accent-primary); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 720px) {
+  .example-comparison, .example-checkpoints, .example-sources dl { grid-template-columns: minmax(0, 1fr); }
+  .example-card, .example-brief, .example-decision { padding: 18px; }
+}
+@media print {
+  .example-sources::details-content { display: block; }
+  .example-card { break-inside: avoid; }
+}
 .guide-header { padding-top: 36px; padding-bottom: 32px; }
 .guide-header .content-breadcrumb { margin-bottom: 24px; flex-wrap: wrap; }
 .guide-header h1 { max-width: 930px; margin: 16px 0; font-size: clamp(34px, 4.2vw, 58px); line-height: 1.08; letter-spacing: -.04em; }
@@ -10,6 +42,7 @@
 .guide-jumps a { color: var(--accent-primary); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
 .buyer-guide .content-section { padding: 38px 0; scroll-margin-top: 86px; }
 .buyer-guide .content-section-inner { grid-template-columns: 1fr; gap: 18px; }
+.buyer-guide .content-section-heading { position: static; }
 .buyer-guide .content-section-heading h2 { max-width: 900px; font-size: clamp(26px, 3vw, 36px); }
 .buyer-guide .content-section-body { min-width: 0; max-width: none; }
 .guide-table-wrap { overflow-x: auto; max-width: 100%; margin: 18px 0 24px; border: 1px solid var(--border-subtle); border-radius: 8px; }

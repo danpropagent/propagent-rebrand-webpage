@@ -1,14 +1,15 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { buyerGuide, memoryRecordsSection, qualificationExample, complianceExample } from './buyer-guide.mjs';
+import { renderWorkedExample } from './pursuit-example.mjs';
 
 const SITE = 'https://www.propagent.ai';
 const CONTENT_DATE = '2026-08-20';
 const modifiedDates = {
   resources: '2026-09-07',
-  'aec-proposal-software-guide': '2026-09-08',
+  'aec-proposal-software-guide': '2026-09-22',
   'aec-operational-memory': '2026-09-07',
-  'aec-go-no-go-scoring': '2026-09-07',
+  'aec-go-no-go-scoring': '2026-09-22',
   'rfp-compliance-matrix': '2026-09-07',
   press: '2026-09-08',
 };
@@ -428,6 +429,10 @@ const pages = [
           'Source-grounded content with open questions and evidence visible.',
           'A review state that shows what changed and where judgment is required.',
         ],
+        links: [
+          ['/aec-proposal-software-guide/#worked-example', 'Explore an illustrative stormwater pursuit'],
+          ['/aec-go-no-go-scoring/#worksheet', 'See how the Go/No-Go decision is recorded'],
+        ],
       },
     ],
     proof: {
@@ -523,29 +528,22 @@ const pages = [
       qualificationExample,
       {
         eyebrow: 'Why go/no-go breaks down',
-        title: 'A score without its evidence is not a decision system.',
+        title: 'Separate eligibility from the reasons you want to win.',
         paragraphs: [
-          'AEC firms cannot chase every opportunity. The cost is not only proposal hours; it is leadership attention, expert time, partner coordination, and the opportunity cost of the work the firm did not pursue.',
-          'A useful qualification process makes the basis of the decision visible. It shows where the firm fits, which requirements are difficult, whether the evidence is ready, what risks remain, and where executive judgment overrides a default recommendation.',
+          'Mandatory submission and qualification requirements set the floor. Strategic fit, client relationships, and growth priorities help leadership decide whether an eligible pursuit deserves the team’s time. Keep those judgments separate so a strong relationship does not hide a missing qualification.',
+          'An unknown is a focused check with an owner and a deadline. A confirmed inability to meet a mandatory requirement is a different decision. In the stormwater pursuit, hold means resolve the evidence and capacity questions before committing the full team.',
         ],
       },
       {
         eyebrow: 'Decision record',
-        title: 'See the factors, evidence, gaps, and owner.',
-        steps: [
-          ['01', 'Strategic fit', 'How the opportunity aligns with the firm’s market, client, geography, project type, and priorities.'],
-          ['02', 'Capability and proof', 'Whether the firm has relevant experience, people, credentials, and defensible evidence.'],
-          ['03', 'Requirements and risk', 'Which terms, constraints, ambiguities, deadlines, or compliance demands affect the pursuit.'],
-          ['04', 'Readiness and cost', 'What the response will require from the proposal team, experts, leadership, and partners.'],
-          ['05', 'Judgment and approval', 'Which open questions require a person and who owns the final go/no-go decision.'],
-        ],
+        title: 'Keep the basis of the decision with the decision.',
+        paragraphs: ['Record the requirement, the evidence you have, the unresolved question, its owner, and the decision deadline. Add the principal’s final call and its conditions. Use the blank worksheet above for your own pursuit; it does not calculate a Propagent score or a win probability.'],
       },
       {
         eyebrow: 'Win probability',
-        title: 'Use probability as decision context, not a promise.',
+        title: 'A pursuit decision is not a win prediction.',
         paragraphs: [
-          'No responsible proposal system can guarantee a win. Propagent organizes the factors, evidence, and uncertainty behind the team’s confidence. As your firm records actual outcomes, leaders can compare them with the original decision and refine future qualification.',
-          'You get more than a mysterious percentage: a traceable decision record your leaders can inspect, challenge, and approve.',
+          'Approving a pursuit means leadership accepts the case for committing resources. It does not establish the probability of winning. Preserve the original reasoning so the firm can review the decision alongside the eventual outcome.',
         ],
       },
       {
@@ -557,12 +555,6 @@ const pages = [
         media: [pressMedia.authored[0]],
       },
     ],
-    proof: {
-      title: 'A pursuit decision the team can challenge and approve.',
-      body: 'The decision record makes strengths, risks, missing evidence, uncertainty, ownership, and the final executive call visible together.',
-      items: ['Evidence-backed strengths and gaps', 'Visible uncertainty and open decisions', 'Named executive approval'],
-      artifact: [['Fit signal', 'Relevant experience is well supported'], ['Open risk', 'Key-person availability unconfirmed'], ['Decision', 'Awaiting principal approval']],
-    },
     checkpoint: 'Firm leadership makes the final pursue/no-pursue decision and can add relationship, capacity, commercial, and strategic context that no document alone contains.',
     faqs: [
       ['What is go/no-go scoring for AEC pursuits?', 'It is a structured way to evaluate whether an opportunity fits the firm, whether the evidence and team are ready, what risks and costs exist, and whether committing proposal resources is warranted.'],
@@ -736,6 +728,7 @@ const pages = [
           'Recheck related sections when approved content changes.',
           'Leave strategic, commercial, legal, and final decisions with people.',
         ],
+        links: [['/aec-proposal-software-guide/#worked-example', 'See a stormwater response take shape from its sources']],
       },
     ],
     proof: {
@@ -909,12 +902,14 @@ const renderSections = (sections = []) => sections.map((section, index) => `
       </div>
       <div class="content-section-body">
         ${(section.paragraphs || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('\n')}
+        ${renderWorkedExample(section.workedExample)}
         ${renderTable(section.table)}
         ${renderDownloads(section.downloads)}
         ${renderBullets(section.bullets)}
         ${renderSteps(section.steps)}
         ${renderCards(section.cards)}
         ${renderSectionMedia(section)}
+        ${(section.links || []).length ? `<ul class="content-inline-links">${section.links.map(([href, label]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)} <span aria-hidden="true">→</span></a></li>`).join('')}</ul>` : ''}
       </div>
     </div>
   </section>`).join('\n');
@@ -1268,7 +1263,7 @@ function renderPage(page) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=20260814-geo">
-  <link rel="stylesheet" href="/content-pages.css?v=20260907-buyer">
+  <link rel="stylesheet" href="/content-pages.css?v=20260922-evidence">
   <script type="application/ld+json">${schemaFor(page)}</script>
 </head>
 <body class="content-page content-page--${escapeHtml(page.slug)}">

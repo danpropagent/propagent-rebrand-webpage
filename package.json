@@ -9,7 +9,7 @@
     "build:vite": "vite build",
     "preview": "vite preview",
     "test:site": "node scripts/verify-site.mjs",
-    "test:search": "node --test scripts/search-checks.test.mjs scripts/search-benchmark.test.mjs"
+    "test:search": "node --test scripts/search-checks.test.mjs scripts/search-benchmark.test.mjs scripts/worked-example.test.mjs"
   },
   "dependencies": {
     "react": "^19.2.1",
