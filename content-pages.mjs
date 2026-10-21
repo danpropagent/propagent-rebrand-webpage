@@ -2,15 +2,22 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { buyerGuide, memoryRecordsSection, qualificationExample, complianceExample } from './buyer-guide.mjs';
 import { renderWorkedExample } from './pursuit-example.mjs';
+import { renderComplianceExample } from './compliance-example.mjs';
+import { customerStory, customerStoryPath, renderCaseMethodology } from './buyer-proof.mjs';
+import { renderResponseWalkthrough } from './response-walkthrough.mjs';
+import { inputFormats, outputFormats, connectionRows, connectionAnswer, submissionAnswer, modelTrainingPolicy, deploymentOptions, retentionPolicy } from './buyer-capabilities.mjs';
 
 const SITE = 'https://www.propagent.ai';
 const CONTENT_DATE = '2026-08-20';
 const modifiedDates = {
-  resources: '2026-09-07',
-  'aec-proposal-software-guide': '2026-09-22',
+  resources: '2026-10-06',
+  'aec-proposal-software-guide': '2026-10-06',
+  'customer-stories/aec-design-build-proposal': '2026-10-06',
   'aec-operational-memory': '2026-09-07',
   'aec-go-no-go-scoring': '2026-09-22',
-  'rfp-compliance-matrix': '2026-09-07',
+  'rfp-compliance-matrix': '2026-10-06',
+  'ai-proposal-management-aec': '2026-10-06',
+  security: '2026-09-23',
   press: '2026-09-08',
 };
 
@@ -236,6 +243,7 @@ const pressVisibleMedia = Object.freeze([...featuredPressMedia, ...pressArchiveM
 
 const pages = [
   buyerGuide,
+  customerStory,
   {
     slug: 'resources',
     title: 'AEC Proposal & Response Management Resources',
@@ -250,6 +258,14 @@ const pages = [
       ['People stay accountable', 'The system carries the process; people apply expertise, judgment, and approval.'],
     ],
     sections: [
+      {
+        eyebrow: 'Results and examples',
+        title: 'See the work behind a stronger pursuit.',
+        cards: [
+          ['From first draft to the shortlist', 'A 30-minute first draft, 29 of 40 recommendations fully or partly implemented, and a place on the shortlist.', customerStoryPath, 'Read the customer story'],
+          ['Follow the evidence into the response', 'Explore a fictional county RFQ through project selection, a focused expert question, a supported response, and an addendum. Download the worked example.', '/aec-proposal-software-guide/#worked-example', 'Explore the worked example'],
+        ],
+      },
       {
         eyebrow: 'Start here',
         title: 'Why disconnected proposal tools fall short.',
@@ -391,8 +407,8 @@ const pages = [
     navLabel: 'AI proposal management',
     eyebrow: 'System-led response management',
     h1: 'Propagent manages the entire AEC response—not just the writing.',
-    description: 'See how Propagent connects RFP analysis, firm evidence, response planning, SME input, source-grounded content, quality review, and human approval for AEC firms.',
-    answer: 'Propagent manages the response, not merely the text. It analyzes the RFP against firm capabilities, turns gaps into a response plan and focused expert questions, matures source-grounded content, and rechecks the work through human approval. The system carries the process; people provide expertise, strategy, and judgment.',
+    description: 'Propagent supports AEC RFP, RFQ, SOQ, and SF 330 responses with requirements analysis, project evidence, expert coordination, drafting, and review.',
+    answer: 'Propagent manages RFP, RFQ, SOQ, and SF 330 responses for AEC firms. It analyzes requirements against firm capabilities, turns gaps into a response plan and focused expert questions, develops source-grounded content, and rechecks the work through approval.',
     highlights: [
       ['Measurable Quality', 'Evaluate the response against this pursuit, its evidence, and buyer priorities.'],
       ['Dynamic Workflow', 'Keep requirements, owners, expert input, revisions, and review moving together.'],
@@ -400,55 +416,97 @@ const pages = [
     ],
     sections: [
       {
-        eyebrow: 'Why disconnected tools fall short',
-        title: 'Search and drafting assistance do not equal response management.',
-        paragraphs: [
-          'A search result does not decide whether the evidence is relevant. A first draft does not resolve missing facts, coordinate contributors, reconcile changes, or prove that the response addresses the buyer’s evaluation criteria. When those steps remain disconnected, the proposal team still carries the process.',
-          'Propagent uses a system-led workflow. It connects what the buyer requires to what the firm can prove, maintains the response plan, turns gaps into focused work, and makes evidence and open decisions visible through final review.',
+        id: 'fit', eyebrow: 'Is Propagent right for your firm?',
+        title: 'Built for pursuits that take more than a good writer.',
+        paragraphs: [submissionAnswer, 'Propagent fits architecture, engineering, and construction teams whose responses depend on project experience, team credentials, technical approach, and expert input. Connect that work from the pursuit decision through response review.'],
+        bullets: [
+          'Your proposal team coordinates several contributors, offices, or disciplines.',
+          'Relevant proof lives across project records, résumés, past responses, and people’s experience.',
+          'Requirements and revisions affect more than one section of the submission.',
+          'You want the next pursuit to retain the decisions and approved knowledge from this one.',
         ],
+        links: [['/aec-proposal-software-guide/', 'Compare the buying criteria in the AEC software guide']],
       },
       {
         eyebrow: 'Connected workflow',
         title: 'From requirements analysis to final approval.',
         steps: [
-          ['01', 'Analyze the RFP', 'Identify requirements, evaluation criteria, buyer intent, risks, ambiguities, and submission instructions.'],
-          ['02', 'Connect firm capability', 'Match the opportunity with relevant experience, proof, prior work, and available expertise.'],
-          ['03', 'Plan the response', 'Turn requirements and gaps into sections, owners, next actions, dependencies, and review points.'],
-          ['04', 'Capture focused knowledge', 'Ask the right expert a bounded question when evidence or judgment is missing.'],
-          ['05', 'Mature the content', 'Develop source-grounded material in the firm’s voice and keep related sections aligned.'],
-          ['06', 'Review and approve', 'Surface weak evidence, open decisions, and exceptions so people can resolve and approve them.'],
+          ['01', 'Bid Intake', 'Understand the issuer’s intent, requirements, evaluation criteria, risks, and submission instructions.'],
+          ['02', 'Gap Analysis', 'Match the opportunity with firm experience, project and team evidence, capacity, and missing information.'],
+          ['03', 'Go / No-Go', 'Weigh fit, competitiveness, risk, and readiness before committing the team to the response.'],
+          ['04', 'Answer Coordination', 'Turn requirements into a response plan and route focused questions to the right experts with Confidence Routing.'],
+          ['05', 'Response Development', 'Build the case in the firm’s voice, incorporate approved answers, check related sections and sources, and carry revisions through review and approval.'],
         ],
+        afterSteps: ['Response memory', 'Approved evidence, expert answers, decisions, and review history carry forward into the next pursuit.'],
       },
       {
         eyebrow: 'What teams receive',
         title: 'See what is complete, what is missing, and what needs a decision.',
-        bullets: [
-          'A requirements and compliance view connected to source material.',
-          'A pursuit-specific capability and gap analysis.',
-          'Focused SME questions with the context needed to answer.',
-          'Source-grounded content with open questions and evidence visible.',
-          'A review state that shows what changed and where judgment is required.',
-        ],
+        table: {
+          caption: 'The work your team reviews', headers: ['Output', 'What it helps you decide'],
+          rows: [
+            ['Requirements and compliance record', 'What the solicitation requires, where each item is addressed, who owns it, and what remains open.'],
+            ['Capability and gap analysis', 'Which project and team evidence supports the pursuit—and which claims need more proof.'],
+            ['Response plan and focused expert questions', 'What happens next and which person can resolve the missing information.'],
+            ['Source-grounded content and review state', 'What is ready for review, what changed, and which commitments still need approval.'],
+            ['Approved pursuit knowledge', 'Which evidence, expert answers, and decisions the next team can reuse.'],
+          ],
+        },
         links: [
-          ['/aec-proposal-software-guide/#worked-example', 'Explore an illustrative stormwater pursuit'],
+          ['/aec-proposal-software-guide/#worked-example', 'Follow project evidence, expert input, and an addendum through a worked example'],
+          [customerStoryPath, 'Read how a design-build team reached the shortlist'],
+          ['/rfp-compliance-matrix/#worksheet', 'Inspect the filled compliance matrix'],
           ['/aec-go-no-go-scoring/#worksheet', 'See how the Go/No-Go decision is recorded'],
         ],
       },
+      {
+        id: 'customer-results', eyebrow: 'From a real customer pursuit', title: 'Useful drafts. Recommendations put into practice.',
+        paragraphs: ['A municipal design-build team received an initial draft in 30 minutes compared with its five-day drafting process. Research, evidence preparation, and later reviews were separate.', 'The team implemented 29 of 40 assessable recommendations in later drafts — 14 fully and 15 partly — and was shortlisted. The case shows both drafting speed and the revisions that followed.'],
+        links: [[customerStoryPath, 'See the results and the response changes']],
+      },
+      {
+        id: 'getting-started', eyebrow: 'Getting started', title: 'Start with a pursuit and the evidence behind it.',
+        table: {
+          caption: 'Prepare for your first pursuit', headers: ['Your firm brings', 'What we work through together'],
+          rows: [
+            ['An RFP, RFQ, SOQ, or SF 330 pursuit, its attachments, and any addenda', 'The submission requirements, evaluation criteria, response scope, and review checkpoints.'],
+            ['Approved project sheets, team résumés, and relevant prior responses', 'Which sources are current and useful; which facts need an expert’s confirmation.'],
+            ['A pursuit owner and access to the relevant technical experts', 'Responsibilities for source review, expert questions, strategic decisions, and final approval.'],
+            ['Your existing document workflow and IT requirements', 'The connections, deployment option, access needs, and output workflow for your firm.'],
+          ],
+        },
+        paragraphs: ['Your firm selects the source material, validates its accuracy, and owns pursuit decisions. Propagent helps scope the setup and response workflow with your team. Hands-on support grows with your response volume; the implementation scope is agreed with your firm.'],
+        links: [['/#pricing', 'See volume-based pricing'], ['/security/', 'Review security and procurement']],
+      },
+      {
+        id: 'formats', eyebrow: 'Documents in. Deliverables out.', title: 'Work with the formats your proposal team uses.',
+        table: {
+          caption: 'Supported product input and output', headers: ['Workflow', 'Formats'],
+          rows: [['Input', inputFormats], ['Output', outputFormats]],
+        },
+        paragraphs: ['Bring solicitation files and firm evidence into the pursuit, then prepare the response for review, document production, or layout. Your team retains final editorial and submission approval.'],
+      },
+      {
+        id: 'connections', eyebrow: 'Your existing systems', title: 'Connect the records and conversations behind the response.',
+        paragraphs: ['Your CRM, project records, and document-production tools serve different jobs. Propagent connects requirements, evidence, expert input, and review around the pursuit. Your implementation defines which records and workflows are connected.'],
+        table: { caption: 'Propagent connections and accelerators', headers: ['System', 'Connection type'], rows: connectionRows },
+        links: [['/security/#data-protection', 'Explore data protection and deployment options']],
+      },
     ],
-    proof: {
-      title: 'See the connected work, not another AI promise.',
-      body: 'See how a requirement connects to your firm’s evidence, ownership, content state, and approval as the response moves forward.',
-      items: ['RFP-specific requirements and evidence', 'Focused questions and visible ownership', 'Content carried through review and approval'],
-      artifact: [['Requirement', 'Demonstrate relevant delivery experience'], ['Connected proof', 'Approved project record'], ['Status', 'Ready for proposal-owner review']],
-    },
     checkpoint: 'People set the win strategy, contribute firm and relationship expertise, resolve sensitive or ambiguous work, make commercial decisions, and approve the response.',
     faqs: [
       ['What is AI proposal management software for AEC?', 'It is software that uses AI to help architecture, engineering, and construction firms analyze solicitations, connect requirements to firm knowledge, coordinate contributors, build response content, and review the work. Propagent extends that idea into a connected, system-led response process.'],
+      ['Does Propagent support RFP, RFQ, SOQ, and SF 330 responses?', submissionAnswer],
       ['Does Propagent only write proposal text?', 'No. Propagent connects requirements analysis, capability matching, gap detection, response planning, focused expert input, source-grounded content, quality checks, and reusable operational memory.'],
       ['Does Propagent replace proposal managers or SMEs?', 'No. The system carries process work while proposal managers control strategy and approval and SMEs contribute the expertise and judgment the response requires.'],
       ['Can Propagent work with a real RFP?', 'Yes. Bring a live opportunity to a Propagent demo or use the free RFP Grader for an initial analysis.'],
+      ['What do we need to get started?', 'Bring an RFP, RFQ, SOQ, or SF 330 pursuit with its instructions and addenda, approved project sheets and résumés, relevant prior responses, and a named pursuit owner.'],
+      ['Is Propagent priced by seats or response volume?', 'Pricing is based on annual response volume, not seat counts. Every tier includes the full proposal workflow. Larger-volume clients receive more hands-on time from Propagent; the support scope is agreed with your firm.'],
+      ['Which input and output formats does Propagent support?', `Propagent accepts ${inputFormats}. It supports ${outputFormats}.`],
+      ['Does Propagent connect to our existing systems?', connectionAnswer],
+      ['Can Propagent run on-premises or in a local cloud?', deploymentOptions],
     ],
-    cta: ['See the full pursuit workflow', 'Bring a real RFP and see how Propagent connects requirements, evidence, expert input, drafting, and review.', '/60min-meeting', 'Book a Propagent demo'],
+    cta: ['See the full pursuit workflow', 'Bring an RFP, RFQ, SOQ, or SF 330 pursuit and see how Propagent connects requirements, evidence, expert input, drafting, and review.', '/60min-meeting', 'Book a Propagent demo'],
     related: ['aec-operational-memory', 'rfp-compliance-matrix', 'source-grounded-proposal-drafting'],
   },
   {
@@ -567,11 +625,11 @@ const pages = [
   },
   {
     slug: 'rfp-compliance-matrix',
-    title: 'AI RFP Parsing and Compliance Matrix for AEC | Propagent',
+    title: 'RFP Compliance Matrix: AEC Example & Excel Template | Propagent',
     navLabel: 'RFP compliance matrix',
     eyebrow: 'Requirements control',
     h1: 'Turn the RFP into a living compliance matrix.',
-    description: 'Learn how Propagent connects RFP requirements, evaluation criteria, deadlines, forms, addenda, sources, owners, evidence, and response status for AEC teams.',
+    description: 'See a filled AEC RFQ compliance matrix, source excerpts, and an addendum before-and-after. Download the free editable Excel template. No signup.',
     answer: 'An RFP compliance matrix converts solicitation requirements, evaluation criteria, forms, deadlines, and addenda into a living response control record. Propagent links each item to its source, owner, status, evidence, and affected section so missed requirements surface early and the matrix stays current as the response changes. People resolve ambiguity and approve exceptions.',
     highlights: [
       ['Traceable', 'Every requirement stays connected to its source.'],
@@ -581,22 +639,29 @@ const pages = [
     sections: [
       complianceExample,
       {
-        eyebrow: 'The compliance problem',
-        title: 'A checklist built once can become wrong while the proposal changes.',
-        paragraphs: [
-          'Requirements can be scattered across instructions, scope sections, evaluation criteria, forms, exhibits, attachments, and later addenda. The response then evolves across multiple people and sections. A static spreadsheet can show what the team knew at one moment without showing what changed downstream.',
-          'A living compliance matrix keeps the requirement, source, owner, evidence, response location, status, and related change connected. The goal is to surface omissions and ambiguity early enough for the team to act.',
-        ],
+        id: 'requirements-parser', eyebrow: 'RFP requirements parsing', title: 'Turn instructions into work your team can manage.',
+        paragraphs: ['Propagent parses the solicitation into source-linked requirements, evaluation criteria, forms, deadlines, and addenda. Each requirement stays connected to its owner, evidence, response location, and review status.', 'A page limit, a required project count, and a scored technical narrative demand different actions. Keep the instruction and its source beside the response work so the team can resolve gaps and revise the right sections.'],
+        table: {
+          caption: 'From a parsed instruction to a controlled response', headers: ['Instruction', 'Response action'],
+          rows: [
+            ['A page or form limit', 'Map it to the affected section and check the assembled response against the limit.'],
+            ['A comparable-project or personnel requirement', 'Connect the requirement to qualifying project records, team credentials, and any missing expert input.'],
+            ['A changed requirement in an addendum', 'Record the new source and reopen the affected response work for review.'],
+          ],
+        },
       },
       {
-        eyebrow: 'What your team sees',
-        title: 'From source requirement to approved response.',
-        steps: [
-          ['01', 'Requirement', 'The instruction, criterion, form, deadline, or commitment the response must address.'],
-          ['02', 'Source', 'The RFP page, section, attachment, or addendum supporting the interpretation.'],
-          ['03', 'Owner and evidence', 'Who owns the work and which firm proof or expert input can satisfy it.'],
-          ['04', 'Response status', 'Where the requirement is addressed, what remains incomplete, and what changed.'],
-          ['05', 'Human resolution', 'Which ambiguities, exceptions, or risks require review and approval.'],
+        eyebrow: 'From a real pursuit',
+        title: 'Six reference leads. A two-page limit.',
+        paragraphs: ['In a municipal design-build pursuit, the proposed reference package would occupy three pages against a two-page limit. Propagent’s review identified the conflict, and the team consolidated all six leads into two pages. The correction remained in the submitted response. The team was shortlisted.'],
+        links: [[customerStoryPath, 'Read the customer story']],
+      },
+      {
+        eyebrow: 'Mandatory versus scored',
+        title: 'Passing the instructions is not the same as making the strongest case.',
+        paragraphs: [
+          'Mandatory rows track instructions your team must satisfy, such as required forms, project counts, and acknowledgments. Scored rows track how evaluators judge the quality and relevance of your response. A section can contain both: a required narrative may also be scored for its substance.',
+          'Classify each item from the solicitation’s actual wording. Do not invent weights or assume every omission has the same consequence. If the instructions conflict or the consequence is unclear, record the question and resolve it through the buyer’s permitted clarification process.',
         ],
       },
       {
@@ -608,15 +673,10 @@ const pages = [
         ],
       },
     ],
-    proof: {
-      title: 'A requirement record the team can control.',
-      body: 'Each matrix row keeps the requirement, source location, owner, evidence, response status, and amendment impact connected for review.',
-      items: ['Requirement-to-source trace', 'Owner, evidence, and response status', 'Addendum impact and approved resolution'],
-      artifact: [['Requirement', 'Provide a milestone schedule'], ['Source', 'RFP §4.2 · page 18'], ['Owner · status', 'Project manager · evidence needed']],
-    },
     checkpoint: 'People resolve ambiguous requirements, approve exceptions, validate commitments, and confirm that the final response satisfies both the submission instructions and the pursuit strategy.',
     faqs: [
       ['What is an RFP compliance matrix?', 'It is a structured record of solicitation requirements, evaluation criteria, forms, deadlines, owners, evidence, response locations, and completion status.'],
+      ['Is there a free editable compliance matrix template?', 'Yes. Download the Excel workbook on this page for a blank matrix, a filled fictional AEC example, and the source RFQ and addendum excerpts. You can also use the browser worksheet and print it or save it as a PDF. Neither requires signup.'],
       ['Can AI parse an RFP and build a compliance matrix?', 'Propagent identifies and organizes requirements while keeping every item connected to its source and giving people a clear way to resolve ambiguity and approve exceptions.'],
       ['How does Propagent handle addenda?', 'Propagent keeps new or changed requirements connected to the original source, shows which response work is affected, and triggers review where commitments or instructions changed.'],
       ['Is a compliance matrix enough to create a winning response?', 'No. It prevents avoidable misses, but the team still has to connect buyer priorities to credible firm proof and develop a persuasive case to win.'],
@@ -752,31 +812,53 @@ const pages = [
     title: 'Propagent Security & Procurement Review for AEC Firms',
     navLabel: 'Security',
     eyebrow: 'Propagent security and procurement',
-    h1: 'Review how Propagent handles proposal data.',
-    description: 'Learn what Propagent provides for evaluating data flow, access, retention, deletion, subprocessors, deployment, and procurement requirements.',
-    answer: 'Proposal data can include confidential client, project, staff, pricing, and pursuit information. For your review, Propagent provides current information about how data moves through the product, who and which services can access it, how retention and deletion are handled, and which procurement materials are available. Sensitive supporting detail is shared through controlled diligence when appropriate.',
+    h1: 'Security, privacy, and responsible AI by design.',
+    description: 'Customer data is not used to train models. Explore tenant-isolated cloud hosting, on-premises and local-cloud options, retention principles, and assurance status.',
+    answer: `${modelTrainingPolicy} ${deploymentOptions} The system is built with GDPR requirements, SOC 2 Trust Services Criteria, ISO/IEC 27001, and ISO/IEC 42001 in mind. People remain responsible for judgment and final approval.`,
     highlights: [
-      ['Data flow', 'Review how your data moves from intake through processing, review, storage, export, and deletion.'],
-      ['Access and services', 'Understand which people and services can act on customer data.'],
-      ['Procurement support', 'Get current answers for your security, legal, and procurement review.'],
+      ['No model training', modelTrainingPolicy],
+      ['Tenant-isolated cloud', 'Customer data is isolated by tenant.'],
+      ['Deployment options', 'Cloud, on-premises, and local-cloud options for your firm.'],
     ],
     sections: [
       {
-        eyebrow: 'Start with your requirements',
-        title: 'Review the questions that matter to your firm.',
-        paragraphs: [
-          'Your proposals may include client information, staffing, project experience, pricing, contract terms, partner details, and material that affects active pursuits. A Propagent review starts with how those data types enter, move through, and leave the product.',
-          'Send your firm’s questionnaire or diligence priorities. Propagent will provide current answers and identify any item that requires deeper review.',
-        ],
+        id: 'data-protection', eyebrow: 'Your firm’s data', title: 'Clear answers for your IT and proposal teams.',
+        table: {
+          caption: 'Customer data and deployment', headers: ['Question', 'Propagent’s approach'],
+          rows: [
+            ['Is our data used to train models?', modelTrainingPolicy],
+            ['Where can we run Propagent?', deploymentOptions],
+            ['How are retention and deletion handled?', retentionPolicy],
+          ],
+        },
+        paragraphs: ['Review the retention periods, deletion process, and backup handling for your deployment with our team. We also work through your data-location, access, and service-provider requirements during procurement.'],
       },
       {
-        eyebrow: 'What we cover',
-        title: 'The information available for your evaluation.',
-        cards: [
-          ['Data handling', 'How your data enters Propagent, why it is processed, where it is stored, how long it remains, and how deletion works.'],
-          ['Access and services', 'How access is managed, which service providers participate, and which responsibilities remain with your firm.'],
-          ['Procurement review', 'Which privacy and contractual documents are currently available, how the review works, and who owns follow-up.'],
+        eyebrow: 'Standards-informed design',
+        title: 'A foundation for your firm’s review.',
+        paragraphs: [
+          'Propagent’s system design accounts for information-security risk management, privacy, and AI governance. These reference points inform how we approach the product.',
+          'Propagent is not currently ISO-certified and does not claim independent SOC 2 assurance. These references describe our design approach, not third-party certification.',
         ],
+        table: {
+          caption: 'The reference points informing our design', headers: ['Reference', 'Focus'],
+          rows: [
+            ['GDPR', 'Personal-data protection, including privacy by design and data minimization.'],
+            ['SOC 2 Trust Services Criteria', 'Evaluating controls relevant to the services a customer relies on.'],
+            ['ISO/IEC 27001', 'Managing information-security risks and organizational responsibilities.'],
+            ['ISO/IEC 42001', 'Managing AI-related risks, responsibilities, and ongoing oversight.'],
+          ],
+        },
+      },
+      {
+        eyebrow: 'Inside the pursuit workflow', title: 'Evidence stays visible. Decisions stay with your team.',
+        bullets: [
+          'Source-grounded responses connect claims to the firm evidence behind them.',
+          'Missing facts and conflicting information remain visible for expert review.',
+          'People resolve sensitive questions, validate commitments, and approve the response.',
+          'Approved pursuit knowledge preserves the context behind the finished document.',
+        ],
+        links: [['/aec-proposal-software-guide/#worked-example', 'See the evidence and human checkpoints in an illustrative pursuit']],
       },
       {
         eyebrow: 'Controlled diligence',
@@ -787,14 +869,12 @@ const pages = [
         ],
       },
     ],
-    proof: {
-      title: 'Current answers for your security review.',
-      body: 'Your review addresses current data-flow, access, retention, deletion, service-provider, incident, and procurement questions with a named contact for follow-up.',
-      items: ['Plain-language view of the customer-data lifecycle', 'Current answers and available supporting materials', 'Direct security and procurement follow-up'],
-      artifact: [['Review topic', 'Upload and report data flow'], ['What you receive', 'Current processing and storage information'], ['Follow-up', 'Propagent security contact']],
-    },
     checkpoint: 'Customer administrators control what firm data enters the system and who is authorized to use it. People remain responsible for reviewing sensitive outputs and approving external submissions.',
     faqs: [
+      ['Does Propagent use customer data to train models?', `No. ${modelTrainingPolicy}`],
+      ['What hosting and deployment options are available?', deploymentOptions],
+      ['What is Propagent’s approach to retention and deletion?', `${retentionPolicy} Review the retention periods, deletion process, and backup handling for your deployment with our team.`],
+      ['Is Propagent ISO-certified or independently SOC 2-assured?', 'Propagent is not currently ISO-certified and does not claim independent SOC 2 assurance. Its system design accounts for GDPR requirements, SOC 2 Trust Services Criteria, ISO/IEC 27001, and ISO/IEC 42001. These references describe the design approach, not third-party certification.'],
       ['What security information does Propagent provide for review?', 'Propagent provides current information relevant to data flow, hosting, access controls, encryption posture, retention, deletion, backups, subprocessors, incident contact, and procurement. It also identifies which contractual documents and certifications are currently available.'],
       ['Why does proposal data require special care?', 'It can contain confidential client, employee, project, pricing, contract, partner, and active-pursuit information that affects both commercial and professional obligations.'],
       ['How does Propagent handle sensitive security detail?', 'Your team receives clear control and data-lifecycle information. Propagent shares sensitive topology, detection methods, testing artifacts, and customer-specific details only when those materials are available and appropriate for the diligence process.'],
@@ -809,7 +889,7 @@ export const pageSlugs = Object.freeze(pages.map((page) => `/${page.slug}/`));
 
 // Dates represent substantive content edits, never the clock time of a rebuild.
 export const pageDates = Object.freeze(Object.fromEntries([
-  ['/', '2026-09-07'], ['/rfp-grader/', CONTENT_DATE],
+  ['/', '2026-10-06'], ['/rfp-grader/', CONTENT_DATE],
   ...pages.map(page => [`/${page.slug}/`, modifiedDates[page.slug] || CONTENT_DATE]),
 ]));
 
@@ -890,8 +970,8 @@ const renderBullets = (items = []) => items.length ? `
     ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join('\n')}
   </ul>` : '';
 
-const renderTable = (table) => table ? `<div class="guide-table-wrap" tabindex="0" role="region" aria-label="${escapeHtml(table.caption)}"><table class="guide-table"><caption>${escapeHtml(table.caption)}</caption><thead><tr>${table.headers.map(h => `<th scope="col">${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '';
-const renderDownloads = (items = []) => items.map(([href, label]) => `<p class="guide-download"><a class="btn" href="${escapeHtml(href)}">${escapeHtml(label)} <span aria-hidden="true">→</span></a><small>Fill in your browser and print or save as PDF. No signup.</small></p>`).join('');
+const renderTable = (table) => table ? `<div class="guide-table-wrap${table.headers.length === 2 ? ' guide-table-wrap--pair' : ''}" tabindex="0" role="region" aria-label="${escapeHtml(table.caption)}"><table class="guide-table"><caption>${escapeHtml(table.caption)}</caption><thead><tr>${table.headers.map(h => `<th scope="col">${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '';
+const renderDownloads = (items = []) => items.map(([href, label, note]) => `<p class="guide-download"><a class="btn" href="${escapeHtml(href)}"${href.endsWith('.xlsx') ? ' download' : ''}>${escapeHtml(label)} <span aria-hidden="true">→</span></a><small>${escapeHtml(note || 'Fill in your browser and print or save as PDF. No signup.')}</small></p>`).join('');
 
 const renderSections = (sections = []) => sections.map((section, index) => `
   <section${section.id ? ` id="${escapeHtml(section.id)}"` : ''} class="content-section${index % 2 ? ' content-section--raised' : ''}${section.layout === 'wide' ? ' content-section--wide' : ''}">
@@ -902,11 +982,16 @@ const renderSections = (sections = []) => sections.map((section, index) => `
       </div>
       <div class="content-section-body">
         ${(section.paragraphs || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('\n')}
+        ${section.downloadsFirst ? renderDownloads(section.downloads) : ''}
         ${renderWorkedExample(section.workedExample)}
+        ${section.responseWalkthrough ? renderResponseWalkthrough() : ''}
+        ${section.methodology ? renderCaseMethodology() : ''}
+        ${section.complianceExample ? renderComplianceExample() : ''}
         ${renderTable(section.table)}
-        ${renderDownloads(section.downloads)}
+        ${section.downloadsFirst ? '' : renderDownloads(section.downloads)}
         ${renderBullets(section.bullets)}
         ${renderSteps(section.steps)}
+        ${section.afterSteps ? `<p><strong>${escapeHtml(section.afterSteps[0])}.</strong> ${escapeHtml(section.afterSteps[1])}</p>` : ''}
         ${renderCards(section.cards)}
         ${renderSectionMedia(section)}
         ${(section.links || []).length ? `<ul class="content-inline-links">${section.links.map(([href, label]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)} <span aria-hidden="true">→</span></a></li>`).join('')}</ul>` : ''}
@@ -1115,7 +1200,7 @@ function schemaFor(page) {
       url: canonical,
       name: page.title,
       description: page.description,
-      datePublished: page.template === 'guide' ? '2026-09-08' : CONTENT_DATE,
+      datePublished: page.datePublished || (page.template === 'guide' ? '2026-09-08' : CONTENT_DATE),
       dateModified: pageDates[`/${page.slug}/`],
       isPartOf: { '@id': `${SITE}/#website` },
       about: { '@id': `${SITE}/#org` },
@@ -1123,7 +1208,7 @@ function schemaFor(page) {
        ...(page.slug === 'press' ? {} : {
          speakable: {
            '@type': 'SpeakableSpecification',
-           cssSelector: ['.content-answer', '.content-faq'],
+           cssSelector: page.template === 'case' ? ['.content-answer'] : ['.content-answer', '.content-faq'],
          },
        }),
     },
@@ -1132,10 +1217,24 @@ function schemaFor(page) {
       '@id': `${canonical}#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Propagent', item: `${SITE}/` },
-        { '@type': 'ListItem', position: 2, name: page.navLabel, item: canonical },
+        ...(['guide', 'case'].includes(page.template) ? [{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE}/resources/` }] : []),
+        { '@type': 'ListItem', position: ['guide', 'case'].includes(page.template) ? 3 : 2, name: page.navLabel, item: canonical },
       ],
     },
   ];
+
+  if (page.template === 'case') {
+    graph.push({
+      '@type': 'Article', '@id': `${canonical}#story`,
+      headline: page.h1, description: page.description,
+      datePublished: page.datePublished, dateModified: pageDates[`/${page.slug}/`],
+      author: { '@id': `${SITE}/#org` }, publisher: { '@id': `${SITE}/#org` },
+      mainEntityOfPage: { '@id': `${canonical}#webpage` },
+      image: `${SITE}/og-image-geo-20260814.png`,
+      articleSection: 'Customer stories',
+    });
+    graph.find(item => item['@id'] === `${canonical}#webpage`).mainEntity = { '@id': `${canonical}#story` };
+  }
 
   if (page.faqs?.length) {
     graph.push({
@@ -1249,7 +1348,7 @@ function renderPage(page) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="${page.template === 'case' ? 'article' : 'website'}">
   <meta property="og:site_name" content="Propagent">
   <meta property="og:title" content="${escapeHtml(page.title)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
@@ -1263,13 +1362,13 @@ function renderPage(page) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=20260814-geo">
-  <link rel="stylesheet" href="/content-pages.css?v=20260922-evidence">
+  <link rel="stylesheet" href="/content-pages.css?v=20261001-proof">
   <script type="application/ld+json">${schemaFor(page)}</script>
 </head>
-<body class="content-page content-page--${escapeHtml(page.slug)}">
+<body class="content-page content-page--${escapeHtml(page.slug.replaceAll('/', '-'))}">
   <a class="content-skip" href="#main">Skip to content</a>
   ${renderNav()}
-  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'guide' ? renderGuideMain(page) : `<main id="main">
+  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'case' ? renderCaseMain(page) : page.template === 'guide' ? renderGuideMain(page) : `<main id="main">
     <header class="content-hero">
       <div class="container">
         <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
@@ -1332,6 +1431,19 @@ export function renderContentPages(dist) {
     writeFileSync(join(target, 'index.html'), renderPage(page), 'utf8');
   }
   return pageSlugs;
+}
+
+function renderCaseMain(page) {
+  return `<main id="main" class="buyer-guide customer-story">
+    <header class="guide-header container">
+      <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
+      <span class="mono-label">${escapeHtml(page.eyebrow)}</span><h1>${escapeHtml(page.h1)}</h1>
+      <p class="guide-byline">By Propagent · <time datetime="${page.datePublished}">October 4, 2026</time></p>
+      <p class="content-answer" data-direct-answer>${escapeHtml(page.answer)}</p>
+      <dl class="proof-stats">${page.stats.map(([value, label, note]) => `<div class="proof-stat"><dt>${escapeHtml(label)}</dt><dd><strong>${escapeHtml(value)}</strong><p>${escapeHtml(note)}</p></dd></div>`).join('')}</dl>
+    </header>
+    ${renderSections(page.sections)}
+  </main>`;
 }
 
 function renderGuideMain(page) {

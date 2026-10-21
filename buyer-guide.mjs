@@ -1,5 +1,7 @@
 // Buyer-facing editorial content. Keep product mechanics and customer data private.
-import { stormwaterResponse, stormwaterQualification } from './pursuit-example.mjs';
+import { stormwaterQualification } from './pursuit-example.mjs';
+import { customerStoryPath } from './buyer-proof.mjs';
+import { inputFormats, outputFormats, connectionAnswer, submissionAnswer, pricingAnswer } from './buyer-capabilities.mjs';
 export const buyerGuide = {
   slug: 'aec-proposal-software-guide',
   template: 'guide',
@@ -7,7 +9,7 @@ export const buyerGuide = {
   navLabel: 'AEC proposal software buyer’s guide',
   eyebrow: 'AEC software buyer’s guide',
   h1: 'Choose proposal software for the work your team actually does.',
-  description: 'Compare AEC proposal software categories and follow a fictional stormwater RFQ from project selection and expert input to a stronger, evidence-backed response.',
+  description: 'Choose AEC proposal software for RFP, RFQ, SOQ, and SF 330 work. Compare workflows, pricing, integrations, and a real customer result.',
   answer: 'The right AEC proposal software depends on where your pursuit process breaks down. A writing tool helps produce text. A content library helps reuse answers. Credentials and asset systems organize people, projects, and images. A proposal pursuit system connects requirements, firm proof, expert input, content, and approval. Evaluate the work that remains with your team after the software produces its first output.',
   sections: [
     {
@@ -26,9 +28,33 @@ export const buyerGuide = {
       },
     },
     {
-      id: 'worked-example', eyebrow: 'A pursuit in practice', title: 'Choose the proof that makes your team the right fit.',
-      workedExample: stormwaterResponse,
-      links: [['/aec-go-no-go-scoring/#worksheet', 'See the Go/No-Go decision behind this response']],
+      id: 'submission-types', eyebrow: 'RFP, RFQ, SOQ, and SF 330', title: 'One pursuit system. All four response types.',
+      paragraphs: [submissionAnswer],
+      table: {
+        caption: 'Choose the response around the buyer’s requested submission',
+        headers: ['Submission', 'What the response needs to make clear'],
+        rows: [
+          ['RFP · Request for proposal', 'The proposed approach, delivery team, relevant experience, and answers to the stated requirements and evaluation criteria.'],
+          ['RFQ · Request for qualifications', 'Why the firm and proposed team are qualified, supported by relevant projects, roles, and credentials.'],
+          ['SOQ · Statement of qualifications', 'A coherent account of the firm’s experience and team, tailored to the opportunity and submission instructions.'],
+          ['SF 330 · Architect-engineer qualifications', 'Firm, team, résumé, and project qualifications organized for the required SF 330 submission.'],
+        ],
+      },
+      links: [['/ai-proposal-management-aec/#formats', 'See supported document and layout formats']],
+    },
+    {
+      id: 'customer-results', eyebrow: 'Customer results', title: 'From first draft to the shortlist.',
+      paragraphs: ['In a municipal design-build pursuit, a team received an initial draft in 30 minutes compared with its five-day drafting process. The team fully or partly implemented 29 of 40 Propagent recommendations in later drafts. The team was shortlisted.'],
+      table: {
+        caption: 'Customer results that matter when choosing proposal software',
+        headers: ['Buying decision', 'Result from this engagement'],
+        rows: [
+          ['How quickly can the team reach a first draft?', '30 minutes compared with the team’s five-day drafting process. Research, evidence preparation, and later reviews were separate.'],
+          ['Does the review lead to useful revisions?', '29 of 40 assessable recommendations implemented in later drafts — 14 fully and 15 partly.'],
+          ['Did the qualifications response advance?', 'The team was shortlisted. The case covers the qualifications submission and shortlisting.'],
+        ],
+      },
+      links: [[customerStoryPath, 'Read the full customer story']],
     },
     {
       id: 'evaluation', eyebrow: 'What to evaluate', title: 'Ask for the work product, not a feature checkmark.',
@@ -38,7 +64,7 @@ export const buyerGuide = {
         headers: ['Test', 'Ask to see', 'What a useful result looks like'],
         rows: [
           ['Qualification', 'An opportunity with a real capacity or experience gap.', 'The gap, supporting evidence, open decision, and accountable leader are visible.'],
-          ['RFP, RFQ, and SOQ fit', 'Your actual submission structure, forms, page limits, and evaluation criteria.', 'The response plan follows that procurement instead of forcing it into a generic questionnaire.'],
+          ['RFP, RFQ, SOQ, and SF 330 fit', 'Your actual submission structure, forms, page limits, and evaluation criteria.', 'The response plan follows that procurement instead of forcing it into a generic questionnaire.'],
           ['Compliance and addenda', 'One changed instruction after the response has started.', 'The team can trace the change to its source and identify affected response work.'],
           ['Projects and people', 'A requirement for comparable experience or a named team role.', 'The candidate evidence explains relevance, source, and anything that needs confirmation.'],
           ['Expert coordination', 'A question the existing documents cannot answer.', 'The expert receives a focused request with context; the response owner can see what is still open.'],
@@ -69,20 +95,32 @@ export const buyerGuide = {
     },
     {
       id: 'propagent-fit', eyebrow: 'Where Propagent fits', title: 'The next generation of proposal pursuit management.',
-      paragraphs: ['Previous-generation tools help find material or produce a draft while the team still selects the proof, chases answers, and reconciles revisions. Propagent is built to carry that connected work from qualification through response review.', 'In the stormwater example, the difference is the connection between project selection, role confirmation, capacity, and the case presented to the county. Propagent’s five differentiators—Measurable Quality, Meaningful Search, Polished Content, Dynamic Workflow, and Continuous Improvement—describe that operating shift. Your team retains strategy, expertise, and final approval.'],
+      paragraphs: ['Previous-generation tools help find material or produce a draft while the team still selects the proof, chases answers, and reconciles revisions. Propagent is built to carry that connected work from qualification through response review.', 'In the fictional stormwater worked example below, the difference is the connection between project selection, role confirmation, capacity, and the case presented to the county. Propagent’s five differentiators—Measurable Quality, Meaningful Search, Polished Content, Dynamic Workflow, and Continuous Improvement—describe that operating shift. Your team retains strategy, expertise, and final approval.'],
     },
     {
-      id: 'scope-and-cost', eyebrow: 'Before you commit', title: 'Define what you are buying—and what stays in your stack.',
-      paragraphs: ['Ask for a written scope covering users, pursuit volume, setup work, support, source access, exports, and any usage limits. Compare the total work and cost over a representative pursuit, not the subscription price alone.', 'If you need native SF 330 assembly, a particular CRM connection, page-layout production, takeoff, estimating, contract execution, or opportunity-discovery coverage, make each one a separate acceptance test. Do not infer those capabilities from the words “AEC” or “AI proposal software.”', 'Propagent publishes this guide from its proposal-pursuit perspective. It is a buying framework, not an independent vendor ranking. Use the tests to evaluate Propagent as well as any other option.'],
+      id: 'scope-and-cost', eyebrow: 'Your systems and budget', title: 'Keep your records. Connect the pursuit.',
+      paragraphs: [connectionAnswer, pricingAnswer, 'Propagent publishes this guide from its proposal-pursuit perspective. Use the same buying criteria to evaluate Propagent and other options.'],
+      table: {
+        caption: 'Propagent document inputs and response outputs', headers: ['Workflow', 'Formats'],
+        rows: [['Input', inputFormats], ['Output', outputFormats]],
+      },
+      links: [['/#pricing', 'See published pricing and response allowances'], ['/ai-proposal-management-aec/#connections', 'Explore connections and integration accelerators'], ['/security/', 'Review data protection and deployment options']],
+    },
+    {
+      id: 'worked-example', eyebrow: 'A pursuit in practice', title: 'Follow the evidence into the response.',
+      responseWalkthrough: true,
+      links: [['/aec-go-no-go-scoring/#worksheet', 'See the Go/No-Go decision behind this response']],
     },
   ],
   faqs: [
     ['What is the best proposal software for an AEC firm?', 'The best fit depends on the work the firm needs to improve. Evaluate credentials, requirements, evidence, expert coordination, review, and approval using one of your own pursuits. A system that produces a good first draft can still leave substantial work with the team.'],
     ['How is AEC proposal software different from estimating software?', 'Proposal software supports the qualifications, approach, evidence, and response process for winning work. Estimating software supports quantities, costs, and pricing. A formal construction pursuit may use both; verify each part of the workflow separately.'],
-    ['Does every AEC proposal tool produce SF 330 forms?', 'No. Verify support for the required form version, team and project records, assembly, export, and review. General proposal drafting does not establish native SF 330 support.'],
-    ['Can Propagent work alongside a firm’s existing systems?', 'Evaluate Propagent around the sources and outputs your team already uses. Confirm each required connection, transfer, export, and access arrangement in the demonstration and written scope; do not assume a named integration.'],
+    ['Does Propagent support RFP, RFQ, SOQ, and SF 330 responses?', submissionAnswer],
+    ['Can Propagent work alongside a firm’s existing systems?', connectionAnswer],
+    ['How much does Propagent’s AEC proposal software cost?', pricingAnswer],
+    ['Can Propagent export to Adobe InDesign?', `Yes. Propagent supports IDML for Adobe InDesign. Its full output formats are ${outputFormats}.`],
   ],
-  cta: ['See how much of the pursuit your team still has to carry', 'Bring a shareable RFP or RFQ to a Propagent demonstration.', '/60min-meeting', 'Book a Propagent demo'],
+  cta: ['See the difference on your next pursuit', 'Bring an RFP, RFQ, SOQ, or SF 330 pursuit to a Propagent demonstration.', '/60min-meeting', 'Book a Propagent demo'],
   related: ['ai-proposal-management-aec', 'aec-operational-memory', 'rfp-compliance-matrix', 'security'],
 };
 
@@ -109,18 +147,12 @@ export const qualificationExample = {
 };
 
 export const complianceExample = {
-  id: 'worksheet', layout: 'wide', eyebrow: 'Free compliance worksheet', title: 'See what a useful compliance row contains.',
-  paragraphs: ['The fictional example below follows a requirement from its source into the response. It is a working-method example, not an actual solicitation or a Propagent product screen. The blank worksheet is free to use without submitting an email address.'],
-  table: {
-    caption: 'Illustrative AEC RFQ compliance matrix',
-    headers: ['Requirement / source', 'Owner / response location', 'Evidence and review status'],
-    rows: [
-      ['Three comparable projects completed within five years · RFQ §3.2', 'Proposal manager · Qualifications, pages 4–6', 'Two project sheets ready. Third example needs confirmation.'],
-      ['Name the project manager and explain relevant experience · RFQ §3.3', 'Practice leader · Team, page 7', 'Résumé identified. Role and availability awaiting approval.'],
-      ['Explain continuity of operations during the work · RFQ §4.1', 'Technical lead · Approach, page 10', 'Past-project example located. Project-specific approach under review.'],
-      ['Acknowledge Addendum 1 and use the revised form · Addendum 1 §2', 'Pursuit owner · Submission checklist', 'Old form replaced. Final attachment and acknowledgment check still open.'],
-    ],
-  },
-  bullets: ['Keep mandatory instructions and scored criteria distinguishable.', 'Record an addendum against the changed requirement and review every affected response location.', 'A complete row means the response and its support have been reviewed—not merely that text exists.'],
-  downloads: [['/downloads/aec-compliance-matrix-worksheet.html', 'Open the blank compliance worksheet']],
+  id: 'worksheet', layout: 'wide', eyebrow: 'Worked example and free template', title: 'From the RFQ to the matrix—and through an addendum.',
+  paragraphs: ['Follow the same county stormwater pursuit from its source instructions into a filled compliance matrix. The example separates mandatory instructions from scored criteria and shows why a reviewed row can reopen.'],
+  complianceExample: true,
+  downloadsFirst: true,
+  downloads: [
+    ['/downloads/aec-compliance-matrix.xlsx', 'Download the editable Excel matrix', 'Includes a blank template, filled example, and fictional source packet. No signup.'],
+    ['/downloads/aec-compliance-matrix-worksheet.html', 'Use the browser worksheet'],
+  ],
 };

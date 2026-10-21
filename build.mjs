@@ -4,6 +4,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderWorksheets } from './worksheets.mjs';
 import { indexNowKey } from './indexnow-config.mjs';
+import { complianceWorkbook } from './compliance-example.mjs';
+import { fictionalPacketPath, packetText } from './response-walkthrough.mjs';
 
 import {
   llmsResourceLinks,
@@ -38,6 +40,8 @@ for (const file of staticFiles) {
 
 renderContentPages(dist);
 renderWorksheets(dist);
+cpSync(resolve(siteStatic, complianceWorkbook), resolve(dist, complianceWorkbook));
+writeFileSync(resolve(dist, fictionalPacketPath), packetText, 'utf8');
 renderSitemap(dist);
 writeFileSync(resolve(dist, `${indexNowKey}.txt`), `${indexNowKey}\n`, 'utf8');
 

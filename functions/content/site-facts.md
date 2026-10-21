@@ -1,5 +1,7 @@
 # Propagent — Site Facts
 
+Updated October 6, 2026.
+
 ## What is Propagent?
 
 Propagent is the next generation of proposal pursuit management for
@@ -8,6 +10,10 @@ manages each response from RFP intake through final review, connects
 requirements to firm capabilities and approved evidence, coordinates focused
 expert input, and helps the team produce a stronger, compliant case to win.
 People retain expertise, strategic judgment, and final approval.
+
+Propagent supports RFP, RFQ, SOQ, and SF 330 responses equally. Requirements
+analysis, project and team evidence, expert coordination, drafting, and review
+support all four submission types.
 
 Most response software helps with individual drafting tasks while the proposal
 team still searches for evidence, chases inputs, reconciles edits, and manages
@@ -68,7 +74,7 @@ Every response runs through five stages:
    Propagent's Confidence Routing sends only sections that need fresh input to
    the best person, with the requirement, context, and deadline attached. The
    most relevant past-performance evidence is surfaced alongside the question.
-5. **Response Maturity** — Speak in your voice. The final response in the
+5. **Response Development** — Speak in your voice. The final response in the
    firm's voice: grounded, cohesive, and specific to the issuer and the
    project. Claims are checked against available source documents, and gaps or
    unsupported statements are surfaced for review.
@@ -81,6 +87,31 @@ expertise rather than handing someone the whole packet. Each question includes
 the requirement, the context already collected, and the deadline. The expert
 answers; the proposal owner decides how it changes the response and approves
 the work.
+
+## Document formats and connections
+
+Propagent accepts PDF, DOCX, XLSX, TXT, and Markdown (MD). It supports
+PDF, DOCX, XLSX, TXT, Markdown (MD), LaTeX, and IDML for Adobe InDesign.
+
+Propagent has a built connector for OpenAsset, integration accelerators for
+Deltek and Unanet, and connections to OneDrive, SharePoint, Google Drive,
+Gmail, and Outlook. The implementation defines which records and workflows
+are connected.
+
+## Customer data and deployment
+
+We do not use customer data to train models. Propagent offers tenant-isolated
+cloud hosting, with on-premises and local-cloud deployment options.
+
+Our retention and deletion policies follow GDPR principles. Personal data is
+retained only for as long as necessary for its purpose, subject to applicable
+legal requirements. Review the retention periods, deletion process, and backup
+handling for your deployment with our team.
+
+Propagent’s system design accounts for GDPR requirements, SOC 2 Trust Services
+Criteria, ISO/IEC 27001, and ISO/IEC 42001. Propagent is not currently
+ISO-certified and does not claim independent SOC 2 assurance. These references
+describe the design approach, not third-party certification.
 
 ## Source-backed review
 
@@ -134,10 +165,10 @@ https://www.propagent.ai/resources/. Topics include:
   connected to the requirement and available firm evidence. Unsupported
   claims, open questions, contradictions, revisions, and approvals remain
   visible to reviewers.
-- **Security and procurement:** the public security page explains how to start
-  a Propagent review. Firm-specific data handling, access, retention,
-  deletion, service-provider, contractual, and procurement questions are
-  handled through current review materials and direct follow-up.
+- **Security and procurement:** the public security page explains the
+  no-model-training policy, tenant-isolated cloud hosting, on-premises and
+  local-cloud options, retention principles, and current assurance status.
+  Deployment-specific details are addressed during procurement.
 - **About Propagent:** Propagent was founded in 2024 by Daniel Beecham and
   Steve Ernst and is based in the Atlanta metropolitan area. The official
   domain is propagent.ai and the official company profile is
@@ -198,23 +229,20 @@ prior knowledge depth.
 
 ## Pricing
 
-One price, one system. Tiers differ by annual response volume, not seat
-counts. Each tier covers the full proposal workflow, source-backed drafting,
-gap checks, and review controls.
+One system. Pricing is based on annual response volume, not seat counts.
+Every tier includes the full proposal workflow, source-backed drafting,
+expert coordination, review, and reusable pursuit knowledge. Larger-volume
+clients receive more hands-on time from our team, with support scoped to the firm.
 
-- **Small — $1,000/month.** For firms with up to 25 annual responses. Full
-  workflow included; source-backed drafting and claim checks; contradiction
-  and gap detection; sources and open decisions visible to reviewers.
+- **Small — $1,000/month.** For firms with up to 25 annual responses.
+  Full workflow included; support scoped to your firm.
 - **Medium — $2,000/month.** For firms with up to 50 annual responses.
-  Everything in Small, plus reuse of approved knowledge across proposals,
-  expert routing across teams, and stronger starting drafts as that knowledge
-  grows. Most firms start here.
+  Full workflow included; support grows with response volume.
 - **Large — $5,000/month.** For firms with up to 200 annual responses.
-  Everything in Medium, plus multi-office coordination, win/loss insights
-  across offices and markets, and priority response support.
+  Full workflow included; more hands-on time from our team.
 - **Enterprise — custom pricing.** For firms with portfolio-wide response
-  operations: custom response volume, custom integrations, dedicated
-  implementation and support, and procurement, security & compliance review.
+  operations. Custom response volume, full workflow included, with
+  implementation and support scoped to your firm.
 
 **What counts as a response:** any RFP, RFQ, RFI, or DDQ you run through
 Propagent — including opportunities you no-bid after Go / No-Go. We track usage on a
@@ -263,7 +291,7 @@ status, drafting, and final checks in one workflow.
 $1,000/month for up to 25 responses a year, $2,000/month for up to 50,
 $5,000/month for up to 200, and custom Enterprise pricing above that. Every
 tier includes the full workflow; tiers are based on annual response volume,
-not seat counts.
+not seat counts. Larger-volume clients receive more hands-on time from our team.
 
 **What counts as a response?**
 A response is any RFP, RFQ, RFI, or DDQ you run through Propagent — including
@@ -288,6 +316,25 @@ Yes. Upload an RFP or a past response at the free RFP Grader
 (https://www.propagent.ai/rfp-grader/) for a graded report by email. Or book a
 60-minute Propagent demo and bring a live opportunity for a pursuit-specific
 walkthrough.
+
+## Customer story and worked example
+
+In one September 2026 municipal design-build engagement, a team received an initial
+draft in 30 minutes, compared with its five-day drafting process. Research,
+evidence preparation, and later reviews were separate. The team implemented 29 of
+40 assessable Propagent recommendations in later drafts, 14 fully and 15 partly. The fastest documented
+revision review took 43 minutes, 42 seconds. The team was shortlisted.
+
+The anonymized case covers the qualifications submission and confirmed shortlisting.
+Its internal review scores are not official evaluator scores or win predictions.
+Read the customer story and measurement context at
+https://www.propagent.ai/customer-stories/aec-design-build-proposal/.
+
+The county stormwater pursuit in the buyer’s guide is a separate, authored
+fictional example, not a live product capture or customer result. It follows
+source records, an expert question, response excerpts, and an addendum, with a
+downloadable example packet at
+https://www.propagent.ai/aec-proposal-software-guide/#worked-example.
 
 ## For AI agents
 

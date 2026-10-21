@@ -9,6 +9,10 @@ import { fileURLToPath } from 'node:url';
 
 import { pageSlugs, pageDates } from '../content-pages.mjs';
 import { worksheetFiles } from '../worksheets.mjs';
+import { complianceWorkbook } from '../compliance-example.mjs';
+import { customerStoryPath } from '../buyer-proof.mjs';
+import { fictionalPacketPath } from '../response-walkthrough.mjs';
+import { inputFormats, outputFormats, modelTrainingPolicy, deploymentOptions, retentionPolicy } from '../buyer-capabilities.mjs';
 import { indexNowKey } from '../indexnow-config.mjs';
 import { indexabilityErrors, textContent, discoveryDepths, robotsAllows, hostingRobotsHeaders } from './search-checks.mjs';
 
@@ -16,7 +20,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = resolve(ROOT, 'dist');
 const ORIGIN = 'https://www.propagent.ai';
 const INTERNAL_HOSTS = new Set(['propagent.ai', 'www.propagent.ai']);
-const FAQ_OPTIONAL_ROUTES = new Set(['/press/']);
+const FAQ_OPTIONAL_ROUTES = new Set(['/press/', customerStoryPath]);
 const VIRTUAL_ROUTES = new Set([
   '/30min-meeting',
   '/60min-meeting',
@@ -26,6 +30,8 @@ const VIRTUAL_ROUTES = new Set([
 const REQUIRED_FILES = [
   `${indexNowKey}.txt`,
   ...worksheetFiles,
+  complianceWorkbook,
+  fictionalPacketPath,
   '404.html',
   'analytics.js',
   'ask.js',
@@ -40,6 +46,8 @@ const REQUIRED_FILES = [
   'styles.css',
 ];
 const FORBIDDEN_PATHS = [
+  /(^|\/)(research|workflow|scripts)(\/|$)/i,
+  /buyer-proof-review|buyer-proof-verification|\.mjs$/i,
   /(^|\/)\.claude(\/|$)/i,
   /(^|\/)\.git(\/|$)/i,
   /(^|\/)\_explore(\/|$)/i,
@@ -95,7 +103,7 @@ const normalizeSlug = (slug) => {
     report(`Invalid or reserved page slug: ${JSON.stringify(slug)}`);
     return null;
   }
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(normalized)) {
+  if (!normalized.split('/').every(segment => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(segment))) {
     report(`Page slug must be lowercase kebab-case: ${JSON.stringify(slug)}`);
     return null;
   }
@@ -359,6 +367,14 @@ for (const entry of canonicalRoutes) {
 }
 if (firebase.hosting.rewrites.some(rule => rule.source === '/rfp-grader/**')) report('Grader wildcard rewrite creates soft 404s; serve its real files only.');
 const homeGraph = (jsonLdByFile.get('index.html') || []).flatMap(block => block['@graph'] || []);
+const buyerText = textContent(htmlByFile.get('ai-proposal-management-aec/index.html') || '');
+const securityText = textContent(htmlByFile.get('security/index.html') || '');
+for (const fact of [inputFormats, outputFormats, 'OpenAsset', 'Integration accelerators', 'Deltek and Unanet']) {
+  if (!buyerText.includes(fact)) report(`Product page missing visible buyer fact: ${fact}`);
+}
+for (const fact of [modelTrainingPolicy, deploymentOptions, retentionPolicy]) {
+  if (!securityText.includes(fact)) report(`Security page missing visible trust fact: ${fact}`);
+}
 if (!homeGraph.some(item => item['@type'] === 'WebSite' && item.url === `${ORIGIN}/`)) report('Homepage is missing the canonical WebSite entity.');
 for (const worksheet of worksheetFiles) {
   const html = readDistFile(worksheet);
