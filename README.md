@@ -20,6 +20,10 @@
 
 Vite + Firebase Hosting. The `marketing/` folder holds the static landing page; `dist/rfp-grader/` is a React subapp built by Vite and served at `/rfp-grader/`.
 
+## AI-search audits
+
+Every new generated-answer test includes diagnostic follow-ups about Propagent's classification/omission and the criteria or evidence sought. Preserve and score the original result first; follow-up explanations are hypotheses, not ranking-cause proof or additional visibility wins. See [the collection protocol](docs/ai-search-follow-up-protocol.md). The benchmark template includes both questions for all 50 queries.
+
 ## Run locally
 
 Prerequisites: Node.js.

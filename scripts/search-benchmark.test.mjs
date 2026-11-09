@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {makeTemplate, summarize, validateRows, sourceUrls} from './search-benchmark.mjs';
+import {makeTemplate, summarize, validateRows, sourceUrls, FOLLOW_UP_QUESTIONS} from './search-benchmark.mjs';
 const baseline = {schema_version:'2.0',audit_date:'2026-09-03',surface:'Bing',authentication:'anonymous',run_design:'one per prompt',
   rows:Array.from({length:50},(_,i)=>({id:i+1,category:i<40?'discovery':'comparison',query:i<46?`query ${i+1}`:`Propagent query ${i+1}`,
     status:'ok',timestamp_utc:'2026-09-03T12:00:00Z',propagent:i>=46?1:0,propagent_narrative:i>=46?1:0,propagent_ai_citation:0,cited_source_urls:'',
@@ -47,4 +47,29 @@ test('missing, unknown and changed legacy versions cannot bypass evidence requir
   for(const version of [undefined,'3.0','1.0']) assert.throws(()=>validateRows(changed(run=>{run.schema_version=version;run.audit_date='2026-09-17';delete run.rows[0].answer_text;}),baseline));
   const legacy={...structuredClone(baseline),schema_version:'1.0'};
   assert.doesNotThrow(()=>validateRows(legacy,legacy));
+});
+
+test('every new query includes the two diagnostic follow-up questions',()=>{
+  const template=makeTemplate(baseline);
+  assert.equal(template.rows.length,50);
+  for(const row of template.rows){
+    const diagnostic=row.follow_up_diagnostics;
+    assert.equal(diagnostic.status,'not_run');
+    assert.equal(diagnostic.initial_answer_saved,false);
+    assert.deepEqual(diagnostic.turns.map(turn=>turn.question),FOLLOW_UP_QUESTIONS);
+    assert.ok(diagnostic.turns.every(turn=>turn.answer_text===null&&turn.timestamp_utc===null));
+    assert.deepEqual(diagnostic.evidence_gaps,[]);
+    assert.deepEqual(diagnostic.actions,[]);
+  }
+});
+
+test('brand-prompted follow-ups cannot improve original inclusion or citation scores',()=>{
+  const run=structuredClone(baseline);
+  for(const row of run.rows) row.follow_up_diagnostics={status:'complete',initial_answer_saved:true,
+    turns:FOLLOW_UP_QUESTIONS.map(question=>({question,answer_text:'Propagent is now included after a branded follow-up.',cited_source_urls:['https://www.propagent.ai/']}))};
+  const before=summarize(baseline,baseline),after=summarize(run,baseline);
+  assert.deepEqual(after.discovery,before.discovery);
+  assert.deepEqual(after.all_prompts,before.all_prompts);
+  assert.deepEqual(after.cited_sources,before.cited_sources);
+  assert.deepEqual(after.paired_mentions,before.paired_mentions);
 });

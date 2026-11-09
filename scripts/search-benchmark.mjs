@@ -5,6 +5,10 @@ import {dirname, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 
 export const BASELINE_SHA256 = 'eab37503b7f622885a61d29b260f22f9b4d8bc324d7d04cf25b2a044be4db964';
+export const FOLLOW_UP_QUESTIONS = [
+  'Why did you include or omit Propagent (propagent.ai) in your original answer? How did you classify Propagent, and what could or could not you verify from sources? If you cannot know why it was omitted, say so.',
+  'For my original question, which capabilities, buyer context and evidence were you looking for? Which specific facts or public proof about Propagent remain unverified, and what evidence would make you reconsider? Distinguish sources used originally from sources checked after I named Propagent.',
+];
 const flags = ['propagent', 'propagent_narrative', 'propagent_ai_citation'];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const requireValue = (condition, message) => {if (!condition) throw new Error(message);};
@@ -99,6 +103,7 @@ export function summarize(run, baseline) {
       'Unobserved/error rows remain null and make a run incomplete; no-generated-answer observations remain in the denominator.',
       run.schema_version === '2.0' ? 'Full-text flags are checked, but answer-area boundaries and entity accuracy still require human review.' : 'Legacy flags are preserved; truncated answer excerpts cannot independently validate full-answer inclusion.',
       'Protocol equality does not remove region/device uncertainty in the historical baseline. Keep other engines and repeated panels in separate series.',
+      'Follow-up answers are brand-prompted diagnostic hypotheses, not verified ranking causes. They never alter the original answer inclusion or citation scores.',
     ]};
 }
 
@@ -110,7 +115,10 @@ export function makeTemplate(baseline) {
     baseline_sha256:BASELINE_SHA256,
     rows:baseline.rows.map(({id,category,query})=>({id,category,query,status:'not_run',timestamp_utc:null,result_url:null,
       propagent:null,propagent_narrative:null,propagent_ai_citation:null,
-      answer_text:null,answer_area_text:null,cited_source_urls:[],entity_accuracy:null,recommendation_position:null,review_notes:''}))};
+      answer_text:null,answer_area_text:null,cited_source_urls:[],entity_accuracy:null,recommendation_position:null,review_notes:'',
+      follow_up_diagnostics:{status:'not_run',initial_answer_saved:false,
+        turns:FOLLOW_UP_QUESTIONS.map((question,index)=>({id:index+1,question,answer_text:null,cited_source_urls:[],timestamp_utc:null})),
+        perceived_entity:null,selection_criteria:[],evidence_gaps:[],actions:[],notes:''}}))};
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
