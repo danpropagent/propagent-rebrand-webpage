@@ -1,5 +1,51 @@
 /* Propagent resource pages. Extends the native design tokens. */
 
+/* Comparisons retain the editorial guide layout and use static, linked evidence. */
+.comparison-guide { --text-muted: var(--text-secondary); }
+.comparison-disclosure { max-width: 90ch; color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
+.comparison-disclosure a, .comparison-trace a, .comparison-sources a { color: var(--accent-primary); text-decoration: underline; text-underline-offset: 3px; }
+.comparison-header-cta { margin: 12px 0 8px; }
+.comparison-guide :is(#fit, #customer-evidence, #platform) .content-card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.comparison-guide .comparison-evidence-note { margin-top: 20px; font-size: 13px; color: var(--text-muted); }
+.comparison-guide .comparison-table { min-width: 980px; table-layout: fixed; }
+.comparison-table th:first-child { width: 14%; }
+.comparison-table th:nth-child(2), .comparison-table th:nth-child(3) { width: 29%; }
+.comparison-table th:nth-child(4) { width: 28%; }
+.comparison-table td { vertical-align: top; }
+.comparison-table th, .comparison-table td { overflow-wrap: break-word; }
+.comparison-table tr > th:first-child { position: sticky; left: 0; z-index: 1; background: var(--surface-raised); border-right: 1px solid var(--border-subtle); }
+.comparison-refs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.comparison-refs a { color: var(--accent-primary); font-family: var(--font-mono); font-size: 12px; text-underline-offset: 3px; }
+.comparison-status { display: block; margin-bottom: 9px; color: var(--text-primary); font-size: 13px; line-height: 1.45; }
+.comparison-guide .comparison-table-note { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.comparison-table-note a { color: var(--accent-primary); text-decoration: underline; text-underline-offset: 3px; }
+.comparison-sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; list-style: none; padding: 0; margin: 20px 0 0; }
+.comparison-sources li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 14px 0; border-top: 1px solid var(--border-subtle); scroll-margin-top: 100px; font-size: 14px; line-height: 1.6; }
+.comparison-source-id { color: var(--text-muted); font-family: var(--font-mono); font-size: 12px; }
+.comparison-guide .comparison-sources p { margin: 8px 0; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+.comparison-sources small { color: var(--text-secondary); font-size: 12px; }
+.comparison-trace { list-style: none; padding: 0; margin: 24px 0; counter-reset: trace; }
+.comparison-trace li { padding: 22px 24px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--surface-raised); counter-increment: trace; }
+.comparison-trace li + li { margin-top: 16px; }
+.comparison-trace h3 { margin: 0 0 12px; font-size: 19px; }
+.comparison-trace h3::before { content: counter(trace, decimal-leading-zero) ' / '; color: var(--accent-primary); font-family: var(--font-mono); font-size: 13px; }
+.comparison-trace blockquote { margin: 14px 0; padding-left: 18px; border-left: 2px solid var(--accent-primary); color: var(--text-primary); font-size: 16px; line-height: 1.7; }
+.comparison-trace a { display: inline-block; margin-top: 10px; font-size: 14px; }
+.comparison-guide a:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 4px; }
+@media (max-width: 980px) {
+  .comparison-guide :is(#fit, #customer-evidence, #platform) .content-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .comparison-guide :is(#fit, #customer-evidence, #platform) .content-card-grid { grid-template-columns: minmax(0, 1fr); }
+  .comparison-sources { grid-template-columns: minmax(0, 1fr); }
+  .comparison-trace li { padding: 18px; }
+}
+@media print {
+  .comparison-table-wrap { overflow: visible; }
+  .comparison-guide .comparison-table { min-width: 0; font-size: 10px; }
+  .comparison-trace li { break-inside: avoid; }
+}
+
 /* Editorial guides and practical examples use a compact, table-first layout. */
 .worked-example { min-width: 0; }
 .content-section-body .example-disclosure { max-width: 94ch; margin: 0 0 20px; padding-left: 14px; border-left: 2px solid var(--accent-primary); color: var(--text-muted); font-size: 12px; line-height: 1.6; }

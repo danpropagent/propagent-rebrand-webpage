@@ -5,18 +5,19 @@ import { renderWorkedExample } from './pursuit-example.mjs';
 import { renderComplianceExample } from './compliance-example.mjs';
 import { customerStory, customerStoryPath, renderCaseMethodology } from './buyer-proof.mjs';
 import { renderResponseWalkthrough } from './response-walkthrough.mjs';
-import { inputFormats, outputFormats, connectionRows, connectionAnswer, submissionAnswer, modelTrainingPolicy, deploymentOptions, retentionPolicy } from './buyer-capabilities.mjs';
+import { comparisonPages, renderComparisonTable, renderComparisonSources, renderComparisonExample } from './comparison-pages.mjs';
+import { inputFormats, outputFormats, connectionRows, connectionAnswer, submissionAnswer, modelTrainingPolicy, deploymentOptions, retentionPolicy, pursuitPlatformAnswer, pursuitPlatformCapabilities } from './buyer-capabilities.mjs';
 
 const SITE = 'https://www.propagent.ai';
 const CONTENT_DATE = '2026-08-20';
 const modifiedDates = {
-  resources: '2026-10-06',
-  'aec-proposal-software-guide': '2026-10-06',
+  resources: '2026-11-09',
+  'aec-proposal-software-guide': '2026-11-09',
   'customer-stories/aec-design-build-proposal': '2026-10-06',
   'aec-operational-memory': '2026-09-07',
   'aec-go-no-go-scoring': '2026-09-22',
   'rfp-compliance-matrix': '2026-10-06',
-  'ai-proposal-management-aec': '2026-10-06',
+  'ai-proposal-management-aec': '2026-11-09',
   security: '2026-09-23',
   press: '2026-09-08',
 };
@@ -244,13 +245,14 @@ const pressVisibleMedia = Object.freeze([...featuredPressMedia, ...pressArchiveM
 const pages = [
   buyerGuide,
   customerStory,
+  ...comparisonPages,
   {
     slug: 'resources',
     title: 'AEC Proposal & Response Management Resources',
     navLabel: 'Resources',
     eyebrow: 'Propagent resource library',
     h1: 'Make your next pursuit stronger.',
-    description: 'Practical guides to AI proposal management, operational memory, go/no-go decisions, RFP compliance, SME coordination, source-grounded drafting, and security for AEC firms.',
+    description: 'AEC proposal guides, Propagent vs Kantiv and Loopio comparisons, worked examples, compliance templates, and practical resources for pursuit teams.',
     answer: 'Choose proposal software, make an evidence-led Go/No-Go decision, build a compliance matrix, or put your firm’s knowledge to work. These guides and free worksheets help AEC teams connect requirements, proof, expert input, and review.',
     highlights: [
       ['One connected process', 'Requirements, evidence, experts, content, review, and approval stay connected.'],
@@ -258,6 +260,14 @@ const pages = [
       ['People stay accountable', 'The system carries the process; people apply expertise, judgment, and approval.'],
     ],
     sections: [
+      {
+        eyebrow: 'Compare products',
+        title: 'Evaluate Propagent alongside your shortlist.',
+        cards: [
+          ['Propagent vs Kantiv', 'Why choose Propagent: connected knowledge graphs, workspaces and agents, documented AEC customer work and published pricing.', '/propagent-vs-kantiv/', 'See the case for Propagent'],
+          ['Propagent vs Loopio', 'Why choose Propagent for AEC: project and team evidence, qualifications workflows and a full-workflow, volume-based plan.', '/propagent-vs-loopio/', 'See the case for Propagent'],
+        ],
+      },
       {
         eyebrow: 'Results and examples',
         title: 'See the work behind a stronger pursuit.',
@@ -438,6 +448,12 @@ const pages = [
           ['05', 'Response Development', 'Build the case in the firm’s voice, incorporate approved answers, check related sections and sources, and carry revisions through review and approval.'],
         ],
         afterSteps: ['Response memory', 'Approved evidence, expert answers, decisions, and review history carry forward into the next pursuit.'],
+      },
+      {
+        id: 'platform', eyebrow: 'The connected platform',
+        title: 'Knowledge graphs, workspaces and agents. Built around the pursuit.',
+        paragraphs: [pursuitPlatformAnswer],
+        cards: pursuitPlatformCapabilities,
       },
       {
         eyebrow: 'What teams receive',
@@ -890,7 +906,7 @@ export const pageSlugs = Object.freeze(pages.map((page) => `/${page.slug}/`));
 // Dates represent substantive content edits, never the clock time of a rebuild.
 export const pageDates = Object.freeze(Object.fromEntries([
   ['/', '2026-10-06'], ['/rfp-grader/', CONTENT_DATE],
-  ...pages.map(page => [`/${page.slug}/`, modifiedDates[page.slug] || CONTENT_DATE]),
+  ...pages.map(page => [`/${page.slug}/`, page.dateModified || modifiedDates[page.slug] || CONTENT_DATE]),
 ]));
 
 export const llmsResourceLinks = [
@@ -985,6 +1001,9 @@ const renderSections = (sections = []) => sections.map((section, index) => `
         ${section.downloadsFirst ? renderDownloads(section.downloads) : ''}
         ${renderWorkedExample(section.workedExample)}
         ${section.responseWalkthrough ? renderResponseWalkthrough() : ''}
+        ${section.comparisonExample ? renderComparisonExample() : ''}
+        ${section.comparisonTable ? renderComparisonTable(section.comparisonTable) : ''}
+        ${section.comparisonSources ? renderComparisonSources(section.comparisonSources) : ''}
         ${section.methodology ? renderCaseMethodology() : ''}
         ${section.complianceExample ? renderComplianceExample() : ''}
         ${renderTable(section.table)}
@@ -993,6 +1012,7 @@ const renderSections = (sections = []) => sections.map((section, index) => `
         ${renderSteps(section.steps)}
         ${section.afterSteps ? `<p><strong>${escapeHtml(section.afterSteps[0])}.</strong> ${escapeHtml(section.afterSteps[1])}</p>` : ''}
         ${renderCards(section.cards)}
+        ${section.afterCards ? `<p class="comparison-evidence-note">${escapeHtml(section.afterCards)}</p>` : ''}
         ${renderSectionMedia(section)}
         ${(section.links || []).length ? `<ul class="content-inline-links">${section.links.map(([href, label]) => `<li><a href="${escapeHtml(href)}">${escapeHtml(label)} <span aria-hidden="true">→</span></a></li>`).join('')}</ul>` : ''}
       </div>
@@ -1217,8 +1237,8 @@ function schemaFor(page) {
       '@id': `${canonical}#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Propagent', item: `${SITE}/` },
-        ...(['guide', 'case'].includes(page.template) ? [{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE}/resources/` }] : []),
-        { '@type': 'ListItem', position: ['guide', 'case'].includes(page.template) ? 3 : 2, name: page.navLabel, item: canonical },
+        ...(['guide', 'case', 'comparison'].includes(page.template) ? [{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE}/resources/` }] : []),
+        { '@type': 'ListItem', position: ['guide', 'case', 'comparison'].includes(page.template) ? 3 : 2, name: page.navLabel, item: canonical },
       ],
     },
   ];
@@ -1234,6 +1254,25 @@ function schemaFor(page) {
       articleSection: 'Customer stories',
     });
     graph.find(item => item['@id'] === `${canonical}#webpage`).mainEntity = { '@id': `${canonical}#story` };
+  }
+
+  if (page.template === 'comparison') {
+    const about = [
+      { '@type': 'SoftwareApplication', '@id': `${SITE}/#software`, name: 'Propagent', url: `${SITE}/`, applicationCategory: 'BusinessApplication' },
+      { '@type': 'SoftwareApplication', name: page.competitor.name, url: page.competitor.url, applicationCategory: 'BusinessApplication' },
+    ];
+    graph.push({
+      '@type': 'Article', '@id': `${canonical}#comparison`,
+      headline: page.h1, description: page.description,
+      datePublished: page.datePublished, dateModified: pageDates[`/${page.slug}/`],
+      author: { '@id': `${SITE}/#org` }, publisher: { '@id': `${SITE}/#org` },
+      mainEntityOfPage: { '@id': `${canonical}#webpage` },
+      image: `${SITE}/og-image-geo-20260814.png`, articleSection: 'Software comparisons',
+      about, citation: page.sources.map(source => new URL(source.url, SITE).href),
+    });
+    const webPage = graph.find(item => item['@id'] === `${canonical}#webpage`);
+    webPage.about = about;
+    webPage.mainEntity = { '@id': `${canonical}#comparison` };
   }
 
   if (page.faqs?.length) {
@@ -1348,7 +1387,7 @@ function renderPage(page) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
-  <meta property="og:type" content="${page.template === 'case' ? 'article' : 'website'}">
+  <meta property="og:type" content="${['case', 'comparison'].includes(page.template) ? 'article' : 'website'}">
   <meta property="og:site_name" content="Propagent">
   <meta property="og:title" content="${escapeHtml(page.title)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
@@ -1362,13 +1401,13 @@ function renderPage(page) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=20260814-geo">
-  <link rel="stylesheet" href="/content-pages.css?v=20261001-proof">
+  <link rel="stylesheet" href="/content-pages.css?v=20261109-buyer-qa">
   <script type="application/ld+json">${schemaFor(page)}</script>
 </head>
 <body class="content-page content-page--${escapeHtml(page.slug.replaceAll('/', '-'))}">
   <a class="content-skip" href="#main">Skip to content</a>
   ${renderNav()}
-  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'case' ? renderCaseMain(page) : page.template === 'guide' ? renderGuideMain(page) : `<main id="main">
+  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'case' ? renderCaseMain(page) : ['guide', 'comparison'].includes(page.template) ? renderGuideMain(page) : `<main id="main">
     <header class="content-hero">
       <div class="container">
         <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
@@ -1447,12 +1486,14 @@ function renderCaseMain(page) {
 }
 
 function renderGuideMain(page) {
-  return `<main id="main" class="buyer-guide">
+  const comparison = page.template === 'comparison';
+  return `<main id="main" class="buyer-guide${comparison ? ' comparison-guide' : ''}">
     <header class="guide-header container">
-      <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span>/</span><a href="/resources/">Resources</a><span>/</span><span>Buyer’s guide</span></nav>
+      <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a><span aria-hidden="true">/</span><span>${escapeHtml(comparison ? page.navLabel : 'Buyer’s guide')}</span></nav>
       <span class="mono-label">${escapeHtml(page.eyebrow)}</span><h1>${escapeHtml(page.h1)}</h1>
-      <p class="guide-byline">By Propagent · Updated <time datetime="${pageDates[`/${page.slug}/`]}">${new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(pageDates[`/${page.slug}/`]))}</time></p>
+      <p class="guide-byline">By Propagent · ${comparison ? 'Reviewed' : 'Updated'} <time datetime="${pageDates[`/${page.slug}/`]}">${new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(pageDates[`/${page.slug}/`]))}</time></p>
       <p class="content-answer" data-direct-answer>${escapeHtml(page.answer)}</p>
+      ${comparison ? '<p class="comparison-disclosure">Published by Propagent. Competitor claims link to vendor sources; customer results and fictional examples are labeled separately. <a href="#sources">Sources and review method</a>.</p><a class="btn btn-primary comparison-header-cta" href="/60min-meeting">See Propagent on your pursuit</a>' : ''}
       <nav class="guide-jumps" aria-label="In this guide">${page.sections.map(section => `<a href="#${section.id}">${escapeHtml(section.eyebrow)}</a>`).join('')}</nav>
     </header>
     ${renderSections(page.sections)}

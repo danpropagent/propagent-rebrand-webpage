@@ -13,6 +13,13 @@ export const buyerGuide = {
   answer: 'The right AEC proposal software depends on where your pursuit process breaks down. A writing tool helps produce text. A content library helps reuse answers. Credentials and asset systems organize people, projects, and images. A proposal pursuit system connects requirements, firm proof, expert input, content, and approval. Evaluate the work that remains with your team after the software produces its first output.',
   sections: [
     {
+      id: 'product-comparisons', eyebrow: 'Product comparisons', title: 'Compare the products on your shortlist.',
+      cards: [
+        ['Propagent vs Kantiv', 'The case for Propagent: knowledge graphs, workspaces and agents connected to AEC pursuit execution, with customer evidence and published scope.', '/propagent-vs-kantiv/', 'See the case for Propagent'],
+        ['Propagent vs Loopio', 'The case for Propagent when project qualifications, personnel evidence and engineering requirements drive the response.', '/propagent-vs-loopio/', 'See the case for Propagent'],
+      ],
+    },
+    {
       id: 'categories', eyebrow: 'Compare the categories', title: 'Start with the bottleneck.',
       paragraphs: ['AEC firms often need more than one system. A proposal response, a project résumé, a fee estimate, and a sales pipeline are different outputs. Start by deciding which work you need the software to carry.'],
       table: {

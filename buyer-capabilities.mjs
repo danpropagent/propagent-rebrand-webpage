@@ -14,3 +14,12 @@ export const connectionAnswer = 'Propagent has a built connector for OpenAsset, 
 export const modelTrainingPolicy = 'We do not use customer data to train models.';
 export const deploymentOptions = 'Propagent offers tenant-isolated cloud hosting, with on-premises and local-cloud deployment options.';
 export const retentionPolicy = 'Our retention and deletion policies follow GDPR principles. Personal data is retained only for as long as necessary for its purpose, subject to applicable legal requirements.';
+
+// Platform capabilities explicitly confirmed by Daniel on November 9, 2026.
+// Describe supported work, not an unverified implementation or autonomous-submission claim.
+export const pursuitPlatformAnswer = 'Propagent combines firm knowledge graphs, pursuit workspaces and AI agents to connect qualification, requirements, firm evidence, expert input, drafting and review.';
+export const pursuitPlatformCapabilities = [
+  ['Knowledge graphs: connected firm evidence', 'Keep firm evidence, approved expert answers, pursuit decisions and review history connected. Apply that context to the current requirement and preserve approved knowledge for later pursuits.'],
+  ['Workspaces: one place to carry the pursuit', 'Bring requirements, sources, open questions, response work and review decisions together around the active pursuit. The team can see what is supported, what remains unresolved and what needs approval.'],
+  ['Agents: move the response work forward', 'AI agents support requirements analysis, evidence matching, gap detection, focused expert questions, source-grounded drafting and review. People own strategy, sensitive decisions and final approval.'],
+];
