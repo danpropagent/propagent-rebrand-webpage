@@ -22,6 +22,20 @@ const modifiedDates = {
   press: '2026-09-08',
 };
 
+// Legal pages (/privacy/, /terms/, /sms/). Change this wording only with
+// founder approval, and update both dates when the text changes.
+const LEGAL_COMPANY = 'Propagent, Inc.';
+const LEGAL_PAGE_DATE = '2026-11-11';
+const LEGAL_EFFECTIVE_DATE = 'November 11, 2026';
+const LEGAL_CONTACT = 'daniel@propagent.ai';
+const LEGAL_RETENTION = `for as long as we need them to provide and improve the service or to meet legal obligations. We delete them on request to ${LEGAL_CONTACT}.`;
+const SMS_NUMBER = '(833) 659-4963';
+const SMS_FREQUENCY = 'Message frequency varies.';
+const SMS_RATES = 'Message and data rates may apply.';
+const SMS_KEYWORDS = 'Reply STOP to opt out, HELP for help.';
+const SMS_DISCLOSURE = `${SMS_FREQUENCY} ${SMS_RATES} ${SMS_KEYWORDS}`;
+const SMS_NO_SHARING = 'We do not share or sell mobile numbers, text messaging originator opt-in data, or consent with third parties or affiliates for marketing or promotional purposes. Any sharing described in our privacy policy excludes text messaging originator opt-in data and consent; that information goes only to the providers that deliver the messages.';
+
 const pressMedia = Object.freeze({
   coverage: [
     {
@@ -899,6 +913,273 @@ const pages = [
     cta: ['Start a security review', 'Send us your questionnaire or diligence requirements. We will provide the current Propagent materials and work through open questions with your team.', 'mailto:daniel@propagent.ai?subject=Propagent%20security%20and%20procurement%20review', 'Start the security review'],
     related: ['about', 'ai-proposal-management-aec', 'resources'],
   },
+  {
+    slug: 'privacy',
+    title: 'Privacy Policy | Propagent',
+    navLabel: 'Privacy Policy',
+    eyebrow: 'Privacy policy',
+    h1: 'What Propagent collects, and why.',
+    description: 'How Propagent, Inc. collects, uses, and shares information from its website, the free RFP Grader, the Propagent product, and Propagent text messages.',
+    datePublished: LEGAL_PAGE_DATE,
+    dateModified: LEGAL_PAGE_DATE,
+    answer: `This policy explains what ${LEGAL_COMPANY} collects through this website, the free RFP Grader, the Propagent product, and Propagent text messages, how that information is used, and the choices you have. ${modelTrainingPolicy} We do not sell personal information.`,
+    heroPrimary: ['Review security and data handling', '/security/'],
+    answerSecondary: ['Read the terms of service', '/terms/'],
+    highlights: [
+      ['Effective date', LEGAL_EFFECTIVE_DATE],
+      ['Who we are', `${LEGAL_COMPANY}, based in the Atlanta metropolitan area.`],
+      ['Contact', LEGAL_CONTACT],
+    ],
+    sections: [
+      {
+        id: 'scope', eyebrow: 'Scope', title: 'Where this policy applies.',
+        paragraphs: [
+          `This policy covers www.propagent.ai, the free RFP Grader, the Ask Propagent assistant on the site, the Propagent product, and Propagent text messages. “Propagent,” “we,” and “us” mean ${LEGAL_COMPANY}`,
+          'When a firm uses the Propagent product, that firm decides what data enters its workspace and who is authorized to use it. We handle workspace data to provide the service to that firm, under our agreement with the firm. If you use Propagent through your employer, your employer’s policies also apply to your workspace.',
+        ],
+      },
+      {
+        id: 'website', eyebrow: 'This website', title: 'What the website collects.',
+        paragraphs: ['Most of the site can be read without giving us anything. The table lists each place the site collects information.'],
+        table: {
+          caption: 'Information collected through the website', headers: ['Where', 'What we collect', 'Why'],
+          rows: [
+            ['Page analytics', 'Page views and a small set of events on the home page and the RFP Grader: booking-link clicks, RFP Grader clicks, Ask Propagent opens, questions sent, and follow-up clicks, and whether a visit arrived from an AI assistant. Analytics run through Umami Cloud.', 'To understand how the site is used.'],
+            ['Ask Propagent', 'The question you type, the answer, the page you asked from, a random session identifier, your browser type, and a hashed form of your IP address that changes daily. We do not store the IP address itself with the question.', 'To answer the question, limit abuse, and review how the assistant performs.'],
+            ['RFP Grader', 'Your email address, the documents you upload (PDF, DOCX, or TXT), and the file name shown while the report runs.', 'To analyze the documents and email you the report. Our team is notified of each request with your email address and a copy of the report, and may follow up with you about it.'],
+            ['Booking a demo', 'The details you enter in the booking form, which runs on Google Calendar.', 'To schedule and hold the meeting.'],
+            ['Email', 'Your email address and whatever you send us.', 'To reply.'],
+            ['Hosting', 'Standard request data, such as IP address and browser type, processed by our hosting provider, Google Cloud.', 'To deliver the site and keep it secure.'],
+          ],
+        },
+        bullets: [
+          'The site code we write does not set cookies. It keeps two values in your browser’s session storage: a random identifier for the Ask Propagent conversation and a label for visits that arrive from an AI assistant. Both clear when you close the tab.',
+          'Fonts and the booking calendar load from Google, which handles those requests under its own privacy policy.',
+          'Ask Propagent questions and RFP Grader documents are processed by Google’s Gemini models, through Google Cloud, to produce the answer or the report. RFP Grader uploads are stored in Google Cloud Storage.',
+          'The free worksheets run in your browser. What you type into them is not sent to Propagent.',
+          'The email address you give the RFP Grader is used to send you the report and to notify our team of the request. It is also recorded in the service’s request logs.',
+          `We keep RFP Grader uploads and reports and Ask Propagent logs ${LEGAL_RETENTION}`,
+        ],
+      },
+      {
+        id: 'product', eyebrow: 'The Propagent product', title: 'Information in a customer workspace.',
+        paragraphs: [
+          'Firms use Propagent to manage proposal work. A workspace holds account details for the firm’s users, such as name and work email address, along with the RFPs, proposal content, firm records, and messages the firm brings into it. Customer administrators control what firm data enters the system and who is authorized to use it.',
+          `We use workspace data to provide the service to that firm. ${modelTrainingPolicy} Customer data is isolated by tenant.`,
+          `${retentionPolicy} Retention periods, deletion, and backup handling are reviewed with each customer for its deployment.`,
+          'Firms can connect Propagent to systems they already use, including document storage and email. The firm’s implementation defines which records and workflows are connected.',
+        ],
+        links: [['/security/', 'Review security, deployment options, and data handling']],
+      },
+      {
+        id: 'text-messaging', eyebrow: 'Text messaging', title: 'Propagent text messages.',
+        paragraphs: [
+          `Texting is optional. It is available only to people whose company uses Propagent and has turned on text messaging. You opt in by texting START to ${SMS_NUMBER} from your own mobile phone.`,
+          'When you use Propagent text messages, we collect your mobile phone number, the record of when you opted in and opted out, and the messages you send to the service.',
+          'We use this information to send you proposal-related questions and updates from your Propagent workspace, to receive your answers, to reply to questions you text, and to honor opt-out requests.',
+          `${SMS_NO_SHARING} Twilio is the messaging provider that carries the messages.`,
+          `${SMS_DISCLOSURE}`,
+          `We keep text messages ${LEGAL_RETENTION} We keep opt-in and opt-out records for as long as needed to show that we honored your choice.`,
+        ],
+        links: [['/sms/', 'How to opt in to text messages'], ['/terms/#text-messages', 'Read the text message terms']],
+      },
+      {
+        id: 'sharing', eyebrow: 'Sharing', title: 'Who we share information with.',
+        paragraphs: ['We do not sell personal information. We share it with the service providers that help us run the site and the product, and when the law requires it. The table lists the providers this website and Propagent text messages rely on.'],
+        table: {
+          caption: 'Service providers for the website and text messages', headers: ['Provider', 'What it does'],
+          rows: [
+            ['Google Cloud, including Firebase', 'Hosts the site, stores Ask Propagent logs and RFP Grader uploads, and runs the Gemini models that produce answers and reports.'],
+            ['Gmail and Google Calendar', 'Send RFP Grader reports by email and run demo booking.'],
+            ['Google Fonts', 'Serves the site’s typefaces.'],
+            ['Umami Cloud', 'Page analytics.'],
+            ['Twilio', 'Carries Propagent text messages.'],
+          ],
+        },
+        bullets: ['The current full list of service providers for the Propagent product is provided on request and during a customer’s security review.'],
+      },
+      {
+        id: 'choices', eyebrow: 'Your choices', title: 'Access, correction, deletion, and opting out.',
+        bullets: [
+          `To ask what personal information we hold about you, or to ask us to correct or delete it, contact ${LEGAL_CONTACT}.`,
+          'If your information is in a customer firm’s workspace, we may direct your request to that firm, because the firm controls its workspace data.',
+          'To stop Propagent text messages, reply STOP at any time. For help, reply HELP.',
+          'Depending on where you live, the law may give you additional rights over your personal information. We respond to requests as the law requires.',
+          'The site and the product are intended for business use and are not directed to children.',
+        ],
+      },
+      {
+        id: 'changes', eyebrow: 'Changes and contact', title: 'How we update this policy.',
+        paragraphs: [`We post changes on this page and update the effective date. Send questions about this policy to ${LEGAL_CONTACT}.`],
+      },
+    ],
+    faqTitle: 'Common questions about privacy at Propagent.',
+    faqs: [
+      ['Does Propagent sell personal information?', 'No. We do not sell personal information, and we do not share text messaging opt-in data or consent with third parties for marketing or promotional purposes.'],
+      ['Is customer data used to train AI models?', `No. ${modelTrainingPolicy}`],
+      ['What happens to documents I upload to the RFP Grader?', 'They are submitted to Propagent, stored in Google Cloud Storage, analyzed with Google’s Gemini models, and used to produce the report we email to you. Our team is notified of each request with your email address and a copy of the report, and may follow up with you about it.'],
+      ['How do I stop Propagent text messages?', `Reply STOP to any Propagent text. You can text START to ${SMS_NUMBER} to opt back in.`],
+      ['How do I ask Propagent to delete my information?', 'Send a request to the contact listed on this page. If the information is in a customer firm’s workspace, we may direct the request to that firm.'],
+    ],
+    ctaEyebrow: 'For procurement and IT',
+    cta: ['Reviewing Propagent for your firm?', 'The security and procurement guide covers deployment options, data handling, and how to start a review.', '/security/', 'Open the security guide'],
+    related: ['terms', 'sms', 'security'],
+  },
+  {
+    slug: 'terms',
+    title: 'Terms of Service | Propagent',
+    navLabel: 'Terms of Service',
+    eyebrow: 'Terms of service',
+    h1: 'Terms for using Propagent.',
+    description: 'Terms for www.propagent.ai, the free RFP Grader, Ask Propagent, and Propagent text messages, including message frequency, rates, and how to opt out.',
+    datePublished: LEGAL_PAGE_DATE,
+    dateModified: LEGAL_PAGE_DATE,
+    answer: `These terms cover www.propagent.ai, the free RFP Grader, the Ask Propagent assistant, and Propagent text messages, all provided by ${LEGAL_COMPANY} A firm’s use of the Propagent product is governed by its agreement with Propagent. For Propagent text messages: ${SMS_DISCLOSURE}`,
+    heroPrimary: ['Read the privacy policy', '/privacy/'],
+    answerSecondary: ['How text messages work', '/sms/'],
+    highlights: [
+      ['Effective date', LEGAL_EFFECTIVE_DATE],
+      ['Text messages', SMS_DISCLOSURE],
+      ['Contact', LEGAL_CONTACT],
+    ],
+    sections: [
+      {
+        id: 'agreement', eyebrow: 'Agreement', title: 'What these terms cover.',
+        paragraphs: [
+          `These terms are an agreement between you and ${LEGAL_COMPANY} (“Propagent”). By using www.propagent.ai, the free RFP Grader, the Ask Propagent assistant, or Propagent text messages, you agree to them.`,
+          'If your firm has a written agreement with Propagent for the product, that agreement governs the firm’s use of the product and controls wherever it differs from these terms.',
+        ],
+      },
+      {
+        id: 'site-and-tools', eyebrow: 'Website and free tools', title: 'Using the site, the RFP Grader, and Ask Propagent.',
+        bullets: [
+          'The RFP Grader produces an AI-generated assessment of the documents you upload. It is informational. It is not legal, contractual, or professional advice, and your team remains responsible for pursuit decisions and for anything you submit.',
+          'Upload only documents you have the right to share. The privacy policy describes how we handle uploads.',
+          'Ask Propagent answers from published site information. It cannot make or change offers, pricing, or commitments on Propagent’s behalf.',
+          'The guides, worksheets, and examples on the site are general information. Illustrative examples are labeled as illustrative.',
+          'The free tools have daily usage limits and may be unavailable at times.',
+          'Do not misuse the site. That includes attempts to disrupt it, get around its limits, or reach data that is not yours.',
+        ],
+      },
+      {
+        id: 'text-messages', eyebrow: 'Text messages', title: 'The Propagent text messages program.',
+        paragraphs: [`Propagent text messages are optional. ${SMS_DISCLOSURE}`],
+        table: {
+          caption: 'Propagent text messages', headers: ['Term', 'Details'],
+          rows: [
+            ['Program name', 'Propagent text messages'],
+            ['Who it is for', 'People whose company uses Propagent and has turned on text messaging. Texting is optional.'],
+            ['How to opt in', `Text START to ${SMS_NUMBER} from your own mobile phone.`],
+            ['Messages you receive', 'Proposal questions, reminders, and updates from your Propagent workspace, and replies to questions you text.'],
+            ['Message frequency', SMS_FREQUENCY],
+            ['Cost', SMS_RATES],
+            ['Opt out', 'Reply STOP at any time. You get one message confirming the opt-out and no further texts unless you text START again.'],
+            ['Help', `Reply HELP, or contact ${LEGAL_CONTACT}.`],
+          ],
+        },
+        bullets: [
+          'Wireless carriers are not liable for delayed or undelivered messages.',
+          'Opting out of text messages does not stop you from using Propagent through other channels, such as email and your Propagent workspace.',
+          'Agreeing to receive text messages is not a condition of buying or using Propagent.',
+          'Your opt-in applies to the phone number you texted from. If your number changes, text START from the new number.',
+        ],
+        links: [['/sms/', 'How to opt in to text messages'], ['/privacy/#text-messaging', 'How we handle text messaging information']],
+      },
+      {
+        id: 'content', eyebrow: 'Content and ownership', title: 'Your documents stay yours.',
+        paragraphs: [
+          'You keep ownership of the documents and information you submit. You give Propagent permission to use them to provide what you asked for, such as an RFP Grader report.',
+          modelTrainingPolicy,
+          'The site, its content, and the Propagent name and logo belong to Propagent. You may use the free worksheets and downloads for your own firm’s work.',
+        ],
+      },
+      {
+        id: 'legal', eyebrow: 'Legal terms', title: 'Disclaimers, liability, and governing law.',
+        paragraphs: [
+          'The website and free tools are provided as is, without warranties of any kind, to the extent the law allows. AI-generated output can contain errors. Review it before you rely on it.',
+          'To the extent the law allows, Propagent is not liable for indirect, incidental, or consequential damages arising from use of the website, the free tools, or Propagent text messages.',
+          'These terms are governed by the laws of the State of Delaware. Any dispute about them will be brought in the state or federal courts located in Delaware.',
+          `We may update these terms. We post changes on this page and update the effective date. Send questions about these terms to ${LEGAL_CONTACT}.`,
+        ],
+      },
+    ],
+    faqTitle: 'Common questions about these terms.',
+    faqs: [
+      ['How do I opt out of Propagent text messages?', 'Reply STOP to any Propagent text. You get one message confirming the opt-out and no further texts unless you text START again.'],
+      ['Does opting out of texts affect my Propagent access?', 'No. Opting out of text messages does not stop you from using Propagent through other channels, such as email and your Propagent workspace.'],
+      ['Do these terms replace my firm’s agreement with Propagent?', 'No. If your firm has a written agreement with Propagent for the product, that agreement governs the firm’s use of the product.'],
+      ['Is an RFP Grader report professional advice?', 'No. It is an AI-generated, informational assessment. Your team remains responsible for pursuit decisions and for anything you submit.'],
+    ],
+    ctaEyebrow: 'Your information',
+    cta: ['See what Propagent collects, and why', 'The privacy policy covers the website, the free RFP Grader, the product, and text messages.', '/privacy/', 'Read the privacy policy'],
+    related: ['privacy', 'sms', 'security'],
+  },
+  {
+    slug: 'sms',
+    title: 'Propagent Text Messages: Opt In by Texting START',
+    navLabel: 'Text Messages',
+    eyebrow: 'Propagent text messages',
+    h1: `Text START to ${SMS_NUMBER} to get Propagent questions and updates by text.`,
+    description: `Opt in to Propagent text messages by texting START to ${SMS_NUMBER}. Optional, for people whose company uses Propagent. Reply STOP to opt out, HELP for help.`,
+    datePublished: LEGAL_PAGE_DATE,
+    dateModified: LEGAL_PAGE_DATE,
+    answer: `Propagent text messages bring proposal questions, reminders, and updates from your Propagent workspace to your phone. Texting is optional and only for people whose company uses Propagent. ${SMS_DISCLOSURE}`,
+    heroPrimary: ['Terms of Service', '/terms/'],
+    answerSecondary: ['Privacy Policy', '/privacy/'],
+    highlights: [
+      ['Message frequency', SMS_FREQUENCY],
+      ['Cost', SMS_RATES],
+      ['Stop or get help', SMS_KEYWORDS],
+    ],
+    sections: [
+      {
+        id: 'opt-in', eyebrow: 'How to opt in', title: 'Three steps, started from your own phone.',
+        steps: [
+          ['01', 'Your company turns on texting', 'An administrator at your company enables text messages for its Propagent workspace.'],
+          ['02', `Text START to ${SMS_NUMBER}`, 'Send it from the mobile phone listed on your Propagent account. Sending START is how you agree to receive Propagent text messages.'],
+          ['03', 'Get a confirmation', 'You receive a text confirming that you are opted in. Propagent can then text you questions and updates from your workspace.'],
+        ],
+        afterSteps: ['Texting is optional', 'It is only for people whose company uses Propagent. Agreeing to receive text messages is not a condition of buying or using Propagent.'],
+      },
+      {
+        id: 'messages', eyebrow: 'What you receive', title: 'Questions and updates from your workspace.',
+        paragraphs: [`${SMS_FREQUENCY} It depends on the proposal work under way in your workspace. ${SMS_RATES}`],
+        bullets: [
+          'Proposal questions that need your expertise or a decision.',
+          'Reminders and updates about proposal work in your Propagent workspace.',
+          'Replies to questions you text to Propagent.',
+        ],
+      },
+      {
+        id: 'stop-help', eyebrow: 'Stop or get help', title: 'You can stop at any time.',
+        bullets: [
+          'Reply STOP to opt out. You get one message confirming the opt-out and no further texts unless you text START again.',
+          `Reply HELP for help, or contact ${LEGAL_CONTACT}.`,
+          'Opting out of text messages does not stop you from using Propagent through other channels, such as email and your Propagent workspace.',
+          'Wireless carriers are not liable for delayed or undelivered messages.',
+        ],
+      },
+      {
+        id: 'your-information', eyebrow: 'Your information', title: 'What we collect when you text.',
+        paragraphs: [
+          'We collect your mobile phone number, the record of when you opted in and opted out, and the messages you send. We use them to send proposal-related questions and updates and to receive your answers. Twilio is the messaging provider that carries the messages.',
+          SMS_NO_SHARING,
+        ],
+        links: [['/terms/#text-messages', 'Read the text message terms'], ['/privacy/#text-messaging', 'Read the privacy policy']],
+      },
+    ],
+    faqTitle: 'Common questions about Propagent text messages.',
+    faqs: [
+      ['How do I opt in to Propagent text messages?', `Text START to ${SMS_NUMBER} from your own mobile phone. Your company must use Propagent and have text messaging turned on.`],
+      ['How often will Propagent text me?', `${SMS_FREQUENCY} It depends on the proposal work under way in your workspace.`],
+      ['Does texting with Propagent cost anything?', SMS_RATES],
+      ['How do I stop the texts?', 'Reply STOP to any Propagent text. You get one message confirming the opt-out and no further texts unless you text START again.'],
+      ['Do I have to use text messages to use Propagent?', 'No. Texting is optional, and opting out does not stop you from using Propagent through other channels, such as email and your Propagent workspace.'],
+    ],
+    ctaEyebrow: 'New to Propagent',
+    cta: ['See how Propagent carries a pursuit', 'Follow a response from RFP intake through expert input, review, and final approval.', '/ai-proposal-management-aec/', 'See how it works'],
+    related: ['terms', 'privacy', 'security'],
+  },
 ];
 
 export const pageSlugs = Object.freeze(pages.map((page) => `/${page.slug}/`));
@@ -1365,7 +1646,7 @@ function renderFooter() {
         <p>The pursuit system for the built world.</p>
       </div>
       <div><span class="mono-label">Explore</span><a href="/resources/">Resources</a><a href="/ai-proposal-management-aec/">AI proposal management</a><a href="/rfp-grader/">RFP Grader</a></div>
-      <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/press/">Press & Media</a><a href="/security/">Security</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
+      <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/press/">Press & Media</a><a href="/security/">Security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sms/">Text messages</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
       <div><span class="mono-label">Evaluate</span><a href="/60min-meeting">Book a Propagent demo</a><a href="/rfp-grader/">Grade an RFP</a></div>
     </div>
     <div class="container content-footer-bottom"><span>© ${new Date().getUTCFullYear()} Propagent</span><span>The system carries the process. People apply judgment and approve the response.</span></div>
@@ -1440,7 +1721,7 @@ function renderPage(page) {
     </section>` : ''}
     ${page.faqs?.length ? `<section class="content-section content-section--raised" id="faq">
       <div class="container content-section-inner">
-        <div class="content-section-heading"><span class="mono-label">Frequently asked questions</span><h2>Straight answers for your evaluation.</h2></div>
+        <div class="content-section-heading"><span class="mono-label">Frequently asked questions</span><h2>${escapeHtml(page.faqTitle || 'Straight answers for your evaluation.')}</h2></div>
         <div class="content-section-body">${renderFaqs(page.faqs)}</div>
       </div>
     </section>` : ''}
