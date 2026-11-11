@@ -3643,8 +3643,7 @@ const gradeRfpHandler = async (req, res) => {
     if (reporter) {
       await reporter.report({
         status: "error",
-        error: "The analysis hit a snag. Your document was not retained; " +
-          "please try again.",
+        error: "The analysis hit a snag. Please try again.",
       });
     }
 
