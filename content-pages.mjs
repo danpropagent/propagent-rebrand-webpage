@@ -25,8 +25,8 @@ const modifiedDates = {
 // Legal pages (/privacy/, /terms/, /sms/). Change this wording only with
 // founder approval, and update both dates when the text changes.
 const LEGAL_COMPANY = 'Propagent, Inc.';
-const LEGAL_PAGE_DATE = '2026-11-11';
-const LEGAL_EFFECTIVE_DATE = 'November 11, 2026';
+const LEGAL_PAGE_DATE = '2026-11-13';
+const LEGAL_EFFECTIVE_DATE = 'November 13, 2026';
 const LEGAL_CONTACT = 'daniel@propagent.ai';
 const LEGAL_RETENTION = `for as long as we need them to provide and improve the service or to meet legal obligations. We delete them on request to ${LEGAL_CONTACT}.`;
 const SMS_NUMBER = '(833) 659-4963';
