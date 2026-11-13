@@ -6,6 +6,7 @@ import { renderComplianceExample } from './compliance-example.mjs';
 import { customerStory, customerStoryPath, renderCaseMethodology } from './buyer-proof.mjs';
 import { renderResponseWalkthrough } from './response-walkthrough.mjs';
 import { comparisonPages, renderComparisonTable, renderComparisonSources, renderComparisonExample } from './comparison-pages.mjs';
+import { roundupPage, renderRoundupTable, renderRoundupVendors } from './roundup-page.mjs';
 import { inputFormats, outputFormats, connectionRows, connectionAnswer, submissionAnswer, modelTrainingPolicy, deploymentOptions, retentionPolicy, pursuitPlatformAnswer, pursuitPlatformCapabilities } from './buyer-capabilities.mjs';
 
 const SITE = 'https://www.propagent.ai';
@@ -260,6 +261,7 @@ const pages = [
   buyerGuide,
   customerStory,
   ...comparisonPages,
+  roundupPage,
   {
     slug: 'resources',
     title: 'AEC Proposal & Response Management Resources',
@@ -278,6 +280,7 @@ const pages = [
         eyebrow: 'Compare products',
         title: 'Evaluate Propagent alongside your shortlist.',
         cards: [
+          ['Best AEC proposal management software in 2026', 'A comparison of ten AEC proposal tools: what each is best suited to, how it is priced and what to ask before you buy.', '/best-aec-proposal-software/', 'Read the comparison'],
           ['Propagent vs Kantiv', 'Why choose Propagent: connected knowledge graphs, workspaces and agents, documented AEC customer work and published pricing.', '/propagent-vs-kantiv/', 'See the case for Propagent'],
           ['Propagent vs Loopio', 'Why choose Propagent for AEC: project and team evidence, qualifications workflows and a full-workflow, volume-based plan.', '/propagent-vs-loopio/', 'See the case for Propagent'],
         ],
@@ -1285,6 +1288,8 @@ const renderSections = (sections = []) => sections.map((section, index) => `
         ${section.comparisonExample ? renderComparisonExample() : ''}
         ${section.comparisonTable ? renderComparisonTable(section.comparisonTable) : ''}
         ${section.comparisonSources ? renderComparisonSources(section.comparisonSources) : ''}
+        ${section.roundupTable ? renderRoundupTable() : ''}
+        ${section.roundupVendors ? renderRoundupVendors() : ''}
         ${section.methodology ? renderCaseMethodology() : ''}
         ${section.complianceExample ? renderComplianceExample() : ''}
         ${renderTable(section.table)}
@@ -1518,8 +1523,8 @@ function schemaFor(page) {
       '@id': `${canonical}#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Propagent', item: `${SITE}/` },
-        ...(['guide', 'case', 'comparison'].includes(page.template) ? [{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE}/resources/` }] : []),
-        { '@type': 'ListItem', position: ['guide', 'case', 'comparison'].includes(page.template) ? 3 : 2, name: page.navLabel, item: canonical },
+        ...(['guide', 'case', 'comparison', 'roundup'].includes(page.template) ? [{ '@type': 'ListItem', position: 2, name: 'Resources', item: `${SITE}/resources/` }] : []),
+        { '@type': 'ListItem', position: ['guide', 'case', 'comparison', 'roundup'].includes(page.template) ? 3 : 2, name: page.navLabel, item: canonical },
       ],
     },
   ];
@@ -1550,6 +1555,26 @@ function schemaFor(page) {
       mainEntityOfPage: { '@id': `${canonical}#webpage` },
       image: `${SITE}/og-image-geo-20260814.png`, articleSection: 'Software comparisons',
       about, citation: page.sources.map(source => new URL(source.url, SITE).href),
+    });
+    const webPage = graph.find(item => item['@id'] === `${canonical}#webpage`);
+    webPage.about = about;
+    webPage.mainEntity = { '@id': `${canonical}#comparison` };
+  }
+
+  if (page.template === 'roundup') {
+    // A comparison article about several products. Deliberately no Review or AggregateRating markup
+    // (Propagent publishes this page and does not score itself or its competitors) and no competitor URLs.
+    const about = page.vendors.map(vendor => vendor.id === 'propagent'
+      ? { '@type': 'SoftwareApplication', '@id': `${SITE}/#software`, name: 'Propagent', url: `${SITE}/`, applicationCategory: 'BusinessApplication' }
+      : { '@type': 'SoftwareApplication', name: vendor.product, applicationCategory: 'BusinessApplication' });
+    graph.push({
+      '@type': 'Article', '@id': `${canonical}#comparison`,
+      headline: page.h1, description: page.description,
+      datePublished: page.datePublished, dateModified: pageDates[`/${page.slug}/`],
+      author: { '@id': `${SITE}/#org` }, publisher: { '@id': `${SITE}/#org` },
+      mainEntityOfPage: { '@id': `${canonical}#webpage` },
+      image: `${SITE}/og-image-geo-20260814.png`, articleSection: 'Software comparisons',
+      about,
     });
     const webPage = graph.find(item => item['@id'] === `${canonical}#webpage`);
     webPage.about = about;
@@ -1668,7 +1693,7 @@ function renderPage(page) {
   <meta name="description" content="${escapeHtml(page.description)}">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
-  <meta property="og:type" content="${['case', 'comparison'].includes(page.template) ? 'article' : 'website'}">
+  <meta property="og:type" content="${['case', 'comparison', 'roundup'].includes(page.template) ? 'article' : 'website'}">
   <meta property="og:site_name" content="Propagent">
   <meta property="og:title" content="${escapeHtml(page.title)}">
   <meta property="og:description" content="${escapeHtml(page.description)}">
@@ -1682,13 +1707,13 @@ function renderPage(page) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v=20260814-geo">
-  <link rel="stylesheet" href="/content-pages.css?v=20261109-buyer-qa">
+  <link rel="stylesheet" href="/content-pages.css?v=20261113-roundup-rows">
   <script type="application/ld+json">${schemaFor(page)}</script>
 </head>
 <body class="content-page content-page--${escapeHtml(page.slug.replaceAll('/', '-'))}">
   <a class="content-skip" href="#main">Skip to content</a>
   ${renderNav()}
-  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'case' ? renderCaseMain(page) : ['guide', 'comparison'].includes(page.template) ? renderGuideMain(page) : `<main id="main">
+  ${page.slug === 'press' ? renderPressMain(page) : page.template === 'case' ? renderCaseMain(page) : ['guide', 'comparison', 'roundup'].includes(page.template) ? renderGuideMain(page) : `<main id="main">
     <header class="content-hero">
       <div class="container">
         <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><span>${escapeHtml(page.navLabel)}</span></nav>
@@ -1767,14 +1792,15 @@ function renderCaseMain(page) {
 }
 
 function renderGuideMain(page) {
-  const comparison = page.template === 'comparison';
+  const roundup = page.template === 'roundup';
+  const comparison = page.template === 'comparison' || roundup;
   return `<main id="main" class="buyer-guide${comparison ? ' comparison-guide' : ''}">
     <header class="guide-header container">
       <nav class="content-breadcrumb" aria-label="Breadcrumb"><a href="/">Propagent</a><span aria-hidden="true">/</span><a href="/resources/">Resources</a><span aria-hidden="true">/</span><span>${escapeHtml(comparison ? page.navLabel : 'Buyer’s guide')}</span></nav>
       <span class="mono-label">${escapeHtml(page.eyebrow)}</span><h1>${escapeHtml(page.h1)}</h1>
       <p class="guide-byline">By Propagent · ${comparison ? 'Reviewed' : 'Updated'} <time datetime="${pageDates[`/${page.slug}/`]}">${new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(pageDates[`/${page.slug}/`]))}</time></p>
       <p class="content-answer" data-direct-answer>${escapeHtml(page.answer)}</p>
-      ${comparison ? '<p class="comparison-disclosure">Published by Propagent. Competitor claims link to vendor sources; customer results and fictional examples are labeled separately. <a href="#sources">Sources and review method</a>.</p><a class="btn btn-primary comparison-header-cta" href="/60min-meeting">See Propagent on your pursuit</a>' : ''}
+      ${roundup ? '<p class="comparison-disclosure">Published by Propagent, one of the products compared. Product information reflects each vendor’s published materials as of November 13, 2026. <a href="#methodology">How this comparison was prepared</a>.</p>' : comparison ? '<p class="comparison-disclosure">Published by Propagent. Competitor claims link to vendor sources; customer results and fictional examples are labeled separately. <a href="#sources">Sources and review method</a>.</p><a class="btn btn-primary comparison-header-cta" href="/60min-meeting">See Propagent on your pursuit</a>' : ''}
       <nav class="guide-jumps" aria-label="In this guide">${page.sections.map(section => `<a href="#${section.id}">${escapeHtml(section.eyebrow)}</a>`).join('')}</nav>
     </header>
     ${renderSections(page.sections)}
