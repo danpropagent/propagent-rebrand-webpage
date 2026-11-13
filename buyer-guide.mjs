@@ -15,6 +15,7 @@ export const buyerGuide = {
     {
       id: 'product-comparisons', eyebrow: 'Product comparisons', title: 'Compare the products on your shortlist.',
       cards: [
+        ['Best AEC proposal management software in 2026', 'A comparison of ten AEC proposal tools: what each is best suited to, how it is priced and what to ask before you buy.', '/best-aec-proposal-software/', 'Read the comparison'],
         ['Propagent vs Kantiv', 'The case for Propagent: knowledge graphs, workspaces and agents connected to AEC pursuit execution, with customer evidence and published scope.', '/propagent-vs-kantiv/', 'See the case for Propagent'],
         ['Propagent vs Loopio', 'The case for Propagent when project qualifications, personnel evidence and engineering requirements drive the response.', '/propagent-vs-loopio/', 'See the case for Propagent'],
       ],

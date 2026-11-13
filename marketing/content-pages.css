@@ -24,6 +24,29 @@
 .comparison-source-id { color: var(--text-muted); font-family: var(--font-mono); font-size: 12px; }
 .comparison-guide .comparison-sources p { margin: 8px 0; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
 .comparison-sources small { color: var(--text-secondary); font-size: 12px; }
+/* Multi-vendor roundup: four-column glance table and one card per product. */
+.roundup-table th:first-child { width: 18%; }
+.roundup-table th:nth-child(2) { width: 30%; }
+.roundup-table th:nth-child(3), .roundup-table th:nth-child(4) { width: 26%; }
+.roundup-table tbody th a { color: var(--text-primary); text-underline-offset: 3px; }
+.roundup-vendor > .roundup-best-for { margin: 0 0 16px; font-size: 15px; color: var(--text-primary); }
+.roundup-vendors { display: grid; gap: 16px; margin: 20px 0; }
+.roundup-vendor { padding: 22px 24px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--surface-raised); scroll-margin-top: 100px; }
+.roundup-vendor header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 14px; }
+.roundup-vendor h3 { margin: 0; font-size: 20px; }
+/* Bordered rows: each fact, and the fit/questions block, sits between dividers. */
+.roundup-vendor dl { display: grid; margin: 0; border-top: 1px solid var(--border-subtle); }
+.roundup-vendor dl > div { display: grid; grid-template-columns: minmax(150px, 24%) minmax(0, 1fr); gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--border-subtle); }
+.roundup-vendor dt { color: var(--text-primary); font-size: 13px; font-weight: 600; }
+.roundup-vendor dd { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+.roundup-vendor > p { margin: 8px 0 0; font-size: 14px; line-height: 1.65; color: var(--text-secondary); }
+.roundup-vendor > dl + p { margin-top: 16px; }
+.roundup-vendor > p strong { color: var(--text-primary); }
+.roundup-subhead { margin: 32px 0 8px; font-size: 20px; }
+@media (max-width: 640px) {
+  .roundup-vendor { padding: 18px 16px; }
+  .roundup-vendor dl > div { grid-template-columns: 1fr; }
+}
 .comparison-trace { list-style: none; padding: 0; margin: 24px 0; counter-reset: trace; }
 .comparison-trace li { padding: 22px 24px; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--surface-raised); counter-increment: trace; }
 .comparison-trace li + li { margin-top: 16px; }
