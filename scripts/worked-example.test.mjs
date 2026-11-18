@@ -47,12 +47,14 @@ test('pricing copy and Offer schema preserve approved prices without feature-tie
   const home=readFileSync(new URL('../marketing/index.html',import.meta.url),'utf8');
   const graph=JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])['@graph'];
   const offers=graph.find(item=>item['@type']==='SoftwareApplication').offers;
-  assert.deepEqual(offers.slice(0,3).map(o=>o.price),['1000','2000','5000']);
+  assert.deepEqual(offers.slice(0,4).map(o=>o.price),['500','1000','2000','5000']);
   for(const offer of offers) assert.match(offer.description,/Full proposal workflow included/);
   const pricing=home.split('id="pricing"')[1].split('</section>')[0];
   assert.doesNotMatch(pricing,/Everything in (Small|Medium)|Priority response support|Most firms start here/);
   assert.doesNotMatch(pricing,/data-countup/,'Prices must not briefly display zero or partial amounts');
   assert.match(pricing,/Larger-volume clients receive more hands-on time/);
+  assert.match(pricing,/\$500<span class="per">\/mo<\/span>[\s\S]*up to 10 annual responses/);
+  assert.match(pricing,/href="\/pricing\/"/);
 });
 
 test('both pages share the same fictional RFQ and source facts', () => {

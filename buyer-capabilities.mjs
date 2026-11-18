@@ -3,7 +3,15 @@
 export const inputFormats = 'PDF, DOCX, XLSX, TXT, and Markdown (MD)';
 export const outputFormats = 'PDF, DOCX, XLSX, TXT, Markdown (MD), LaTeX, and IDML for Adobe InDesign';
 export const submissionAnswer = 'Propagent supports RFP, RFQ, SOQ, and SF 330 responses equally. Requirements analysis, project and team evidence, expert coordination, drafting, and review support all four submission types.';
-export const pricingAnswer = 'Propagent costs $1,000/month for up to 25 annual responses, $2,000/month for up to 50, and $5,000/month for up to 200, with custom Enterprise pricing. Every tier includes the full workflow. Pricing scales with response volume, not seat counts; larger-volume clients receive more hands-on time from our team.';
+// Published tiers. The Starter tier was approved by Daniel on November 18, 2026.
+export const pricingTiers = Object.freeze([
+  { name: 'Starter', price: 500, responses: 10, fit: 'For firms with up to 10 annual responses.', support: 'Upgrade as response volume grows' },
+  { name: 'Small', price: 1000, responses: 25, fit: 'For firms with up to 25 annual responses.', support: 'Support scoped to your firm' },
+  { name: 'Medium', price: 2000, responses: 50, fit: 'For firms with up to 50 annual responses.', support: 'Support grows with response volume' },
+  { name: 'Large', price: 5000, responses: 200, fit: 'For firms with up to 200 annual responses.', support: 'More hands-on time from our team' },
+  { name: 'Enterprise', price: null, responses: null, fit: 'For firms with portfolio-wide response operations.', support: 'Implementation and support scoped to your firm' },
+]);
+export const pricingAnswer = 'Propagent costs $500/month for up to 10 annual responses, $1,000/month for up to 25, $2,000/month for up to 50, and $5,000/month for up to 200, with custom Enterprise pricing. Every tier includes the full workflow. Pricing scales with response volume, not seat counts; larger-volume clients receive more hands-on time from our team.';
 export const connectionRows = [
   ['OpenAsset', 'Built connector'],
   ['Deltek and Unanet', 'Integration accelerators'],

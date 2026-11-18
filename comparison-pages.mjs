@@ -14,7 +14,7 @@ const propagentSources = [
   source('P5', 'Propagent: go/no-go decision record', '/aec-go-no-go-scoring/', 'Qualification', 'Decision factors, evidence readiness, uncertainty and the accountable human decision.'),
   source('P6', 'Propagent: compliance matrix and addenda', '/rfp-compliance-matrix/', 'Compliance', 'Source-linked requirements, owners, response status and review after an addendum.'),
   source('P7', 'Propagent: security and assurance status', '/security/', 'Security', 'Deployment options, data handling and the explicit absence of current independent SOC 2 assurance or ISO certification.'),
-  source('P8', 'Propagent: published pricing', '/#pricing', 'Pricing', 'Monthly prices, annual-response allowances and the full workflow in every tier.'),
+  source('P8', 'Propagent: published pricing', '/pricing/', 'Pricing', 'Monthly prices, annual-response allowances and the full workflow in every tier.'),
   source('P9', 'Propagent: anonymized customer results and measurement boundaries', customerStoryPath, 'Customer case', 'Initial-draft timing, assessable recommendations, submitted changes and the limits of one engagement.'),
   source('P10', 'Propagent: connection types and implementation scope', '/ai-proposal-management-aec/#connections', 'Connections', 'OpenAsset connector; Deltek/Unanet accelerators; document and email connections. These are not interchangeable connector claims.'),
   source('P11', 'Propagent: supported inputs and deliverables', '/ai-proposal-management-aec/#formats', 'Formats', 'Supported input/output formats. Format support is not a claim that every official form is assembled without review.'),
@@ -45,7 +45,7 @@ const sharedRows = {
   governance: cell('Documents human review and final approval. Confirm the required roles, confidential-pursuit access and multi-step approval configuration for your deployment.', 'P1', 'P7'),
   proof: cell('One anonymized design-build case: a 30-minute initial draft, 29 of 40 assessable recommendations fully/partly implemented, and confirmed shortlisting. Timing excludes preparation and later reviews.', 'P9'),
   security: cell('Tenant-isolated cloud, on-premises and local-cloud options. No current claim of independent SOC 2 assurance or ISO certification.', 'P7'),
-  price: cell('$1,000/month for up to 25 annual responses; $2,000 for 50; $5,000 for 200. Full workflow in each tier; custom Enterprise scope.', 'P8'),
+  price: cell('$500/month for up to 10 annual responses; $1,000 for 25; $2,000 for 50; $5,000 for 200. Full workflow in each tier; custom Enterprise scope.', 'P8'),
 };
 
 function exampleSection() {
@@ -181,7 +181,7 @@ export const comparisonPages = [
       { id: 'fit', eyebrow: 'Why choose Propagent', title: 'Connected knowledge should change the pursuit—not just populate a draft.', cards: [
         ['Carry the pursuit from decision to review', 'Propagent connects qualification, requirement analysis, evidence matching, focused expert input and response development. Your team works from the proof and decisions behind the response, not only the resulting text.'],
         ['See evidence of useful customer work', 'The published design-build case shows an initial draft, recommendations adopted in later drafts and corrections retained in the submission. It gives your team concrete work to inspect before buying.'],
-        ['Know the starting price and included workflow', 'Published plans start at $1,000/month for 25 annual responses. Every tier includes the full workflow; pricing scales with response volume rather than seat counts.'],
+        ['Know the starting price and included workflow', 'Published plans start at $500/month for 10 annual responses. Every tier includes the full workflow; pricing scales with response volume rather than seat counts.'],
       ], paragraphs: ['Kantiv also offers an AEC knowledge graph, pursuit workspace and agents. The reasons to choose Propagent are how its platform connects your pursuit work, the customer evidence you can inspect and the full-workflow commercial scope.'], links: [['#customer-evidence', 'See the customer evidence'], ['#platform', 'See Propagent’s platform'], ['#source-K1', 'Kantiv platform source'], ['#source-K2', 'Kantiv Agents source']] },
       proofSection(), platformSection(), exampleSection(),
       { id: 'comparison', eyebrow: 'Sourced comparison', title: 'Propagent and Kantiv: shared capabilities and buying differences.', paragraphs: ['Propagent’s case is connected AEC execution, inspectable customer work and published full-workflow plans. The table separates that case from shared features, implementation questions and roadmap status. Both columns use vendor publications; the buying interpretation is not a measured performance ranking.'], comparisonTable: kantivTable },
