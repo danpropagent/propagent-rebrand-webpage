@@ -2072,6 +2072,26 @@ a:hover { color: var(--accent-primary-strong); }
 }
 .price-card ul li::first-letter { color: var(--accent-primary); font-weight: 600; }
 
+/* Starter: a compact full-width row under the main plans. */
+.price-card--starter {
+  margin-top: 16px;
+  padding: 20px 24px;
+  flex-direction: row; align-items: center; gap: 32px;
+}
+.price-card--starter .starter-main { display: flex; flex-direction: column; gap: 10px; min-width: 140px; }
+.price-card--starter .starter-copy { flex: 1; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.price-card--starter .desc { min-height: 0; }
+.price-card--starter ul { flex: 0 1 auto; flex-direction: row; gap: 20px; flex-wrap: wrap; }
+.price-card--starter .btn { flex-shrink: 0; }
+.pricing-more { margin: 20px 0 0; font-size: 14px; }
+.pricing-more a { color: var(--accent-primary); text-decoration: none; }
+.pricing-more a:hover { text-decoration: underline; }
+@media (max-width: 860px) {
+  .price-card--starter { flex-direction: column; align-items: stretch; gap: 16px; padding: 28px 24px; }
+  .price-card--starter .starter-copy { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .price-card--starter ul { flex-direction: column; gap: 10px; }
+}
+
 /* ============================================================================
    Contact
    ============================================================================ */
