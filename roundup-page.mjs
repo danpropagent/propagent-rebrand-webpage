@@ -15,7 +15,7 @@ export const propagentSecuritySummary = `Designed around SOC 2, GDPR and ISO/IEC
 
 // Internal evidence register. Not rendered; kept so every statement can be re-verified.
 export const evidence = {
-  P1: '/ai-proposal-management-aec/#platform', P2: '/#pricing', P3: '/ai-proposal-management-aec/#connections', P4: '/security/',
+  P1: '/ai-proposal-management-aec/#platform', P2: '/pricing/', P3: '/ai-proposal-management-aec/#connections', P4: '/security/',
   P5: '/rfp-compliance-matrix/', P6: '/sme-coordination/', P7: '/aec-go-no-go-scoring/', P8: '/#faq',
   D1: 'https://www.deltek.com/products/erp/vantagepoint/',
   D2: 'https://www.deltek.com/products/erp/vantagepoint/crm-and-pipeline-management/',
@@ -54,7 +54,7 @@ const vendors = [
       pricing: fact(pricingAnswer, 'P2'),
       security: fact(propagentSecuritySummary, 'P4'),
     },
-    glance: { pricing: 'Published. From $1,000/month for up to 25 annual responses; full workflow in every tier.', integrations: 'OpenAsset, Deltek, Unanet, SharePoint, OneDrive, Google Drive, Outlook, Gmail' },
+    glance: { pricing: 'Published. From $500/month for up to 10 annual responses; full workflow in every tier.', integrations: 'OpenAsset, Deltek, Unanet, SharePoint, OneDrive, Google Drive, Outlook, Gmail' },
   },
   {
     id: 'deltek', name: 'Deltek Vantagepoint', product: 'Deltek Vantagepoint', group: 'aec',
@@ -247,7 +247,7 @@ export const roundupPage = {
       cards: [
         ['One system for the whole pursuit', 'Go/no-go decisions, requirements and addenda, evidence gaps, expert questions, drafting and review are managed together rather than across separate tools.'],
         ['Built for every role on the response', 'Executives decide what to pursue, marketing and proposal teams run the response, business development shapes the strategy and subject-matter experts answer only the questions that need them.'],
-        ['Pricing you can see before a demo', 'Plans start at $1,000/month for up to 25 annual responses, with the full workflow in every tier and pricing based on response volume rather than seats.'],
+        ['Pricing you can see before a demo', 'Plans start at $500/month for up to 10 annual responses, with the full workflow in every tier and pricing based on response volume rather than seats.'],
       ],
       links: [['#tool-propagent', 'See the Propagent summary'], ['/60min-meeting', 'Book a Propagent demo']],
     },
@@ -279,7 +279,7 @@ export const roundupPage = {
           ['Go/no-go', 'Decision record covering fit, evidence readiness, risk and the accountable human decision', 'Insight from pursuit history to inform go/no-go calls'],
           ['Expert input', 'Evidence gaps become scoped questions routed to the right expert; approved answers flow back into the response', 'Contributors add their sections in the platform'],
           ['RFP, RFQ, SOQ and SF 330', 'All four supported equally', 'Ask for a live SF 330 and addendum demonstration'],
-          ['Pricing', 'Published: from $1,000/month for up to 25 annual responses, full workflow in every tier', 'Not published; ROI calculator and demo request'],
+          ['Pricing', 'Published: from $500/month for up to 10 annual responses, full workflow in every tier', 'Not published; ROI calculator and demo request'],
         ],
       },
       afterCards: 'Kantiv’s published strengths include named enterprise customers, image management and reported SOC 2 and ISO 27001 assurance. If those are your deciding factors, weigh them accordingly.',

@@ -234,6 +234,8 @@ Every tier includes the full proposal workflow, source-backed drafting,
 expert coordination, review, and reusable pursuit knowledge. Larger-volume
 clients receive more hands-on time from our team, with support scoped to the firm.
 
+- **Starter — $500/month.** For firms with up to 10 annual responses.
+  Full workflow included.
 - **Small — $1,000/month.** For firms with up to 25 annual responses.
   Full workflow included; support scoped to your firm.
 - **Medium — $2,000/month.** For firms with up to 50 annual responses.
@@ -288,8 +290,9 @@ runs the chase. Propagent coordinates requirements, evidence, expert input,
 status, drafting, and final checks in one workflow.
 
 **What does Propagent cost?**
-$1,000/month for up to 25 responses a year, $2,000/month for up to 50,
-$5,000/month for up to 200, and custom Enterprise pricing above that. Every
+$500/month for up to 10 responses a year, $1,000/month for up to 25,
+$2,000/month for up to 50, $5,000/month for up to 200, and custom Enterprise
+pricing above that. Every
 tier includes the full workflow; tiers are based on annual response volume,
 not seat counts. Larger-volume clients receive more hands-on time from our team.
 

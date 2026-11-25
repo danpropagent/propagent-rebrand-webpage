@@ -7,12 +7,12 @@ import { customerStory, customerStoryPath, renderCaseMethodology } from './buyer
 import { renderResponseWalkthrough } from './response-walkthrough.mjs';
 import { comparisonPages, renderComparisonTable, renderComparisonSources, renderComparisonExample } from './comparison-pages.mjs';
 import { roundupPage, renderRoundupTable, renderRoundupVendors } from './roundup-page.mjs';
-import { inputFormats, outputFormats, connectionRows, connectionAnswer, submissionAnswer, modelTrainingPolicy, deploymentOptions, retentionPolicy, pursuitPlatformAnswer, pursuitPlatformCapabilities } from './buyer-capabilities.mjs';
+import { pricingAnswer, pricingTiers, inputFormats, outputFormats, connectionRows, connectionAnswer, submissionAnswer, modelTrainingPolicy,deploymentOptions, retentionPolicy, pursuitPlatformAnswer, pursuitPlatformCapabilities } from './buyer-capabilities.mjs';
 
 const SITE = 'https://www.propagent.ai';
 const CONTENT_DATE = '2026-08-20';
 const modifiedDates = {
-  resources: '2026-11-09',
+  resources: '2026-11-18',
   'aec-proposal-software-guide': '2026-11-09',
   'customer-stories/aec-design-build-proposal': '2026-10-06',
   'aec-operational-memory': '2026-09-07',
@@ -257,11 +257,90 @@ const featuredPressUrlSet = new Set(featuredPressUrls);
 const pressArchiveMedia = Object.freeze(publicPressMedia.filter((item) => !featuredPressUrlSet.has(item.url)));
 const pressVisibleMedia = Object.freeze([...featuredPressMedia, ...pressArchiveMedia]);
 
+const formatPrice = (tier) => tier.price === null ? 'Custom' : `$${tier.price.toLocaleString('en-US')}/month`;
+const responseCountQuestion = 'Any RFP, RFQ, RFI, or DDQ you run through Propagent, including opportunities you no-bid after Go / No-Go.';
+const overagePolicy = 'We track usage on a three-month rolling average. If you are on pace to pass your plan’s ceiling, we tell you early, and when you reach it, upgrading is your call. Billing never increases automatically.';
+
+const pricingPage = {
+  slug: 'pricing',
+  datePublished: '2026-11-18',
+  dateModified: '2026-11-18',
+  title: 'Propagent Pricing: AEC Proposal Software Plans from $500/month',
+  navLabel: 'Pricing',
+  eyebrow: 'Pricing',
+  h1: 'Pricing based on response volume, not seats.',
+  description: 'Propagent pricing for AEC firms: $500/month for up to 10 annual responses, $1,000 for 25, $2,000 for 50, $5,000 for 200, and custom Enterprise plans. Every plan includes the full proposal workflow.',
+  answer: pricingAnswer,
+  heroPrimary: ['Book a Propagent demo', '/60min-meeting'],
+  answerSecondary: ['Compare AEC proposal software', '/best-aec-proposal-software/'],
+  highlights: [
+    ['From $500/month', 'Starter covers up to 10 responses a year, for small firms and firms that bid selectively.'],
+    ['Full workflow in every plan', 'No feature tiers. Plans differ by annual response volume and the hands-on time from our team.'],
+    ['No seat counts', 'Principals, BD, marketing and subject-matter experts can all work in Propagent. Price depends on responses, not users.'],
+  ],
+  sections: [
+    {
+      id: 'plans',
+      eyebrow: 'Plans',
+      title: 'Five plans, one full workflow.',
+      paragraphs: ['Choose the plan that covers the responses your firm submits or qualifies in a year. Every plan includes requirements analysis, go/no-go support, evidence-backed drafting, expert coordination, review and reusable pursuit knowledge.'],
+      table: {
+        caption: 'Propagent plans and prices',
+        headers: ['Plan', 'Price', 'Annual responses', 'Who it is for'],
+        rows: pricingTiers.map((tier) => [tier.name, formatPrice(tier), tier.responses === null ? 'Custom' : `Up to ${tier.responses}`, `${tier.fit.replace(/\.$/, '')}. ${tier.support}.`]),
+      },
+    },
+    {
+      id: 'included',
+      eyebrow: 'Included in every plan',
+      title: 'The same system at every size.',
+      bullets: [
+        'Requirements analysis and a living compliance record that follows addenda.',
+        'Go/no-go support that shows fit, evidence readiness, risk and the accountable decision.',
+        'Matching requirements to firm projects, people and approved proof.',
+        'Focused questions routed to the right subject-matter experts.',
+        'Source-grounded drafting and review, with people approving the response.',
+        'Reusable pursuit knowledge that carries approved answers into the next response.',
+        submissionAnswer,
+        `Outputs: ${outputFormats}.`,
+      ],
+    },
+    {
+      id: 'responses',
+      eyebrow: 'How volume is counted',
+      title: 'What counts as a response.',
+      paragraphs: [`A response is ${responseCountQuestion.charAt(0).toLowerCase()}${responseCountQuestion.slice(1)}`, overagePolicy],
+    },
+    {
+      id: 'choose',
+      eyebrow: 'Choosing a plan',
+      title: 'Start from last year’s response count.',
+      cards: [
+        ['Up to 10 a year: Starter', 'Small firms and firms that bid selectively. $500/month with the same workflow as every other plan.'],
+        ['Up to 25 a year: Small', 'Firms with a steady pipeline of RFPs, RFQs and SOQs. $1,000/month, with support scoped to your firm.'],
+        ['Up to 50 or 200 a year: Medium or Large', 'Firms running several pursuits at once. $2,000 or $5,000/month, with more hands-on time from our team as volume grows.'],
+        ['Portfolio-wide: Enterprise', 'Firms with portfolio-wide response operations. Custom response volume, with implementation and support scoped to your firm.'],
+      ],
+    },
+  ],
+  faqs: [
+    ['How much does Propagent cost?', pricingAnswer],
+    ['Is there a plan for small AEC firms?', 'Yes. Starter is $500/month for up to 10 annual responses and includes the same full workflow as every other plan.'],
+    ['Is Propagent priced per user?', 'No. Plans are based on annual response volume, not seat counts.'],
+    ['What counts as a response?', responseCountQuestion],
+    ['What happens if we go over our plan’s response count?', overagePolicy],
+    ['Do higher plans unlock more features?', 'No. Every plan includes the full workflow. Higher plans cover more responses, and larger-volume clients receive more hands-on time from our team.'],
+  ],
+  cta: ['Find the right plan for your volume', 'Bring a recent RFP and your annual response count. We will walk through the workflow on your own pursuit.', '/60min-meeting', 'Book a Propagent demo'],
+  related: ['best-aec-proposal-software', 'aec-proposal-software-guide', 'security'],
+};
+
 const pages = [
   buyerGuide,
   customerStory,
   ...comparisonPages,
   roundupPage,
+  pricingPage,
   {
     slug: 'resources',
     title: 'AEC Proposal & Response Management Resources',
@@ -283,6 +362,7 @@ const pages = [
           ['Best AEC proposal management software in 2026', 'A comparison of ten AEC proposal tools: what each is best suited to, how it is priced and what to ask before you buy.', '/best-aec-proposal-software/', 'Read the comparison'],
           ['Propagent vs Kantiv', 'Why choose Propagent: connected knowledge graphs, workspaces and agents, documented AEC customer work and published pricing.', '/propagent-vs-kantiv/', 'See the case for Propagent'],
           ['Propagent vs Loopio', 'Why choose Propagent for AEC: project and team evidence, qualifications workflows and a full-workflow, volume-based plan.', '/propagent-vs-loopio/', 'See the case for Propagent'],
+          ['Propagent pricing', 'Plans from $500/month for up to 10 annual responses. Every plan includes the full workflow, priced by response volume rather than seats.', '/pricing/', 'See plans and prices'],
         ],
       },
       {
@@ -1189,7 +1269,7 @@ export const pageSlugs = Object.freeze(pages.map((page) => `/${page.slug}/`));
 
 // Dates represent substantive content edits, never the clock time of a rebuild.
 export const pageDates = Object.freeze(Object.fromEntries([
-  ['/', '2026-10-06'], ['/rfp-grader/', CONTENT_DATE],
+  ['/', '2026-11-18'], ['/rfp-grader/', CONTENT_DATE],
   ...pages.map(page => [`/${page.slug}/`, page.dateModified || modifiedDates[page.slug] || CONTENT_DATE]),
 ]));
 
@@ -1612,6 +1692,28 @@ function schemaFor(page) {
     graph.find((item) => item['@id'] === `${canonical}#webpage`).mainEntity = { '@id': `${canonical}#media` };
   }
 
+  if (page.slug === 'pricing') {
+    graph.push({
+      '@type': 'SoftwareApplication',
+      '@id': `${SITE}/#software`,
+      name: 'Propagent',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      provider: { '@id': `${SITE}/#org` },
+      url: `${SITE}/`,
+      offers: pricingTiers.map((tier) => ({
+        '@type': 'Offer',
+        name: tier.name,
+        url: canonical,
+        ...(tier.price === null ? {} : { price: String(tier.price), priceCurrency: 'USD' }),
+        description: tier.price === null
+          ? `Custom pricing and annual response volume. ${tier.fit} Full proposal workflow included.`
+          : `US$${tier.price.toLocaleString('en-US')} per month for up to ${tier.responses} annual responses. Full proposal workflow included. Pricing is based on response volume, not seats.`,
+      })),
+    });
+    graph.find((item) => item['@id'] === `${canonical}#webpage`).mainEntity = { '@id': `${SITE}/#software` };
+  }
+
   if (page.slug === 'ai-proposal-management-aec') {
     graph.push({
       '@type': 'SoftwareApplication',
@@ -1639,6 +1741,7 @@ function renderNav() {
       <nav class="topbar-nav content-nav" aria-label="Primary navigation">
         <a href="/ai-proposal-management-aec/">How it works</a>
         <a href="/resources/">Resources</a>
+        <a href="/pricing/">Pricing</a>
         <a href="/security/">Security</a>
         <a href="/about/">About</a>
         <a href="/rfp-grader/">RFP Grader</a>
@@ -1648,6 +1751,7 @@ function renderNav() {
         <nav class="mobile-nav-panel" aria-label="Mobile navigation">
           <a href="/ai-proposal-management-aec/">How it works</a>
           <a href="/resources/">Resources</a>
+          <a href="/pricing/">Pricing</a>
           <a href="/security/">Security guide</a>
           <a href="/about/">About</a>
           <a href="/rfp-grader/">RFP Grader</a>
@@ -1672,7 +1776,7 @@ function renderFooter() {
       </div>
       <div><span class="mono-label">Explore</span><a href="/resources/">Resources</a><a href="/ai-proposal-management-aec/">AI proposal management</a><a href="/rfp-grader/">RFP Grader</a></div>
       <div><span class="mono-label">Company</span><a href="/about/">About</a><a href="/press/">Press & Media</a><a href="/security/">Security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sms/">Text messages</a><a href="mailto:daniel@propagent.ai">Contact</a></div>
-      <div><span class="mono-label">Evaluate</span><a href="/60min-meeting">Book a Propagent demo</a><a href="/rfp-grader/">Grade an RFP</a></div>
+      <div><span class="mono-label">Evaluate</span><a href="/pricing/">Pricing</a><a href="/60min-meeting">Book a Propagent demo</a><a href="/rfp-grader/">Grade an RFP</a></div>
     </div>
     <div class="container content-footer-bottom"><span>© ${new Date().getUTCFullYear()} Propagent</span><span>The system carries the process. People apply judgment and approve the response.</span></div>
   </footer>`;
